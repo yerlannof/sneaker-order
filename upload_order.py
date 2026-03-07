@@ -84,7 +84,8 @@ def get_moysklad_token():
     return None
 
 
-def fetch_image_b64(article, token):
+def fetch_image_bytes(article, token):
+    """Скачать фото товара из МойСклад. Возвращает JPEG bytes."""
     headers = {"Authorization": f"Bearer {token}", "Accept-Encoding": "gzip"}
     try:
         r = requests.get(
@@ -104,16 +105,17 @@ def fetch_image_b64(article, token):
         download_url = img_rows[0].get("meta", {}).get("downloadHref")
         if not download_url:
             return None
-        img_data = requests.get(download_url, headers=headers, timeout=10)
+        img_data = requests.get(download_url, headers=headers, timeout=15)
         if not img_data.ok:
             return None
+        # Resize to 800px max side — good quality for lightbox, reasonable size
         if PILImage:
             img = PILImage.open(BytesIO(img_data.content))
-            img.thumbnail((500, 500))
+            img.thumbnail((800, 800))
             buf = BytesIO()
-            img.save(buf, "JPEG", quality=90)
-            return base64.b64encode(buf.getvalue()).decode()
-        return base64.b64encode(img_data.content).decode()
+            img.save(buf, "JPEG", quality=92)
+            return buf.getvalue()
+        return img_data.content
     except Exception:
         return None
 
@@ -236,22 +238,24 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
         size_data[r[0]] = ({s[0]: s[1] for s in sold}, {s[0]: s[1] for s in stk})
     con.close()
 
-    # Photos → upload to Supabase Storage
+    # Photos → upload to Supabase Storage (800px, good quality)
     token = get_moysklad_token() if with_photos else None
     photos = {}  # article → public URL
     if with_photos and token:
         unique_articles = set(articles.values())
         print(f"Загрузка {len(unique_articles)} фото...")
+        uploaded = 0
+        cached = 0
         for i, art in enumerate(unique_articles):
-            # Check if already in storage
             pub_url = f"{SUPABASE_URL}/storage/v1/object/public/photos/{art}.jpg"
+            # Check if already in storage
             check = requests.head(pub_url, timeout=5)
             if check.status_code == 200:
                 photos[art] = pub_url
+                cached += 1
             else:
-                b64 = fetch_image_b64(art, token)
-                if b64:
-                    img_bytes = base64.b64decode(b64)
+                img_bytes = fetch_image_bytes(art, token)
+                if img_bytes:
                     up = requests.post(
                         f"{SUPABASE_URL}/storage/v1/object/photos/{art}.jpg",
                         headers={
@@ -263,9 +267,10 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
                     )
                     if up.status_code in (200, 201):
                         photos[art] = pub_url
+                        uploaded += 1
             if (i + 1) % 10 == 0:
                 print(f"  {i+1}/{len(unique_articles)}...")
-        print(f"  Загружено: {len(photos)}")
+        print(f"  Загружено: {uploaded} новых, {cached} из кэша")
 
     # Build items
     items = []
