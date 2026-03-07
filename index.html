@@ -191,13 +191,14 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // === CONFIG ===
 const SUPABASE_URL = 'https://pfnmrjbnvczymflvuvsc.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmbm1yamJudmN6eW1mbHZ1dnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjIwNTIsImV4cCI6MjA4ODQ5ODA1Mn0.g91-jKE6_pmi8eI_f_IwMe1hs0DPMk1icafqqOYiKdY';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const _sb = window.supabase;
+const supabase = (_sb.createClient ? _sb : _sb.supabase || _sb.default || _sb).createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // === STATE ===
 let orderId = null;
@@ -233,11 +234,23 @@ async function loadOrder() {
     return;
   }
 
-  const { data, error } = await supabase
-    .from('orders')
-    .select('*')
-    .eq('id', orderId)
-    .single();
+  let data, error;
+  try {
+    const res = await supabase
+      .from('orders')
+      .select('*')
+      .eq('id', orderId)
+      .single();
+    data = res.data;
+    error = res.error;
+  } catch(e) {
+    document.getElementById('app').innerHTML = `
+      <div class="empty">
+        <h2>Ошибка загрузки</h2>
+        <p>${e.message}</p>
+      </div>`;
+    return;
+  }
 
   if (error || !data) {
     document.getElementById('app').innerHTML = `
@@ -643,7 +656,9 @@ function openLightbox(gi) {
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 
 // === INIT ===
-loadOrder();
+loadOrder().catch(e => {
+  document.getElementById('app').innerHTML = `<div class="empty"><h2>Ошибка</h2><p>${e.message}</p></div>`;
+});
 </script>
 </body>
 </html>
