@@ -236,16 +236,33 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
         size_data[r[0]] = ({s[0]: s[1] for s in sold}, {s[0]: s[1] for s in stk})
     con.close()
 
-    # Photos
+    # Photos → upload to Supabase Storage
     token = get_moysklad_token() if with_photos else None
-    photos = {}
+    photos = {}  # article → public URL
     if with_photos and token:
         unique_articles = set(articles.values())
         print(f"Загрузка {len(unique_articles)} фото...")
         for i, art in enumerate(unique_articles):
-            b64 = fetch_image_b64(art, token)
-            if b64:
-                photos[art] = b64
+            # Check if already in storage
+            pub_url = f"{SUPABASE_URL}/storage/v1/object/public/photos/{art}.jpg"
+            check = requests.head(pub_url, timeout=5)
+            if check.status_code == 200:
+                photos[art] = pub_url
+            else:
+                b64 = fetch_image_b64(art, token)
+                if b64:
+                    img_bytes = base64.b64decode(b64)
+                    up = requests.post(
+                        f"{SUPABASE_URL}/storage/v1/object/photos/{art}.jpg",
+                        headers={
+                            "Authorization": f"Bearer {SUPABASE_KEY}",
+                            "Content-Type": "image/jpeg",
+                        },
+                        data=img_bytes,
+                        timeout=15,
+                    )
+                    if up.status_code in (200, 201):
+                        photos[art] = pub_url
             if (i + 1) % 10 == 0:
                 print(f"  {i+1}/{len(unique_articles)}...")
         print(f"  Загружено: {len(photos)}")
@@ -264,7 +281,7 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
         items.append({
             "model": model,
             "article": article,
-            "photo": photos.get(article, ""),
+            "photo_url": photos.get(article, ""),
             "women_boxes": wb,
             "men_boxes": mb,
             "pairs": wb * 6 + mb * 6,

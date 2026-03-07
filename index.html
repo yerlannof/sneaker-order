@@ -419,9 +419,10 @@ function render() {
       const curPrice = item._sup_price || origPrice;
       const priceDiff = curPrice - origPrice;
 
+      const photoSrc = item.photo_url || (item.photo ? 'data:image/jpeg;base64,' + item.photo : '');
       let photoHtml;
-      if (item.photo) {
-        photoHtml = `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" onclick="openLightbox(${gi})">`;
+      if (photoSrc) {
+        photoHtml = `<img class="item-photo" src="${photoSrc}" onclick="openLightbox(${gi})">`;
       } else {
         photoHtml = `<div class="item-photo-empty">${item.article ? `<span class="art">${item.article}</span>` : ''}<span class="nf">нет фото</span></div>`;
       }
@@ -632,8 +633,9 @@ function copyJSON() {
 
 function openLightbox(gi) {
   const item = items[gi];
-  if (!item || !item.photo) return;
-  document.getElementById('lb-img').src = 'data:image/jpeg;base64,' + item.photo;
+  const src = item.photo_url || (item.photo ? 'data:image/jpeg;base64,' + item.photo : '');
+  if (!item || !src) return;
+  document.getElementById('lb-img').src = src;
   document.getElementById('lb-model').textContent = item.model;
   document.getElementById('lb-art').textContent = item.article || '';
   document.getElementById('lightbox').classList.add('open');
