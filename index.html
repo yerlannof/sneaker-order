@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sneaker Order</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f9fb;
+  --card: #fff;
+  --border: #e8ecf1;
+  --text: #1a1d23;
+  --text2: #6b7280;
+  --text3: #9ca3af;
+  --blue: #3b82f6;
+  --blue-light: #eff6ff;
+  --green: #10b981;
+  --green-light: #ecfdf5;
+  --red: #ef4444;
+  --red-light: #fef2f2;
+  --orange: #f59e0b;
+  --orange-light: #fffbeb;
+  --purple: #8b5cf6;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
+
+/* Header */
+.header { background:var(--card); border-bottom:1px solid var(--border); padding:16px 20px; position:sticky; top:0; z-index:100; }
+.header-top { display:flex; justify-content:space-between; align-items:center; }
+.header h1 { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
+.header .badge { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+.badge-draft { background:var(--blue-light); color:var(--blue); }
+.badge-sent { background:var(--orange-light); color:var(--orange); }
+.badge-done { background:var(--green-light); color:var(--green); }
+.badge-confirmed { background:var(--green-light); color:var(--green); }
+.header-meta { font-size:12px; color:var(--text3); margin-top:4px; }
+
+/* Status banner */
+.banner { padding:10px 20px; font-size:13px; font-weight:600; text-align:center; display:none; }
+.banner.visible { display:block; }
+.banner-info { background:var(--blue-light); color:var(--blue); }
+.banner-warn { background:var(--orange-light); color:var(--orange); }
+.banner-ok { background:var(--green-light); color:var(--green); }
+
+/* Summary cards */
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:12px 16px; }
+.stat { background:var(--card); border-radius:var(--radius-sm); padding:10px; text-align:center; border:1px solid var(--border); }
+.stat-num { font-size:22px; font-weight:800; letter-spacing:-0.5px; }
+.stat-label { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+
+/* Zone headers */
+.zone-hdr { margin:8px 16px 0; padding:10px 14px; border-radius:var(--radius) var(--radius) 0 0; font-weight:700; font-size:13px; display:flex; justify-content:space-between; align-items:center; }
+.zone-critical { background:var(--red); color:#fff; }
+.zone-soon { background:var(--orange); color:#fff; }
+.zone-nice { background:var(--green); color:#fff; }
+
+/* Item cards */
+.items { padding:0 16px; }
+.item { background:var(--card); border:1px solid var(--border); border-top:none; padding:12px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:opacity 0.2s; }
+.item:last-child { border-radius:0 0 var(--radius) var(--radius); margin-bottom:8px; }
+.item.unavailable { opacity:0.4; }
+.item.supplier-removed { background:#fafafa; }
+.item.supplier-removed .item-model { text-decoration:line-through; color:var(--text3); }
+
+/* Photo */
+.item-photo { width:72px; height:72px; border-radius:var(--radius-sm); object-fit:cover; background:var(--bg); flex-shrink:0; cursor:pointer; }
+.item-photo-empty { width:72px; height:72px; border-radius:var(--radius-sm); background:var(--bg); flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+.item-photo-empty .art { font-size:11px; font-weight:700; color:var(--text2); }
+.item-photo-empty .nf { font-size:9px; color:var(--text3); }
+
+/* Item body */
+.item-body { flex:1; min-width:0; }
+.item-model { font-weight:600; font-size:13px; line-height:1.3; margin-bottom:2px; }
+.item-article { font-size:11px; color:var(--text3); margin-bottom:8px; }
+
+/* Box controls */
+.boxes { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+.box-group { display:flex; align-items:center; gap:3px; }
+.box-label { font-size:11px; font-weight:600; color:var(--text2); }
+.box-btn { width:26px; height:26px; border-radius:6px; border:1px solid var(--border); background:var(--card); font-size:15px; font-weight:700; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; -webkit-tap-highlight-color:transparent; user-select:none; }
+.box-btn:active { background:var(--bg); transform:scale(0.95); }
+.box-btn.hidden { display:none; }
+.box-val { min-width:20px; text-align:center; font-weight:700; font-size:14px; }
+.box-val.women { color:var(--red); }
+.box-val.men { color:var(--blue); }
+.pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
+
+/* Analytics row (buyer only) */
+.item-analytics { font-size:11px; color:var(--text3); line-height:1.6; }
+.item-analytics b { color:var(--text2); }
+
+/* Right side: checkbox + price */
+.item-right { display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0; }
+.cb { width:24px; height:24px; accent-color:var(--green); cursor:pointer; }
+.price-wrap { position:relative; }
+.price-input { width:76px; padding:6px 8px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; font-weight:600; text-align:center; font-family:inherit; transition:border-color 0.15s; }
+.price-input:focus { border-color:var(--blue); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
+.price-diff { font-size:10px; font-weight:600; text-align:center; margin-top:2px; }
+.price-diff.down { color:var(--green); }
+.price-diff.up { color:var(--red); }
+.item-total { font-size:12px; font-weight:700; color:var(--text); min-height:16px; text-align:center; }
+
+/* Action buttons on card */
+.item-actions { position:absolute; top:6px; right:6px; display:flex; gap:4px; }
+.act-btn { width:22px; height:22px; border-radius:50%; border:none; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.6; transition:opacity 0.15s; -webkit-tap-highlight-color:transparent; }
+.act-btn:hover { opacity:1; }
+.act-btn-remove { background:var(--red-light); color:var(--red); }
+.act-btn-dup { background:var(--blue-light); color:var(--blue); }
+
+/* Removed section */
+.removed-section { margin:8px 16px; }
+.removed-section summary { padding:10px 14px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); font-weight:600; font-size:13px; color:var(--text2); cursor:pointer; }
+.removed-item { background:var(--card); border:1px solid var(--border); border-top:none; padding:8px 14px; display:flex; justify-content:space-between; align-items:center; font-size:13px; }
+.restore-btn { padding:4px 12px; border-radius:6px; border:1px solid var(--green); background:var(--green-light); color:var(--green); font-size:12px; font-weight:600; cursor:pointer; }
+
+/* Bottom bar */
+.bottom { position:sticky; bottom:0; background:var(--card); border-top:1px solid var(--border); padding:12px 16px; display:flex; justify-content:space-between; align-items:center; gap:8px; z-index:100; box-shadow:0 -4px 12px rgba(0,0,0,0.04); }
+.bottom-info { font-size:13px; line-height:1.5; }
+.bottom-info b { font-size:16px; font-weight:800; }
+.bottom-btns { display:flex; gap:6px; flex-wrap:wrap; }
+.btn { padding:10px 16px; border-radius:var(--radius-sm); border:none; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; transition:all 0.15s; -webkit-tap-highlight-color:transparent; }
+.btn:active { transform:scale(0.97); }
+.btn-primary { background:var(--blue); color:#fff; }
+.btn-green { background:var(--green); color:#fff; }
+.btn-purple { background:var(--purple); color:#fff; }
+.btn-outline { background:var(--card); color:var(--text2); border:1px solid var(--border); }
+.btn-red { background:var(--red-light); color:var(--red); }
+
+/* Lightbox */
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:300; align-items:center; justify-content:center; flex-direction:column; padding:20px; }
+.lightbox.open { display:flex; }
+.lightbox img { max-width:90vw; max-height:70vh; border-radius:var(--radius); object-fit:contain; }
+.lightbox .lb-info { color:#fff; text-align:center; margin-top:12px; }
+.lightbox .lb-model { font-size:16px; font-weight:600; }
+.lightbox .lb-art { font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px; }
+.lb-close { position:absolute; top:16px; right:20px; color:#fff; font-size:28px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+
+/* Toast */
+.toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--text); color:#fff; padding:10px 20px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; }
+.toast.show { opacity:1; }
+
+/* Supplier mode */
+.role-supplier .item-analytics { display:none; }
+.role-supplier .item-actions { display:none; }
+.role-supplier .box-btn { display:none; }
+.role-supplier .box-label { display:none; }
+
+/* Loading */
+.loading { display:flex; align-items:center; justify-content:center; height:60vh; flex-direction:column; gap:12px; }
+.loading .spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--blue); border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:14px; color:var(--text3); }
+
+/* Empty state */
+.empty { text-align:center; padding:60px 20px; }
+.empty h2 { font-size:18px; margin-bottom:8px; }
+.empty p { color:var(--text3); font-size:14px; }
+
+@media(min-width:600px) {
+  .item { padding:14px; gap:14px; }
+  .item-photo, .item-photo-empty { width:88px; height:88px; }
+  .stats { gap:12px; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Загрузка заказа...</div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lb-close" onclick="closeLightbox()">&times;</div>
+  <img id="lb-img" src="">
+  <div class="lb-info">
+    <div class="lb-model" id="lb-model"></div>
+    <div class="lb-art" id="lb-art"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// === CONFIG ===
+const SUPABASE_URL = '%%SUPABASE_URL%%';
+const SUPABASE_KEY = '%%SUPABASE_KEY%%';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// === STATE ===
+let orderId = null;
+let role = 'buyer'; // buyer | supplier
+let order = null;   // full order from DB
+let items = [];
+let removed = [];
+
+// === URL PARAMS ===
+const params = new URLSearchParams(location.search);
+orderId = params.get('id');
+role = params.get('role') || 'buyer';
+
+// === HELPERS ===
+function fmt(n) { return n ? n.toLocaleString('ru-RU') : ''; }
+function parsePrice(s) { return parseFloat(String(s).replace(/[^0-9.,]/g,'').replace(',','.')) || 0; }
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// === LOAD ORDER ===
+async function loadOrder() {
+  if (!orderId) {
+    document.getElementById('app').innerHTML = `
+      <div class="empty">
+        <h2>Sneaker Order</h2>
+        <p>Добавь ?id=ORDER_ID в URL</p>
+      </div>`;
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('id', orderId)
+    .single();
+
+  if (error || !data) {
+    document.getElementById('app').innerHTML = `
+      <div class="empty">
+        <h2>Заказ не найден</h2>
+        <p>${error?.message || 'Проверь ссылку'}</p>
+      </div>`;
+    return;
+  }
+
+  order = data;
+  items = JSON.parse(JSON.stringify(order.items));
+  removed = [];
+
+  // Apply supplier data if exists and we're buyer
+  if (order.supplier_items && role === 'buyer') {
+    applySupplierChanges(order.supplier_items);
+  }
+  // If supplier, load supplier's saved state
+  if (role === 'supplier' && order.supplier_items) {
+    items = JSON.parse(JSON.stringify(order.supplier_items));
+  }
+
+  // Init state
+  items.forEach(item => {
+    if (item._avail === undefined) item._avail = true;
+    if (item._sup_price === undefined) item._sup_price = null;
+  });
+
+  if (role === 'supplier') {
+    document.body.classList.add('role-supplier');
+  }
+
+  render();
+}
+
+function applySupplierChanges(supItems) {
+  // Mark items with supplier changes
+  items.forEach(item => {
+    const sup = supItems.find(s => s.article === item.article && s.model === item.model);
+    if (sup) {
+      item._sup_avail = sup._avail;
+      item._sup_price = sup._sup_price || sup._price;
+      item._sup_women = sup.women_boxes;
+      item._sup_men = sup.men_boxes;
+    }
+  });
+}
+
+// === SAVE ===
+async function saveSupplierData() {
+  const saveItems = items.map(it => ({
+    article: it.article,
+    model: it.model,
+    photo: '', // don't save photo data again
+    women_boxes: it.women_boxes,
+    men_boxes: it.men_boxes,
+    pairs: it.pairs,
+    buy_price: it.buy_price,
+    _avail: it._avail,
+    _sup_price: it._sup_price,
+    _price: it._sup_price || it.buy_price,
+    zone: it.zone,
+  }));
+
+  const { error } = await supabase
+    .from('orders')
+    .update({
+      supplier_items: saveItems,
+      status: 'supplier_done',
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', orderId);
+
+  if (error) {
+    toast('Ошибка сохранения: ' + error.message);
+  } else {
+    toast('Сохранено! Закупщик увидит твои изменения');
+    order.status = 'supplier_done';
+    render();
+  }
+}
+
+async function confirmOrder() {
+  const active = items.filter(i => i._avail !== false && i.pairs > 0);
+  if (!confirm('Подтвердить заказ? (' + active.length + ' позиций)')) return;
+
+  const { error } = await supabase
+    .from('orders')
+    .update({
+      status: 'confirmed',
+      confirmed_items: active.map(i => ({
+        article: i.article,
+        model: i.model,
+        women_boxes: i.women_boxes,
+        men_boxes: i.men_boxes,
+        pairs: i.pairs,
+        buy_price: i._sup_price || i.buy_price || 0,
+        total: (i._sup_price || i.buy_price || 0) * i.pairs,
+      })),
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', orderId);
+
+  if (error) {
+    toast('Ошибка: ' + error.message);
+  } else {
+    order.status = 'confirmed';
+    toast('Заказ подтвержден!');
+    render();
+  }
+}
+
+// === RENDER ===
+function render() {
+  const status = order.status || 'draft';
+  const meta = order.meta || {};
+
+  const statusLabels = {
+    draft: ['Редактирование', 'badge-draft'],
+    sent: ['Отправлен поставщику', 'badge-sent'],
+    supplier_done: ['Поставщик ответил', 'badge-done'],
+    confirmed: ['Подтвержден', 'badge-confirmed'],
+  };
+  const [statusText, statusCls] = statusLabels[status] || ['', 'badge-draft'];
+
+  const isLocked = status === 'confirmed';
+  const supplierAnswered = status === 'supplier_done' && role === 'buyer';
+
+  // Calc totals
+  let totalItems=0, totalBoxes=0, totalPairs=0, totalSum=0;
+  items.forEach(item => {
+    if (item._avail === false) return;
+    totalItems++;
+    totalBoxes += item.women_boxes + item.men_boxes;
+    totalPairs += item.pairs;
+    totalSum += (item._sup_price || item.buy_price || 0) * item.pairs;
+  });
+
+  let html = `
+    <div class="header">
+      <div class="header-top">
+        <h1>Заказ кроссовок</h1>
+        <span class="badge ${statusCls}">${statusText}</span>
+      </div>
+      <div class="header-meta">${meta.date || ''} &middot; сезон x${meta.season || ''} &middot; ${role === 'supplier' ? 'поставщик' : 'закупщик'}</div>
+    </div>`;
+
+  if (supplierAnswered) {
+    html += `<div class="banner banner-ok visible">Поставщик ответил — проверь изменения и подтверди заказ</div>`;
+  }
+
+  html += `
+    <div class="stats">
+      <div class="stat"><div class="stat-num">${totalItems}</div><div class="stat-label">Моделей</div></div>
+      <div class="stat"><div class="stat-num">${totalBoxes}</div><div class="stat-label">Коробок</div></div>
+      <div class="stat"><div class="stat-num">${totalPairs}</div><div class="stat-label">Пар</div></div>
+      <div class="stat"><div class="stat-num">${totalSum ? fmt(totalSum) : '-'}</div><div class="stat-label">Сумма</div></div>
+    </div>`;
+
+  // Group by zone
+  const zones = [
+    { key:'critical', label:'Надо срочно', cls:'zone-critical' },
+    { key:'soon', label:'Скоро кончатся', cls:'zone-soon' },
+    { key:'nice', label:'Можно довезти', cls:'zone-nice' },
+  ];
+
+  html += '<div class="items">';
+  zones.forEach(zone => {
+    const zoneItems = items.filter(i => i.zone === zone.key && i._avail !== false);
+    if (!zoneItems.length) return;
+
+    html += `<div class="zone-hdr ${zone.cls}"><span>${zone.label}</span><span>${zoneItems.length}</span></div>`;
+
+    zoneItems.forEach(item => {
+      const gi = items.indexOf(item);
+      const supRemoved = item._sup_avail === false && role === 'buyer';
+      const origPrice = item.buy_price || 0;
+      const curPrice = item._sup_price || origPrice;
+      const priceDiff = curPrice - origPrice;
+
+      let photoHtml;
+      if (item.photo) {
+        photoHtml = `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" onclick="openLightbox(${gi})">`;
+      } else {
+        photoHtml = `<div class="item-photo-empty">${item.article ? `<span class="art">${item.article}</span>` : ''}<span class="nf">нет фото</span></div>`;
+      }
+
+      // Box controls
+      const canEditBoxes = role === 'buyer' && !isLocked;
+      const wBox = `<div class="box-group">
+        <span class="box-label">Ж:</span>
+        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>` : ''}
+        <div class="box-val women">${item.women_boxes}</div>
+        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'w',1)">+</div>` : ''}
+      </div>`;
+      const mBox = `<div class="box-group">
+        <span class="box-label">М:</span>
+        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>` : ''}
+        <div class="box-val men">${item.men_boxes}</div>
+        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'m',1)">+</div>` : ''}
+      </div>`;
+
+      // Price diff indicator
+      let priceDiffHtml = '';
+      if (priceDiff !== 0 && item._sup_price && role === 'buyer') {
+        const cls = priceDiff < 0 ? 'down' : 'up';
+        const sign = priceDiff > 0 ? '+' : '';
+        priceDiffHtml = `<div class="price-diff ${cls}">${sign}${fmt(priceDiff)}</div>`;
+      }
+
+      const itemTotal = curPrice * item.pairs;
+
+      html += `
+        <div class="item ${supRemoved ? 'supplier-removed' : ''} ${item._avail===false ? 'unavailable' : ''}" id="item-${gi}">
+          ${!isLocked && role==='buyer' ? `<div class="item-actions">
+            <div class="act-btn act-btn-dup" onclick="dupItem(${gi})" title="Дубль">+</div>
+            <div class="act-btn act-btn-remove" onclick="removeItem(${gi})" title="Убрать">&times;</div>
+          </div>` : ''}
+          ${photoHtml}
+          <div class="item-body">
+            <div class="item-model">${item.model}</div>
+            <div class="item-article">${item.article || ''}</div>
+            <div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span></div>
+            <div class="item-analytics">
+              <span>Продано: <b>${item.sold || 0}</b></span>
+              <span>Остаток: <b>${item.stock || 0}</b></span>
+              <span>WOS: <b>${item.wos || 0}</b></span>
+              <span>Маржа: <b>${item.margin || 0}%</b></span>
+              <span>Розн: <b>${fmt(item.price || 0)}T</b></span>
+            </div>
+          </div>
+          <div class="item-right">
+            <input type="checkbox" class="cb" ${item._avail!==false?'checked':''} onchange="toggleAvail(${gi},this)" ${isLocked?'disabled':''}>
+            <div class="price-wrap">
+              <input type="text" inputmode="numeric" class="price-input" placeholder="цена"
+                value="${curPrice ? fmt(curPrice) : ''}"
+                oninput="onPrice(${gi},this)" onfocusout="fmtPrice(this)"
+                ${isLocked?'readonly':''}>
+              ${priceDiffHtml}
+            </div>
+            <div class="item-total" id="total-${gi}">${itemTotal ? fmt(itemTotal)+'T' : ''}</div>
+          </div>
+        </div>`;
+    });
+  });
+  html += '</div>';
+
+  // Removed section
+  if (removed.length && role === 'buyer') {
+    html += `<details class="removed-section"><summary>Убранные (${removed.length})</summary>`;
+    removed.forEach((item, ri) => {
+      html += `<div class="removed-item">
+        <span>${item.model}</span>
+        ${!isLocked ? `<button class="restore-btn" onclick="restoreItem(${ri})">Вернуть</button>` : ''}
+      </div>`;
+    });
+    html += '</details>';
+  }
+
+  // Bottom bar
+  html += `
+    <div class="bottom">
+      <div class="bottom-info">
+        <b>${totalPairs}</b> пар = <b>${totalBoxes}</b> кор.
+        ${totalSum ? `<br>${fmt(totalSum)} T` : ''}
+      </div>
+      <div class="bottom-btns">`;
+
+  if (role === 'supplier' && status !== 'confirmed') {
+    html += `<button class="btn btn-green" onclick="saveSupplierData()">Готово</button>`;
+  }
+  if (role === 'buyer') {
+    html += `<button class="btn btn-outline" onclick="copyText()">Скопировать</button>`;
+    if (status === 'supplier_done') {
+      html += `<button class="btn btn-green" onclick="confirmOrder()">Подтвердить</button>`;
+    }
+    if (status === 'confirmed') {
+      html += `<button class="btn btn-purple" onclick="copyJSON()">JSON</button>`;
+    }
+    if (status === 'draft' || status === 'sent') {
+      html += `<button class="btn btn-primary" onclick="markSent()">Отправлен</button>`;
+    }
+  }
+
+  html += `</div></div>`;
+
+  document.getElementById('app').innerHTML = html;
+}
+
+// === ACTIONS ===
+function adjBox(gi, type, delta) {
+  const item = items[gi];
+  if (type === 'w') item.women_boxes = Math.max(0, item.women_boxes + delta);
+  else item.men_boxes = Math.max(0, item.men_boxes + delta);
+  item.pairs = item.women_boxes * 6 + item.men_boxes * 6;
+  render();
+}
+
+function removeItem(gi) {
+  if (!confirm('Убрать ' + items[gi].model + '?')) return;
+  removed.push(items.splice(gi, 1)[0]);
+  render();
+}
+
+function restoreItem(ri) {
+  items.push(removed.splice(ri, 1)[0]);
+  items.sort((a,b) => ({critical:0,soon:1,nice:2}[a.zone]||9) - ({critical:0,soon:1,nice:2}[b.zone]||9));
+  render();
+}
+
+function dupItem(gi) {
+  const copy = JSON.parse(JSON.stringify(items[gi]));
+  copy.model += ' (2)';
+  copy.article = '';
+  copy.buy_price = 0;
+  copy._sup_price = null;
+  copy.photo = items[gi].photo;
+  items.splice(gi + 1, 0, copy);
+  render();
+  toast('Дубль создан');
+}
+
+function toggleAvail(gi, el) {
+  items[gi]._avail = el.checked;
+  render();
+}
+
+function onPrice(gi, el) {
+  const price = parsePrice(el.value);
+  if (role === 'supplier') {
+    items[gi]._sup_price = price;
+  } else {
+    items[gi].buy_price = price;
+  }
+  const total = price * items[gi].pairs;
+  const totalEl = document.getElementById('total-' + gi);
+  if (totalEl) totalEl.textContent = total ? fmt(total) + 'T' : '';
+}
+
+function fmtPrice(el) {
+  const v = parsePrice(el.value);
+  if (v) el.value = fmt(v);
+}
+
+async function markSent() {
+  await supabase.from('orders').update({ status: 'sent', updated_at: new Date().toISOString() }).eq('id', orderId);
+  order.status = 'sent';
+  render();
+
+  // Copy supplier link
+  const supLink = location.origin + location.pathname + '?id=' + orderId + '&role=supplier';
+  try { await navigator.clipboard.writeText(supLink); } catch(e) {}
+  toast('Ссылка для поставщика скопирована!');
+}
+
+function copyText() {
+  let text = 'Заказ кроссовок\n\n';
+  let n = 1;
+  items.forEach(item => {
+    if (item._avail === false || item.pairs === 0) return;
+    let boxes = [];
+    if (item.women_boxes) boxes.push(item.women_boxes + ' жен');
+    if (item.men_boxes) boxes.push(item.men_boxes + ' муж');
+    const bp = item._sup_price || item.buy_price || 0;
+    text += n + '. ' + item.model + '\n';
+    text += '   ' + boxes.join(' + ') + ' = ' + item.pairs + ' пар';
+    if (bp) text += ' x ' + fmt(bp) + 'T';
+    text += '\n\n';
+    n++;
+  });
+  let tp=0, ts=0;
+  items.forEach(i => { if(i._avail!==false){ tp+=i.pairs; ts+=(i._sup_price||i.buy_price||0)*i.pairs; }});
+  text += 'ИТОГО: ' + tp + ' пар' + (ts ? ' на ' + fmt(ts) + ' T' : '');
+  navigator.clipboard.writeText(text).then(() => toast('Скопировано!')).catch(() => toast('Не удалось скопировать'));
+}
+
+function copyJSON() {
+  const data = items.filter(i => i._avail !== false && i.pairs > 0).map(i => ({
+    article: i.article,
+    model: i.model,
+    women_boxes: i.women_boxes,
+    men_boxes: i.men_boxes,
+    pairs: i.pairs,
+    buy_price: i._sup_price || i.buy_price || 0,
+    total: (i._sup_price || i.buy_price || 0) * i.pairs,
+  }));
+  navigator.clipboard.writeText(JSON.stringify(data, null, 2))
+    .then(() => toast('JSON скопирован! (' + data.length + ' позиций)'))
+    .catch(() => toast('Ошибка'));
+}
+
+function openLightbox(gi) {
+  const item = items[gi];
+  if (!item || !item.photo) return;
+  document.getElementById('lb-img').src = 'data:image/jpeg;base64,' + item.photo;
+  document.getElementById('lb-model').textContent = item.model;
+  document.getElementById('lb-art').textContent = item.article || '';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+// === INIT ===
+loadOrder();
+</script>
+</body>
+</html>
