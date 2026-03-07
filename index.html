@@ -191,14 +191,24 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // === CONFIG ===
 const SUPABASE_URL = 'https://pfnmrjbnvczymflvuvsc.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmbm1yamJudmN6eW1mbHZ1dnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjIwNTIsImV4cCI6MjA4ODQ5ODA1Mn0.g91-jKE6_pmi8eI_f_IwMe1hs0DPMk1icafqqOYiKdY';
 
-const _sb = window.supabase;
-const supabase = (_sb.createClient ? _sb : _sb.supabase || _sb.default || _sb).createClient(SUPABASE_URL, SUPABASE_KEY);
+// Supabase REST helpers (no SDK needed)
+const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
+async function sbSelect(table, filters) {
+  const params = new URLSearchParams(filters);
+  const r = await fetch(SUPABASE_URL + '/rest/v1/' + table + '?' + params, { headers: {...SB_HEADERS, 'Accept': 'application/vnd.pgrst.object+json'} });
+  if (!r.ok) { const t = await r.text(); throw new Error(t); }
+  return r.json();
+}
+async function sbUpdate(table, data, filters) {
+  const params = new URLSearchParams(filters);
+  const r = await fetch(SUPABASE_URL + '/rest/v1/' + table + '?' + params, { method: 'PATCH', headers: {...SB_HEADERS, 'Prefer': 'return=minimal'}, body: JSON.stringify(data) });
+  if (!r.ok) { const t = await r.text(); throw new Error(t); }
+}
 
 // === STATE ===
 let orderId = null;
@@ -234,29 +244,14 @@ async function loadOrder() {
     return;
   }
 
-  let data, error;
+  let data;
   try {
-    const res = await supabase
-      .from('orders')
-      .select('*')
-      .eq('id', orderId)
-      .single();
-    data = res.data;
-    error = res.error;
+    data = await sbSelect('orders', { 'select': '*', 'id': 'eq.' + orderId });
   } catch(e) {
     document.getElementById('app').innerHTML = `
       <div class="empty">
-        <h2>Ошибка загрузки</h2>
-        <p>${e.message}</p>
-      </div>`;
-    return;
-  }
-
-  if (error || !data) {
-    document.getElementById('app').innerHTML = `
-      <div class="empty">
         <h2>Заказ не найден</h2>
-        <p>${error?.message || 'Проверь ссылку'}</p>
+        <p>${e.message || 'Проверь ссылку'}</p>
       </div>`;
     return;
   }
@@ -316,18 +311,17 @@ async function saveSupplierData() {
     zone: it.zone,
   }));
 
-  const { error } = await supabase
-    .from('orders')
-    .update({
+  try {
+    await sbUpdate('orders', {
       supplier_items: saveItems,
       status: 'supplier_done',
       updated_at: new Date().toISOString()
-    })
-    .eq('id', orderId);
-
-  if (error) {
-    toast('Ошибка сохранения: ' + error.message);
-  } else {
+    }, { 'id': 'eq.' + orderId });
+  } catch(e) {
+    toast('Ошибка сохранения: ' + e.message);
+    return;
+  }
+  {
     toast('Сохранено! Закупщик увидит твои изменения');
     order.status = 'supplier_done';
     render();
@@ -338,9 +332,8 @@ async function confirmOrder() {
   const active = items.filter(i => i._avail !== false && i.pairs > 0);
   if (!confirm('Подтвердить заказ? (' + active.length + ' позиций)')) return;
 
-  const { error } = await supabase
-    .from('orders')
-    .update({
+  try {
+    await sbUpdate('orders', {
       status: 'confirmed',
       confirmed_items: active.map(i => ({
         article: i.article,
@@ -352,12 +345,12 @@ async function confirmOrder() {
         total: (i._sup_price || i.buy_price || 0) * i.pairs,
       })),
       updated_at: new Date().toISOString()
-    })
-    .eq('id', orderId);
-
-  if (error) {
-    toast('Ошибка: ' + error.message);
-  } else {
+    }, { 'id': 'eq.' + orderId });
+  } catch(e) {
+    toast('Ошибка: ' + e.message);
+    return;
+  }
+  {
     order.status = 'confirmed';
     toast('Заказ подтвержден!');
     render();
@@ -598,7 +591,7 @@ function fmtPrice(el) {
 }
 
 async function markSent() {
-  await supabase.from('orders').update({ status: 'sent', updated_at: new Date().toISOString() }).eq('id', orderId);
+  await sbUpdate('orders', { status: 'sent', updated_at: new Date().toISOString() }, { 'id': 'eq.' + orderId });
   order.status = 'sent';
   render();
 
