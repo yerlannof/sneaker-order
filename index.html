@@ -134,8 +134,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--text); color:#fff; padding:10px 20px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; }
 .toast.show { opacity:1; }
 
-/* Supplier mode — hide analytics and action buttons only */
-.role-supplier .item-analytics { display:none; }
+/* Supplier mode */
 .role-supplier .item-actions { display:none; }
 
 .loading { display:flex; align-items:center; justify-content:center; height:60vh; flex-direction:column; gap:12px; }
@@ -266,10 +265,15 @@ async function loadOrder() {
   items.forEach(item => {
     if (item._avail === undefined) item._avail = true;
     if (item._sup_price === undefined) item._sup_price = null;
-    // Save original box counts for supplier (can only reduce)
     if (role === 'supplier') {
+      // Save original box counts (can only reduce)
       item._orig_women = item.women_boxes;
       item._orig_men = item.men_boxes;
+      // Strip sensitive data — supplier shouldn't see analytics
+      delete item.sold; delete item.stock; delete item.wos;
+      delete item.margin; delete item.price; delete item.cogs;
+      delete item.moscow; delete item.tsum_online;
+      delete item.aruzhan; delete item.warehouse;
     }
   });
 
@@ -514,7 +518,7 @@ function render() {
             <div class="item-model">${item.model}</div>
             <div class="item-article">${item.article || ''}</div>
             <div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span></div>
-            <div class="item-analytics">
+            ${role === 'buyer' ? `<div class="item-analytics">
               <span>Продано: <b>${item.sold || 0}</b></span>
               <span>Остаток: <b>${item.stock || 0}</b></span>
               <span>WOS: <b>${item.wos || 0}</b></span>
@@ -526,7 +530,7 @@ function render() {
               <span>ЦУМ+Онл: <b>${item.tsum_online || 0}</b></span>
               <span>Аружан: <b>${item.aruzhan || 0}</b></span>
               <span>Склад: <b>${item.warehouse || 0}</b></span>
-            </div>
+            </div>` : ''}
           </div>
           <div class="item-right">
             <input type="checkbox" class="cb" ${item._avail!==false?'checked':''} onchange="toggleAvail(${gi},this)" ${isLocked?'disabled':''}>
