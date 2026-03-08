@@ -23,16 +23,12 @@
   --orange: #f59e0b;
   --orange-light: #fffbeb;
   --purple: #8b5cf6;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
   --radius: 12px;
   --radius-sm: 8px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
 
-/* Header */
 .header { background:var(--card); border-bottom:1px solid var(--border); padding:16px 20px; position:sticky; top:0; z-index:100; }
 .header-top { display:flex; justify-content:space-between; align-items:center; }
 .header h1 { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
@@ -42,27 +38,28 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .badge-done { background:var(--green-light); color:var(--green); }
 .badge-confirmed { background:var(--green-light); color:var(--green); }
 .header-meta { font-size:12px; color:var(--text3); margin-top:4px; }
+.header-saved { font-size:11px; color:var(--green); margin-top:4px; font-weight:600; }
 
-/* Status banner */
 .banner { padding:10px 20px; font-size:13px; font-weight:600; text-align:center; display:none; }
 .banner.visible { display:block; }
 .banner-info { background:var(--blue-light); color:var(--blue); }
-.banner-warn { background:var(--orange-light); color:var(--orange); }
 .banner-ok { background:var(--green-light); color:var(--green); }
 
-/* Summary cards */
+/* Supplier link box */
+.sup-link-box { margin:8px 16px; padding:12px 14px; background:var(--blue-light); border-radius:var(--radius-sm); font-size:12px; color:var(--blue); }
+.sup-link-box a { color:var(--blue); font-weight:600; word-break:break-all; }
+.sup-link-copy { margin-top:8px; padding:6px 14px; border-radius:6px; border:1px solid var(--blue); background:#fff; color:var(--blue); font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; }
+
 .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:12px 16px; }
 .stat { background:var(--card); border-radius:var(--radius-sm); padding:10px; text-align:center; border:1px solid var(--border); }
 .stat-num { font-size:22px; font-weight:800; letter-spacing:-0.5px; }
 .stat-label { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
 
-/* Zone headers */
 .zone-hdr { margin:8px 16px 0; padding:10px 14px; border-radius:var(--radius) var(--radius) 0 0; font-weight:700; font-size:13px; display:flex; justify-content:space-between; align-items:center; }
 .zone-critical { background:var(--red); color:#fff; }
 .zone-soon { background:var(--orange); color:#fff; }
 .zone-nice { background:var(--green); color:#fff; }
 
-/* Item cards */
 .items { padding:0 16px; }
 .item { background:var(--card); border:1px solid var(--border); border-top:none; padding:12px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:opacity 0.2s; }
 .item:last-child { border-radius:0 0 var(--radius) var(--radius); margin-bottom:8px; }
@@ -70,34 +67,28 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .item.supplier-removed { background:#fafafa; }
 .item.supplier-removed .item-model { text-decoration:line-through; color:var(--text3); }
 
-/* Photo */
 .item-photo { width:72px; height:72px; border-radius:var(--radius-sm); object-fit:cover; background:var(--bg); flex-shrink:0; cursor:pointer; }
 .item-photo-empty { width:72px; height:72px; border-radius:var(--radius-sm); background:var(--bg); flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
 .item-photo-empty .art { font-size:11px; font-weight:700; color:var(--text2); }
 .item-photo-empty .nf { font-size:9px; color:var(--text3); }
 
-/* Item body */
 .item-body { flex:1; min-width:0; }
 .item-model { font-weight:600; font-size:13px; line-height:1.3; margin-bottom:2px; }
 .item-article { font-size:11px; color:var(--text3); margin-bottom:8px; }
 
-/* Box controls */
 .boxes { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
 .box-group { display:flex; align-items:center; gap:3px; }
 .box-label { font-size:11px; font-weight:600; color:var(--text2); }
 .box-btn { width:26px; height:26px; border-radius:6px; border:1px solid var(--border); background:var(--card); font-size:15px; font-weight:700; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; -webkit-tap-highlight-color:transparent; user-select:none; }
 .box-btn:active { background:var(--bg); transform:scale(0.95); }
-.box-btn.hidden { display:none; }
 .box-val { min-width:20px; text-align:center; font-weight:700; font-size:14px; }
 .box-val.women { color:var(--red); }
 .box-val.men { color:var(--blue); }
 .pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
 
-/* Analytics row (buyer only) */
 .item-analytics { font-size:11px; color:var(--text3); line-height:1.6; }
 .item-analytics b { color:var(--text2); }
 
-/* Right side: checkbox + price */
 .item-right { display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0; }
 .cb { width:24px; height:24px; accent-color:var(--green); cursor:pointer; }
 .price-wrap { position:relative; }
@@ -108,33 +99,30 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .price-diff.up { color:var(--red); }
 .item-total { font-size:12px; font-weight:700; color:var(--text); min-height:16px; text-align:center; }
 
-/* Action buttons on card */
 .item-actions { position:absolute; top:6px; right:6px; display:flex; gap:4px; }
 .act-btn { width:22px; height:22px; border-radius:50%; border:none; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.6; transition:opacity 0.15s; -webkit-tap-highlight-color:transparent; }
 .act-btn:hover { opacity:1; }
 .act-btn-remove { background:var(--red-light); color:var(--red); }
 .act-btn-dup { background:var(--blue-light); color:var(--blue); }
 
-/* Removed section */
 .removed-section { margin:8px 16px; }
 .removed-section summary { padding:10px 14px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); font-weight:600; font-size:13px; color:var(--text2); cursor:pointer; }
 .removed-item { background:var(--card); border:1px solid var(--border); border-top:none; padding:8px 14px; display:flex; justify-content:space-between; align-items:center; font-size:13px; }
 .restore-btn { padding:4px 12px; border-radius:6px; border:1px solid var(--green); background:var(--green-light); color:var(--green); font-size:12px; font-weight:600; cursor:pointer; }
 
-/* Bottom bar */
 .bottom { position:sticky; bottom:0; background:var(--card); border-top:1px solid var(--border); padding:12px 16px; display:flex; justify-content:space-between; align-items:center; gap:8px; z-index:100; box-shadow:0 -4px 12px rgba(0,0,0,0.04); }
 .bottom-info { font-size:13px; line-height:1.5; }
 .bottom-info b { font-size:16px; font-weight:800; }
 .bottom-btns { display:flex; gap:6px; flex-wrap:wrap; }
 .btn { padding:10px 16px; border-radius:var(--radius-sm); border:none; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; transition:all 0.15s; -webkit-tap-highlight-color:transparent; }
 .btn:active { transform:scale(0.97); }
+.btn:disabled { opacity:0.5; pointer-events:none; }
 .btn-primary { background:var(--blue); color:#fff; }
 .btn-green { background:var(--green); color:#fff; }
 .btn-purple { background:var(--purple); color:#fff; }
 .btn-outline { background:var(--card); color:var(--text2); border:1px solid var(--border); }
 .btn-red { background:var(--red-light); color:var(--red); }
 
-/* Lightbox */
 .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:300; align-items:center; justify-content:center; flex-direction:column; padding:20px; }
 .lightbox.open { display:flex; }
 .lightbox img { max-width:90vw; max-height:70vh; border-radius:var(--radius); object-fit:contain; }
@@ -143,23 +131,18 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .lightbox .lb-art { font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px; }
 .lb-close { position:absolute; top:16px; right:20px; color:#fff; font-size:28px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 
-/* Toast */
 .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--text); color:#fff; padding:10px 20px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; }
 .toast.show { opacity:1; }
 
-/* Supplier mode */
+/* Supplier mode — hide analytics and action buttons only */
 .role-supplier .item-analytics { display:none; }
 .role-supplier .item-actions { display:none; }
-.role-supplier .box-btn { display:none; }
-.role-supplier .box-label { display:none; }
 
-/* Loading */
 .loading { display:flex; align-items:center; justify-content:center; height:60vh; flex-direction:column; gap:12px; }
 .loading .spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--blue); border-radius:50%; animation:spin 0.8s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
 .loading-text { font-size:14px; color:var(--text3); }
 
-/* Empty state */
 .empty { text-align:center; padding:60px 20px; }
 .empty h2 { font-size:18px; margin-bottom:8px; }
 .empty p { color:var(--text3); font-size:14px; }
@@ -196,7 +179,6 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 const SUPABASE_URL = 'https://pfnmrjbnvczymflvuvsc.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmbm1yamJudmN6eW1mbHZ1dnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjIwNTIsImV4cCI6MjA4ODQ5ODA1Mn0.g91-jKE6_pmi8eI_f_IwMe1hs0DPMk1icafqqOYiKdY';
 
-// Supabase REST helpers (no SDK needed)
 const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
 async function sbSelect(table, filters) {
   const params = new URLSearchParams(filters);
@@ -212,12 +194,13 @@ async function sbUpdate(table, data, filters) {
 
 // === STATE ===
 let orderId = null;
-let role = 'buyer'; // buyer | supplier
-let order = null;   // full order from DB
+let role = 'buyer';
+let order = null;
 let items = [];
 let removed = [];
+let hasChanges = false;
+let lastSaved = null;
 
-// === URL PARAMS ===
 const params = new URLSearchParams(location.search);
 orderId = params.get('id');
 role = params.get('role') || 'buyer';
@@ -225,12 +208,18 @@ role = params.get('role') || 'buyer';
 // === HELPERS ===
 function fmt(n) { return n ? n.toLocaleString('ru-RU') : ''; }
 function parsePrice(s) { return parseFloat(String(s).replace(/[^0-9.,]/g,'').replace(',','.')) || 0; }
+function timeStr() { return new Date().toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'}); }
 
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function markChanged() {
+  hasChanges = true;
+  render();
 }
 
 // === LOAD ORDER ===
@@ -259,6 +248,11 @@ async function loadOrder() {
   order = data;
   items = JSON.parse(JSON.stringify(order.items));
   removed = [];
+  hasChanges = false;
+
+  if (order.updated_at && order.updated_at !== order.created_at) {
+    lastSaved = new Date(order.updated_at).toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+  }
 
   // Apply supplier data if exists and we're buyer
   if (order.supplier_items && role === 'buyer') {
@@ -269,10 +263,14 @@ async function loadOrder() {
     items = JSON.parse(JSON.stringify(order.supplier_items));
   }
 
-  // Init state
   items.forEach(item => {
     if (item._avail === undefined) item._avail = true;
     if (item._sup_price === undefined) item._sup_price = null;
+    // Save original box counts for supplier (can only reduce)
+    if (role === 'supplier') {
+      item._orig_women = item.women_boxes;
+      item._orig_men = item.men_boxes;
+    }
   });
 
   if (role === 'supplier') {
@@ -283,7 +281,6 @@ async function loadOrder() {
 }
 
 function applySupplierChanges(supItems) {
-  // Mark items with supplier changes
   items.forEach(item => {
     const sup = supItems.find(s => s.article === item.article && s.model === item.model);
     if (sup) {
@@ -295,12 +292,37 @@ function applySupplierChanges(supItems) {
   });
 }
 
-// === SAVE ===
+// === SAVE (buyer) ===
+async function saveBuyerData() {
+  try {
+    await sbUpdate('orders', {
+      items: items.map(it => {
+        const clean = {...it};
+        delete clean._sup_avail;
+        delete clean._sup_women;
+        delete clean._sup_men;
+        return clean;
+      }),
+      status: order.status === 'draft' ? 'sent' : order.status,
+      updated_at: new Date().toISOString()
+    }, { 'id': 'eq.' + orderId });
+  } catch(e) {
+    toast('Ошибка сохранения: ' + e.message);
+    return;
+  }
+  hasChanges = false;
+  lastSaved = timeStr();
+  if (order.status === 'draft') order.status = 'sent';
+  toast('Заказ сохранен');
+  render();
+}
+
+// === SAVE (supplier) ===
 async function saveSupplierData() {
   const saveItems = items.map(it => ({
     article: it.article,
     model: it.model,
-    photo: '', // don't save photo data again
+    photo_url: it.photo_url || '',
     women_boxes: it.women_boxes,
     men_boxes: it.men_boxes,
     pairs: it.pairs,
@@ -321,11 +343,11 @@ async function saveSupplierData() {
     toast('Ошибка сохранения: ' + e.message);
     return;
   }
-  {
-    toast('Сохранено! Закупщик увидит твои изменения');
-    order.status = 'supplier_done';
-    render();
-  }
+  hasChanges = false;
+  lastSaved = timeStr();
+  order.status = 'supplier_done';
+  toast('Сохранено! Закупщик увидит изменения');
+  render();
 }
 
 async function confirmOrder() {
@@ -350,11 +372,9 @@ async function confirmOrder() {
     toast('Ошибка: ' + e.message);
     return;
   }
-  {
-    order.status = 'confirmed';
-    toast('Заказ подтвержден!');
-    render();
-  }
+  order.status = 'confirmed';
+  toast('Заказ подтвержден!');
+  render();
 }
 
 // === RENDER ===
@@ -363,8 +383,8 @@ function render() {
   const meta = order.meta || {};
 
   const statusLabels = {
-    draft: ['Редактирование', 'badge-draft'],
-    sent: ['Отправлен поставщику', 'badge-sent'],
+    draft: ['Черновик', 'badge-draft'],
+    sent: ['Сохранен', 'badge-sent'],
     supplier_done: ['Поставщик ответил', 'badge-done'],
     confirmed: ['Подтвержден', 'badge-confirmed'],
   };
@@ -373,7 +393,6 @@ function render() {
   const isLocked = status === 'confirmed';
   const supplierAnswered = status === 'supplier_done' && role === 'buyer';
 
-  // Calc totals
   let totalItems=0, totalBoxes=0, totalPairs=0, totalSum=0;
   items.forEach(item => {
     if (item._avail === false) return;
@@ -390,10 +409,21 @@ function render() {
         <span class="badge ${statusCls}">${statusText}</span>
       </div>
       <div class="header-meta">${meta.date || ''} &middot; сезон x${meta.season || ''} &middot; ${role === 'supplier' ? 'поставщик' : 'закупщик'}</div>
+      ${lastSaved ? `<div class="header-saved">Сохранено: ${lastSaved}</div>` : ''}
     </div>`;
 
   if (supplierAnswered) {
     html += `<div class="banner banner-ok visible">Поставщик ответил — проверь изменения и подтверди заказ</div>`;
+  }
+
+  // Supplier link (show for buyer after first save)
+  if (role === 'buyer' && (status === 'sent' || status === 'supplier_done')) {
+    const supLink = location.origin + location.pathname + '?id=' + orderId + '&role=supplier';
+    html += `<div class="sup-link-box">
+      Ссылка для поставщика:<br>
+      <a href="${supLink}" target="_blank">${supLink}</a><br>
+      <button class="sup-link-copy" onclick="copySupLink()">Скопировать ссылку</button>
+    </div>`;
   }
 
   html += `
@@ -404,7 +434,6 @@ function render() {
       <div class="stat"><div class="stat-num">${totalSum ? fmt(totalSum) : '-'}</div><div class="stat-label">Сумма</div></div>
     </div>`;
 
-  // Group by zone
   const zones = [
     { key:'critical', label:'Надо срочно', cls:'zone-critical' },
     { key:'soon', label:'Скоро кончатся', cls:'zone-soon' },
@@ -433,22 +462,38 @@ function render() {
         photoHtml = `<div class="item-photo-empty">${item.article ? `<span class="art">${item.article}</span>` : ''}<span class="nf">нет фото</span></div>`;
       }
 
-      // Box controls
-      const canEditBoxes = role === 'buyer' && !isLocked;
-      const wBox = `<div class="box-group">
-        <span class="box-label">Ж:</span>
-        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>` : ''}
-        <div class="box-val women">${item.women_boxes}</div>
-        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'w',1)">+</div>` : ''}
-      </div>`;
-      const mBox = `<div class="box-group">
-        <span class="box-label">М:</span>
-        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>` : ''}
-        <div class="box-val men">${item.men_boxes}</div>
-        ${canEditBoxes ? `<div class="box-btn" onclick="adjBox(${gi},'m',1)">+</div>` : ''}
-      </div>`;
+      // Box controls — buyer: full +/-, supplier: only minus (can't increase above original)
+      const canEditBoxes = !isLocked;
+      let wBox, mBox;
+      if (role === 'buyer' && canEditBoxes) {
+        wBox = `<div class="box-group">
+          <span class="box-label">Ж:</span>
+          <div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>
+          <div class="box-val women">${item.women_boxes}</div>
+          <div class="box-btn" onclick="adjBox(${gi},'w',1)">+</div>
+        </div>`;
+        mBox = `<div class="box-group">
+          <span class="box-label">М:</span>
+          <div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>
+          <div class="box-val men">${item.men_boxes}</div>
+          <div class="box-btn" onclick="adjBox(${gi},'m',1)">+</div>
+        </div>`;
+      } else if (role === 'supplier' && canEditBoxes) {
+        wBox = `<div class="box-group">
+          <span class="box-label">Ж:</span>
+          <div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>
+          <div class="box-val women">${item.women_boxes}</div>
+        </div>`;
+        mBox = `<div class="box-group">
+          <span class="box-label">М:</span>
+          <div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>
+          <div class="box-val men">${item.men_boxes}</div>
+        </div>`;
+      } else {
+        wBox = `<div class="box-group"><span class="box-label">Ж:</span><div class="box-val women">${item.women_boxes}</div></div>`;
+        mBox = `<div class="box-group"><span class="box-label">М:</span><div class="box-val men">${item.men_boxes}</div></div>`;
+      }
 
-      // Price diff indicator
       let priceDiffHtml = '';
       if (priceDiff !== 0 && item._sup_price && role === 'buyer') {
         const cls = priceDiff < 0 ? 'down' : 'up';
@@ -493,7 +538,7 @@ function render() {
   });
   html += '</div>';
 
-  // Removed section
+  // Removed section (buyer only)
   if (removed.length && role === 'buyer') {
     html += `<details class="removed-section"><summary>Убранные (${removed.length})</summary>`;
     removed.forEach((item, ri) => {
@@ -514,20 +559,18 @@ function render() {
       </div>
       <div class="bottom-btns">`;
 
-  if (role === 'supplier' && status !== 'confirmed') {
-    html += `<button class="btn btn-green" onclick="saveSupplierData()">Готово</button>`;
+  if (role === 'supplier' && !isLocked) {
+    html += `<button class="btn btn-green" onclick="saveSupplierData()">Сохранить</button>`;
   }
-  if (role === 'buyer') {
-    html += `<button class="btn btn-outline" onclick="copyText()">Скопировать</button>`;
-    if (status === 'supplier_done') {
-      html += `<button class="btn btn-green" onclick="confirmOrder()">Подтвердить</button>`;
-    }
-    if (status === 'confirmed') {
-      html += `<button class="btn btn-purple" onclick="copyJSON()">JSON</button>`;
-    }
-    if (status === 'draft' || status === 'sent') {
-      html += `<button class="btn btn-primary" onclick="markSent()">Отправлен</button>`;
-    }
+  if (role === 'buyer' && !isLocked) {
+    html += `<button class="btn btn-outline" onclick="undoChanges()">Отменить</button>`;
+    html += `<button class="btn btn-primary" onclick="saveBuyerData()">Сохранить</button>`;
+  }
+  if (role === 'buyer' && status === 'supplier_done') {
+    html += `<button class="btn btn-green" onclick="confirmOrder()">Подтвердить</button>`;
+  }
+  if (role === 'buyer' && status === 'confirmed') {
+    html += `<button class="btn btn-purple" onclick="copyJSON()">JSON</button>`;
   }
 
   html += `</div></div>`;
@@ -538,21 +581,32 @@ function render() {
 // === ACTIONS ===
 function adjBox(gi, type, delta) {
   const item = items[gi];
-  if (type === 'w') item.women_boxes = Math.max(0, item.women_boxes + delta);
-  else item.men_boxes = Math.max(0, item.men_boxes + delta);
+  if (type === 'w') {
+    const newVal = Math.max(0, item.women_boxes + delta);
+    // Supplier can only reduce (not above original)
+    if (role === 'supplier' && delta > 0 && newVal > (item._orig_women || 0)) return;
+    item.women_boxes = newVal;
+  } else {
+    const newVal = Math.max(0, item.men_boxes + delta);
+    if (role === 'supplier' && delta > 0 && newVal > (item._orig_men || 0)) return;
+    item.men_boxes = newVal;
+  }
   item.pairs = item.women_boxes * 6 + item.men_boxes * 6;
+  hasChanges = true;
   render();
 }
 
 function removeItem(gi) {
   if (!confirm('Убрать ' + items[gi].model + '?')) return;
   removed.push(items.splice(gi, 1)[0]);
+  hasChanges = true;
   render();
 }
 
 function restoreItem(ri) {
   items.push(removed.splice(ri, 1)[0]);
   items.sort((a,b) => ({critical:0,soon:1,nice:2}[a.zone]||9) - ({critical:0,soon:1,nice:2}[b.zone]||9));
+  hasChanges = true;
   render();
 }
 
@@ -562,14 +616,16 @@ function dupItem(gi) {
   copy.article = '';
   copy.buy_price = 0;
   copy._sup_price = null;
-  copy.photo = items[gi].photo;
+  copy.photo_url = items[gi].photo_url;
   items.splice(gi + 1, 0, copy);
+  hasChanges = true;
   render();
   toast('Дубль создан');
 }
 
 function toggleAvail(gi, el) {
   items[gi]._avail = el.checked;
+  hasChanges = true;
   render();
 }
 
@@ -580,6 +636,7 @@ function onPrice(gi, el) {
   } else {
     items[gi].buy_price = price;
   }
+  hasChanges = true;
   const total = price * items[gi].pairs;
   const totalEl = document.getElementById('total-' + gi);
   if (totalEl) totalEl.textContent = total ? fmt(total) + 'T' : '';
@@ -590,36 +647,15 @@ function fmtPrice(el) {
   if (v) el.value = fmt(v);
 }
 
-async function markSent() {
-  await sbUpdate('orders', { status: 'sent', updated_at: new Date().toISOString() }, { 'id': 'eq.' + orderId });
-  order.status = 'sent';
-  render();
-
-  // Copy supplier link
-  const supLink = location.origin + location.pathname + '?id=' + orderId + '&role=supplier';
-  try { await navigator.clipboard.writeText(supLink); } catch(e) {}
-  toast('Ссылка для поставщика скопирована!');
+function undoChanges() {
+  if (!hasChanges || confirm('Отменить все изменения?')) {
+    loadOrder();
+  }
 }
 
-function copyText() {
-  let text = 'Заказ кроссовок\n\n';
-  let n = 1;
-  items.forEach(item => {
-    if (item._avail === false || item.pairs === 0) return;
-    let boxes = [];
-    if (item.women_boxes) boxes.push(item.women_boxes + ' жен');
-    if (item.men_boxes) boxes.push(item.men_boxes + ' муж');
-    const bp = item._sup_price || item.buy_price || 0;
-    text += n + '. ' + item.model + '\n';
-    text += '   ' + boxes.join(' + ') + ' = ' + item.pairs + ' пар';
-    if (bp) text += ' x ' + fmt(bp) + 'T';
-    text += '\n\n';
-    n++;
-  });
-  let tp=0, ts=0;
-  items.forEach(i => { if(i._avail!==false){ tp+=i.pairs; ts+=(i._sup_price||i.buy_price||0)*i.pairs; }});
-  text += 'ИТОГО: ' + tp + ' пар' + (ts ? ' на ' + fmt(ts) + ' T' : '');
-  navigator.clipboard.writeText(text).then(() => toast('Скопировано!')).catch(() => toast('Не удалось скопировать'));
+function copySupLink() {
+  const supLink = location.origin + location.pathname + '?id=' + orderId + '&role=supplier';
+  navigator.clipboard.writeText(supLink).then(() => toast('Ссылка скопирована!')).catch(() => toast('Не удалось скопировать'));
 }
 
 function copyJSON() {
@@ -647,6 +683,11 @@ function openLightbox(gi) {
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+// Warn before leaving with unsaved changes
+window.onbeforeunload = function(e) {
+  if (hasChanges) { e.preventDefault(); return ''; }
+};
 
 // === INIT ===
 loadOrder().catch(e => {
