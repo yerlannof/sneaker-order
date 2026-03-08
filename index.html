@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sneaker Order</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -79,14 +79,14 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .boxes { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
 .box-group { display:flex; align-items:center; gap:3px; }
 .box-label { font-size:11px; font-weight:600; color:var(--text2); }
-.box-btn { width:26px; height:26px; border-radius:6px; border:1px solid var(--border); background:var(--card); font-size:15px; font-weight:700; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; -webkit-tap-highlight-color:transparent; user-select:none; }
+.box-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:var(--card); font-size:18px; font-weight:700; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; -webkit-tap-highlight-color:transparent; user-select:none; }
 .box-btn:active { background:var(--bg); transform:scale(0.95); }
-.box-val { min-width:20px; text-align:center; font-weight:700; font-size:14px; }
+.box-val { min-width:24px; text-align:center; font-weight:700; font-size:16px; }
 .box-val.women { color:var(--red); }
 .box-val.men { color:var(--blue); }
 .pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
 .bsize-toggle { display:inline-flex; gap:2px; margin-left:4px; }
-.bsize-opt { padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text3); -webkit-tap-highlight-color:transparent; }
+.bsize-opt { padding:6px 10px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text3); -webkit-tap-highlight-color:transparent; }
 .bsize-opt.active { background:var(--blue); color:#fff; border-color:var(--blue); }
 .sup-change { font-size:11px; font-weight:600; color:var(--orange); background:var(--orange-light); padding:1px 5px; border-radius:4px; margin-left:2px; }
 .orig-val { font-size:10px; color:var(--text3); margin-left:3px; }
@@ -106,7 +106,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .item-analytics b { color:var(--text2); }
 
 .item-right { display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0; }
-.cb { width:24px; height:24px; accent-color:var(--green); cursor:pointer; }
+.cb { width:32px; height:32px; accent-color:var(--green); cursor:pointer; }
 .price-wrap { position:relative; }
 .price-input { width:76px; padding:6px 8px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; font-weight:600; text-align:center; font-family:inherit; transition:border-color 0.15s; }
 .price-input:focus { border-color:var(--blue); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
@@ -116,7 +116,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .item-total { font-size:12px; font-weight:700; color:var(--text); min-height:16px; text-align:center; }
 
 .item-actions { position:absolute; top:6px; right:6px; display:flex; gap:4px; }
-.act-btn { width:22px; height:22px; border-radius:50%; border:none; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.6; transition:opacity 0.15s; -webkit-tap-highlight-color:transparent; }
+.act-btn { width:30px; height:30px; border-radius:50%; border:none; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.6; transition:opacity 0.15s; -webkit-tap-highlight-color:transparent; }
 .act-btn:hover { opacity:1; }
 .act-btn-remove { background:var(--red-light); color:var(--red); }
 .act-btn-dup { background:var(--blue-light); color:var(--blue); }
@@ -215,6 +215,7 @@ let items = [];
 let removed = [];
 let hasChanges = false;
 let lastSaved = null;
+let saving = false;
 
 const params = new URLSearchParams(location.search);
 orderId = params.get('id');
@@ -315,6 +316,8 @@ function applySupplierChanges(supItems) {
 
 // === SAVE (buyer) ===
 async function saveBuyerData() {
+  if (saving) return;
+  saving = true; render();
   const newItems = items.map(it => {
     const clean = {...it};
     delete clean._sup_avail;
@@ -330,12 +333,14 @@ async function saveBuyerData() {
       updated_at: new Date().toISOString()
     }, { 'id': 'eq.' + orderId });
   } catch(e) {
+    saving = false; render();
     toast('Ошибка сохранения: ' + e.message);
     return;
   }
   order.prev_items = order.items;
   order.items = newItems;
   hasChanges = false;
+  saving = false;
   lastSaved = timeStr();
   if (order.status === 'draft') order.status = 'sent';
   toast('Заказ сохранен');
@@ -361,6 +366,8 @@ async function rollback() {
 
 // === SAVE (supplier) ===
 async function saveSupplierData() {
+  if (saving) return;
+  saving = true; render();
   const saveItems = items.map(it => ({
     article: it.article,
     model: it.model,
@@ -384,12 +391,14 @@ async function saveSupplierData() {
       updated_at: new Date().toISOString()
     }, { 'id': 'eq.' + orderId });
   } catch(e) {
+    saving = false; render();
     toast('Ошибка сохранения: ' + e.message);
     return;
   }
   order.prev_supplier_items = order.supplier_items || null;
   order.supplier_items = saveItems;
   hasChanges = false;
+  saving = false;
   lastSaved = timeStr();
   order.status = 'supplier_done';
   toast('Сохранено! Закупщик увидит изменения');
@@ -603,7 +612,7 @@ function render() {
       const photoSrc = item.photo_url || (item.photo ? 'data:image/jpeg;base64,' + item.photo : '');
       let photoHtml;
       if (photoSrc) {
-        photoHtml = `<img class="item-photo" src="${photoSrc}" onclick="openLightbox(${gi})">`;
+        photoHtml = `<img class="item-photo" src="${photoSrc}" loading="lazy" onclick="openLightbox(${gi})">`;
       } else {
         photoHtml = `<div class="item-photo-empty">${item.article ? `<span class="art">${item.article}</span>` : ''}<span class="nf">нет фото</span></div>`;
       }
@@ -734,19 +743,22 @@ function render() {
       </div>
       <div class="bottom-btns">`;
 
+  const dis = saving ? 'disabled' : '';
+  const savingTxt = saving ? 'Сохраняю...' : 'Сохранить';
+
   if (role === 'supplier' && !isLocked) {
     if (order.prev_supplier_items) {
-      html += `<button class="btn btn-red" onclick="rollbackSupplier()">Откатить</button>`;
+      html += `<button class="btn btn-red" onclick="rollbackSupplier()" ${dis}>Откатить</button>`;
     }
-    html += `<button class="btn btn-outline" onclick="undoChanges()">Отменить</button>`;
-    html += `<button class="btn btn-green" onclick="saveSupplierData()">Сохранить</button>`;
+    html += `<button class="btn btn-outline" onclick="undoChanges()" ${dis}>Отменить</button>`;
+    html += `<button class="btn btn-green" onclick="saveSupplierData()" ${dis}>${savingTxt}</button>`;
   }
   if (role === 'buyer' && !isLocked) {
     if (order.prev_items) {
-      html += `<button class="btn btn-red" onclick="rollback()">Откатить</button>`;
+      html += `<button class="btn btn-red" onclick="rollback()" ${dis}>Откатить</button>`;
     }
-    html += `<button class="btn btn-outline" onclick="undoChanges()">Отменить</button>`;
-    html += `<button class="btn btn-primary" onclick="saveBuyerData()">Сохранить</button>`;
+    html += `<button class="btn btn-outline" onclick="undoChanges()" ${dis}>Отменить</button>`;
+    html += `<button class="btn btn-primary" onclick="saveBuyerData()" ${dis}>${savingTxt}</button>`;
   }
   if (role === 'buyer' && status === 'supplier_done') {
     html += `<button class="btn btn-red" onclick="rollbackSupplierChanges()">Отклонить</button>`;
