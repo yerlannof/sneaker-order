@@ -87,6 +87,17 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
 .sup-change { font-size:11px; font-weight:600; color:var(--orange); background:var(--orange-light); padding:1px 5px; border-radius:4px; margin-left:2px; }
 
+/* Changes summary */
+.changes-summary { margin:8px 16px; padding:14px; background:var(--card); border:2px solid var(--orange); border-radius:var(--radius); }
+.changes-title { font-size:15px; font-weight:800; margin-bottom:10px; color:var(--orange); }
+.changes-totals { font-size:13px; line-height:1.8; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+.changes-saving { color:var(--green); font-weight:600; }
+.changes-over { color:var(--red); font-weight:600; }
+.changes-section { margin-bottom:8px; }
+.changes-label { font-size:12px; font-weight:700; color:var(--text2); }
+.changes-item { font-size:12px; color:var(--text); padding:2px 0 2px 10px; }
+.changes-removed { color:var(--red); text-decoration:line-through; }
+
 .item-analytics { font-size:11px; color:var(--text3); line-height:1.6; }
 .item-analytics b { color:var(--text2); }
 
@@ -419,7 +430,70 @@ function render() {
     </div>`;
 
   if (supplierAnswered) {
-    html += `<div class="banner banner-ok visible">Поставщик ответил — проверь изменения и подтверди заказ</div>`;
+    // Build changes summary
+    let origPairs=0, origSum=0, newPairs=0, newSum=0;
+    let removedModels=[], boxChanges=[], priceChanges=[];
+    items.forEach(item => {
+      const bp = item.buy_price || 0;
+      const origW = item.women_boxes + (item._sup_women !== undefined ? item.women_boxes - item._sup_women : 0);
+      const origM = item.men_boxes + (item._sup_men !== undefined ? item.men_boxes - item._sup_men : 0);
+      // Actually: original = buyer's boxes, supplier may have changed
+      const wasW = item.women_boxes;
+      const wasM = item.men_boxes;
+      const nowW = item._sup_women !== undefined ? item._sup_women : wasW;
+      const nowM = item._sup_men !== undefined ? item._sup_men : wasM;
+      const wasAvail = item._sup_avail !== false;
+      origPairs += (wasW + wasM) * 6;
+      origSum += bp * (wasW + wasM) * 6;
+      if (!wasAvail) {
+        removedModels.push(item.model);
+      } else {
+        newPairs += (nowW + nowM) * 6;
+        const sp = item._sup_price || bp;
+        newSum += sp * (nowW + nowM) * 6;
+        if (nowW !== wasW || nowM !== wasM) {
+          boxChanges.push({model: item.model, wasW, wasM, nowW, nowM});
+        }
+        if (item._sup_price && item._sup_price !== bp) {
+          priceChanges.push({model: item.model, was: bp, now: item._sup_price});
+        }
+      }
+    });
+    const pairsDiff = newPairs - origPairs;
+    const sumDiff = newSum - origSum;
+
+    let changesHtml = `<div class="changes-summary">`;
+    changesHtml += `<div class="changes-title">Изменения от поставщика</div>`;
+    changesHtml += `<div class="changes-totals">`;
+    changesHtml += `<div>Было: <b>${fmt(origPairs)}</b> пар на <b>${fmt(origSum)}</b> T</div>`;
+    changesHtml += `<div>Стало: <b>${fmt(newPairs)}</b> пар на <b>${fmt(newSum)}</b> T</div>`;
+    changesHtml += `<div class="${sumDiff <= 0 ? 'changes-saving' : 'changes-over'}">Разница: <b>${sumDiff <= 0 ? '' : '+'}${fmt(sumDiff)}</b> T (${pairsDiff} пар)</div>`;
+    changesHtml += `</div>`;
+    if (removedModels.length) {
+      changesHtml += `<div class="changes-section"><span class="changes-label">Нет в наличии (${removedModels.length}):</span>`;
+      removedModels.forEach(m => { changesHtml += `<div class="changes-item changes-removed">${m}</div>`; });
+      changesHtml += `</div>`;
+    }
+    if (boxChanges.length) {
+      changesHtml += `<div class="changes-section"><span class="changes-label">Изменил коробки:</span>`;
+      boxChanges.forEach(c => {
+        changesHtml += `<div class="changes-item">${c.model}: Ж ${c.wasW}→${c.nowW}, М ${c.wasM}→${c.nowM}</div>`;
+      });
+      changesHtml += `</div>`;
+    }
+    if (priceChanges.length) {
+      changesHtml += `<div class="changes-section"><span class="changes-label">Изменил цены:</span>`;
+      priceChanges.forEach(c => {
+        const diff = c.now - c.was;
+        changesHtml += `<div class="changes-item">${c.model}: ${fmt(c.was)} → ${fmt(c.now)} (${diff>0?'+':''}${fmt(diff)})</div>`;
+      });
+      changesHtml += `</div>`;
+    }
+    if (!removedModels.length && !boxChanges.length && !priceChanges.length) {
+      changesHtml += `<div class="changes-section"><span class="changes-label">Без изменений — всё подтвердил как есть</span></div>`;
+    }
+    changesHtml += `</div>`;
+    html += changesHtml;
   }
 
   // Supplier link (show for buyer after first save)
