@@ -449,7 +449,7 @@ function render() {
   let html = `
     <div class="header">
       <div class="header-top">
-        <h1>Заказ кроссовок</h1>
+        <h1>Заказ ${orderId}</h1>
         <span class="badge ${statusCls}">${statusText}</span>
       </div>
       <div class="header-meta">${meta.date || ''} &middot; сезон x${meta.season || ''} &middot; ${role === 'supplier' ? 'поставщик' : 'закупщик'}</div>

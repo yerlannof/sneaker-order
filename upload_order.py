@@ -41,6 +41,7 @@ ENV_PATH = PNLPOWER_DIR / ".env"
 # Supabase config — from env or .env
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
 
 SITE_URL = "https://yerlannof.github.io/sneaker-order"
 
@@ -58,7 +59,7 @@ EXCLUDE_PATTERNS = [
 
 
 def load_env():
-    global SUPABASE_URL, SUPABASE_KEY
+    global SUPABASE_URL, SUPABASE_KEY, SUPABASE_SERVICE_KEY
     # Try sneaker-order/.env first, then pnlpower/.env
     for env_path in [Path(__file__).parent / ".env", ENV_PATH]:
         if env_path.exists():
@@ -69,6 +70,8 @@ def load_env():
                         SUPABASE_URL = SUPABASE_URL or line.split("=", 1)[1].strip().strip('"')
                     elif line.startswith("SUPABASE_KEY="):
                         SUPABASE_KEY = SUPABASE_KEY or line.split("=", 1)[1].strip().strip('"')
+                    elif line.startswith("SUPABASE_SERVICE_KEY="):
+                        SUPABASE_SERVICE_KEY = SUPABASE_SERVICE_KEY or line.split("=", 1)[1].strip().strip('"')
 
 
 def get_moysklad_token():
@@ -197,18 +200,41 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     ORDER BY sa.adj_rate DESC
     """).fetchall()
 
-    # Articles (latest by supply date)
+    # Articles — search ALL suppliers first, then prefer "Поставщик In" if available
     articles = {}
+    # 1) All suppliers (fallback)
+    for ar in con.execute("""
+        SELECT REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') as model,
+               LAST(product_article ORDER BY supply_moment) as article
+        FROM supply_positions
+        WHERE supply_moment>='2025-06-01' AND product_article IS NOT NULL AND product_article != ''
+        GROUP BY 1
+    """).fetchall():
+        if ar[1]:
+            articles[ar[0]] = ar[1]
+    # 2) Also check sales table for articles not found in supplies
+    for ar in con.execute("""
+        SELECT REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') as model,
+               LAST(article ORDER BY sale_datetime) as article
+        FROM sales
+        WHERE sale_datetime>='2025-10-01' AND article IS NOT NULL AND article != ''
+        GROUP BY 1
+    """).fetchall():
+        if ar[1] and ar[0] not in articles:
+            articles[ar[0]] = ar[1]
+    # 3) Override with "Поставщик In" articles (preferred, most recent)
     for ar in con.execute("""
         SELECT REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') as model,
                LAST(product_article ORDER BY supply_moment) as article
         FROM supply_positions
         WHERE agent_name='Поставщик In' AND supply_moment>='2025-10-01'
+              AND product_article IS NOT NULL AND product_article != ''
         GROUP BY 1
     """).fetchall():
-        articles[ar[0]] = ar[1]
+        if ar[1]:
+            articles[ar[0]] = ar[1]
 
-    # Buy prices
+    # Buy prices (from "Поставщик In" only — that's the actual buy price)
     buy_prices = {}
     for bp in con.execute("""
         SELECT product_article, LAST(price ORDER BY supply_moment) as last_price
@@ -240,27 +266,35 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
 
     # Photos → upload to Supabase Storage (800px, good quality)
     token = get_moysklad_token() if with_photos else None
+    storage_key = SUPABASE_SERVICE_KEY or SUPABASE_KEY
     photos = {}  # article → public URL
     if with_photos and token:
-        unique_articles = set(articles.values())
+        # Only upload photos for models in the order (not all 1000+ articles)
+        order_models = set(r[0] for r in rows if r[9] < 10)
+        unique_articles = set(articles[m] for m in order_models if m in articles and articles[m])
         print(f"Загрузка {len(unique_articles)} фото...")
         uploaded = 0
         cached = 0
         for i, art in enumerate(unique_articles):
             pub_url = f"{SUPABASE_URL}/storage/v1/object/public/photos/{art}.jpg"
             # Check if already in storage
-            check = requests.head(pub_url, timeout=5)
-            if check.status_code == 200:
-                photos[art] = pub_url
-                cached += 1
-            else:
+            try:
+                check = requests.head(pub_url, timeout=10)
+                if check.status_code == 200:
+                    photos[art] = pub_url
+                    cached += 1
+                    continue
+            except Exception:
+                pass
+            if True:
                 img_bytes = fetch_image_bytes(art, token)
                 if img_bytes:
                     up = requests.post(
                         f"{SUPABASE_URL}/storage/v1/object/photos/{art}.jpg",
                         headers={
-                            "Authorization": f"Bearer {SUPABASE_KEY}",
+                            "Authorization": f"Bearer {storage_key}",
                             "Content-Type": "image/jpeg",
+                            "x-upsert": "true",
                         },
                         data=img_bytes,
                         timeout=15,
@@ -292,6 +326,8 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             "pairs": wb * 6 + mb * 6,
             "zone": zone,
             "sold": r[1],
+            "weekly_rate": float(r[2]),
+            "adj_rate": float(r[3]),
             "stock": r[4],
             "wos": float(r[9]),
             "margin": float(r[10]) if r[10] else 0,
@@ -307,8 +343,30 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     return items, {"date": today.strftime("%d.%m.%Y"), "season": sc, "weeks": weeks, "snap": snap}
 
 
+def get_next_order_number():
+    """Get next sequential order number (ЗК-001, ЗК-002, ...)."""
+    try:
+        resp = requests.get(
+            f"{SUPABASE_URL}/rest/v1/orders?select=id&id=like.ЗК-*&order=id.desc&limit=1",
+            headers={
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+            },
+            timeout=10,
+        )
+        if resp.ok:
+            rows = resp.json()
+            if rows:
+                last = rows[0]["id"]  # e.g. "ЗК-005"
+                num = int(last.split("-")[1])
+                return f"ЗК-{num + 1:03d}"
+    except Exception:
+        pass
+    return "ЗК-001"
+
+
 def upload_to_supabase(items, meta):
-    order_id = str(uuid.uuid4())[:8]
+    order_id = get_next_order_number()
 
     resp = requests.post(
         f"{SUPABASE_URL}/rest/v1/orders",
