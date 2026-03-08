@@ -568,16 +568,20 @@ function render() {
       } else if (role === 'supplier' && canEditBoxes) {
         const wChanged = item.women_boxes !== (item._orig_women || 0);
         const mChanged = item.men_boxes !== (item._orig_men || 0);
+        const wMaxed = item.women_boxes >= (item._orig_women || 0);
+        const mMaxed = item.men_boxes >= (item._orig_men || 0);
         wBox = `<div class="box-group">
           <span class="box-label">Ж:</span>
           <div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>
           <div class="box-val women">${item.women_boxes}</div>
+          ${!wMaxed ? `<div class="box-btn" onclick="adjBox(${gi},'w',1)">+</div>` : ''}
           ${wChanged ? `<span class="orig-val">было ${item._orig_women}</span>` : ''}
         </div>`;
         mBox = `<div class="box-group">
           <span class="box-label">М:</span>
           <div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>
           <div class="box-val men">${item.men_boxes}</div>
+          ${!mMaxed ? `<div class="box-btn" onclick="adjBox(${gi},'m',1)">+</div>` : ''}
           ${mChanged ? `<span class="orig-val">было ${item._orig_men}</span>` : ''}
         </div>`;
       } else {
