@@ -521,6 +521,12 @@ function render() {
               <span>Маржа: <b>${item.margin || 0}%</b></span>
               <span>Розн: <b>${fmt(item.price || 0)}T</b></span>
             </div>
+            <div class="item-analytics">
+              <span>Мск: <b>${item.moscow || 0}</b></span>
+              <span>ЦУМ+Онл: <b>${item.tsum_online || 0}</b></span>
+              <span>Аружан: <b>${item.aruzhan || 0}</b></span>
+              <span>Склад: <b>${item.warehouse || 0}</b></span>
+            </div>
           </div>
           <div class="item-right">
             <input type="checkbox" class="cb" ${item._avail!==false?'checked':''} onchange="toggleAvail(${gi},this)" ${isLocked?'disabled':''}>
