@@ -85,6 +85,9 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .box-val.women { color:var(--red); }
 .box-val.men { color:var(--blue); }
 .pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
+.bsize-toggle { display:inline-flex; gap:2px; margin-left:4px; }
+.bsize-opt { padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text3); -webkit-tap-highlight-color:transparent; }
+.bsize-opt.active { background:var(--blue); color:#fff; border-color:var(--blue); }
 .sup-change { font-size:11px; font-weight:600; color:var(--orange); background:var(--orange-light); padding:1px 5px; border-radius:4px; margin-left:2px; }
 .orig-val { font-size:10px; color:var(--text3); margin-left:3px; }
 
@@ -343,6 +346,7 @@ async function saveSupplierData() {
     photo_url: it.photo_url || '',
     women_boxes: it.women_boxes,
     men_boxes: it.men_boxes,
+    box_size: it.box_size || 6,
     pairs: it.pairs,
     buy_price: it.buy_price,
     _avail: it._avail,
@@ -380,6 +384,7 @@ async function confirmOrder() {
         model: i.model,
         women_boxes: i.women_boxes,
         men_boxes: i.men_boxes,
+        box_size: i.box_size || 6,
         pairs: i.pairs,
         buy_price: i._sup_price || i.buy_price || 0,
         total: (i._sup_price || i.buy_price || 0) * i.pairs,
@@ -444,14 +449,15 @@ function render() {
       const nowW = item._sup_women !== undefined ? item._sup_women : wasW;
       const nowM = item._sup_men !== undefined ? item._sup_men : wasM;
       const wasAvail = item._sup_avail !== false;
-      origPairs += (wasW + wasM) * 6;
-      origSum += bp * (wasW + wasM) * 6;
+      const bs = item.box_size || 6;
+      origPairs += (wasW + wasM) * bs;
+      origSum += bp * (wasW + wasM) * bs;
       if (!wasAvail) {
         removedModels.push(item.model);
       } else {
-        newPairs += (nowW + nowM) * 6;
+        newPairs += (nowW + nowM) * bs;
         const sp = item._sup_price || bp;
-        newSum += sp * (nowW + nowM) * 6;
+        newSum += sp * (nowW + nowM) * bs;
         if (nowW !== wasW || nowM !== wasM) {
           boxChanges.push({model: item.model, wasW, wasM, nowW, nowM});
         }
@@ -608,7 +614,11 @@ function render() {
           <div class="item-body">
             <div class="item-model">${item.model}</div>
             <div class="item-article">${item.article || ''}</div>
-            <div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span></div>
+            <div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span>
+              ${!isLocked ? `<span class="bsize-toggle">
+                ${[6,8,12].map(s => `<span class="bsize-opt ${(item.box_size||6)===s?'active':''}" onclick="setBoxSize(${gi},${s})">${s}</span>`).join('')}
+              </span>` : `<span style="font-size:10px;color:var(--text3)">(по ${item.box_size||6})</span>`}
+            </div>
             ${role === 'buyer' ? `<div class="item-analytics">
               <span>Продано: <b>${item.sold || 0}</b> (${item.weekly_rate || 0}/нед)</span>
               <span>Сезон: <b>${item.adj_rate || 0}/нед</b></span>
@@ -697,7 +707,16 @@ function adjBox(gi, type, delta) {
     if (role === 'supplier' && delta > 0 && newVal > (item._orig_men || 0)) return;
     item.men_boxes = newVal;
   }
-  item.pairs = item.women_boxes * 6 + item.men_boxes * 6;
+  const bs = item.box_size || 6;
+  item.pairs = (item.women_boxes + item.men_boxes) * bs;
+  hasChanges = true;
+  render();
+}
+
+function setBoxSize(gi, size) {
+  const item = items[gi];
+  item.box_size = size;
+  item.pairs = (item.women_boxes + item.men_boxes) * size;
   hasChanges = true;
   render();
 }
@@ -770,6 +789,7 @@ function copyJSON() {
     model: i.model,
     women_boxes: i.women_boxes,
     men_boxes: i.men_boxes,
+    box_size: i.box_size || 6,
     pairs: i.pairs,
     buy_price: i._sup_price || i.buy_price || 0,
     total: (i._sup_price || i.buy_price || 0) * i.pairs,
