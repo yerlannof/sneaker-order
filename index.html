@@ -447,7 +447,7 @@ function render() {
 
   html += '<div class="items">';
   zones.forEach(zone => {
-    const zoneItems = items.filter(i => i.zone === zone.key && i._avail !== false);
+    const zoneItems = items.filter(i => i.zone === zone.key);
     if (!zoneItems.length) return;
 
     html += `<div class="zone-hdr ${zone.cls}"><span>${zone.label}</span><span>${zoneItems.length}</span></div>`;
@@ -575,6 +575,7 @@ function render() {
       <div class="bottom-btns">`;
 
   if (role === 'supplier' && !isLocked) {
+    html += `<button class="btn btn-outline" onclick="undoChanges()">Отменить</button>`;
     html += `<button class="btn btn-green" onclick="saveSupplierData()">Сохранить</button>`;
   }
   if (role === 'buyer' && !isLocked) {
