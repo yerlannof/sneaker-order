@@ -378,6 +378,7 @@ async function saveSupplierData() {
 
   try {
     await sbUpdate('orders', {
+      prev_supplier_items: order.supplier_items || null,
       supplier_items: saveItems,
       status: 'supplier_done',
       updated_at: new Date().toISOString()
@@ -386,11 +387,48 @@ async function saveSupplierData() {
     toast('Ошибка сохранения: ' + e.message);
     return;
   }
+  order.prev_supplier_items = order.supplier_items || null;
+  order.supplier_items = saveItems;
   hasChanges = false;
   lastSaved = timeStr();
   order.status = 'supplier_done';
   toast('Сохранено! Закупщик увидит изменения');
   render();
+}
+
+async function rollbackSupplier() {
+  if (!order.prev_supplier_items) { toast('Нечего откатывать'); return; }
+  if (!confirm('Вернуть предыдущую версию?')) return;
+  try {
+    await sbUpdate('orders', {
+      supplier_items: order.prev_supplier_items,
+      prev_supplier_items: null,
+      status: 'sent',
+      updated_at: new Date().toISOString()
+    }, { 'id': 'eq.' + orderId });
+  } catch(e) {
+    toast('Ошибка: ' + e.message);
+    return;
+  }
+  toast('Откачено');
+  loadOrder();
+}
+
+async function rollbackSupplierChanges() {
+  if (!confirm('Отклонить изменения поставщика и вернуть свой заказ?')) return;
+  try {
+    await sbUpdate('orders', {
+      supplier_items: null,
+      prev_supplier_items: null,
+      status: 'sent',
+      updated_at: new Date().toISOString()
+    }, { 'id': 'eq.' + orderId });
+  } catch(e) {
+    toast('Ошибка: ' + e.message);
+    return;
+  }
+  toast('Изменения поставщика отклонены');
+  loadOrder();
 }
 
 async function confirmOrder() {
@@ -642,6 +680,7 @@ function render() {
             </div>
             ${role === 'buyer' ? `<div class="item-analytics">
               <span>Продано: <b>${item.sold || 0}</b> (${item.weekly_rate || 0}/нед)</span>
+              <span>Остаток: <b>${item.stock || 0}</b></span>
               <span>Сезон: <b>${item.adj_rate || 0}/нед</b></span>
               <span>WOS: <b>${item.wos || 0}</b></span>
               <span>Маржа: <b>${item.margin || 0}%</b></span>
@@ -696,6 +735,9 @@ function render() {
       <div class="bottom-btns">`;
 
   if (role === 'supplier' && !isLocked) {
+    if (order.prev_supplier_items) {
+      html += `<button class="btn btn-red" onclick="rollbackSupplier()">Откатить</button>`;
+    }
     html += `<button class="btn btn-outline" onclick="undoChanges()">Отменить</button>`;
     html += `<button class="btn btn-green" onclick="saveSupplierData()">Сохранить</button>`;
   }
@@ -707,6 +749,7 @@ function render() {
     html += `<button class="btn btn-primary" onclick="saveBuyerData()">Сохранить</button>`;
   }
   if (role === 'buyer' && status === 'supplier_done') {
+    html += `<button class="btn btn-red" onclick="rollbackSupplierChanges()">Отклонить</button>`;
     html += `<button class="btn btn-green" onclick="confirmOrder()">Подтвердить</button>`;
   }
   if (role === 'buyer' && status === 'confirmed') {
