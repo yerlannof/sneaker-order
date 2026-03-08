@@ -85,6 +85,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .box-val.women { color:var(--red); }
 .box-val.men { color:var(--blue); }
 .pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
+.sup-change { font-size:11px; font-weight:600; color:var(--orange); background:var(--orange-light); padding:1px 5px; border-radius:4px; margin-left:2px; }
 
 .item-analytics { font-size:11px; color:var(--text3); line-height:1.6; }
 .item-analytics b { color:var(--text2); }
@@ -467,6 +468,10 @@ function render() {
         photoHtml = `<div class="item-photo-empty">${item.article ? `<span class="art">${item.article}</span>` : ''}<span class="nf">нет фото</span></div>`;
       }
 
+      // Supplier box changes (for buyer view)
+      const supWChanged = supplierAnswered && item._sup_women !== undefined && item._sup_women !== item.women_boxes;
+      const supMChanged = supplierAnswered && item._sup_men !== undefined && item._sup_men !== item.men_boxes;
+
       // Box controls — buyer: full +/-, supplier: only minus (can't increase above original)
       const canEditBoxes = !isLocked;
       let wBox, mBox;
@@ -476,12 +481,14 @@ function render() {
           <div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>
           <div class="box-val women">${item.women_boxes}</div>
           <div class="box-btn" onclick="adjBox(${gi},'w',1)">+</div>
+          ${supWChanged ? `<span class="sup-change">${item._sup_women}</span>` : ''}
         </div>`;
         mBox = `<div class="box-group">
           <span class="box-label">М:</span>
           <div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>
           <div class="box-val men">${item.men_boxes}</div>
           <div class="box-btn" onclick="adjBox(${gi},'m',1)">+</div>
+          ${supMChanged ? `<span class="sup-change">${item._sup_men}</span>` : ''}
         </div>`;
       } else if (role === 'supplier' && canEditBoxes) {
         wBox = `<div class="box-group">
