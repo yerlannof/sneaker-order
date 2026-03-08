@@ -340,6 +340,45 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             "warehouse": r[8],
         })
 
+    # Merge duplicates by article (e.g. Rose Whisper Z / Rose Gold Z / Rose Gold In = same shoe)
+    merged = {}
+    for it in items:
+        art = it["article"]
+        if not art or art not in merged:
+            merged[art or it["model"]] = it
+        else:
+            m = merged[art]
+            m["sold"] += it["sold"]
+            m["stock"] += it["stock"]
+            m["moscow"] += it["moscow"]
+            m["tsum_online"] += it["tsum_online"]
+            m["aruzhan"] += it["aruzhan"]
+            m["warehouse"] += it["warehouse"]
+            m["weekly_rate"] = round(m["weekly_rate"] + it["weekly_rate"], 1)
+            m["adj_rate"] = round(m["adj_rate"] + it["adj_rate"], 1)
+            # Recalc WOS and boxes with merged data
+            m["wos"] = round(m["stock"] / m["adj_rate"], 1) if m["adj_rate"] > 0 else 999
+            m["zone"] = "critical" if m["wos"] < 3 else ("soon" if m["wos"] < 6 else "nice")
+            # Keep better margin, lower cogs
+            if it["margin"] > m["margin"]:
+                m["margin"] = it["margin"]
+            # Recalc boxes with merged rates
+            all_ss, all_sk = {}, {}
+            for src_model in [m["model"], it["model"]]:
+                ss, sk = size_data.get(src_model, ({}, {}))
+                for s, v in ss.items():
+                    all_ss[s] = all_ss.get(s, 0) + v
+                for s, v in sk.items():
+                    all_sk[s] = all_sk.get(s, 0) + v
+            wb, mb = calc_boxes(all_ss, all_sk, m["weekly_rate"], sc, weeks)
+            m["women_boxes"] = wb
+            m["men_boxes"] = mb
+            m["pairs"] = wb * 6 + mb * 6
+            # Use shorter name
+            if len(it["model"]) < len(m["model"]):
+                m["model"] = it["model"]
+    items = list(merged.values())
+
     return items, {"date": today.strftime("%d.%m.%Y"), "season": sc, "weeks": weeks, "snap": snap}
 
 

@@ -139,6 +139,23 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .btn-outline { background:var(--card); color:var(--text2); border:1px solid var(--border); }
 .btn-red { background:var(--red-light); color:var(--red); }
 
+/* Search */
+.search-bar { padding:8px 16px; position:sticky; top:60px; z-index:99; background:var(--bg); }
+.search-input { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; font-family:inherit; background:var(--card); }
+.search-input:focus { border-color:var(--blue); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
+
+/* Analytics toggle */
+.analytics-more { font-size:11px; color:var(--blue); cursor:pointer; margin-top:2px; -webkit-tap-highlight-color:transparent; }
+.analytics-extra { display:none; }
+.analytics-extra.open { display:block; }
+
+/* Supplier done screen */
+.done-screen { padding:40px 20px; text-align:center; }
+.done-icon { font-size:64px; margin-bottom:16px; }
+.done-title { font-size:22px; font-weight:800; margin-bottom:8px; }
+.done-text { font-size:14px; color:var(--text2); line-height:1.6; }
+.done-btn { margin-top:20px; padding:12px 24px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; }
+
 .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:300; align-items:center; justify-content:center; flex-direction:column; padding:20px; }
 .lightbox.open { display:flex; }
 .lightbox img { max-width:90vw; max-height:70vh; border-radius:var(--radius); object-fit:contain; }
@@ -216,6 +233,8 @@ let removed = [];
 let hasChanges = false;
 let lastSaved = null;
 let saving = false;
+let searchQuery = '';
+let supplierDone = false;
 
 const params = new URLSearchParams(location.search);
 orderId = params.get('id');
@@ -399,9 +418,9 @@ async function saveSupplierData() {
   order.supplier_items = saveItems;
   hasChanges = false;
   saving = false;
+  supplierDone = true;
   lastSaved = timeStr();
   order.status = 'supplier_done';
-  toast('Сохранено! Закупщик увидит изменения');
   render();
 }
 
@@ -503,6 +522,24 @@ function render() {
       ${lastSaved ? `<div class="header-saved">Сохранено: ${lastSaved}</div>` : ''}
     </div>`;
 
+  // Supplier done screen
+  if (supplierDone && role === 'supplier') {
+    html += `<div class="done-screen">
+      <div class="done-icon">&#10004;</div>
+      <div class="done-title">Отправлено!</div>
+      <div class="done-text">Закупщик увидит ваши изменения.<br>Можете закрыть страницу.</div>
+      <button class="done-btn" onclick="supplierDone=false;render()">Вернуться к заказу</button>
+    </div>`;
+    html += `</div>`;
+    document.getElementById('app').innerHTML = html;
+    return;
+  }
+
+  // Search bar
+  html += `<div class="search-bar">
+    <input class="search-input" type="text" placeholder="Поиск по модели или артикулу..." value="${searchQuery}" oninput="searchQuery=this.value;render()" id="search-field">
+  </div>`;
+
   if (supplierAnswered) {
     // Build changes summary
     let origPairs=0, origSum=0, newPairs=0, newSum=0;
@@ -596,8 +633,12 @@ function render() {
   ];
 
   html += '<div class="items">';
+  const sq = searchQuery.toLowerCase();
   zones.forEach(zone => {
-    const zoneItems = items.filter(i => i.zone === zone.key);
+    let zoneItems = items.filter(i => i.zone === zone.key);
+    if (sq) {
+      zoneItems = zoneItems.filter(i => (i.model||'').toLowerCase().includes(sq) || (i.article||'').toLowerCase().includes(sq));
+    }
     if (!zoneItems.length) return;
 
     html += `<div class="zone-hdr ${zone.cls}"><span>${zone.label}</span><span>${zoneItems.length}</span></div>`;
@@ -690,20 +731,23 @@ function render() {
             ${role === 'buyer' ? `<div class="item-analytics">
               <span>Продано: <b>${item.sold || 0}</b> (${item.weekly_rate || 0}/нед)</span>
               <span>Остаток: <b>${item.stock || 0}</b></span>
-              <span>Сезон: <b>${item.adj_rate || 0}/нед</b></span>
               <span>WOS: <b>${item.wos || 0}</b></span>
-              <span>Маржа: <b>${item.margin || 0}%</b></span>
-            </div>
-            <div class="item-analytics">
-              <span>Розн: <b>${fmt(item.price || 0)}</b></span>
-              <span>Себес: <b>${fmt(item.cogs || 0)}</b></span>
               <span>Закуп: <b>${fmt(item.buy_price || 0)}</b></span>
+              <span class="analytics-more" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.textContent==='ещё'?'скрыть':'ещё'">ещё</span>
             </div>
-            <div class="item-analytics">
-              <span>Мск: <b>${item.moscow || 0}</b></span>
-              <span>ЦУМ+Онл: <b>${item.tsum_online || 0}</b></span>
-              <span>Аружан: <b>${item.aruzhan || 0}</b></span>
-              <span>Склад: <b>${item.warehouse || 0}</b></span>
+            <div class="analytics-extra">
+              <div class="item-analytics">
+                <span>Сезон: <b>${item.adj_rate || 0}/нед</b></span>
+                <span>Маржа: <b>${item.margin || 0}%</b></span>
+                <span>Розн: <b>${fmt(item.price || 0)}</b></span>
+                <span>Себес: <b>${fmt(item.cogs || 0)}</b></span>
+              </div>
+              <div class="item-analytics">
+                <span>Мск: <b>${item.moscow || 0}</b></span>
+                <span>ЦУМ+Онл: <b>${item.tsum_online || 0}</b></span>
+                <span>Аружан: <b>${item.aruzhan || 0}</b></span>
+                <span>Склад: <b>${item.warehouse || 0}</b></span>
+              </div>
             </div>` : ''}
           </div>
           <div class="item-right">
@@ -771,6 +815,12 @@ function render() {
   html += `</div></div>`;
 
   document.getElementById('app').innerHTML = html;
+
+  // Restore search focus
+  if (searchQuery) {
+    const sf = document.getElementById('search-field');
+    if (sf) { sf.focus(); sf.setSelectionRange(sf.value.length, sf.value.length); }
+  }
 }
 
 // === ACTIONS ===
