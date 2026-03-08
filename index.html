@@ -315,15 +315,17 @@ function applySupplierChanges(supItems) {
 
 // === SAVE (buyer) ===
 async function saveBuyerData() {
+  const newItems = items.map(it => {
+    const clean = {...it};
+    delete clean._sup_avail;
+    delete clean._sup_women;
+    delete clean._sup_men;
+    return clean;
+  });
   try {
     await sbUpdate('orders', {
-      items: items.map(it => {
-        const clean = {...it};
-        delete clean._sup_avail;
-        delete clean._sup_women;
-        delete clean._sup_men;
-        return clean;
-      }),
+      prev_items: order.items,
+      items: newItems,
       status: order.status === 'draft' ? 'sent' : order.status,
       updated_at: new Date().toISOString()
     }, { 'id': 'eq.' + orderId });
@@ -331,11 +333,30 @@ async function saveBuyerData() {
     toast('Ошибка сохранения: ' + e.message);
     return;
   }
+  order.prev_items = order.items;
+  order.items = newItems;
   hasChanges = false;
   lastSaved = timeStr();
   if (order.status === 'draft') order.status = 'sent';
   toast('Заказ сохранен');
   render();
+}
+
+async function rollback() {
+  if (!order.prev_items) { toast('Нечего откатывать'); return; }
+  if (!confirm('Вернуть предыдущую версию заказа?')) return;
+  try {
+    await sbUpdate('orders', {
+      items: order.prev_items,
+      prev_items: null,
+      updated_at: new Date().toISOString()
+    }, { 'id': 'eq.' + orderId });
+  } catch(e) {
+    toast('Ошибка: ' + e.message);
+    return;
+  }
+  toast('Откачено к предыдущей версии');
+  loadOrder();
 }
 
 // === SAVE (supplier) ===
@@ -679,6 +700,9 @@ function render() {
     html += `<button class="btn btn-green" onclick="saveSupplierData()">Сохранить</button>`;
   }
   if (role === 'buyer' && !isLocked) {
+    if (order.prev_items) {
+      html += `<button class="btn btn-red" onclick="rollback()">Откатить</button>`;
+    }
     html += `<button class="btn btn-outline" onclick="undoChanges()">Отменить</button>`;
     html += `<button class="btn btn-primary" onclick="saveBuyerData()">Сохранить</button>`;
   }
