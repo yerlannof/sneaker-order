@@ -86,6 +86,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .box-val.men { color:var(--blue); }
 .pairs-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
 .sup-change { font-size:11px; font-weight:600; color:var(--orange); background:var(--orange-light); padding:1px 5px; border-radius:4px; margin-left:2px; }
+.orig-val { font-size:10px; color:var(--text3); margin-left:3px; }
 
 /* Changes summary */
 .changes-summary { margin:8px 16px; padding:14px; background:var(--card); border:2px solid var(--orange); border-radius:var(--radius); }
@@ -565,15 +566,19 @@ function render() {
           ${supMChanged ? `<span class="sup-change">${item._sup_men}</span>` : ''}
         </div>`;
       } else if (role === 'supplier' && canEditBoxes) {
+        const wChanged = item.women_boxes !== (item._orig_women || 0);
+        const mChanged = item.men_boxes !== (item._orig_men || 0);
         wBox = `<div class="box-group">
           <span class="box-label">Ж:</span>
           <div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>
           <div class="box-val women">${item.women_boxes}</div>
+          ${wChanged ? `<span class="orig-val">было ${item._orig_women}</span>` : ''}
         </div>`;
         mBox = `<div class="box-group">
           <span class="box-label">М:</span>
           <div class="box-btn" onclick="adjBox(${gi},'m',-1)">-</div>
           <div class="box-val men">${item.men_boxes}</div>
+          ${mChanged ? `<span class="orig-val">было ${item._orig_men}</span>` : ''}
         </div>`;
       } else {
         wBox = `<div class="box-group"><span class="box-label">Ж:</span><div class="box-val women">${item.women_boxes}</div></div>`;
