@@ -23,3 +23,6 @@ create policy "Anyone can insert orders" on orders
 
 create policy "Anyone can update orders" on orders
   for update using (true);
+
+create policy "Anyone can delete orders" on orders
+  for delete using (true);
