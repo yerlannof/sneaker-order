@@ -46,6 +46,38 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .banner-info { background:var(--blue-light); color:var(--blue); }
 .banner-ok { background:var(--green-light); color:var(--green); }
 
+/* Workflow stepper */
+.stepper { display:flex; align-items:center; justify-content:center; gap:0; padding:12px 16px; background:var(--card); border-bottom:1px solid var(--border); }
+.step { display:flex; align-items:center; gap:0; }
+.step-dot { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; border:2px solid var(--border); color:var(--text3); background:var(--card); flex-shrink:0; }
+.step-dot.active { border-color:var(--blue); background:var(--blue); color:#fff; }
+.step-dot.done { border-color:var(--green); background:var(--green); color:#fff; }
+.step-label { font-size:9px; font-weight:600; color:var(--text3); position:absolute; margin-top:38px; white-space:nowrap; }
+.step-label.active { color:var(--blue); }
+.step-line { width:32px; height:2px; background:var(--border); }
+.step-line.done { background:var(--green); }
+.step-wrap { position:relative; display:flex; flex-direction:column; align-items:center; }
+
+/* Instruction banner for supplier */
+.instruction { margin:8px 16px; padding:14px; background:var(--blue-light); border-radius:var(--radius); font-size:13px; color:var(--blue); line-height:1.6; }
+.instruction b { font-weight:700; }
+.instruction-close { float:right; cursor:pointer; font-size:16px; opacity:0.6; padding:0 4px; }
+
+/* Unsaved badge */
+.badge-unsaved { background:var(--red); color:#fff; border-radius:10px; padding:1px 6px; font-size:10px; font-weight:700; margin-left:4px; }
+
+/* WhatsApp button */
+.btn-whatsapp { background:#25D366; color:#fff; }
+
+/* Save confirmation modal */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--card); border-radius:var(--radius); padding:20px; max-width:360px; width:100%; max-height:80vh; overflow-y:auto; }
+.modal-title { font-size:16px; font-weight:800; margin-bottom:12px; }
+.modal-body { font-size:13px; line-height:1.6; color:var(--text2); margin-bottom:16px; }
+.modal-body b { color:var(--text); }
+.modal-btns { display:flex; gap:8px; justify-content:flex-end; }
+
 /* Supplier link box */
 .sup-link-box { margin:8px 16px; padding:12px 14px; background:var(--blue-light); border-radius:var(--radius-sm); font-size:12px; color:var(--blue); }
 .sup-link-box a { color:var(--blue); font-weight:600; word-break:break-all; }
@@ -232,10 +264,12 @@ let order = null;
 let items = [];
 let removed = [];
 let hasChanges = false;
+let changeCount = 0;
 let lastSaved = null;
 let saving = false;
 let searchQuery = '';
 let supplierDone = false;
+let showInstruction = true;
 
 const params = new URLSearchParams(location.search);
 orderId = params.get('id');
@@ -255,6 +289,9 @@ function toast(msg) {
 
 function markChanged() {
   hasChanges = true;
+  changeCount++;
+  // Auto-save draft to localStorage
+  try { localStorage.setItem('draft_' + orderId, JSON.stringify({items, removed, ts: Date.now()})); } catch(e) {}
   render();
 }
 
@@ -285,6 +322,8 @@ async function loadOrder() {
   items = JSON.parse(JSON.stringify(order.items));
   removed = [];
   hasChanges = false;
+  changeCount = 0;
+  supplierDone = false;
 
   if (order.updated_at && order.updated_at !== order.created_at) {
     lastSaved = new Date(order.updated_at).toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
@@ -318,6 +357,23 @@ async function loadOrder() {
   if (role === 'supplier') {
     document.body.classList.add('role-supplier');
   }
+
+  // Restore unsaved draft from localStorage
+  try {
+    const draft = JSON.parse(localStorage.getItem('draft_' + orderId));
+    if (draft && draft.ts > new Date(order.updated_at || order.created_at).getTime()) {
+      if (confirm('Есть несохранённые изменения. Восстановить?')) {
+        items = draft.items;
+        removed = draft.removed || [];
+        hasChanges = true;
+        changeCount = 1;
+      } else {
+        localStorage.removeItem('draft_' + orderId);
+      }
+    } else {
+      localStorage.removeItem('draft_' + orderId);
+    }
+  } catch(e) {}
 
   render();
 }
@@ -360,9 +416,11 @@ async function saveBuyerData() {
   order.prev_items = order.items;
   order.items = newItems;
   hasChanges = false;
+  changeCount = 0;
   saving = false;
   lastSaved = timeStr();
   if (order.status === 'draft') order.status = 'sent';
+  try { localStorage.removeItem('draft_' + orderId); } catch(e) {}
   toast('Заказ сохранен');
   render();
 }
@@ -418,10 +476,12 @@ async function saveSupplierData() {
   order.prev_supplier_items = order.supplier_items || null;
   order.supplier_items = saveItems;
   hasChanges = false;
+  changeCount = 0;
   saving = false;
   supplierDone = true;
   lastSaved = timeStr();
   order.status = 'supplier_done';
+  try { localStorage.removeItem('draft_' + orderId); } catch(e) {}
   render();
 }
 
@@ -523,6 +583,24 @@ function render() {
       ${lastSaved ? `<div class="header-saved">Сохранено: ${lastSaved}</div>` : ''}
     </div>`;
 
+  // Workflow stepper
+  const steps = [
+    {label:'Черновик', key:'draft'},
+    {label:'Отправлен', key:'sent'},
+    {label:'Поставщик', key:'supplier_done'},
+    {label:'Готово', key:'confirmed'},
+  ];
+  const stepOrder = ['draft','sent','supplier_done','confirmed'];
+  const curStep = stepOrder.indexOf(status);
+  html += `<div class="stepper">`;
+  steps.forEach((s, i) => {
+    const cls = i < curStep ? 'done' : (i === curStep ? 'active' : '');
+    const icon = i < curStep ? '&#10003;' : (i + 1);
+    if (i > 0) html += `<div class="step-line ${i <= curStep ? 'done' : ''}"></div>`;
+    html += `<div class="step-wrap"><div class="step-dot ${cls}">${icon}</div><div class="step-label ${cls}">${s.label}</div></div>`;
+  });
+  html += `</div><div style="height:24px"></div>`;
+
   // Supplier done screen
   if (supplierDone && role === 'supplier') {
     html += `<div class="done-screen">
@@ -540,6 +618,18 @@ function render() {
   html += `<div class="search-bar">
     <input class="search-input" type="text" placeholder="Поиск по модели или артикулу..." value="${searchQuery}" oninput="searchQuery=this.value;render()" id="search-field">
   </div>`;
+
+  // Instruction for supplier
+  if (role === 'supplier' && showInstruction && !isLocked) {
+    html += `<div class="instruction">
+      <span class="instruction-close" onclick="showInstruction=false;render()">&times;</span>
+      <b>Как заполнить:</b><br>
+      1. Уберите галочку если модели нет в наличии<br>
+      2. Уменьшите коробки если нужно меньше<br>
+      3. Впишите цену за пару<br>
+      4. Нажмите <b>Сохранить</b> внизу
+    </div>`;
+  }
 
   if (supplierAnswered) {
     // Build changes summary
@@ -612,10 +702,14 @@ function render() {
   // Supplier link (show for buyer after first save)
   if (role === 'buyer' && (status === 'sent' || status === 'supplier_done')) {
     const supLink = location.origin + location.pathname + '?id=' + orderId + '&role=supplier';
+    const waMsg = encodeURIComponent('Заказ ' + orderId + '\\n' + supLink);
     html += `<div class="sup-link-box">
       Ссылка для поставщика:<br>
       <a href="${supLink}" target="_blank">${supLink}</a><br>
-      <button class="sup-link-copy" onclick="copySupLink()">Скопировать ссылку</button>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <button class="btn btn-whatsapp" onclick="window.open('https://wa.me/?text=${waMsg}')">WhatsApp</button>
+        <button class="sup-link-copy" onclick="copySupLink()">Скопировать</button>
+      </div>
     </div>`;
   }
 
@@ -789,6 +883,7 @@ function render() {
       <div class="bottom-btns">`;
 
   const dis = saving ? 'disabled' : '';
+  const badge = changeCount > 0 && !saving ? `<span class="badge-unsaved">${changeCount}</span>` : '';
   const savingTxt = saving ? 'Сохраняю...' : 'Сохранить';
 
   if (role === 'supplier' && !isLocked) {
@@ -796,14 +891,14 @@ function render() {
       html += `<button class="btn btn-red" onclick="rollbackSupplier()" ${dis}>Откатить</button>`;
     }
     html += `<button class="btn btn-outline" onclick="undoChanges()" ${dis}>Отменить</button>`;
-    html += `<button class="btn btn-green" onclick="saveSupplierData()" ${dis}>${savingTxt}</button>`;
+    html += `<button class="btn btn-green" onclick="saveSupplierData()" ${dis}>${savingTxt}${badge}</button>`;
   }
   if (role === 'buyer' && !isLocked) {
     if (order.prev_items) {
       html += `<button class="btn btn-red" onclick="rollback()" ${dis}>Откатить</button>`;
     }
     html += `<button class="btn btn-outline" onclick="undoChanges()" ${dis}>Отменить</button>`;
-    html += `<button class="btn btn-primary" onclick="saveBuyerData()" ${dis}>${savingTxt}</button>`;
+    html += `<button class="btn btn-primary" onclick="saveBuyerData()" ${dis}>${savingTxt}${badge}</button>`;
   }
   if (role === 'buyer' && status === 'supplier_done') {
     html += `<button class="btn btn-red" onclick="rollbackSupplierChanges()">Отклонить</button>`;
