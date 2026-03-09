@@ -166,10 +166,12 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     sw = 5.0
     excl = " AND ".join(f"product_name NOT LIKE '{p}'" for p in EXCLUDE_PATTERNS)
 
+    # FIX: JOIN по article — товары переименовываются в МойСклад!
     rows = con.execute(f"""
     WITH sa AS (
         SELECT
-            REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') as model,
+            article,
+            LAST(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') ORDER BY sale_datetime) as model,
             CAST(SUM(quantity) AS INT) as qty_sold,
             ROUND(SUM(quantity)/{sw}, 1) as weekly_rate,
             ROUND(SUM(quantity)/{sw}*{sc}, 1) as adj_rate,
@@ -178,24 +180,28 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             ROUND(AVG(CASE WHEN price>0 THEN cogs END)) as avg_cogs
         FROM sales
         WHERE sale_datetime>='{start}' AND price>0 AND {excl}
+          AND article IS NOT NULL AND article != ''
         GROUP BY 1 HAVING SUM(quantity)>={min_sold}
     ),
     st AS (
         SELECT
-            REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') as model,
+            article,
+            LAST(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') ORDER BY product_name) as model,
             CAST(SUM(moscow) AS INT) as moscow,
             CAST(SUM(tsum+online) AS INT) as tsum_online,
             CAST(SUM(astana_aruzhan) AS INT) as aruzhan,
             CAST(SUM(main_warehouse) AS INT) as warehouse,
             CAST(SUM(moscow+tsum+online+astana_aruzhan+main_warehouse) AS INT) as total
-        FROM {snap} GROUP BY 1
+        FROM {snap}
+        WHERE article IS NOT NULL AND article != ''
+        GROUP BY 1
     )
-    SELECT sa.model, sa.qty_sold, sa.weekly_rate, sa.adj_rate,
+    SELECT COALESCE(st.model, sa.model) as model, sa.article, sa.qty_sold, sa.weekly_rate, sa.adj_rate,
         COALESCE(st.total,0), COALESCE(st.moscow,0), COALESCE(st.tsum_online,0),
         COALESCE(st.aruzhan,0), COALESCE(st.warehouse,0),
         CASE WHEN sa.adj_rate>0 THEN ROUND(COALESCE(st.total,0)/sa.adj_rate,1) ELSE 999 END,
         sa.margin_pct, sa.avg_price, sa.avg_cogs
-    FROM sa LEFT JOIN st ON sa.model=st.model
+    FROM sa LEFT JOIN st ON sa.article=st.article
     WHERE CASE WHEN sa.adj_rate>0 THEN COALESCE(st.total,0)/sa.adj_rate ELSE 999 END < 10
     ORDER BY sa.adj_rate DESC
     """).fetchall()
@@ -244,21 +250,21 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     """).fetchall():
         buy_prices[bp[0]] = float(bp[1]) if bp[1] else 0
 
-    # Sizes
+    # Sizes — JOIN по article
     size_data = {}
     for r in rows:
-        me = r[0].replace("'", "''")
+        art = r[1].replace("'", "''") if r[1] else ''
         sold = con.execute(f"""
             SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1), CAST(SUM(quantity) AS INT)
             FROM sales WHERE sale_datetime>='{start}' AND price>0
-              AND REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '')='{me}'
+              AND article='{art}'
             GROUP BY 1
         """).fetchall()
         stk = con.execute(f"""
             SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1),
                    CAST(SUM(moscow+tsum+online+astana_aruzhan+main_warehouse) AS INT)
             FROM {snap}
-            WHERE REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '')='{me}'
+            WHERE article='{art}'
             GROUP BY 1
         """).fetchall()
         size_data[r[0]] = ({s[0]: s[1] for s in sold}, {s[0]: s[1] for s in stk})
@@ -270,7 +276,7 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     photos = {}  # article → public URL
     if with_photos and token:
         # Only upload photos for models in the order (not all 1000+ articles)
-        order_models = set(r[0] for r in rows if r[9] < 10)
+        order_models = set(r[0] for r in rows if r[10] < 10)
         unique_articles = set(articles[m] for m in order_models if m in articles and articles[m])
         print(f"Загрузка {len(unique_articles)} фото...")
         uploaded = 0
@@ -307,15 +313,18 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
         print(f"  Загружено: {uploaded} новых, {cached} из кэша")
 
     # Build items
+    # Индексы: 0=model, 1=article, 2=qty_sold, 3=weekly_rate, 4=adj_rate,
+    #   5=total, 6=moscow, 7=tsum_online, 8=aruzhan, 9=warehouse, 10=wos,
+    #   11=margin, 12=avg_price, 13=avg_cogs
     items = []
     for r in rows:
-        if r[9] >= 10:
+        if r[10] >= 10:
             continue
         model = r[0]
-        article = articles.get(model, "")
+        article = r[1] or articles.get(model, "")
         ss, sk = size_data.get(model, ({}, {}))
-        wb, mb = calc_boxes(ss, sk, float(r[2]), sc, weeks)
-        zone = "critical" if r[9] < 3 else ("soon" if r[9] < 6 else "nice")
+        wb, mb = calc_boxes(ss, sk, float(r[3]), sc, weeks)
+        zone = "critical" if r[10] < 3 else ("soon" if r[10] < 6 else "nice")
         bp = buy_prices.get(article, 0)
         items.append({
             "model": model,
@@ -325,19 +334,19 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             "men_boxes": mb,
             "pairs": wb * 6 + mb * 6,
             "zone": zone,
-            "sold": r[1],
-            "weekly_rate": float(r[2]),
-            "adj_rate": float(r[3]),
-            "stock": r[4],
-            "wos": float(r[9]),
-            "margin": float(r[10]) if r[10] else 0,
-            "price": float(r[11]) if r[11] else 0,
-            "cogs": float(r[12]) if r[12] else 0,
+            "sold": r[2],
+            "weekly_rate": float(r[3]),
+            "adj_rate": float(r[4]),
+            "stock": r[5],
+            "wos": float(r[10]),
+            "margin": float(r[11]) if r[11] else 0,
+            "price": float(r[12]) if r[12] else 0,
+            "cogs": float(r[13]) if r[13] else 0,
             "buy_price": bp,
-            "moscow": r[5],
-            "tsum_online": r[6],
-            "aruzhan": r[7],
-            "warehouse": r[8],
+            "moscow": r[6],
+            "tsum_online": r[7],
+            "aruzhan": r[8],
+            "warehouse": r[9],
         })
 
     # Merge duplicates by article (e.g. Rose Whisper Z / Rose Gold Z / Rose Gold In = same shoe)

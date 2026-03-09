@@ -83,7 +83,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .sup-link-box a { color:var(--blue); font-weight:600; word-break:break-all; }
 .sup-link-copy { margin-top:8px; padding:6px 14px; border-radius:6px; border:1px solid var(--blue); background:#fff; color:var(--blue); font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; }
 
-.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:12px 16px; }
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:12px 16px; position:sticky; top:60px; z-index:98; background:var(--bg); }
 .stat { background:var(--card); border-radius:var(--radius-sm); padding:10px; text-align:center; border:1px solid var(--border); }
 .stat-num { font-size:22px; font-weight:800; letter-spacing:-0.5px; }
 .stat-label { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
@@ -159,7 +159,8 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .removed-item { background:var(--card); border:1px solid var(--border); border-top:none; padding:8px 14px; display:flex; justify-content:space-between; align-items:center; font-size:13px; }
 .restore-btn { padding:4px 12px; border-radius:6px; border:1px solid var(--green); background:var(--green-light); color:var(--green); font-size:12px; font-weight:600; cursor:pointer; }
 
-.bottom { position:sticky; bottom:0; background:var(--card); border-top:1px solid var(--border); padding:12px 16px; display:flex; justify-content:space-between; align-items:center; gap:8px; z-index:100; box-shadow:0 -4px 12px rgba(0,0,0,0.04); }
+.bottom { position:fixed; bottom:0; left:0; right:0; background:var(--card); border-top:1px solid var(--border); padding:12px 16px; display:flex; justify-content:space-between; align-items:center; gap:8px; z-index:100; box-shadow:0 -4px 12px rgba(0,0,0,0.08); }
+.bottom-spacer { height:72px; }
 .bottom-info { font-size:13px; line-height:1.5; }
 .bottom-info b { font-size:16px; font-weight:800; }
 .bottom-btns { display:flex; gap:6px; flex-wrap:wrap; }
@@ -828,7 +829,7 @@ function render() {
               <span>Остаток: <b>${item.stock || 0}</b></span>
               <span>WOS: <b>${item.wos || 0}</b></span>
               <span>Закуп: <b>${fmt(item.buy_price || 0)}</b></span>
-              <span class="analytics-more" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.textContent==='ещё'?'скрыть':'ещё'">ещё</span>
+              <span class="analytics-more" onclick="this.parentElement.nextElementSibling.classList.toggle('open');this.textContent=this.textContent==='ещё'?'скрыть':'ещё'">ещё</span>
             </div>
             <div class="analytics-extra">
               <div class="item-analytics">
@@ -875,6 +876,7 @@ function render() {
 
   // Bottom bar
   html += `
+    <div class="bottom-spacer"></div>
     <div class="bottom">
       <div class="bottom-info">
         <b>${totalPairs}</b> пар = <b>${totalBoxes}</b> кор.
