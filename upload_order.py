@@ -386,7 +386,7 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             # Use shorter name
             if len(it["model"]) < len(m["model"]):
                 m["model"] = it["model"]
-    items = list(merged.values())
+    items = [i for i in merged.values() if i["pairs"] > 0]
 
     return items, {"date": today.strftime("%d.%m.%Y"), "season": sc, "weeks": weeks, "snap": snap}
 
