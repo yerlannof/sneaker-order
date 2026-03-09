@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Sneaker Order</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -27,7 +27,8 @@
   --radius-sm: 8px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
+html, body { overflow-x:hidden; overscroll-behavior-x:none; }
+body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; touch-action:pan-y; }
 
 .header { background:var(--card); border-bottom:1px solid var(--border); padding:16px 20px; position:sticky; top:0; z-index:100; }
 .header-top { display:flex; justify-content:space-between; align-items:center; }
