@@ -121,6 +121,35 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .bsize-toggle { display:inline-flex; gap:2px; margin-left:4px; }
 .bsize-opt { padding:6px 10px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text3); -webkit-tap-highlight-color:transparent; }
 .bsize-opt.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+
+/* Size mode */
+.item.item-sizes { flex-wrap:wrap; }
+.size-grid-wrap { width:100%; margin-top:6px; padding-top:8px; border-top:1px dashed var(--border); }
+.size-grid { display:flex; gap:2px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.size-grid::-webkit-scrollbar { display:none; }
+.size-cell { display:flex; flex-direction:column; align-items:center; min-width:36px; gap:1px; flex-shrink:0; }
+.size-label { font-size:10px; font-weight:700; color:var(--text2); }
+.size-btn { width:28px; height:22px; border-radius:5px; border:1px solid var(--border); background:var(--card); font-size:14px; font-weight:700; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; user-select:none; touch-action:manipulation; }
+.size-btn:active { background:var(--bg); transform:scale(0.93); }
+.size-val { font-size:14px; font-weight:800; min-height:20px; display:flex; align-items:center; justify-content:center; }
+.size-val.has-val { color:var(--blue); }
+.size-stock { font-size:9px; font-weight:600; padding:1px 4px; border-radius:3px; margin-top:1px; line-height:1.2; }
+.size-stock.s-zero { background:var(--red-light); color:var(--red); }
+.size-stock.s-low { background:var(--orange-light); color:var(--orange); }
+.size-stock.s-ok { color:var(--text3); }
+.size-sold { font-size:8px; color:var(--text3); min-height:12px; }
+.size-add-cell { cursor:pointer; justify-content:center; min-width:28px; opacity:0.35; }
+.size-add-cell:active { opacity:0.7; }
+.size-btn-add { width:24px; height:24px; border-radius:50%; border:1.5px dashed var(--text3); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:var(--text3); }
+.size-add-num { font-size:9px; color:var(--text3); margin-top:2px; }
+.size-total-row { display:flex; align-items:center; gap:8px; margin-top:6px; }
+.size-total-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
+.size-stores-toggle { font-size:11px; color:var(--blue); cursor:pointer; font-weight:600; -webkit-tap-highlight-color:transparent; }
+.size-stores-table { width:100%; font-size:10px; margin-top:6px; border-collapse:collapse; }
+.size-stores-table td { padding:2px 3px; text-align:center; min-width:28px; }
+.size-stores-table td:first-child { text-align:left; font-weight:600; color:var(--text2); min-width:32px; }
+.size-stores-table tr:first-child td { font-weight:700; color:var(--text3); font-size:9px; }
+
 .sup-change { font-size:11px; font-weight:600; color:var(--orange); background:var(--orange-light); padding:1px 5px; border-radius:4px; margin-left:2px; }
 .orig-val { font-size:10px; color:var(--text3); margin-left:3px; }
 
@@ -295,6 +324,124 @@ function markChanged() {
   render();
 }
 
+// === SIZE MODE HELPERS ===
+function isSizeMode(item) { return item.size_qty && typeof item.size_qty === 'object' && Object.keys(item.size_qty).length > 0; }
+function sizePairs(item) { return Object.values(item.size_qty).reduce((s,v) => s + (v||0), 0); }
+
+function buildSizeGridHtml(item, gi, isLocked) {
+  // Collect all sizes from ALL data fields to determine relevant range
+  const knownNums = new Set();
+  [item.size_qty, item.size_stock, item.size_sold, item.size_msk, item.size_tsum, item.size_aru].forEach(function(f) {
+    if (f) Object.keys(f).forEach(function(s) { knownNums.add(Number(s)); });
+  });
+  const sorted = Array.from(knownNums).sort(function(a,b) { return a - b; });
+  const minS = sorted[0];
+  const maxS = sorted[sorted.length - 1];
+  // Fill gaps within known range
+  const sizes = [];
+  for (var s = minS; s <= maxS; s++) sizes.push(String(s));
+
+  let h = '<div class="size-grid-wrap"><div class="size-grid">';
+  // Extend left button
+  if (!isLocked && role === 'buyer' && minS > 36) {
+    h += `<div class="size-cell size-add-cell" onclick="extendSize(${gi},'left')"><div class="size-btn-add">+</div><div class="size-add-num">${minS - 1}</div></div>`;
+  }
+  sizes.forEach(sz => {
+    const qty = item.size_qty[sz] || 0;
+    const stock = (item.size_stock || {})[sz] || 0;
+    const sold = (item.size_sold || {})[sz] || 0;
+    const stockCls = stock === 0 ? 's-zero' : (stock <= 2 ? 's-low' : 's-ok');
+    h += '<div class="size-cell">';
+    h += `<div class="size-label">${sz}</div>`;
+    if (!isLocked) {
+      if (role === 'supplier') {
+        const orig = (item._orig_size_qty || {})[sz] || 0;
+        h += `<div class="size-btn" onclick="adjSize(${gi},'${sz}',1)" ${qty >= orig ? 'style="visibility:hidden"' : ''}>+</div>`;
+      } else {
+        h += `<div class="size-btn" onclick="adjSize(${gi},'${sz}',1)">+</div>`;
+      }
+    }
+    h += `<div class="size-val ${qty > 0 ? 'has-val' : ''}">${qty}</div>`;
+    if (!isLocked) {
+      h += `<div class="size-btn" onclick="adjSize(${gi},'${sz}',-1)" ${qty <= 0 ? 'style="visibility:hidden"' : ''}>\u2212</div>`;
+    }
+    if (role === 'buyer' && item.size_stock) {
+      h += `<div class="size-stock ${stockCls}">${stock}</div>`;
+    }
+    if (role === 'buyer' && item.size_sold) {
+      h += `<div class="size-sold">${sold > 0 ? sold + '\u043F' : ''}</div>`;
+    }
+    h += '</div>';
+  });
+  // Extend right button
+  if (!isLocked && role === 'buyer' && maxS < 46) {
+    h += `<div class="size-cell size-add-cell" onclick="extendSize(${gi},'right')"><div class="size-btn-add">+</div><div class="size-add-num">${maxS + 1}</div></div>`;
+  }
+  h += '</div>';
+  h += '<div class="size-total-row">';
+  h += `<span class="size-total-tag">${sizePairs(item)} \u043F\u0430\u0440</span>`;
+  if (role === 'buyer' && item.size_msk) {
+    h += ` <span class="size-stores-toggle" onclick="toggleSizeStores(this)">\u043F\u043E \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430\u043C \u25BE</span>`;
+  }
+  h += '</div>';
+  if (role === 'buyer' && item.size_msk) {
+    h += '<table class="size-stores-table" style="display:none">';
+    h += '<tr><td></td>';
+    sizes.forEach(sz => { h += `<td>${sz}</td>`; });
+    h += '</tr>';
+    [{key:'size_msk',label:'\u041C\u0441\u043A'},{key:'size_tsum',label:'\u0426\u0423\u041C'},{key:'size_aru',label:'\u0410\u0440'}].forEach(store => {
+      const data = item[store.key] || {};
+      h += `<tr><td>${store.label}</td>`;
+      sizes.forEach(sz => {
+        const v = data[sz] || 0;
+        h += `<td${v === 0 ? ' style="color:var(--text3)"' : ''}>${v}</td>`;
+      });
+      h += '</tr>';
+    });
+    h += '</table>';
+  }
+  h += '</div>';
+  return h;
+}
+
+function adjSize(gi, size, delta) {
+  const item = items[gi];
+  if (!item.size_qty) return;
+  const newVal = Math.max(0, (item.size_qty[size] || 0) + delta);
+  if (role === 'supplier' && delta > 0) {
+    const orig = (item._orig_size_qty || {})[size] || 0;
+    if (newVal > orig) return;
+  }
+  item.size_qty[size] = newVal;
+  item.pairs = sizePairs(item);
+  markChanged();
+}
+
+function toggleSizeStores(el) {
+  const wrap = el.closest('.size-grid-wrap');
+  const table = wrap.querySelector('.size-stores-table');
+  if (table.style.display === 'none') {
+    table.style.display = '';
+    el.textContent = '\u0441\u043A\u0440\u044B\u0442\u044C \u25B4';
+  } else {
+    table.style.display = 'none';
+    el.textContent = '\u043F\u043E \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430\u043C \u25BE';
+  }
+}
+
+function extendSize(gi, direction) {
+  const item = items[gi];
+  const knownNums = new Set();
+  [item.size_qty, item.size_stock, item.size_sold, item.size_msk, item.size_tsum, item.size_aru].forEach(function(f) {
+    if (f) Object.keys(f).forEach(function(s) { knownNums.add(Number(s)); });
+  });
+  const sorted = Array.from(knownNums).sort(function(a,b) { return a - b; });
+  var newSize = direction === 'left' ? sorted[0] - 1 : sorted[sorted.length - 1] + 1;
+  if (newSize < 36 || newSize > 46) return;
+  item.size_qty[String(newSize)] = 0;
+  render();
+}
+
 // === LOAD ORDER ===
 async function loadOrder() {
   if (!orderId) {
@@ -345,12 +492,20 @@ async function loadOrder() {
       // Save original box counts (can only reduce)
       item._orig_women = item.women_boxes;
       item._orig_men = item.men_boxes;
+      // Save original size quantities for size mode
+      if (isSizeMode(item)) {
+        item._orig_size_qty = {...item.size_qty};
+      }
       // Strip sensitive data — supplier shouldn't see analytics
       delete item.sold; delete item.stock; delete item.wos;
       delete item.weekly_rate; delete item.adj_rate;
       delete item.margin; delete item.price; delete item.cogs;
       delete item.moscow; delete item.tsum_online;
       delete item.aruzhan; delete item.warehouse;
+      // Strip size analytics
+      delete item.size_sold; delete item.size_msk;
+      delete item.size_tsum; delete item.size_aru;
+      delete item.size_stock;
     }
   });
 
@@ -386,6 +541,9 @@ function applySupplierChanges(supItems) {
       item._sup_price = sup._sup_price || sup._price;
       item._sup_women = sup.women_boxes;
       item._sup_men = sup.men_boxes;
+      if (sup.size_qty) {
+        item._sup_size_qty = sup.size_qty;
+      }
     }
   });
 }
@@ -446,20 +604,27 @@ async function rollback() {
 async function saveSupplierData() {
   if (saving) return;
   saving = true; render();
-  const saveItems = items.map(it => ({
-    article: it.article,
-    model: it.model,
-    photo_url: it.photo_url || '',
-    women_boxes: it.women_boxes,
-    men_boxes: it.men_boxes,
-    box_size: it.box_size || 6,
-    pairs: it.pairs,
-    buy_price: it.buy_price,
-    _avail: it._avail,
-    _sup_price: it._sup_price,
-    _price: it._sup_price || it.buy_price,
-    zone: it.zone,
-  }));
+  const saveItems = items.map(it => {
+    const obj = {
+      article: it.article,
+      model: it.model,
+      photo_url: it.photo_url || '',
+      women_boxes: it.women_boxes,
+      men_boxes: it.men_boxes,
+      box_size: it.box_size || 6,
+      pairs: isSizeMode(it) ? sizePairs(it) : it.pairs,
+      buy_price: it.buy_price,
+      _avail: it._avail,
+      _sup_price: it._sup_price,
+      _price: it._sup_price || it.buy_price,
+      zone: it.zone,
+    };
+    if (isSizeMode(it)) {
+      obj.size_qty = it.size_qty;
+      obj.order_mode = 'sizes';
+    }
+    return obj;
+  });
 
   try {
     await sbUpdate('orders', {
@@ -521,22 +686,30 @@ async function rollbackSupplierChanges() {
 }
 
 async function confirmOrder() {
-  const active = items.filter(i => i._avail !== false && i.pairs > 0);
+  const active = items.filter(i => i._avail !== false && (isSizeMode(i) ? sizePairs(i) > 0 : i.pairs > 0));
   if (!confirm('Подтвердить заказ? (' + active.length + ' позиций)')) return;
 
   try {
     await sbUpdate('orders', {
       status: 'confirmed',
-      confirmed_items: active.map(i => ({
-        article: i.article,
-        model: i.model,
-        women_boxes: i.women_boxes,
-        men_boxes: i.men_boxes,
-        box_size: i.box_size || 6,
-        pairs: i.pairs,
-        buy_price: i._sup_price || i.buy_price || 0,
-        total: (i._sup_price || i.buy_price || 0) * i.pairs,
-      })),
+      confirmed_items: active.map(i => {
+        const p = isSizeMode(i) ? sizePairs(i) : i.pairs;
+        const obj = {
+          article: i.article,
+          model: i.model,
+          women_boxes: i.women_boxes,
+          men_boxes: i.men_boxes,
+          box_size: i.box_size || 6,
+          pairs: p,
+          buy_price: i._sup_price || i.buy_price || 0,
+          total: (i._sup_price || i.buy_price || 0) * p,
+        };
+        if (isSizeMode(i)) {
+          obj.size_qty = i.size_qty;
+          obj.order_mode = 'sizes';
+        }
+        return obj;
+      }),
       updated_at: new Date().toISOString()
     }, { 'id': 'eq.' + orderId });
   } catch(e) {
@@ -565,12 +738,21 @@ function render() {
   const supplierAnswered = status === 'supplier_done' && role === 'buyer';
 
   let totalItems=0, totalBoxes=0, totalPairs=0, totalSum=0;
+  let hasSizeMode=false, hasBoxMode=false;
   items.forEach(item => {
     if (item._avail === false) return;
     totalItems++;
-    totalBoxes += item.women_boxes + item.men_boxes;
-    totalPairs += item.pairs;
-    totalSum += (item._sup_price || item.buy_price || 0) * item.pairs;
+    if (isSizeMode(item)) {
+      hasSizeMode = true;
+      const p = sizePairs(item);
+      totalPairs += p;
+      totalSum += (item._sup_price || item.buy_price || 0) * p;
+    } else {
+      hasBoxMode = true;
+      totalBoxes += (item.women_boxes || 0) + (item.men_boxes || 0);
+      totalPairs += item.pairs || 0;
+      totalSum += (item._sup_price || item.buy_price || 0) * (item.pairs || 0);
+    }
   });
 
   let html = `
@@ -637,14 +819,34 @@ function render() {
     let removedModels=[], boxChanges=[], priceChanges=[];
     items.forEach(item => {
       const bp = item.buy_price || 0;
-      const origW = item.women_boxes + (item._sup_women !== undefined ? item.women_boxes - item._sup_women : 0);
-      const origM = item.men_boxes + (item._sup_men !== undefined ? item.men_boxes - item._sup_men : 0);
-      // Actually: original = buyer's boxes, supplier may have changed
+      const wasAvail = item._sup_avail !== false;
+      // Size mode items
+      if (isSizeMode(item)) {
+        const origP = sizePairs(item);
+        origPairs += origP;
+        origSum += bp * origP;
+        if (!wasAvail) {
+          removedModels.push(item.model);
+        } else {
+          const supQty = item._sup_size_qty || item.size_qty;
+          const supP = Object.values(supQty).reduce((s,v) => s+(v||0), 0);
+          newPairs += supP;
+          const sp = item._sup_price || bp;
+          newSum += sp * supP;
+          if (supP !== origP) {
+            boxChanges.push({model: item.model, wasP: origP, nowP: supP, isSizes: true});
+          }
+          if (item._sup_price && item._sup_price !== bp) {
+            priceChanges.push({model: item.model, was: bp, now: item._sup_price});
+          }
+        }
+        return;
+      }
+      // Box mode items
       const wasW = item.women_boxes;
       const wasM = item.men_boxes;
       const nowW = item._sup_women !== undefined ? item._sup_women : wasW;
       const nowM = item._sup_men !== undefined ? item._sup_men : wasM;
-      const wasAvail = item._sup_avail !== false;
       const bs = item.box_size || 6;
       origPairs += (wasW + wasM) * bs;
       origSum += bp * (wasW + wasM) * bs;
@@ -680,7 +882,11 @@ function render() {
     if (boxChanges.length) {
       changesHtml += `<div class="changes-section"><span class="changes-label">Изменил коробки:</span>`;
       boxChanges.forEach(c => {
-        changesHtml += `<div class="changes-item">${c.model}: Ж ${c.wasW}→${c.nowW}, М ${c.wasM}→${c.nowM}</div>`;
+        if (c.isSizes) {
+          changesHtml += `<div class="changes-item">${c.model}: ${c.wasP}\u2192${c.nowP} пар</div>`;
+        } else {
+          changesHtml += `<div class="changes-item">${c.model}: Ж ${c.wasW}\u2192${c.nowW}, М ${c.wasM}\u2192${c.nowM}</div>`;
+        }
       });
       changesHtml += `</div>`;
     }
@@ -716,7 +922,7 @@ function render() {
   html += `
     <div class="stats">
       <div class="stat"><div class="stat-num">${totalItems}</div><div class="stat-label">Моделей</div></div>
-      <div class="stat"><div class="stat-num">${totalBoxes}</div><div class="stat-label">Коробок</div></div>
+      <div class="stat"><div class="stat-num">${hasSizeMode && !hasBoxMode ? totalItems : totalBoxes}</div><div class="stat-label">${hasSizeMode && !hasBoxMode ? 'Размерн.' : 'Коробок'}</div></div>
       <div class="stat"><div class="stat-num">${totalPairs}</div><div class="stat-label">Пар</div></div>
       <div class="stat"><div class="stat-num">${totalSum ? fmt(totalSum) : '-'}</div><div class="stat-label">Сумма</div></div>
     </div>`;
@@ -757,10 +963,13 @@ function render() {
       const supWChanged = supplierAnswered && item._sup_women !== undefined && item._sup_women !== item.women_boxes;
       const supMChanged = supplierAnswered && item._sup_men !== undefined && item._sup_men !== item.men_boxes;
 
+      const sizeMode = isSizeMode(item);
       // Box controls — buyer: full +/-, supplier: only minus (can't increase above original)
       const canEditBoxes = !isLocked;
-      let wBox, mBox;
-      if (role === 'buyer' && canEditBoxes) {
+      let wBox = '', mBox = '';
+      if (sizeMode) {
+        // Size grid rendered separately via buildSizeGridHtml
+      } else if (role === 'buyer' && canEditBoxes) {
         wBox = `<div class="box-group">
           <span class="box-label">Ж:</span>
           <div class="box-btn" onclick="adjBox(${gi},'w',-1)">-</div>
@@ -806,10 +1015,11 @@ function render() {
         priceDiffHtml = `<div class="price-diff ${cls}">${sign}${fmt(priceDiff)}</div>`;
       }
 
-      const itemTotal = curPrice * item.pairs;
+      const itemPairs = sizeMode ? sizePairs(item) : item.pairs;
+      const itemTotal = curPrice * itemPairs;
 
       html += `
-        <div class="item ${supRemoved ? 'supplier-removed' : ''} ${item._avail===false ? 'unavailable' : ''}" id="item-${gi}">
+        <div class="item ${sizeMode ? 'item-sizes' : ''} ${supRemoved ? 'supplier-removed' : ''} ${item._avail===false ? 'unavailable' : ''}" id="item-${gi}">
           ${!isLocked && role==='buyer' ? `<div class="item-actions">
             <div class="act-btn act-btn-dup" onclick="dupItem(${gi})" title="Дубль">+</div>
             <div class="act-btn act-btn-remove" onclick="removeItem(${gi})" title="Убрать">&times;</div>
@@ -818,11 +1028,11 @@ function render() {
           <div class="item-body">
             <div class="item-model">${item.model}</div>
             <div class="item-article">${item.article || ''}</div>
-            <div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span>
+            ${!sizeMode ? `<div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span>
               ${!isLocked ? `<span class="bsize-toggle">
                 ${[6,8,12].map(s => `<span class="bsize-opt ${(item.box_size||6)===s?'active':''}" onclick="setBoxSize(${gi},${s})">${s}</span>`).join('')}
               </span>` : `<span style="font-size:10px;color:var(--text3)">(по ${item.box_size||6})</span>`}
-            </div>
+            </div>` : ''}
             ${role === 'buyer' ? `<div class="item-analytics">
               <span>Продано: <b>${item.sold || 0}</b> (${item.weekly_rate || 0}/нед)</span>
               <span>Остаток: <b>${item.stock || 0}</b></span>
@@ -856,6 +1066,7 @@ function render() {
             </div>
             <div class="item-total" id="total-${gi}">${itemTotal ? fmt(itemTotal)+'T' : ''}</div>
           </div>
+          ${sizeMode ? buildSizeGridHtml(item, gi, isLocked) : ''}
         </div>`;
     });
   });
@@ -878,7 +1089,7 @@ function render() {
     <div class="bottom-spacer"></div>
     <div class="bottom">
       <div class="bottom-info">
-        <b>${totalPairs}</b> пар = <b>${totalBoxes}</b> кор.
+        <b>${totalPairs}</b> пар${hasBoxMode ? ` = <b>${totalBoxes}</b> кор.` : ''}
         ${totalSum ? `<br>${fmt(totalSum)} T` : ''}
       </div>
       <div class="bottom-btns">`;
@@ -1010,16 +1221,24 @@ function copySupLink() {
 }
 
 function copyJSON() {
-  const data = items.filter(i => i._avail !== false && i.pairs > 0).map(i => ({
-    article: i.article,
-    model: i.model,
-    women_boxes: i.women_boxes,
-    men_boxes: i.men_boxes,
-    box_size: i.box_size || 6,
-    pairs: i.pairs,
-    buy_price: i._sup_price || i.buy_price || 0,
-    total: (i._sup_price || i.buy_price || 0) * i.pairs,
-  }));
+  const data = items.filter(i => i._avail !== false && (isSizeMode(i) ? sizePairs(i) > 0 : i.pairs > 0)).map(i => {
+    const p = isSizeMode(i) ? sizePairs(i) : i.pairs;
+    const obj = {
+      article: i.article,
+      model: i.model,
+      women_boxes: i.women_boxes,
+      men_boxes: i.men_boxes,
+      box_size: i.box_size || 6,
+      pairs: p,
+      buy_price: i._sup_price || i.buy_price || 0,
+      total: (i._sup_price || i.buy_price || 0) * p,
+    };
+    if (isSizeMode(i)) {
+      obj.size_qty = i.size_qty;
+      obj.order_mode = 'sizes';
+    }
+    return obj;
+  });
   navigator.clipboard.writeText(JSON.stringify(data, null, 2))
     .then(() => toast('JSON скопирован! (' + data.length + ' позиций)'))
     .catch(() => toast('Ошибка'));
