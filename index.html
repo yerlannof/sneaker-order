@@ -142,6 +142,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .size-add-cell:active { opacity:0.7; }
 .size-btn-add { width:24px; height:24px; border-radius:50%; border:1.5px dashed var(--text3); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:var(--text3); }
 .size-add-num { font-size:9px; color:var(--text3); margin-top:2px; }
+.size-btn-rm { color:var(--red); border-color:var(--red-light); background:var(--red-light); }
 .size-total-row { display:flex; align-items:center; gap:8px; margin-top:6px; }
 .size-total-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
 .size-stores-toggle { font-size:11px; color:var(--blue); cursor:pointer; font-weight:600; -webkit-tap-highlight-color:transparent; }
@@ -363,7 +364,13 @@ function buildSizeGridHtml(item, gi, isLocked) {
     }
     h += `<div class="size-val ${qty > 0 ? 'has-val' : ''}">${qty}</div>`;
     if (!isLocked) {
-      h += `<div class="size-btn" onclick="adjSize(${gi},'${sz}',-1)" ${qty <= 0 ? 'style="visibility:hidden"' : ''}>\u2212</div>`;
+      const isEdge = sz === sizes[0] || sz === sizes[sizes.length - 1];
+      const inOrigData = ['size_stock','size_sold','size_msk','size_tsum','size_aru'].some(function(k) { return item[k] && item[k][sz] !== undefined; });
+      if (qty === 0 && isEdge && !inOrigData) {
+        h += `<div class="size-btn size-btn-rm" onclick="removeSize(${gi},'${sz}')">\u00d7</div>`;
+      } else {
+        h += `<div class="size-btn" onclick="adjSize(${gi},'${sz}',-1)" ${qty <= 0 ? 'style="visibility:hidden"' : ''}>\u2212</div>`;
+      }
     }
     if (role === 'buyer' && item.size_stock) {
       h += `<div class="size-stock ${stockCls}">${stock}</div>`;
@@ -426,6 +433,14 @@ function toggleSizeStores(el) {
   } else {
     table.style.display = 'none';
     el.textContent = '\u043F\u043E \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430\u043C \u25BE';
+  }
+}
+
+function removeSize(gi, size) {
+  const item = items[gi];
+  if (item.size_qty && item.size_qty[size] === 0) {
+    delete item.size_qty[size];
+    render();
   }
 }
 
