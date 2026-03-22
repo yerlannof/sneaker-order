@@ -374,10 +374,10 @@ function buildSizeGridHtml(item, gi, isLocked) {
       }
     }
     if (role === 'buyer' && item.size_stock) {
-      h += `<div class="size-stock ${stockCls}">${stock}</div>`;
+      h += `<div class="size-stock ${stockCls}">ост ${stock}</div>`;
     }
     if (role === 'buyer' && item.size_sold) {
-      h += `<div class="size-sold">${sold > 0 ? sold + '\u043F' : ''}</div>`;
+      h += `<div class="size-sold">${sold > 0 ? 'пр ' + sold : ''}</div>`;
     }
     h += '</div>';
   });
