@@ -108,6 +108,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .item-body { flex:1; min-width:0; }
 .item-model { font-weight:600; font-size:13px; line-height:1.3; margin-bottom:2px; }
 .item-article { font-size:11px; color:var(--text3); margin-bottom:8px; }
+.item-article a { color:var(--blue); text-decoration:none; border-bottom:1px dashed var(--blue); }
 
 .boxes { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
 .box-group { display:flex; align-items:center; gap:3px; }
@@ -1042,7 +1043,7 @@ function render() {
           ${photoHtml}
           <div class="item-body">
             <div class="item-model">${item.model}</div>
-            <div class="item-article">${item.article || ''}</div>
+            <div class="item-article">${item.article ? `<a href="https://online.moysklad.ru/app/#good?search=${encodeURIComponent(item.article)}" target="_blank">${item.article}</a>` : ''}</div>
             ${!sizeMode ? `<div class="boxes">${wBox} ${mBox} <span class="pairs-tag" id="pairs-${gi}">${item.pairs} пар</span>
               ${!isLocked ? `<span class="bsize-toggle">
                 ${[6,8,12].map(s => `<span class="bsize-opt ${(item.box_size||6)===s?'active':''}" onclick="setBoxSize(${gi},${s})">${s}</span>`).join('')}
