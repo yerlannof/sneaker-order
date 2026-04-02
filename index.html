@@ -92,6 +92,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .zone-critical { background:var(--red); color:#fff; }
 .zone-soon { background:var(--orange); color:#fff; }
 .zone-nice { background:var(--green); color:#fff; }
+.zone-watch { background:#7c3aed; color:#fff; }
 
 .items { padding:0 16px; }
 .item { background:var(--card); border:1px solid var(--border); border-top:none; padding:12px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:opacity 0.2s; }
@@ -947,6 +948,7 @@ function render() {
     { key:'critical', label:'Надо срочно', cls:'zone-critical' },
     { key:'soon', label:'Скоро кончатся', cls:'zone-soon' },
     { key:'nice', label:'Можно довезти', cls:'zone-nice' },
+    { key:'watch', label:'🔥 Новинки на разгоне (0 пар — добавь вручную если нужно)', cls:'zone-watch' },
   ];
 
   html += '<div class="items">';
