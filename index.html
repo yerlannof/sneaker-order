@@ -93,6 +93,8 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .zone-soon { background:var(--orange); color:#fff; }
 .zone-nice { background:var(--green); color:#fff; }
 .zone-watch { background:#7c3aed; color:#fff; }
+.transit-popup { display:none !important; }
+.transit-popup.open { display:block !important; }
 
 .items { padding:0 16px; }
 .item { background:var(--card); border:1px solid var(--border); border-top:none; padding:12px; display:flex; gap:12px; align-items:flex-start; position:relative; transition:opacity 0.2s; }
@@ -1053,7 +1055,7 @@ function render() {
             </div>` : ''}
             ${role === 'buyer' ? `<div class="item-analytics">
               <span>Продано: <b>${item.sold || 0}</b> за ${item.sold_period || '35д'} (${item.weekly_rate || 0}/нед)</span>
-              <span>Остаток: <b>${item.stock || 0}</b>${item.in_transit ? ` <span style="color:var(--blue)">+${item.in_transit} в пути</span>` : ''}</span>
+              <span>Остаток: <b>${item.stock || 0}</b>${item.in_transit ? ` <span class="transit-badge" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')" style="color:var(--blue);cursor:pointer;text-decoration:underline">+${item.in_transit} в пути</span><span class="transit-popup" style="display:none;position:absolute;background:#1a1a2e;border:1px solid var(--border);border-radius:8px;padding:12px;z-index:100;min-width:200px;box-shadow:0 4px 12px rgba(0,0,0,0.3)">${(item.transit_detail||[]).map(t => `<div style="margin-bottom:6px"><b>${t.order_id}</b>: ${t.pairs} пар${t.size_qty ? '<br><span style="font-size:11px;color:var(--text3)">' + Object.entries(t.size_qty).filter(([k,v])=>v>0).map(([k,v])=>k+':'+v).join(' ') + '</span>' : ''}</div>`).join('') || 'Нет деталей'}</span>` : ''}</span>
               <span>WOS: <b>${item.wos || 0}</b></span>
               <span>Закуп: <b>${fmt(item.buy_price || 0)}</b></span>
               <span class="analytics-more" onclick="this.parentElement.nextElementSibling.classList.toggle('open');this.textContent=this.textContent==='ещё'?'скрыть':'ещё'">ещё</span>
