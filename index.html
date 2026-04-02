@@ -1050,8 +1050,8 @@ function render() {
               </span>` : `<span style="font-size:10px;color:var(--text3)">(по ${item.box_size||6})</span>`}
             </div>` : ''}
             ${role === 'buyer' ? `<div class="item-analytics">
-              <span>Продано: <b>${item.sold || 0}</b> (${item.weekly_rate || 0}/нед)</span>
-              <span>Остаток: <b>${item.stock || 0}</b></span>
+              <span>Продано: <b>${item.sold || 0}</b> за ${item.sold_period || '35д'} (${item.weekly_rate || 0}/нед)</span>
+              <span>Остаток: <b>${item.stock || 0}</b>${item.in_transit ? ` <span style="color:var(--blue)">+${item.in_transit} в пути</span>` : ''}</span>
               <span>WOS: <b>${item.wos || 0}</b></span>
               <span>Закуп: <b>${fmt(item.buy_price || 0)}</b></span>
               <span class="analytics-more" onclick="this.parentElement.nextElementSibling.classList.toggle('open');this.textContent=this.textContent==='ещё'?'скрыть':'ещё'">ещё</span>
