@@ -153,6 +153,9 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .color-group { margin-bottom: 8px; }
 .color-header { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; background: var(--bg); border-radius: 6px; margin-bottom: 4px; font-size: 12px; font-weight: 700; color: var(--text2); }
 .color-header .color-stats { font-size: 10px; font-weight: 600; color: var(--text3); }
+.color-header-row { display: flex; align-items: center; gap: 8px; }
+.color-photo { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; cursor: pointer; flex-shrink: 0; background: var(--bg); }
+.color-photo-placeholder { width: 48px; height: 48px; border-radius: 6px; background: var(--bg); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text3); }
 
 /* Add item button */
 .add-item-btn { margin: 16px; padding: 14px; text-align: center; border: 2px dashed var(--border); border-radius: var(--radius); font-weight: 700; font-size: 14px; color: var(--text3); cursor: pointer; }
@@ -418,7 +421,13 @@ function buildClothingSizeGridHtml(item, gi, isLocked) {
     });
 
     h += '<div class="color-group">';
-    h += `<div class="color-header"><span>${color}</span>`;
+    h += '<div class="color-header"><div class="color-header-row">';
+    // Color photo
+    var cp = (item.color_photos || {})[color];
+    if (cp) {
+      h += `<img class="color-photo" src="${cp}" onclick="openLightbox('${cp}','${escKey(item.model || '')}','${escKey(color)}')">`;
+    }
+    h += `<span>${color}</span></div>`;
     if (role === 'buyer' && (item.size_stock || item.size_sold)) {
       h += `<span class="color-stats">\u043E\u0441\u0442:${colorStock} \u043F\u0440:${colorSold}</span>`;
     }
@@ -1432,13 +1441,23 @@ function copyJSON() {
     .catch(() => toast('Ошибка'));
 }
 
-function openLightbox(gi) {
-  const item = items[gi];
-  const src = item.photo_url || (item.photo ? 'data:image/jpeg;base64,' + item.photo : '');
-  if (!item || !src) return;
+function openLightbox(giOrUrl, model, art) {
+  var src, modelText, artText;
+  if (typeof giOrUrl === 'string') {
+    // Direct URL mode (color photos)
+    src = giOrUrl;
+    modelText = model || '';
+    artText = art || '';
+  } else {
+    const item = items[giOrUrl];
+    src = item.photo_url || (item.photo ? 'data:image/jpeg;base64,' + item.photo : '');
+    if (!item || !src) return;
+    modelText = item.model;
+    artText = item.article || '';
+  }
   document.getElementById('lb-img').src = src;
-  document.getElementById('lb-model').textContent = item.model;
-  document.getElementById('lb-art').textContent = item.article || '';
+  document.getElementById('lb-model').textContent = modelText;
+  document.getElementById('lb-art').textContent = artText;
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
