@@ -157,6 +157,23 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .color-photo { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; cursor: pointer; flex-shrink: 0; background: var(--bg); }
 .color-photo-placeholder { width: 48px; height: 48px; border-radius: 6px; background: var(--bg); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text3); }
 
+/* Clothing stores table — visual */
+.cloth-stores { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; padding: 6px 0; }
+.cloth-store-row { display: flex; align-items: center; gap: 3px; background: var(--bg); border-radius: 6px; padding: 4px 8px; }
+.cloth-store-label { font-size: 10px; font-weight: 700; color: #fff; padding: 2px 6px; border-radius: 4px; min-width: 30px; text-align: center; }
+.cloth-store-label.l-msk { background: #3b82f6; }
+.cloth-store-label.l-tsum { background: #8b5cf6; }
+.cloth-store-label.l-aru { background: #f59e0b; }
+.cloth-store-label.l-wh { background: #6b7280; }
+.cloth-store-sizes { display: flex; gap: 2px; font-size: 10px; }
+.cloth-store-sz { padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+.cloth-store-sz.has { background: #e0f2fe; color: #1e40af; }
+.cloth-store-sz.empty { color: var(--text3); }
+
+/* Add size button in color grid */
+.color-add-size { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 36px; opacity: 0.4; }
+.color-add-size:active { opacity: 0.7; }
+
 /* Add item button */
 .add-item-btn { margin: 16px; padding: 14px; text-align: center; border: 2px dashed var(--border); border-radius: var(--radius); font-weight: 700; font-size: 14px; color: var(--text3); cursor: pointer; }
 .add-item-btn:active { background: var(--bg); }
@@ -409,8 +426,9 @@ function buildClothingSizeGridHtml(item, gi, isLocked) {
 
   let h = '<div class="size-grid-wrap">';
 
+  // Use ALL sizes across all colors so grids are aligned
   sortedColors.forEach(function(color) {
-    const sizesForColor = Object.keys(colorMap[color]).sort(clothingSizeSort);
+    const sizesForColor = Array.from(allSizes).sort(clothingSizeSort);
     // Color totals
     let colorQty = 0, colorStock = 0, colorSold = 0;
     sizesForColor.forEach(function(sz) {
@@ -465,26 +483,33 @@ function buildClothingSizeGridHtml(item, gi, isLocked) {
       h += '</div>';
     });
 
+    // Add size "+" button on the right
+    if (!isLocked && role === 'buyer') {
+      h += `<div class="size-cell color-add-size" onclick="addClothingSize(${gi},'${escKey(color)}')"><div class="size-btn-add">+</div><div style="font-size:8px;color:var(--text3);margin-top:2px">разм</div></div>`;
+    }
     h += '</div>'; // .size-grid
 
-    // Stores table for this color
+    // Stores — visual cards per store
     if (role === 'buyer' && (item.size_msk || item.size_tsum || item.size_aru || item.size_wh)) {
       h += `<span class="size-stores-toggle" onclick="toggleSizeStores(this)" style="margin:4px 0;display:inline-block">\u043F\u043E \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430\u043C \u25BE</span>`;
-      h += '<table class="size-stores-table" style="display:none">';
-      h += '<tr><td></td>';
-      sizesForColor.forEach(function(sz) { h += '<td>' + sz + '</td>'; });
-      h += '</tr>';
-      [{key:'size_msk',label:'\u041C\u0441\u043A'},{key:'size_tsum',label:'\u0426+\u041E'},{key:'size_aru',label:'\u0410\u0440'},{key:'size_wh',label:'\u0421\u043A\u043B'}].forEach(function(store) {
+      h += '<div class="cloth-stores" style="display:none">';
+      [{key:'size_msk',label:'\u041C\u0441\u043A',cls:'l-msk'},{key:'size_tsum',label:'\u0426+\u041E',cls:'l-tsum'},{key:'size_aru',label:'\u0410\u0440',cls:'l-aru'},{key:'size_wh',label:'\u0421\u043A\u043B',cls:'l-wh'}].forEach(function(store) {
         var data = item[store.key] || {};
-        h += '<tr><td>' + store.label + '</td>';
-        sizesForColor.forEach(function(sz) {
-          var fullKey = color === '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430' ? sz : color + ', ' + sz;
-          var v = data[fullKey] || 0;
-          h += '<td' + (v === 0 ? ' style="color:var(--text3)"' : '') + '>' + v + '</td>';
+        var hasAny = sizesForColor.some(function(sz) {
+          var fk = color === '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430' ? sz : color + ', ' + sz;
+          return (data[fk] || 0) > 0;
         });
-        h += '</tr>';
+        h += '<div class="cloth-store-row">';
+        h += `<span class="cloth-store-label ${store.cls}">${store.label}</span>`;
+        h += '<span class="cloth-store-sizes">';
+        sizesForColor.forEach(function(sz) {
+          var fk = color === '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430' ? sz : color + ', ' + sz;
+          var v = data[fk] || 0;
+          h += `<span class="cloth-store-sz ${v > 0 ? 'has' : 'empty'}">${sz}:${v}</span>`;
+        });
+        h += '</span></div>';
       });
-      h += '</table>';
+      h += '</div>';
     }
 
     h += '</div>'; // .color-group
@@ -583,6 +608,30 @@ function buildSizeGridHtml(item, gi, isLocked) {
   return h;
 }
 
+function addClothingSize(gi, color) {
+  var allSizes = ['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
+  var item = items[gi];
+  if (!item.size_qty) return;
+  // Find which sizes this color already has
+  var existing = new Set();
+  Object.keys(item.size_qty).forEach(function(k) {
+    if (k.startsWith(color + ', ') || k.startsWith(color + ',')) {
+      var sz = k.substring(k.indexOf(',') + 1).trim();
+      existing.add(sz);
+    }
+  });
+  var available = allSizes.filter(function(s) { return !existing.has(s); });
+  if (available.length === 0) { toast('Все размеры уже добавлены'); return; }
+  var sz = prompt('Добавить размер для ' + color + ':\n\nДоступные: ' + available.join(', '));
+  if (!sz) return;
+  sz = sz.trim().toUpperCase();
+  if (!allSizes.includes(sz)) { toast('Неизвестный размер: ' + sz); return; }
+  var fullKey = color + ', ' + sz;
+  if (item.size_qty[fullKey] !== undefined) { toast(fullKey + ' уже есть'); return; }
+  item.size_qty[fullKey] = 0;
+  markChanged();
+}
+
 function adjSize(gi, size, delta) {
   const item = items[gi];
   if (!item.size_qty) return;
@@ -597,13 +646,19 @@ function adjSize(gi, size, delta) {
 }
 
 function toggleSizeStores(el) {
-  const wrap = el.closest('.size-grid-wrap');
-  const table = wrap.querySelector('.size-stores-table');
-  if (table.style.display === 'none') {
-    table.style.display = '';
+  // Find next sibling that is a table or cloth-stores div
+  var target = el.nextElementSibling;
+  if (!target) {
+    // Fallback: search in parent
+    var wrap = el.closest('.size-grid-wrap') || el.closest('.color-group');
+    target = wrap && (wrap.querySelector('.cloth-stores') || wrap.querySelector('.size-stores-table'));
+  }
+  if (!target) return;
+  if (target.style.display === 'none') {
+    target.style.display = '';
     el.textContent = '\u0441\u043A\u0440\u044B\u0442\u044C \u25B4';
   } else {
-    table.style.display = 'none';
+    target.style.display = 'none';
     el.textContent = '\u043F\u043E \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430\u043C \u25BE';
   }
 }
