@@ -646,12 +646,22 @@ function adjSize(gi, size, delta) {
 }
 
 function toggleSizeStores(el) {
-  // Find next sibling that is a table or cloth-stores div
-  var target = el.nextElementSibling;
+  // Search for cloth-stores or size-stores-table starting from the toggle element
+  var target = null;
+  // 1. Direct next sibling
+  var next = el.nextElementSibling;
+  if (next && (next.classList.contains('cloth-stores') || next.classList.contains('size-stores-table'))) {
+    target = next;
+  }
+  // 2. Within same color-group
   if (!target) {
-    // Fallback: search in parent
-    var wrap = el.closest('.size-grid-wrap') || el.closest('.color-group');
-    target = wrap && (wrap.querySelector('.cloth-stores') || wrap.querySelector('.size-stores-table'));
+    var cg = el.closest('.color-group');
+    if (cg) target = cg.querySelector('.cloth-stores') || cg.querySelector('.size-stores-table');
+  }
+  // 3. Within size-grid-wrap
+  if (!target) {
+    var wrap = el.closest('.size-grid-wrap');
+    if (wrap) target = wrap.querySelector('.cloth-stores') || wrap.querySelector('.size-stores-table');
   }
   if (!target) return;
   if (target.style.display === 'none') {
