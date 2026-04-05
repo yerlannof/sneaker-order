@@ -6,6 +6,7 @@
 <title>Sneaker Order</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
 :root {
   --bg: #f8f9fb;
@@ -147,6 +148,28 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .size-btn-add { width:24px; height:24px; border-radius:50%; border:1.5px dashed var(--text3); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:var(--text3); }
 .size-add-num { font-size:9px; color:var(--text3); margin-top:2px; }
 .size-btn-rm { color:var(--red); border-color:var(--red-light); background:var(--red-light); }
+
+/* Clothing color-grouped grid */
+.color-group { margin-bottom: 8px; }
+.color-header { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; background: var(--bg); border-radius: 6px; margin-bottom: 4px; font-size: 12px; font-weight: 700; color: var(--text2); }
+.color-header .color-stats { font-size: 10px; font-weight: 600; color: var(--text3); }
+
+/* Add item button */
+.add-item-btn { margin: 16px; padding: 14px; text-align: center; border: 2px dashed var(--border); border-radius: var(--radius); font-weight: 700; font-size: 14px; color: var(--text3); cursor: pointer; }
+.add-item-btn:active { background: var(--bg); }
+
+/* Add item modal */
+.add-modal-field { margin-bottom: 10px; }
+.add-modal-field label { display: block; font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 4px; }
+.add-modal-field input { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: inherit; }
+.add-modal-field input:focus { border-color: var(--blue); outline: none; }
+.color-row { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; }
+.color-row input { flex: 1; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-family: inherit; }
+.color-row .remove-color-row { width: 28px; height: 28px; border-radius: 50%; border: none; background: var(--red-light); color: var(--red); font-size: 16px; font-weight: 700; cursor: pointer; flex-shrink: 0; }
+.add-color-row-btn { padding: 6px 12px; border: 1px dashed var(--border); border-radius: 6px; background: none; font-size: 12px; font-weight: 600; color: var(--text3); cursor: pointer; font-family: inherit; margin-bottom: 10px; }
+
+/* Export button */
+.btn-export { background: var(--purple); color: #fff; }
 .size-total-row { display:flex; align-items:center; gap:8px; margin-top:6px; }
 .size-total-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:12px; font-weight:600; }
 .size-stores-toggle { font-size:11px; color:var(--blue); cursor:pointer; font-weight:600; -webkit-tap-highlight-color:transparent; }
@@ -333,7 +356,143 @@ function markChanged() {
 function isSizeMode(item) { return item.size_qty && typeof item.size_qty === 'object' && Object.keys(item.size_qty).length > 0; }
 function sizePairs(item) { return Object.values(item.size_qty).reduce((s,v) => s + (v||0), 0); }
 
+// Detect clothing mode: keys contain comma (color+size) or non-numeric chars (except dots)
+function isClothingMode(item) {
+  if (!isSizeMode(item)) return false;
+  return Object.keys(item.size_qty).some(function(k) {
+    return k.indexOf(',') !== -1 || !/^[\d.]+$/.test(k.trim());
+  });
+}
+
+const CLOTHING_SIZE_ORDER = ['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
+function clothingSizeSort(a, b) {
+  const ai = CLOTHING_SIZE_ORDER.indexOf(a);
+  const bi = CLOTHING_SIZE_ORDER.indexOf(b);
+  if (ai !== -1 && bi !== -1) return ai - bi;
+  if (ai !== -1) return -1;
+  if (bi !== -1) return 1;
+  return a.localeCompare(b);
+}
+
+// Escape a clothing key for use in onclick attribute (handles Cyrillic, commas, quotes)
+function escKey(k) { return k.replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function buildClothingSizeGridHtml(item, gi, isLocked) {
+  // Parse keys: "Color, Size" -> { color: { size: qty } }
+  const colorMap = {};
+  const allSizes = new Set();
+  const fields = ['size_qty','size_stock','size_sold','size_msk','size_tsum','size_aru','size_wh'];
+  fields.forEach(function(fName) {
+    const f = item[fName];
+    if (!f) return;
+    Object.keys(f).forEach(function(k) {
+      const commaIdx = k.indexOf(',');
+      let color, size;
+      if (commaIdx !== -1) {
+        color = k.substring(0, commaIdx).trim();
+        size = k.substring(commaIdx + 1).trim();
+      } else {
+        color = '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430'; // "Без цвета"
+        size = k.trim();
+      }
+      if (!colorMap[color]) colorMap[color] = {};
+      if (!colorMap[color][size]) colorMap[color][size] = true;
+      allSizes.add(size);
+    });
+  });
+
+  const sortedColors = Object.keys(colorMap);
+  const sortedAllSizes = Array.from(allSizes).sort(clothingSizeSort);
+
+  let h = '<div class="size-grid-wrap">';
+
+  sortedColors.forEach(function(color) {
+    const sizesForColor = Object.keys(colorMap[color]).sort(clothingSizeSort);
+    // Color totals
+    let colorQty = 0, colorStock = 0, colorSold = 0;
+    sizesForColor.forEach(function(sz) {
+      const fullKey = color === '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430' ? sz : color + ', ' + sz;
+      colorQty += (item.size_qty || {})[fullKey] || 0;
+      colorStock += (item.size_stock || {})[fullKey] || 0;
+      colorSold += (item.size_sold || {})[fullKey] || 0;
+    });
+
+    h += '<div class="color-group">';
+    h += `<div class="color-header"><span>${color}</span>`;
+    if (role === 'buyer' && (item.size_stock || item.size_sold)) {
+      h += `<span class="color-stats">\u043E\u0441\u0442:${colorStock} \u043F\u0440:${colorSold}</span>`;
+    }
+    h += '</div>';
+    h += '<div class="size-grid">';
+
+    sizesForColor.forEach(function(sz) {
+      const fullKey = color === '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430' ? sz : color + ', ' + sz;
+      const ek = escKey(fullKey);
+      const qty = (item.size_qty || {})[fullKey] || 0;
+      const stock = (item.size_stock || {})[fullKey] || 0;
+      const sold = (item.size_sold || {})[fullKey] || 0;
+      const stockCls = stock === 0 ? 's-zero' : (stock <= 2 ? 's-low' : 's-ok');
+
+      h += '<div class="size-cell">';
+      h += `<div class="size-label">${sz}</div>`;
+      if (!isLocked) {
+        if (role === 'supplier') {
+          const orig = (item._orig_size_qty || {})[fullKey] || 0;
+          h += `<div class="size-btn" onclick="adjSize(${gi},'${ek}',1)" ${qty >= orig ? 'style="visibility:hidden"' : ''}>+</div>`;
+        } else {
+          h += `<div class="size-btn" onclick="adjSize(${gi},'${ek}',1)">+</div>`;
+        }
+      }
+      h += `<div class="size-val ${qty > 0 ? 'has-val' : ''}">${qty}</div>`;
+      if (!isLocked) {
+        h += `<div class="size-btn" onclick="adjSize(${gi},'${ek}',-1)" ${qty <= 0 ? 'style="visibility:hidden"' : ''}>\u2212</div>`;
+      }
+      if (role === 'buyer' && item.size_stock) {
+        h += `<div class="size-stock ${stockCls}">\u043E\u0441\u0442 ${stock}</div>`;
+      }
+      if (role === 'buyer' && item.size_sold) {
+        h += `<div class="size-sold">${sold > 0 ? '\u043F\u0440 ' + sold : ''}</div>`;
+      }
+      h += '</div>';
+    });
+
+    h += '</div>'; // .size-grid
+
+    // Stores table for this color
+    if (role === 'buyer' && (item.size_msk || item.size_tsum || item.size_aru || item.size_wh)) {
+      h += `<span class="size-stores-toggle" onclick="toggleSizeStores(this)" style="margin:4px 0;display:inline-block">\u043F\u043E \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430\u043C \u25BE</span>`;
+      h += '<table class="size-stores-table" style="display:none">';
+      h += '<tr><td></td>';
+      sizesForColor.forEach(function(sz) { h += '<td>' + sz + '</td>'; });
+      h += '</tr>';
+      [{key:'size_msk',label:'\u041C\u0441\u043A'},{key:'size_tsum',label:'\u0426+\u041E'},{key:'size_aru',label:'\u0410\u0440'},{key:'size_wh',label:'\u0421\u043A\u043B'}].forEach(function(store) {
+        var data = item[store.key] || {};
+        h += '<tr><td>' + store.label + '</td>';
+        sizesForColor.forEach(function(sz) {
+          var fullKey = color === '\u0411\u0435\u0437 \u0446\u0432\u0435\u0442\u0430' ? sz : color + ', ' + sz;
+          var v = data[fullKey] || 0;
+          h += '<td' + (v === 0 ? ' style="color:var(--text3)"' : '') + '>' + v + '</td>';
+        });
+        h += '</tr>';
+      });
+      h += '</table>';
+    }
+
+    h += '</div>'; // .color-group
+  });
+
+  h += '<div class="size-total-row">';
+  h += `<span class="size-total-tag">${sizePairs(item)} \u0448\u0442</span>`;
+  if (role === 'buyer' && item.size_msk) {
+    h += ` <span class="size-stores-toggle" onclick="toggleSizeStores(this)">\u0432\u0441\u0435 \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u044B \u25BE</span>`;
+  }
+  h += '</div>';
+  h += '</div>'; // .size-grid-wrap
+  return h;
+}
+
 function buildSizeGridHtml(item, gi, isLocked) {
+  if (isClothingMode(item)) return buildClothingSizeGridHtml(item, gi, isLocked);
   // Collect all sizes from ALL data fields to determine relevant range
   const knownNums = new Set();
   [item.size_qty, item.size_stock, item.size_sold, item.size_msk, item.size_tsum, item.size_aru].forEach(function(f) {
@@ -1104,6 +1263,11 @@ function render() {
     html += '</details>';
   }
 
+  // Add item button (buyer only, not locked)
+  if (role === 'buyer' && !isLocked) {
+    html += `<div class="add-item-btn" onclick="openAddModal()">+ \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440</div>`;
+  }
+
   // Bottom bar
   html += `
     <div class="bottom-spacer"></div>
@@ -1138,6 +1302,9 @@ function render() {
   }
   if (role === 'buyer' && status === 'confirmed') {
     html += `<button class="btn btn-purple" onclick="copyJSON()">JSON</button>`;
+  }
+  if (role === 'buyer') {
+    html += `<button class="btn btn-export" onclick="exportExcel()">Excel</button>`;
   }
 
   html += `</div></div>`;
@@ -1219,7 +1386,8 @@ function onPrice(gi, el) {
     items[gi].buy_price = price;
   }
   hasChanges = true;
-  const total = price * items[gi].pairs;
+  const p = isSizeMode(items[gi]) ? sizePairs(items[gi]) : items[gi].pairs;
+  const total = price * p;
   const totalEl = document.getElementById('total-' + gi);
   if (totalEl) totalEl.textContent = total ? fmt(total) + 'T' : '';
 }
@@ -1274,6 +1442,232 @@ function openLightbox(gi) {
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+// === ADD ITEM MODAL ===
+let addModalColorRows = [{ color: '', sizes: '' }];
+
+function openAddModal() {
+  addModalColorRows = [{ color: '', sizes: '' }];
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay open';
+  overlay.id = 'add-modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width:420px">
+      <div class="modal-title">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440</div>
+      <div class="add-modal-field"><label>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043C\u043E\u0434\u0435\u043B\u0438</label><input id="add-model" placeholder="\u041D\u0430\u043F\u0440. \u0424\u0443\u0442\u0431\u043E\u043B\u043A\u0430 Nike"></div>
+      <div class="add-modal-field"><label>\u0410\u0440\u0442\u0438\u043A\u0443\u043B</label><input id="add-article" placeholder="ZZ-001"></div>
+      <div class="add-modal-field"><label>\u0424\u043E\u0442\u043E URL</label><input id="add-photo" placeholder="https://..."></div>
+      <div class="add-modal-field"><label>\u0426\u0435\u043D\u0430 \u0437\u0430\u043A\u0443\u043F\u043A\u0438</label><input id="add-price" type="number" placeholder="5000"></div>
+      <div class="add-modal-field">
+        <label>\u0426\u0432\u0435\u0442\u0430 \u0438 \u0440\u0430\u0437\u043C\u0435\u0440\u044B (\u0446\u0432\u0435\u0442 + \u0440\u0430\u0437\u043C\u0435\u0440\u044B \u0447\u0435\u0440\u0435\u0437 \u043F\u0440\u043E\u0431\u0435\u043B)</label>
+        <div id="add-color-rows"></div>
+        <button class="add-color-row-btn" onclick="addColorRowToModal()">+ \u0446\u0432\u0435\u0442</button>
+      </div>
+      <div class="modal-btns">
+        <button class="btn btn-outline" onclick="closeAddModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button>
+        <button class="btn btn-primary" onclick="addNewItem()">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  renderAddColorRows();
+}
+
+function renderAddColorRows() {
+  const container = document.getElementById('add-color-rows');
+  if (!container) return;
+  container.innerHTML = '';
+  addModalColorRows.forEach(function(row, i) {
+    const div = document.createElement('div');
+    div.className = 'color-row';
+    div.innerHTML = `<input placeholder="\u0426\u0432\u0435\u0442" value="${row.color}" oninput="addModalColorRows[${i}].color=this.value">
+      <input placeholder="S M L XL 2XL" value="${row.sizes}" oninput="addModalColorRows[${i}].sizes=this.value" style="flex:2">
+      ${addModalColorRows.length > 1 ? `<button class="remove-color-row" onclick="addModalColorRows.splice(${i},1);renderAddColorRows()">\u00d7</button>` : ''}`;
+    container.appendChild(div);
+  });
+}
+
+function addColorRowToModal() {
+  addModalColorRows.push({ color: '', sizes: '' });
+  renderAddColorRows();
+}
+
+function closeAddModal() {
+  const overlay = document.getElementById('add-modal-overlay');
+  if (overlay) overlay.remove();
+}
+
+function addNewItem() {
+  const model = (document.getElementById('add-model').value || '').trim();
+  const article = (document.getElementById('add-article').value || '').trim();
+  const photoUrl = (document.getElementById('add-photo').value || '').trim();
+  const buyPrice = parseFloat(document.getElementById('add-price').value) || 0;
+
+  if (!model) { toast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
+
+  // Build size_qty from color rows
+  const sizeQty = {};
+  let hasClothingSizes = false;
+  addModalColorRows.forEach(function(row) {
+    const color = row.color.trim();
+    const sizeParts = row.sizes.trim().split(/\s+/).filter(Boolean);
+    if (color && sizeParts.length > 0) {
+      hasClothingSizes = true;
+      sizeParts.forEach(function(sz) {
+        sizeQty[color + ', ' + sz] = 0;
+      });
+    } else if (!color && sizeParts.length > 0) {
+      // No color specified, check if sizes are numeric (sneaker) or text (clothing)
+      sizeParts.forEach(function(sz) {
+        sizeQty[sz] = 0;
+      });
+    }
+  });
+
+  const newItem = {
+    model: model,
+    article: article,
+    photo_url: photoUrl,
+    buy_price: buyPrice,
+    women_boxes: 0,
+    men_boxes: 0,
+    box_size: 6,
+    pairs: 0,
+    zone: 'nice',
+    _avail: true,
+    _sup_price: null,
+  };
+
+  if (Object.keys(sizeQty).length > 0) {
+    newItem.size_qty = sizeQty;
+    newItem.pairs = 0;
+    newItem.order_mode = 'sizes';
+  }
+
+  items.push(newItem);
+  closeAddModal();
+  markChanged();
+  toast('\u0422\u043E\u0432\u0430\u0440 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D');
+}
+
+// === EXCEL EXPORT ===
+function exportExcel() {
+  if (typeof XLSX === 'undefined') { toast('\u0411\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0430 XLSX \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430'); return; }
+
+  const rows = [];
+  let rowIdx = 2; // 1-based, row 1 is header
+
+  const active = items.filter(function(i) { return i._avail !== false; });
+  active.forEach(function(item) {
+    const price = item._sup_price || item.buy_price || 0;
+    const photoUrl = item.photo_url || '';
+
+    if (isSizeMode(item) && isClothingMode(item)) {
+      // Clothing: one row per color+size
+      const keys = Object.keys(item.size_qty || {});
+      keys.forEach(function(fullKey) {
+        const qty = item.size_qty[fullKey] || 0;
+        if (qty === 0) return;
+        const commaIdx = fullKey.indexOf(',');
+        let color = '', size = fullKey;
+        if (commaIdx !== -1) {
+          color = fullKey.substring(0, commaIdx).trim();
+          size = fullKey.substring(commaIdx + 1).trim();
+        }
+        const sold = (item.size_sold || {})[fullKey] || 0;
+        const stock = (item.size_stock || {})[fullKey] || 0;
+        rows.push({
+          '\u0424\u043E\u0442\u043E': photoUrl,
+          '\u041C\u043E\u0434\u0435\u043B\u044C': item.model,
+          '\u0410\u0440\u0442\u0438\u043A\u0443\u043B': item.article || '',
+          '\u0426\u0432\u0435\u0442': color,
+          '\u0420\u0430\u0437\u043C\u0435\u0440': size,
+          '\u0417\u0430\u043A\u0443\u043F': price,
+          '\u041A\u043E\u043B-\u0432\u043E': qty,
+          '\u0421\u0443\u043C\u043C\u0430': price * qty,
+          '\u041F\u0440\u043E\u0434\u0430\u043D\u043E': sold,
+          '\u041E\u0441\u0442\u0430\u0442\u043E\u043A': stock,
+        });
+        rowIdx++;
+      });
+    } else if (isSizeMode(item)) {
+      // Sneaker size mode: one row per size
+      const keys = Object.keys(item.size_qty || {});
+      keys.sort(function(a,b) { return Number(a) - Number(b); });
+      keys.forEach(function(sz) {
+        const qty = item.size_qty[sz] || 0;
+        if (qty === 0) return;
+        const sold = (item.size_sold || {})[sz] || 0;
+        const stock = (item.size_stock || {})[sz] || 0;
+        rows.push({
+          '\u0424\u043E\u0442\u043E': photoUrl,
+          '\u041C\u043E\u0434\u0435\u043B\u044C': item.model,
+          '\u0410\u0440\u0442\u0438\u043A\u0443\u043B': item.article || '',
+          '\u0426\u0432\u0435\u0442': '',
+          '\u0420\u0430\u0437\u043C\u0435\u0440': sz,
+          '\u0417\u0430\u043A\u0443\u043F': price,
+          '\u041A\u043E\u043B-\u0432\u043E': qty,
+          '\u0421\u0443\u043C\u043C\u0430': price * qty,
+          '\u041F\u0440\u043E\u0434\u0430\u043D\u043E': sold,
+          '\u041E\u0441\u0442\u0430\u0442\u043E\u043A': stock,
+        });
+        rowIdx++;
+      });
+    } else {
+      // Box mode: one row per item
+      const p = item.pairs || 0;
+      if (p === 0) return;
+      rows.push({
+        '\u0424\u043E\u0442\u043E': photoUrl,
+        '\u041C\u043E\u0434\u0435\u043B\u044C': item.model,
+        '\u0410\u0440\u0442\u0438\u043A\u0443\u043B': item.article || '',
+        '\u0426\u0432\u0435\u0442': '',
+        '\u0420\u0430\u0437\u043C\u0435\u0440': (item.women_boxes ? '\u0416' + item.women_boxes + 'x' + (item.box_size||6) : '') + (item.men_boxes ? ' \u041C' + item.men_boxes + 'x' + (item.box_size||6) : ''),
+        '\u0417\u0430\u043A\u0443\u043F': price,
+        '\u041A\u043E\u043B-\u0432\u043E': p,
+        '\u0421\u0443\u043C\u043C\u0430': price * p,
+        '\u041F\u0440\u043E\u0434\u0430\u043D\u043E': item.sold || 0,
+        '\u041E\u0441\u0442\u0430\u0442\u043E\u043A': item.stock || 0,
+      });
+      rowIdx++;
+    }
+  });
+
+  // Add ITOGO row
+  const totalQty = rows.reduce(function(s,r) { return s + (r['\u041A\u043E\u043B-\u0432\u043E'] || 0); }, 0);
+  const totalSumVal = rows.reduce(function(s,r) { return s + (r['\u0421\u0443\u043C\u043C\u0430'] || 0); }, 0);
+  rows.push({
+    '\u0424\u043E\u0442\u043E': '',
+    '\u041C\u043E\u0434\u0435\u043B\u044C': '\u0418\u0422\u041E\u0413\u041E',
+    '\u0410\u0440\u0442\u0438\u043A\u0443\u043B': '',
+    '\u0426\u0432\u0435\u0442': '',
+    '\u0420\u0430\u0437\u043C\u0435\u0440': '',
+    '\u0417\u0430\u043A\u0443\u043F': '',
+    '\u041A\u043E\u043B-\u0432\u043E': totalQty,
+    '\u0421\u0443\u043C\u043C\u0430': totalSumVal,
+    '\u041F\u0440\u043E\u0434\u0430\u043D\u043E': '',
+    '\u041E\u0441\u0442\u0430\u0442\u043E\u043A': '',
+  });
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  // Set column widths
+  ws['!cols'] = [
+    { wch: 30 }, // Фото
+    { wch: 30 }, // Модель
+    { wch: 14 }, // Артикул
+    { wch: 14 }, // Цвет
+    { wch: 10 }, // Размер
+    { wch: 10 }, // Закуп
+    { wch: 8 },  // Кол-во
+    { wch: 12 }, // Сумма
+    { wch: 10 }, // Продано
+    { wch: 10 }, // Остаток
+  ];
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '\u0417\u0430\u043A\u0430\u0437');
+  XLSX.writeFile(wb, '\u0417\u0430\u043A\u0430\u0437_' + (orderId || 'export') + '.xlsx');
+  toast('Excel \u0441\u043A\u0430\u0447\u0430\u043D');
+}
 
 // Warn before leaving with unsaved changes
 window.onbeforeunload = function(e) {
