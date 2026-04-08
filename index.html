@@ -612,24 +612,53 @@ function addClothingSize(gi, color) {
   var allSizes = ['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
   var item = items[gi];
   if (!item.size_qty) return;
-  // Find which sizes this color already has
   var existing = new Set();
   Object.keys(item.size_qty).forEach(function(k) {
     if (k.startsWith(color + ', ') || k.startsWith(color + ',')) {
-      var sz = k.substring(k.indexOf(',') + 1).trim();
-      existing.add(sz);
+      existing.add(k.substring(k.indexOf(',') + 1).trim());
     }
   });
   var available = allSizes.filter(function(s) { return !existing.has(s); });
-  if (available.length === 0) { toast('Все размеры уже добавлены'); return; }
-  var sz = prompt('Добавить размер для ' + color + ':\n\nДоступные: ' + available.join(', '));
-  if (!sz) return;
-  sz = sz.trim().toUpperCase();
-  if (!allSizes.includes(sz)) { toast('Неизвестный размер: ' + sz); return; }
-  var fullKey = color + ', ' + sz;
-  if (item.size_qty[fullKey] !== undefined) { toast(fullKey + ' уже есть'); return; }
-  item.size_qty[fullKey] = 0;
-  markChanged();
+  if (available.length === 0) { toast('\u0412\u0441\u0435 \u0440\u0430\u0437\u043C\u0435\u0440\u044B \u0443\u0436\u0435 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u044B'); return; }
+  // Show popup with chips
+  var old = document.getElementById('sz-picker-overlay');
+  if (old) old.remove();
+  var overlay = document.createElement('div');
+  overlay.id = 'sz-picker-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:250;display:flex;align-items:flex-end;justify-content:center;padding:16px';
+  overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+  var box = document.createElement('div');
+  box.style.cssText = 'background:var(--card);border-radius:16px 16px 0 0;padding:20px;width:100%;max-width:400px';
+  box.innerHTML = '<div style="font-weight:700;font-size:14px;margin-bottom:4px">' + color + '</div><div style="font-size:12px;color:var(--text3);margin-bottom:12px">\u0412\u044B\u0431\u0435\u0440\u0438 \u0440\u0430\u0437\u043C\u0435\u0440\u044B:</div>';
+  var grid = document.createElement('div');
+  grid.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px';
+  available.forEach(function(sz) {
+    var chip = document.createElement('div');
+    chip.style.cssText = 'padding:10px 18px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:2px solid var(--border);background:var(--card);color:var(--text);transition:all 0.15s;min-width:50px;text-align:center';
+    chip.textContent = sz;
+    chip.onclick = function() {
+      chip.style.borderColor = 'var(--blue)';
+      chip.style.background = 'var(--blue)';
+      chip.style.color = '#fff';
+      var fullKey = color + ', ' + sz;
+      item.size_qty[fullKey] = 0;
+      setTimeout(function() { overlay.remove(); markChanged(); }, 200);
+    };
+    grid.appendChild(chip);
+  });
+  box.appendChild(grid);
+  // Quick add all remaining
+  var allBtn = document.createElement('div');
+  allBtn.style.cssText = 'margin-top:12px;padding:10px;text-align:center;border-radius:8px;background:var(--bg);font-size:13px;font-weight:600;color:var(--blue);cursor:pointer';
+  allBtn.textContent = '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432\u0441\u0435 (' + available.join(', ') + ')';
+  allBtn.onclick = function() {
+    available.forEach(function(sz) { item.size_qty[color + ', ' + sz] = 0; });
+    overlay.remove();
+    markChanged();
+  };
+  box.appendChild(allBtn);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
 }
 
 function adjSize(gi, size, delta) {
