@@ -1531,25 +1531,25 @@ function closeLightbox() { document.getElementById('lightbox').classList.remove(
 let addModalColorRows = [{ color: '', sizes: '' }];
 
 function openAddModal() {
-  addModalColorRows = [{ color: '', sizes: '' }];
+  addModalColorRows = [{ color: '', sizes: '', photoFile: null, photoPreview: '' }];
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay open';
   overlay.id = 'add-modal-overlay';
   overlay.innerHTML = `
-    <div class="modal" style="max-width:420px">
+    <div class="modal" style="max-width:440px;max-height:90vh;overflow-y:auto">
       <div class="modal-title">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440</div>
-      <div class="add-modal-field"><label>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043C\u043E\u0434\u0435\u043B\u0438</label><input id="add-model" placeholder="\u041D\u0430\u043F\u0440. \u0424\u0443\u0442\u0431\u043E\u043B\u043A\u0430 Nike"></div>
+      <div class="add-modal-field"><label>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label><input id="add-model" placeholder="\u041D\u0430\u043F\u0440. \u0424\u0443\u0442\u0431\u043E\u043B\u043A\u0430 Nike"></div>
       <div class="add-modal-field"><label>\u0410\u0440\u0442\u0438\u043A\u0443\u043B</label><input id="add-article" placeholder="ZZ-001"></div>
-      <div class="add-modal-field"><label>\u0424\u043E\u0442\u043E URL</label><input id="add-photo" placeholder="https://..."></div>
       <div class="add-modal-field"><label>\u0426\u0435\u043D\u0430 \u0437\u0430\u043A\u0443\u043F\u043A\u0438</label><input id="add-price" type="number" placeholder="5000"></div>
       <div class="add-modal-field">
-        <label>\u0426\u0432\u0435\u0442\u0430 \u0438 \u0440\u0430\u0437\u043C\u0435\u0440\u044B (\u0446\u0432\u0435\u0442 + \u0440\u0430\u0437\u043C\u0435\u0440\u044B \u0447\u0435\u0440\u0435\u0437 \u043F\u0440\u043E\u0431\u0435\u043B)</label>
+        <label>\u0426\u0432\u0435\u0442\u0430 / \u0440\u0430\u0437\u043C\u0435\u0440\u044B / \u0444\u043E\u0442\u043E</label>
         <div id="add-color-rows"></div>
-        <button class="add-color-row-btn" onclick="addColorRowToModal()">+ \u0446\u0432\u0435\u0442</button>
+        <button class="add-color-row-btn" onclick="addColorRowToModal()">+ \u0435\u0449\u0451 \u0446\u0432\u0435\u0442</button>
       </div>
+      <div id="add-status" style="font-size:12px;color:var(--blue);margin:8px 0;display:none"></div>
       <div class="modal-btns">
         <button class="btn btn-outline" onclick="closeAddModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button>
-        <button class="btn btn-primary" onclick="addNewItem()">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>
+        <button class="btn btn-primary" id="add-submit-btn" onclick="addNewItem()">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>
       </div>
     </div>`;
   document.body.appendChild(overlay);
@@ -1563,11 +1563,31 @@ function renderAddColorRows() {
   addModalColorRows.forEach(function(row, i) {
     const div = document.createElement('div');
     div.className = 'color-row';
-    div.innerHTML = `<input placeholder="\u0426\u0432\u0435\u0442" value="${row.color}" oninput="addModalColorRows[${i}].color=this.value">
-      <input placeholder="S M L XL 2XL" value="${row.sizes}" oninput="addModalColorRows[${i}].sizes=this.value" style="flex:2">
-      ${addModalColorRows.length > 1 ? `<button class="remove-color-row" onclick="addModalColorRows.splice(${i},1);renderAddColorRows()">\u00d7</button>` : ''}`;
+    div.style.cssText = 'display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap;padding:8px;background:var(--bg);border-radius:8px';
+    const preview = row.photoPreview ? `<img src="${row.photoPreview}" style="width:40px;height:40px;border-radius:6px;object-fit:cover">` : `<div style="width:40px;height:40px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer" onclick="document.getElementById('add-photo-${i}').click()">\ud83d\udcf7</div>`;
+    div.innerHTML = `
+      ${preview}
+      <input type="file" id="add-photo-${i}" accept="image/*" style="display:none" onchange="handleAddPhoto(${i},this)">
+      <div style="flex:1;display:flex;flex-direction:column;gap:4px;min-width:0">
+        <input placeholder="\u0426\u0432\u0435\u0442 (\u0427\u0451\u0440\u043D\u044B\u0439, \u0411\u0435\u043B\u044B\u0439...)" value="${row.color}" oninput="addModalColorRows[${i}].color=this.value" style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit">
+        <input placeholder="\u0420\u0430\u0437\u043C\u0435\u0440\u044B: S M L XL 2XL" value="${row.sizes}" oninput="addModalColorRows[${i}].sizes=this.value" style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit">
+      </div>
+      ${addModalColorRows.length > 1 ? `<button class="remove-color-row" onclick="addModalColorRows.splice(${i},1);renderAddColorRows()" style="width:28px;height:28px;border-radius:50%;border:none;background:var(--red-light);color:var(--red);font-size:16px;cursor:pointer">\u00d7</button>` : ''}`;
     container.appendChild(div);
   });
+}
+
+function handleAddPhoto(idx, input) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  addModalColorRows[idx].photoFile = file;
+  // Preview
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    addModalColorRows[idx].photoPreview = e.target.result;
+    renderAddColorRows();
+  };
+  reader.readAsDataURL(file);
 }
 
 function addColorRowToModal() {
@@ -1580,57 +1600,120 @@ function closeAddModal() {
   if (overlay) overlay.remove();
 }
 
-function addNewItem() {
+async function addNewItem() {
   const model = (document.getElementById('add-model').value || '').trim();
   const article = (document.getElementById('add-article').value || '').trim();
-  const photoUrl = (document.getElementById('add-photo').value || '').trim();
   const buyPrice = parseFloat(document.getElementById('add-price').value) || 0;
+  const statusEl = document.getElementById('add-status');
+  const submitBtn = document.getElementById('add-submit-btn');
 
   if (!model) { toast('\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'); return; }
 
+  // Check at least one color+size
+  const hasAnySizes = addModalColorRows.some(function(r) { return r.sizes.trim().length > 0; });
+  if (!hasAnySizes) { toast('\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0440\u0430\u0437\u043C\u0435\u0440\u044B'); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...';
+
+  // Upload photos to Supabase Storage
+  const colorPhotos = {};
+  let mainPhoto = '';
+  const filesToUpload = addModalColorRows.filter(function(r) { return r.photoFile; });
+
+  if (filesToUpload.length > 0) {
+    statusEl.style.display = 'block';
+    statusEl.textContent = '\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u044E \u0444\u043E\u0442\u043E...';
+
+    for (const row of addModalColorRows) {
+      if (!row.photoFile || !row.color.trim()) continue;
+      const color = row.color.trim();
+      // Transliterate for filename
+      const safeColor = color.replace(/[^a-zA-Z0-9]/g, function(c) {
+        const tr = {'\u0430':'a','\u0431':'b','\u0432':'v','\u0433':'g','\u0434':'d','\u0435':'e','\u0451':'yo','\u0436':'zh','\u0437':'z','\u0438':'i','\u0439':'y','\u043a':'k','\u043b':'l','\u043c':'m','\u043d':'n','\u043e':'o','\u043f':'p','\u0440':'r','\u0441':'s','\u0442':'t','\u0443':'u','\u0444':'f','\u0445':'kh','\u0446':'ts','\u0447':'ch','\u0448':'sh','\u0449':'sch','\u044b':'y','\u044d':'e','\u044e':'yu','\u044f':'ya','\u0410':'A','\u0411':'B','\u0412':'V','\u0413':'G','\u0414':'D','\u0415':'E','\u0401':'Yo','\u0416':'Zh','\u0417':'Z','\u0418':'I','\u0419':'Y','\u041a':'K','\u041b':'L','\u041c':'M','\u041d':'N','\u041e':'O','\u041f':'P','\u0420':'R','\u0421':'S','\u0422':'T','\u0423':'U','\u0424':'F','\u0425':'Kh','\u0426':'Ts','\u0427':'Ch','\u0428':'Sh','\u0429':'Sch','\u042b':'Y','\u042d':'E','\u042e':'Yu','\u042f':'Ya',' ':'_'};
+        return tr[c] || '_';
+      });
+      const fname = (article || 'item') + '_' + safeColor + '_' + Date.now() + '.jpg';
+
+      try {
+        // Resize with canvas
+        const img = new Image();
+        const dataUrl = await new Promise(function(resolve) {
+          const reader = new FileReader();
+          reader.onload = function(e) { resolve(e.target.result); };
+          reader.readAsDataURL(row.photoFile);
+        });
+        const blob = await new Promise(function(resolve) {
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const maxSz = 600;
+            let w = img.width, h = img.height;
+            if (w > maxSz || h > maxSz) {
+              if (w > h) { h = h * maxSz / w; w = maxSz; }
+              else { w = w * maxSz / h; h = maxSz; }
+            }
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            canvas.toBlob(function(b) { resolve(b); }, 'image/jpeg', 0.85);
+          };
+          img.src = dataUrl;
+        });
+
+        statusEl.textContent = '\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u044E ' + color + '...';
+        const upResp = await fetch(SUPABASE_URL + '/storage/v1/object/photos/' + fname, {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'image/jpeg', 'x-upsert': 'true' },
+          body: blob
+        });
+        if (upResp.ok) {
+          const url = SUPABASE_URL + '/storage/v1/object/public/photos/' + fname;
+          colorPhotos[color] = url;
+          if (!mainPhoto) mainPhoto = url;
+          statusEl.textContent = '\u2705 ' + color + ' \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043E';
+        } else {
+          statusEl.textContent = '\u274C \u041E\u0448\u0438\u0431\u043A\u0430 ' + color + ': ' + upResp.status;
+        }
+      } catch(e) {
+        statusEl.textContent = '\u274C ' + e.message;
+      }
+    }
+  }
+
   // Build size_qty from color rows
   const sizeQty = {};
-  let hasClothingSizes = false;
   addModalColorRows.forEach(function(row) {
     const color = row.color.trim();
     const sizeParts = row.sizes.trim().split(/\s+/).filter(Boolean);
     if (color && sizeParts.length > 0) {
-      hasClothingSizes = true;
-      sizeParts.forEach(function(sz) {
-        sizeQty[color + ', ' + sz] = 0;
-      });
+      sizeParts.forEach(function(sz) { sizeQty[color + ', ' + sz.toUpperCase()] = 0; });
     } else if (!color && sizeParts.length > 0) {
-      // No color specified, check if sizes are numeric (sneaker) or text (clothing)
-      sizeParts.forEach(function(sz) {
-        sizeQty[sz] = 0;
-      });
+      sizeParts.forEach(function(sz) { sizeQty[sz] = 0; });
     }
   });
 
   const newItem = {
     model: model,
     article: article,
-    photo_url: photoUrl,
+    photo_url: mainPhoto,
+    color_photos: Object.keys(colorPhotos).length > 0 ? colorPhotos : undefined,
     buy_price: buyPrice,
-    women_boxes: 0,
-    men_boxes: 0,
-    box_size: 6,
+    women_boxes: 0, men_boxes: 0, box_size: 6,
     pairs: 0,
     zone: 'nice',
+    sold: 0, stock: 0,
     _avail: true,
     _sup_price: null,
   };
 
   if (Object.keys(sizeQty).length > 0) {
     newItem.size_qty = sizeQty;
-    newItem.pairs = 0;
     newItem.order_mode = 'sizes';
   }
 
   items.push(newItem);
   closeAddModal();
   markChanged();
-  toast('\u0422\u043E\u0432\u0430\u0440 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D');
+  toast('\u0422\u043E\u0432\u0430\u0440 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D \u0441 ' + Object.keys(colorPhotos).length + ' \u0444\u043E\u0442\u043E');
 }
 
 // === EXCEL EXPORT ===
