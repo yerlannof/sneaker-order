@@ -1564,10 +1564,12 @@ function renderAddColorRows() {
     const div = document.createElement('div');
     div.className = 'color-row';
     div.style.cssText = 'display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap;padding:8px;background:var(--bg);border-radius:8px';
-    const preview = row.photoPreview ? `<img src="${row.photoPreview}" style="width:40px;height:40px;border-radius:6px;object-fit:cover">` : `<div style="width:40px;height:40px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer" onclick="document.getElementById('add-photo-${i}').click()">\ud83d\udcf7</div>`;
+    const preview = row.photoPreview
+      ? `<div style="position:relative;flex-shrink:0"><img src="${row.photoPreview}" style="width:48px;height:48px;border-radius:6px;object-fit:cover;cursor:pointer" onclick="document.getElementById('add-photo-${i}').click()"><div onclick="clearAddPhoto(${i})" style="position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:700">\u00d7</div></div>`
+      : `<div style="width:48px;height:48px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex-shrink:0" onclick="document.getElementById('add-photo-${i}').click()">\ud83d\udcf7</div>`;
     div.innerHTML = `
       ${preview}
-      <input type="file" id="add-photo-${i}" accept="image/*" style="display:none" onchange="handleAddPhoto(${i},this)">
+      <input type="file" id="add-photo-${i}" accept="image/*" capture="environment" style="display:none" onchange="handleAddPhoto(${i},this)">
       <div style="flex:1;display:flex;flex-direction:column;gap:4px;min-width:0">
         <input placeholder="\u0426\u0432\u0435\u0442 (\u0427\u0451\u0440\u043D\u044B\u0439, \u0411\u0435\u043B\u044B\u0439...)" value="${row.color}" oninput="addModalColorRows[${i}].color=this.value" style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit">
         <input placeholder="\u0420\u0430\u0437\u043C\u0435\u0440\u044B: S M L XL 2XL" value="${row.sizes}" oninput="addModalColorRows[${i}].sizes=this.value" style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit">
@@ -1590,8 +1592,14 @@ function handleAddPhoto(idx, input) {
   reader.readAsDataURL(file);
 }
 
+function clearAddPhoto(idx) {
+  addModalColorRows[idx].photoFile = null;
+  addModalColorRows[idx].photoPreview = '';
+  renderAddColorRows();
+}
+
 function addColorRowToModal() {
-  addModalColorRows.push({ color: '', sizes: '' });
+  addModalColorRows.push({ color: '', sizes: '', photoFile: null, photoPreview: '' });
   renderAddColorRows();
 }
 
