@@ -1598,7 +1598,7 @@ function renderAddColorRows() {
       ${colorPicker}
       <div style="display:flex;gap:8px;align-items:center">
         ${preview}
-        <input type="file" id="add-photo-${i}" accept="image/*" capture="environment" style="display:none" onchange="handleAddPhoto(${i},this)">
+        <input type="file" id="add-photo-${i}" accept="image/*" style="display:none" onchange="handleAddPhoto(${i},this)">
         <div style="flex:1;min-width:0">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">${colorLabel}${addModalColorRows.length > 1 ? `<button onclick="addModalColorRows.splice(${i},1);renderAddColorRows()" style="margin-left:auto;width:24px;height:24px;border-radius:50%;border:none;background:var(--red-light);color:var(--red);font-size:14px;cursor:pointer">\u00d7</button>` : ''}</div>
           <input placeholder="\u0420\u0430\u0437\u043C\u0435\u0440\u044B: S M L XL 2XL" value="${row.sizes}" oninput="addModalColorRows[${i}].sizes=this.value" style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit">
