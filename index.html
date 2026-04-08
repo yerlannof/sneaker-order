@@ -1530,19 +1530,49 @@ function closeLightbox() { document.getElementById('lightbox').classList.remove(
 // === ADD ITEM MODAL ===
 let addModalColorRows = [{ color: '', sizes: '' }];
 
+var CATEGORY_PRESETS = [
+  {name:'\u0424\u0443\u0442\u0431\u043E\u043B\u043A\u0430', icon:'\ud83d\udc55', sizes:'S M L XL 2XL 3XL'},
+  {name:'\u0425\u0443\u0434\u0438', icon:'\ud83e\udde5', sizes:'S M L XL 2XL'},
+  {name:'\u0422\u043E\u043B\u0441\u0442\u043E\u0432\u043A\u0430', icon:'\ud83e\udde5', sizes:'S M L XL 2XL'},
+  {name:'\u041A\u0443\u0440\u0442\u043A\u0430', icon:'\ud83e\udde5', sizes:'S M L XL 2XL'},
+  {name:'\u0412\u0435\u0442\u0440\u043E\u0432\u043A\u0430', icon:'\ud83c\udf2c\ufe0f', sizes:'S M L XL 2XL'},
+  {name:'\u0428\u0442\u0430\u043D\u044B', icon:'\ud83d\udc56', sizes:'S M L XL 2XL'},
+  {name:'\u0414\u0436\u0438\u043D\u0441\u044B', icon:'\ud83d\udc56', sizes:'S M L XL 2XL'},
+  {name:'\u0428\u043E\u0440\u0442\u044B', icon:'\ud83e\ude73', sizes:'S M L XL 2XL'},
+  {name:'\u041A\u043E\u0441\u0442\u044E\u043C', icon:'\ud83d\udc54', sizes:'S M L XL 2XL'},
+  {name:'\u0420\u0443\u0431\u0430\u0448\u043A\u0430', icon:'\ud83d\udc54', sizes:'S M L XL 2XL'},
+  {name:'\u0411\u043E\u043C\u0431\u0435\u0440', icon:'\ud83e\udde5', sizes:'S M L XL 2XL'},
+  {name:'\u0414\u0440\u0443\u0433\u043E\u0435', icon:'\ud83d\udce6', sizes:'S M L XL'},
+];
+
+var SIZE_PRESETS = [
+  {label:'S-2XL', sizes:'S M L XL 2XL'},
+  {label:'S-3XL', sizes:'S M L XL 2XL 3XL'},
+  {label:'S-4XL', sizes:'S M L XL 2XL 3XL 4XL'},
+  {label:'M-3XL', sizes:'M L XL 2XL 3XL'},
+  {label:'XS-XL', sizes:'XS S M L XL'},
+];
+
+var addModalCategory = '';
+
 function openAddModal() {
   addModalColorRows = [{ color: '', sizes: '', photoFile: null, photoPreview: '' }];
+  addModalCategory = '';
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay open';
   overlay.id = 'add-modal-overlay';
   overlay.innerHTML = `
     <div class="modal" style="max-width:440px;max-height:90vh;overflow-y:auto">
       <div class="modal-title">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440</div>
-      <div class="add-modal-field"><label>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label><input id="add-model" placeholder="\u041D\u0430\u043F\u0440. \u0424\u0443\u0442\u0431\u043E\u043B\u043A\u0430 Nike"></div>
-      <div class="add-modal-field"><label>\u0410\u0440\u0442\u0438\u043A\u0443\u043B</label><input id="add-article" placeholder="ZZ-001"></div>
+      <div class="add-modal-field">
+        <label>\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F</label>
+        <div id="add-categories" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+      </div>
+      <div class="add-modal-field"><label>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label><input id="add-model" placeholder="\u041D\u0430\u043F\u0440. Nike Swoosh Oversized"></div>
+      <div class="add-modal-field"><label>\u0410\u0440\u0442\u0438\u043A\u0443\u043B</label><input id="add-article" placeholder="ZZ-NEW"></div>
       <div class="add-modal-field"><label>\u0426\u0435\u043D\u0430 \u0437\u0430\u043A\u0443\u043F\u043A\u0438</label><input id="add-price" type="number" placeholder="5000"></div>
       <div class="add-modal-field">
-        <label>\u0426\u0432\u0435\u0442\u0430 / \u0440\u0430\u0437\u043C\u0435\u0440\u044B / \u0444\u043E\u0442\u043E</label>
+        <label>\u0426\u0432\u0435\u0442\u0430 / \u0444\u043E\u0442\u043E / \u0440\u0430\u0437\u043C\u0435\u0440\u044B</label>
         <div id="add-color-rows"></div>
         <button class="add-color-row-btn" onclick="addColorRowToModal()">+ \u0435\u0449\u0451 \u0446\u0432\u0435\u0442</button>
       </div>
@@ -1553,7 +1583,33 @@ function openAddModal() {
       </div>
     </div>`;
   document.body.appendChild(overlay);
+  renderAddCategories();
   renderAddColorRows();
+}
+
+function renderAddCategories() {
+  const cont = document.getElementById('add-categories');
+  if (!cont) return;
+  cont.innerHTML = '';
+  CATEGORY_PRESETS.forEach(function(cat) {
+    const sel = addModalCategory === cat.name;
+    const btn = document.createElement('div');
+    btn.style.cssText = 'padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;border:2px solid ' + (sel ? 'var(--blue)' : 'var(--border)') + ';background:' + (sel ? 'var(--blue-light)' : 'var(--card)') + ';color:' + (sel ? 'var(--blue)' : 'var(--text2)');
+    btn.textContent = cat.icon + ' ' + cat.name;
+    btn.onclick = function() {
+      addModalCategory = cat.name;
+      // Auto-fill sizes for all color rows
+      addModalColorRows.forEach(function(r) {
+        if (!r.sizes.trim()) r.sizes = cat.sizes;
+      });
+      // Auto-fill model prefix
+      var modelInput = document.getElementById('add-model');
+      if (modelInput && !modelInput.value.trim()) modelInput.value = cat.name + ' ';
+      renderAddCategories();
+      renderAddColorRows();
+    };
+    cont.appendChild(btn);
+  });
 }
 
 var COLOR_PRESETS = [
@@ -1601,11 +1657,43 @@ function renderAddColorRows() {
         <input type="file" id="add-photo-${i}" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden" onchange="handleAddPhoto(${i},this)">
         <div style="flex:1;min-width:0">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">${colorLabel}${addModalColorRows.length > 1 ? `<button onclick="addModalColorRows.splice(${i},1);renderAddColorRows()" style="margin-left:auto;width:24px;height:24px;border-radius:50%;border:none;background:var(--red-light);color:var(--red);font-size:14px;cursor:pointer">\u00d7</button>` : ''}</div>
-          <input placeholder="\u0420\u0430\u0437\u043C\u0435\u0440\u044B: S M L XL 2XL" value="${row.sizes}" oninput="addModalColorRows[${i}].sizes=this.value" style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit">
+          <div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px">${buildSizeChips(i, row.sizes)}</div>
+          <div style="display:flex;gap:3px;margin-top:4px;flex-wrap:wrap">${SIZE_PRESETS.map(function(p){return '<div onclick="setAddSizes('+i+',\''+p.sizes+'\')" style="padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;background:var(--bg);color:var(--text2);border:1px solid var(--border)">'+p.label+'</div>';}).join('')}</div>
         </div>
       </div>`;
     container.appendChild(div);
   });
+}
+
+function buildSizeChips(rowIdx, sizesStr) {
+  var ALL_SIZES = ['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
+  var active = (sizesStr || '').trim().split(/\s+/).filter(Boolean);
+  var activeSet = new Set(active.map(function(s){return s.toUpperCase();}));
+  return ALL_SIZES.map(function(sz) {
+    var on = activeSet.has(sz);
+    return '<div onclick="toggleAddSize('+rowIdx+',\''+sz+'\')" style="padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid '+(on?'var(--blue)':'var(--border)')+';background:'+(on?'var(--blue)':'var(--card)')+';color:'+(on?'#fff':'var(--text3)')+'">'+sz+'</div>';
+  }).join('');
+}
+
+function toggleAddSize(rowIdx, sz) {
+  var row = addModalColorRows[rowIdx];
+  var sizes = (row.sizes || '').trim().split(/\s+/).filter(Boolean);
+  var idx = sizes.indexOf(sz);
+  if (idx >= 0) {
+    sizes.splice(idx, 1);
+  } else {
+    // Insert in correct order
+    var ALL = ['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
+    sizes.push(sz);
+    sizes.sort(function(a,b){return ALL.indexOf(a)-ALL.indexOf(b);});
+  }
+  row.sizes = sizes.join(' ');
+  renderAddColorRows();
+}
+
+function setAddSizes(rowIdx, sizes) {
+  addModalColorRows[rowIdx].sizes = sizes;
+  renderAddColorRows();
 }
 
 function handleAddPhoto(idx, input) {
