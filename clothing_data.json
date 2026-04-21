@@ -1,0 +1,7683 @@
+[
+  {
+    "article": null,
+    "name": "Шорты спортивные хлопок",
+    "variants": {
+      "colors": {
+        "Белый": 20,
+        "Розовый": 14,
+        "Тёмно-серый": 27,
+        "Тёмно-синий": 21,
+        "Хаки": 20,
+        "Чёрный": 42,
+        "Серый": 27,
+        "Серый меланж": 20,
+        "Светло-серый меланж": 20
+      },
+      "sizes": {
+        "M": 40,
+        "L": 58,
+        "XL": 55,
+        "2XL": 37,
+        "3XL": 13,
+        "4XL": 8
+      },
+      "matrix": {
+        "Белый/2XL": 4,
+        "Розовый/M": 4,
+        "Тёмно-серый/2XL": 4,
+        "Тёмно-синий/L": 6,
+        "Хаки/2XL": 4,
+        "Чёрный/2XL": 8,
+        "Розовый/L": 6,
+        "Серый/M": 4,
+        "Серый/XL": 6,
+        "Серый меланж/XL": 6,
+        "Тёмно-синий/2XL": 5,
+        "Чёрный/4XL": 2,
+        "Белый/M": 4,
+        "Розовый/XL": 4,
+        "Светло-серый меланж/XL": 6,
+        "Хаки/M": 4,
+        "Чёрный/3XL": 5,
+        "Чёрный/XL": 10,
+        "Светло-серый меланж/L": 6,
+        "Светло-серый меланж/M": 4,
+        "Серый меланж/M": 4,
+        "Тёмно-серый/4XL": 3,
+        "Хаки/L": 6,
+        "Белый/L": 6,
+        "Серый/L": 6,
+        "Тёмно-синий/M": 5,
+        "Хаки/XL": 6,
+        "Чёрный/L": 10,
+        "Белый/XL": 6,
+        "Серый/3XL": 4,
+        "Серый/4XL": 3,
+        "Серый меланж/L": 6,
+        "Тёмно-серый/3XL": 4,
+        "Тёмно-серый/M": 4,
+        "Тёмно-синий/XL": 5,
+        "Чёрный/M": 7,
+        "Светло-серый меланж/2XL": 4,
+        "Тёмно-серый/L": 6,
+        "Серый/2XL": 4,
+        "Серый меланж/2XL": 4,
+        "Тёмно-серый/XL": 6
+      }
+    },
+    "last_sale": "2026-04-16",
+    "first_sale": "2026-04-16",
+    "days_since_last_sale": 5,
+    "avg_sale_price": 9900,
+    "returns_qty": 0,
+    "gross_profit": 7450,
+    "margin_pct": 75.3,
+    "supplier": "CNFTB",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 248,
+      "moscow": 126,
+      "tsum_online": 119,
+      "aruzhan": 0,
+      "warehouse": 3
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 9900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 9900.0
+      },
+      "total_qty": 1,
+      "total_rev": 9900.0
+    },
+    "supplied_qty": 249,
+    "supplied_cost": 610050.0,
+    "cost": 2450.0,
+    "retail": 9900,
+    "sell_through": 0.4,
+    "stock_value": 2455200,
+    "stock_cost": 607600,
+    "first_supply_date": "2026-04-14",
+    "last_supply_date": "2026-04-14",
+    "days_since_first": 7,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 4.3,
+      "acceleration": 0.23
+    },
+    "wos": 999,
+    "recommendation": "WAIT",
+    "recommendation_reason": "Пришло 7 дн назад — ждём ещё, рано судить",
+    "photo": "[44832b]"
+  },
+  {
+    "article": "CNFTW",
+    "name": "Футболка вош",
+    "variants": {
+      "colors": {
+        "Хаки": 28,
+        "Бежевый": 31,
+        "Коричневый": 48,
+        "Серый": 56,
+        "Тёмно-серый": 64
+      },
+      "sizes": {
+        "L": 31,
+        "XL": 54,
+        "2XL": 58,
+        "3XL": 60,
+        "4XL": 24
+      },
+      "matrix": {
+        "Хаки/L": 7,
+        "Бежевый/XL": 8,
+        "Коричневый/2XL": 12,
+        "Серый/4XL": 8,
+        "Тёмно-серый/4XL": 9,
+        "Хаки/3XL": 7,
+        "Бежевый/3XL": 8,
+        "Коричневый/3XL": 12,
+        "Серый/3XL": 14,
+        "Тёмно-серый/3XL": 19,
+        "Бежевый/4XL": 7,
+        "Коричневый/XL": 12,
+        "Тёмно-серый/2XL": 16,
+        "Бежевый/2XL": 8,
+        "Тёмно-серый/XL": 15,
+        "Коричневый/L": 12,
+        "Серый/2XL": 14,
+        "Серый/XL": 13,
+        "Тёмно-серый/L": 5,
+        "Хаки/XL": 6,
+        "Хаки/2XL": 8,
+        "Серый/L": 7
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-02-19",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 10530,
+    "returns_qty": 0,
+    "gross_profit": 218600,
+    "margin_pct": 79.9,
+    "supplier": "Чаонань Фуши (Trendy Men's Fashion) (CNF)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 227,
+      "moscow": 90,
+      "tsum_online": 92,
+      "aruzhan": 45,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 3,
+        "rev": 21800.0
+      },
+      "mar": {
+        "qty": 15,
+        "rev": 131700.0
+      },
+      "apr": {
+        "qty": 12,
+        "rev": 130800.0
+      },
+      "last_30d": {
+        "qty": 22,
+        "rev": 208000.0
+      },
+      "total_qty": 30,
+      "total_rev": 284300.0
+    },
+    "supplied_qty": 256,
+    "supplied_cost": 560640.0,
+    "cost": 2190.0,
+    "retail": 10900,
+    "sell_through": 11.7,
+    "stock_value": 2474300,
+    "stock_cost": 497130,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 22,
+      "avg_30d": 12.7,
+      "acceleration": 1.74
+    },
+    "wos": 44.2,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 12%, НО ускорение ×1.7 (22/мес) — весна разгонит, скидку не давать",
+    "photo": "[16628b]"
+  },
+  {
+    "article": "CNFTB",
+    "name": "Футболка базовая хлопок [CNFTB]",
+    "variants": {
+      "colors": {
+        "Белый": 49,
+        "Тёмно-зелёный": 18,
+        "Чёрный": 60,
+        "Жёлтый": 19,
+        "Тёмно-серый": 53,
+        "Коричневый": 36
+      },
+      "sizes": {
+        "2XL": 57,
+        "3XL": 118,
+        "4XL": 60
+      },
+      "matrix": {
+        "Белый/2XL": 11,
+        "Тёмно-зелёный/4XL": 4,
+        "Чёрный/4XL": 16,
+        "Белый/3XL": 25,
+        "Чёрный/3XL": 29,
+        "Жёлтый/2XL": 4,
+        "Чёрный/2XL": 15,
+        "Жёлтый/4XL": 5,
+        "Тёмно-зелёный/2XL": 4,
+        "Тёмно-зелёный/3XL": 10,
+        "Тёмно-серый/2XL": 14,
+        "Тёмно-серый/4XL": 14,
+        "Тёмно-серый/3XL": 25,
+        "Коричневый/2XL": 9,
+        "Коричневый/3XL": 19,
+        "Коричневый/4XL": 8,
+        "Белый/4XL": 13,
+        "Жёлтый/3XL": 10
+      }
+    },
+    "last_sale": "2026-04-14",
+    "first_sale": "2026-02-26",
+    "days_since_last_sale": 7,
+    "avg_sale_price": 8653,
+    "returns_qty": 0,
+    "gross_profit": 120973,
+    "margin_pct": 78.6,
+    "supplier": "Чаонань Фуши (Trendy Men's Fashion) (CNF)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 235,
+      "moscow": 96,
+      "tsum_online": 98,
+      "aruzhan": 41,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 3,
+        "rev": 8900.0
+      },
+      "mar": {
+        "qty": 14,
+        "rev": 97422.68
+      },
+      "apr": {
+        "qty": 8,
+        "rev": 62300.0
+      },
+      "last_30d": {
+        "qty": 17,
+        "rev": 124600.0
+      },
+      "total_qty": 25,
+      "total_rev": 168622.68
+    },
+    "supplied_qty": 260,
+    "supplied_cost": 496400.0,
+    "cost": 1906.0,
+    "retail": 8900,
+    "sell_through": 9.6,
+    "stock_value": 2091500,
+    "stock_cost": 447910,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 17,
+      "avg_30d": 10.6,
+      "acceleration": 1.61
+    },
+    "wos": 59.2,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 10%, НО ускорение ×1.6 (17/мес) — весна разгонит, скидку не давать",
+    "photo": "[17880b]"
+  },
+  {
+    "article": "CNFTZH",
+    "name": "Худи на молнии [CNFTZH]",
+    "variants": {
+      "colors": {
+        "Светло-серый": 21,
+        "Чёрный": 43,
+        "Серый": 21
+      },
+      "sizes": {
+        "M": 9,
+        "L": 20,
+        "XL": 15,
+        "2XL": 15,
+        "3XL": 15,
+        "4XL": 11
+      },
+      "matrix": {
+        "Светло-серый/4XL": 3,
+        "Чёрный/2XL": 9,
+        "Серый/2XL": 3,
+        "Светло-серый/3XL": 5,
+        "Светло-серый/L": 4,
+        "Серый/3XL": 4,
+        "Серый/4XL": 3,
+        "Чёрный/4XL": 5,
+        "Серый/XL": 4,
+        "Чёрный/M": 5,
+        "Чёрный/XL": 7,
+        "Светло-серый/2XL": 3,
+        "Светло-серый/XL": 4,
+        "Серый/M": 2,
+        "Светло-серый/M": 2,
+        "Серый/L": 5,
+        "Чёрный/3XL": 6,
+        "Чёрный/L": 11
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-03-07",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 16887,
+    "returns_qty": 0,
+    "gross_profit": 323173,
+    "margin_pct": 80.6,
+    "supplier": "Чаонань Фуши (Trendy Men's Fashion) (CNF)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 85,
+      "moscow": 30,
+      "tsum_online": 36,
+      "aruzhan": 19,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 18,
+        "rev": 287300.0
+      },
+      "apr": {
+        "qty": 7,
+        "rev": 117998.42
+      },
+      "last_30d": {
+        "qty": 17,
+        "rev": 286998.42
+      },
+      "total_qty": 25,
+      "total_rev": 405298.42
+    },
+    "supplied_qty": 110,
+    "supplied_cost": 361350.0,
+    "cost": 3285.0,
+    "retail": 16900,
+    "sell_through": 22.7,
+    "stock_value": 1436500,
+    "stock_cost": 279225,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 17,
+      "avg_30d": 10.6,
+      "acceleration": 1.61
+    },
+    "wos": 21.4,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 23%, стабильно идёт 17 шт/мес — держим",
+    "photo": "[19496b]"
+  },
+  {
+    "article": "CNFTZP",
+    "name": "Штаны спортивные [CNFTZP]",
+    "variants": {
+      "colors": {
+        "Светло-серый": 19,
+        "Серый": 22,
+        "Чёрный": 35
+      },
+      "sizes": {
+        "M": 8,
+        "L": 15,
+        "XL": 13,
+        "2XL": 16,
+        "3XL": 16,
+        "4XL": 8
+      },
+      "matrix": {
+        "Светло-серый/4XL": 2,
+        "Серый/2XL": 4,
+        "Светло-серый/3XL": 4,
+        "Серый/4XL": 3,
+        "Серый/L": 4,
+        "Серый/3XL": 5,
+        "Серый/M": 2,
+        "Чёрный/M": 4,
+        "Чёрный/XL": 6,
+        "Светло-серый/2XL": 4,
+        "Светло-серый/XL": 3,
+        "Серый/XL": 4,
+        "Чёрный/2XL": 8,
+        "Чёрный/L": 7,
+        "Светло-серый/L": 4,
+        "Светло-серый/M": 2,
+        "Чёрный/3XL": 7,
+        "Чёрный/4XL": 3
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-02-28",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 14876,
+    "returns_qty": 0,
+    "gross_profit": 382336,
+    "margin_pct": 85.3,
+    "supplier": "Чаонань Фуши (Trendy Men's Fashion) (CNF)",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 76,
+      "moscow": 20,
+      "tsum_online": 38,
+      "aruzhan": 18,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 14900.0
+      },
+      "mar": {
+        "qty": 25,
+        "rev": 297542.3
+      },
+      "apr": {
+        "qty": 10,
+        "rev": 148734.15
+      },
+      "last_30d": {
+        "qty": 20,
+        "rev": 252576.45
+      },
+      "total_qty": 36,
+      "total_rev": 461176.45
+    },
+    "supplied_qty": 110,
+    "supplied_cost": 240900.0,
+    "cost": 2190.0,
+    "retail": 14900,
+    "sell_through": 32.7,
+    "stock_value": 1132400,
+    "stock_cost": 166440,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 20,
+      "avg_30d": 15.2,
+      "acceleration": 1.31
+    },
+    "wos": 16.3,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 33%, стабильно идёт 20 шт/мес — держим",
+    "photo": "[19008b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки спортивные с кантами",
+    "variants": {
+      "colors": {
+        "Белый": 7,
+        "Чёрный": 16,
+        "Серый": 9
+      },
+      "sizes": {
+        "M": 4,
+        "L": 10,
+        "XL": 11,
+        "2XL": 7
+      },
+      "matrix": {
+        "Белый/L": 3,
+        "Белый/2XL": 1,
+        "Чёрный/L": 5,
+        "Белый/XL": 2,
+        "Серый/M": 2,
+        "Чёрный/M": 1,
+        "Чёрный/XL": 6,
+        "Серый/XL": 3,
+        "Чёрный/2XL": 4,
+        "Белый/M": 1,
+        "Серый/2XL": 2,
+        "Серый/L": 2
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-02-22",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 19566,
+    "returns_qty": 0,
+    "gross_profit": 206933,
+    "margin_pct": 74.4,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 32,
+      "moscow": 25,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "mar": {
+        "qty": 10,
+        "rev": 177568.44
+      },
+      "apr": {
+        "qty": 6,
+        "rev": 96028.82
+      },
+      "last_30d": {
+        "qty": 10,
+        "rev": 155728.82
+      },
+      "total_qty": 17,
+      "total_rev": 293497.26
+    },
+    "supplied_qty": 48,
+    "supplied_cost": 244404.0,
+    "cost": 5092.0,
+    "retail": 19900,
+    "sell_through": 35.4,
+    "stock_value": 636800,
+    "stock_cost": 162944,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 10,
+      "avg_30d": 7.2,
+      "acceleration": 1.39
+    },
+    "wos": 13.7,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 35%, стабильно идёт 10 шт/мес — держим",
+    "photo": "[69928b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы карго с декором",
+    "variants": {
+      "colors": {
+        "Серый": 9,
+        "Чёрный": 10,
+        "Бежевый": 7
+      },
+      "sizes": {
+        "M": 11,
+        "L": 15
+      },
+      "matrix": {
+        "Серый/M": 4,
+        "Чёрный/M": 4,
+        "Бежевый/L": 4,
+        "Бежевый/M": 3,
+        "Серый/L": 5,
+        "Чёрный/L": 6
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.2,
+    "supplier": "DXJ (嘟小俊 / Ду Сяо Цзюнь)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 26,
+      "moscow": 15,
+      "tsum_online": 11,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 26,
+    "supplied_cost": 129064.0,
+    "cost": 4964.0,
+    "retail": 23900,
+    "sell_through": 0.0,
+    "stock_value": 621400,
+    "stock_cost": 129064,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "photo": "[49420b]"
+  },
+  {
+    "article": null,
+    "name": "Куртка-ветровка с капюшоном и кантами",
+    "variants": {
+      "colors": {
+        "Чёрный": 5,
+        "Белый": 4,
+        "Серый": 9
+      },
+      "sizes": {
+        "M": 1,
+        "L": 6,
+        "XL": 6,
+        "2XL": 5
+      },
+      "matrix": {
+        "Чёрный/2XL": 2,
+        "Чёрный/XL": 1,
+        "Белый/XL": 2,
+        "Серый/L": 3,
+        "Серый/2XL": 2,
+        "Серый/XL": 3,
+        "Серый/M": 1,
+        "Чёрный/L": 2,
+        "Белый/2XL": 1,
+        "Белый/L": 1
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-02-21",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 24847,
+    "returns_qty": 0,
+    "gross_profit": 509085,
+    "margin_pct": 75.0,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верхняя одежда",
+    "stock": {
+      "total": 18,
+      "moscow": 13,
+      "tsum_online": 5,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 3,
+        "rev": 74700.0
+      },
+      "mar": {
+        "qty": 19,
+        "rev": 422601.99
+      },
+      "apr": {
+        "qty": 8,
+        "rev": 198472.56
+      },
+      "last_30d": {
+        "qty": 16,
+        "rev": 397672.56
+      },
+      "total_qty": 30,
+      "total_rev": 695774.55
+    },
+    "supplied_qty": 48,
+    "supplied_cost": 298716.0,
+    "cost": 6223.0,
+    "retail": 24900,
+    "sell_through": 62.5,
+    "stock_value": 448200,
+    "stock_cost": 112014,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 16,
+      "avg_30d": 12.7,
+      "acceleration": 1.26
+    },
+    "wos": 4.8,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 62% (хит), продаётся 16 шт/мес — дозаказать срочно",
+    "photo": "[69624b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы баллон с ремнём XSL26010",
+    "variants": {
+      "colors": {
+        "Синий": 10,
+        "Голубой": 9
+      },
+      "sizes": {
+        "S": 5,
+        "M": 6,
+        "L": 4,
+        "XL": 4
+      },
+      "matrix": {
+        "Синий/M": 3,
+        "Синий/S": 3,
+        "Голубой/L": 2,
+        "Голубой/S": 2,
+        "Голубой/M": 3,
+        "Синий/XL": 2,
+        "Голубой/XL": 2,
+        "Синий/L": 2
+      }
+    },
+    "last_sale": "2026-03-08",
+    "first_sale": "2026-03-08",
+    "days_since_last_sale": 44,
+    "avg_sale_price": 25900,
+    "returns_qty": 0,
+    "gross_profit": 20287,
+    "margin_pct": 78.3,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 19,
+      "moscow": 14,
+      "tsum_online": 5,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 25900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 25900.0
+    },
+    "supplied_qty": 20,
+    "supplied_cost": 112260.0,
+    "cost": 5613.0,
+    "retail": 25900,
+    "sell_through": 5.0,
+    "stock_value": 492100,
+    "stock_cost": 106647,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.4,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "photo": "[57008b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы карго XSL26029",
+    "variants": {
+      "colors": {
+        "Синий": 10,
+        "Чёрный": 9
+      },
+      "sizes": {
+        "S": 6,
+        "M": 5,
+        "L": 4,
+        "XL": 4
+      },
+      "matrix": {
+        "Синий/XL": 2,
+        "Синий/M": 3,
+        "Синий/L": 2,
+        "Чёрный/L": 2,
+        "Чёрный/XL": 2,
+        "Чёрный/S": 3,
+        "Синий/S": 3,
+        "Чёрный/M": 2
+      }
+    },
+    "last_sale": "2026-03-25",
+    "first_sale": "2026-03-25",
+    "days_since_last_sale": 27,
+    "avg_sale_price": 24900,
+    "returns_qty": 0,
+    "gross_profit": 19642,
+    "margin_pct": 78.9,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 19,
+      "moscow": 13,
+      "tsum_online": 6,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 24900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 24900.0
+      },
+      "total_qty": 1,
+      "total_rev": 24900.0
+    },
+    "supplied_qty": 20,
+    "supplied_cost": 105160.0,
+    "cost": 5258.0,
+    "retail": 24900,
+    "sell_through": 5.0,
+    "stock_value": 473100,
+    "stock_cost": 99902,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.6
+    },
+    "wos": 81.4,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 5%, НО ускорение ×2.6 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[45072b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы кюлоты на шнурке XSL26035",
+    "variants": {
+      "colors": {
+        "Чёрный": 10,
+        "Синий": 9
+      },
+      "sizes": {
+        "S": 6,
+        "M": 5,
+        "L": 4,
+        "XL": 4
+      },
+      "matrix": {
+        "Чёрный/M": 3,
+        "Чёрный/XL": 2,
+        "Синий/S": 3,
+        "Синий/L": 2,
+        "Чёрный/L": 2,
+        "Чёрный/S": 3,
+        "Синий/XL": 2,
+        "Синий/M": 2
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-04-04",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 22900,
+    "returns_qty": 0,
+    "gross_profit": 18068,
+    "margin_pct": 78.9,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 19,
+      "moscow": 12,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 22900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 22900.0
+      },
+      "total_qty": 1,
+      "total_rev": 22900.0
+    },
+    "supplied_qty": 20,
+    "supplied_cost": 96640.0,
+    "cost": 4832.0,
+    "retail": 22900,
+    "sell_through": 5.0,
+    "stock_value": 435100,
+    "stock_cost": 91808,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.6
+    },
+    "wos": 81.4,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 5%, НО ускорение ×2.6 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[58808b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки Adidas с 3 полосами",
+    "variants": {
+      "colors": {
+        "Чёрный": 13,
+        "Синий": 2,
+        "Бежевый": 4
+      },
+      "sizes": {
+        "S": 3,
+        "M": 4,
+        "L": 6,
+        "XL": 4,
+        "2XL": 2
+      },
+      "matrix": {
+        "Чёрный/M": 1,
+        "Чёрный/XL": 2,
+        "Чёрный/2XL": 1,
+        "Синий/L": 1,
+        "Бежевый/M": 1,
+        "Чёрный/L": 3,
+        "Чёрный/S": 1,
+        "Синий/S": 1,
+        "Бежевый/L": 2,
+        "Бежевый/2XL": 1
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-02-14",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 19776,
+    "returns_qty": 0,
+    "gross_profit": 547310,
+    "margin_pct": 77.1,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 19,
+      "moscow": 12,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 10,
+        "rev": 193000.0
+      },
+      "mar": {
+        "qty": 20,
+        "rev": 368200.0
+      },
+      "apr": {
+        "qty": 8,
+        "rev": 159200.0
+      },
+      "last_30d": {
+        "qty": 13,
+        "rev": 250800.0
+      },
+      "total_qty": 38,
+      "total_rev": 720400.0
+    },
+    "supplied_qty": 56,
+    "supplied_cost": 256011.0,
+    "cost": 4555.0,
+    "retail": 19863,
+    "sell_through": 67.9,
+    "stock_value": 377396,
+    "stock_cost": 86545,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 13,
+      "avg_30d": 16.1,
+      "acceleration": 0.81
+    },
+    "wos": 6.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 68% (хит), продаётся 13 шт/мес — дозаказать срочно",
+    "photo": "[56204b]"
+  },
+  {
+    "article": null,
+    "name": "Рубашка клетчатая",
+    "variants": {
+      "colors": {
+        "Синяя клетка": 4,
+        "Коричневая клетка": 4,
+        "Чёрная клетка": 8,
+        "Хаки клетка": 5,
+        "Красная клетка": 5
+      },
+      "sizes": {
+        "OneSize": 26
+      },
+      "matrix": {
+        "Синяя клетка/OneSize": 4,
+        "Коричневая клетка/OneSize": 4,
+        "Чёрная клетка/OneSize": 3,
+        "Хаки клетка/OneSize": 5,
+        "Красная клетка/OneSize": 5
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-04-08",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 14567,
+    "returns_qty": 0,
+    "gross_profit": 34430,
+    "margin_pct": 78.9,
+    "supplier": "DQJ (大琴家服饰)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 26,
+      "moscow": 15,
+      "tsum_online": 11,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 3,
+        "rev": 43700.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 43700.0
+      },
+      "total_qty": 3,
+      "total_rev": 43700.0
+    },
+    "supplied_qty": 30,
+    "supplied_cost": 92710.0,
+    "cost": 3090.0,
+    "retail": 14650,
+    "sell_through": 10.0,
+    "stock_value": 380900,
+    "stock_cost": 80340,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 1.3,
+      "acceleration": 2.37
+    },
+    "wos": 37.1,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 10%, НО ускорение ×2.4 (3/мес) — весна разгонит, скидку не давать",
+    "photo": "[55888b]"
+  },
+  {
+    "article": null,
+    "name": "Худи зип вош оверсайз",
+    "variants": {
+      "colors": {
+        "Чёрный": 20
+      },
+      "sizes": {
+        "L": 3,
+        "XL": 7,
+        "2XL": 8,
+        "3XL": 2
+      },
+      "matrix": {
+        "Чёрный/XL": 7,
+        "Чёрный/2XL": 8,
+        "Чёрный/3XL": 2,
+        "Чёрный/L": 3
+      }
+    },
+    "last_sale": "2026-04-12",
+    "first_sale": "2026-02-18",
+    "days_since_last_sale": 9,
+    "avg_sale_price": 15900,
+    "returns_qty": 0,
+    "gross_profit": 120310,
+    "margin_pct": 75.7,
+    "supplier": "GYL",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 20,
+      "moscow": 12,
+      "tsum_online": 8,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "mar": {
+        "qty": 4,
+        "rev": 63600.0
+      },
+      "apr": {
+        "qty": 5,
+        "rev": 79500.0
+      },
+      "last_30d": {
+        "qty": 7,
+        "rev": 111300.0
+      },
+      "total_qty": 10,
+      "total_rev": 159000.0
+    },
+    "supplied_qty": 30,
+    "supplied_cost": 116070.0,
+    "cost": 3869.0,
+    "retail": 15900,
+    "sell_through": 33.3,
+    "stock_value": 318000,
+    "stock_cost": 77380,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 7,
+      "avg_30d": 4.4,
+      "acceleration": 1.59
+    },
+    "wos": 12.2,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 33%, стабильно идёт 7 шт/мес — держим",
+    "photo": "[14432b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки широкие с баской карго",
+    "variants": {
+      "colors": {
+        "Чёрный": 16
+      },
+      "sizes": {
+        "S": 4,
+        "M": 6,
+        "L": 6
+      },
+      "matrix": {
+        "Чёрный/L": 6,
+        "Чёрный/S": 4,
+        "Чёрный/M": 6
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.8,
+    "supplier": "DXJ (嘟小俊 / Ду Сяо Цзюнь)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 16,
+      "moscow": 10,
+      "tsum_online": 6,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 16,
+    "supplied_cost": 77088.0,
+    "cost": 4818.0,
+    "retail": 23900,
+    "sell_through": 0.0,
+    "stock_value": 382400,
+    "stock_cost": 77088,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "photo": "[25768b]"
+  },
+  {
+    "article": null,
+    "name": "Костюм-тройка трикотажный",
+    "variants": {
+      "colors": {
+        "Светло-серый": 15,
+        "Тёмно-серый": 14
+      },
+      "sizes": {
+        "L": 9,
+        "XL": 10,
+        "2XL": 10
+      },
+      "matrix": {
+        "Светло-серый/XL": 5,
+        "Светло-серый/L": 5,
+        "Тёмно-серый/XL": 5,
+        "Тёмно-серый/2XL": 5,
+        "Светло-серый/2XL": 5,
+        "Тёмно-серый/L": 4
+      }
+    },
+    "last_sale": "2026-04-17",
+    "first_sale": null,
+    "days_since_last_sale": 4,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": -2628,
+    "margin_pct": 83.5,
+    "supplier": "DMK",
+    "subfolder": "Костюмы",
+    "stock": {
+      "total": 29,
+      "moscow": 17,
+      "tsum_online": 12,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 30,
+    "supplied_cost": 78840.0,
+    "cost": 2628.0,
+    "retail": 15900,
+    "sell_through": 3.3,
+    "stock_value": 461100,
+    "stock_cost": 76212,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.57
+    },
+    "wos": 124.3,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 3%, НО ускорение ×2.6 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[80896b]"
+  },
+  {
+    "article": null,
+    "name": "Джоггеры весенние на кулиске",
+    "variants": {
+      "colors": {
+        "Бежевый": 4,
+        "Чёрный": 5,
+        "Серый": 2,
+        "Розовый": 1,
+        "Коричневый": 7,
+        "Светло-серый": 5
+      },
+      "sizes": {
+        "M": 5,
+        "L": 7,
+        "XL": 12
+      },
+      "matrix": {
+        "Бежевый/M": 1,
+        "Чёрный/XL": 4,
+        "Бежевый/L": 1,
+        "Серый/M": 1,
+        "Серый/XL": 1,
+        "Розовый/L": 1,
+        "Коричневый/XL": 2,
+        "Коричневый/L": 3,
+        "Коричневый/M": 2,
+        "Светло-серый/L": 1,
+        "Чёрный/L": 1,
+        "Бежевый/XL": 2,
+        "Светло-серый/M": 1,
+        "Светло-серый/XL": 3
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-02-12",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 15701,
+    "returns_qty": 0,
+    "gross_profit": 322390,
+    "margin_pct": 80.7,
+    "supplier": "SC",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 24,
+      "moscow": 12,
+      "tsum_online": 12,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 11,
+        "rev": 172015.7
+      },
+      "mar": {
+        "qty": 12,
+        "rev": 156722.17
+      },
+      "apr": {
+        "qty": 5,
+        "rev": 79500.0
+      },
+      "last_30d": {
+        "qty": 8,
+        "rev": 93122.17
+      },
+      "total_qty": 28,
+      "total_rev": 408237.87
+    },
+    "supplied_qty": 54,
+    "supplied_cost": 165564.0,
+    "cost": 3066.0,
+    "retail": 15900,
+    "sell_through": 51.9,
+    "stock_value": 381600,
+    "stock_cost": 73584,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 8,
+      "avg_30d": 10.9,
+      "acceleration": 0.73
+    },
+    "wos": 12.9,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 52%, стабильно идёт 8 шт/мес — держим",
+    "photo": "[37304b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки карго с камуфляж накладкой",
+    "variants": {
+      "colors": {
+        "Чёрный": 15
+      },
+      "sizes": {
+        "M": 7,
+        "L": 8
+      },
+      "matrix": {
+        "Чёрный/L": 8,
+        "Чёрный/M": 7
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.8,
+    "supplier": "DXJ (嘟小俊 / Ду Сяо Цзюнь)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 15,
+      "moscow": 8,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 15,
+    "supplied_cost": 72270.0,
+    "cost": 4818.0,
+    "retail": 23900,
+    "sell_through": 0.0,
+    "stock_value": 358500,
+    "stock_cost": 72270,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "photo": "[45272b]"
+  },
+  {
+    "article": null,
+    "name": "Костюм двойка на пуговицах",
+    "variants": {
+      "colors": {
+        "Светло-серый": 15,
+        "Сине-серый": 13
+      },
+      "sizes": {
+        "L": 10,
+        "XL": 10,
+        "2XL": 8
+      },
+      "matrix": {
+        "Светло-серый/L": 5,
+        "Светло-серый/2XL": 5,
+        "Светло-серый/XL": 5,
+        "Сине-серый/XL": 5,
+        "Сине-серый/2XL": 3,
+        "Сине-серый/L": 5
+      }
+    },
+    "last_sale": "2026-03-29",
+    "first_sale": "2026-03-29",
+    "days_since_last_sale": 23,
+    "avg_sale_price": 15900,
+    "returns_qty": 0,
+    "gross_profit": 10790,
+    "margin_pct": 83.9,
+    "supplier": "DMK",
+    "subfolder": "Костюмы",
+    "stock": {
+      "total": 28,
+      "moscow": 17,
+      "tsum_online": 11,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 15900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 15900.0
+      },
+      "total_qty": 2,
+      "total_rev": 15900.0
+    },
+    "supplied_qty": 30,
+    "supplied_cost": 76650.0,
+    "cost": 2555.0,
+    "retail": 15900,
+    "sell_through": 6.7,
+    "stock_value": 445200,
+    "stock_cost": 71540,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 0.8,
+      "acceleration": 2.57
+    },
+    "wos": 60.0,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 7%, НО ускорение ×2.6 (2/мес) — весна разгонит, скидку не давать",
+    "photo": "[51692b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки широкие повседневные",
+    "variants": {
+      "colors": {
+        "Чёрный": 7,
+        "Светло-серый": 5,
+        "Серый": 5,
+        "Тёмно-коричневый": 9
+      },
+      "sizes": {
+        "M": 7,
+        "L": 9,
+        "XL": 10
+      },
+      "matrix": {
+        "Чёрный/L": 2,
+        "Светло-серый/XL": 2,
+        "Серый/M": 1,
+        "Тёмно-коричневый/M": 2,
+        "Светло-серый/L": 1,
+        "Светло-серый/M": 2,
+        "Тёмно-коричневый/L": 4,
+        "Чёрный/M": 2,
+        "Серый/L": 2,
+        "Серый/XL": 2,
+        "Тёмно-коричневый/XL": 3,
+        "Чёрный/XL": 3
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-02-15",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 15458,
+    "returns_qty": 0,
+    "gross_profit": 242678,
+    "margin_pct": 83.0,
+    "supplier": "SC",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 26,
+      "moscow": 11,
+      "tsum_online": 15,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "mar": {
+        "qty": 13,
+        "rev": 159000.0
+      },
+      "apr": {
+        "qty": 8,
+        "rev": 127200.0
+      },
+      "last_30d": {
+        "qty": 11,
+        "rev": 174900.0
+      },
+      "total_qty": 22,
+      "total_rev": 302100.0
+    },
+    "supplied_qty": 45,
+    "supplied_cost": 121545.0,
+    "cost": 2701.0,
+    "retail": 15900,
+    "sell_through": 48.9,
+    "stock_value": 413400,
+    "stock_cost": 70226,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 11,
+      "avg_30d": 8.6,
+      "acceleration": 1.28
+    },
+    "wos": 10.1,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 49%, стабильно идёт 11 шт/мес — держим",
+    "photo": "[55036b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg в полоску",
+    "variants": {
+      "colors": {
+        "Серый": 6,
+        "Голубой": 7
+      },
+      "sizes": {
+        "S": 3,
+        "M": 2,
+        "L": 4,
+        "XL": 4
+      },
+      "matrix": {
+        "Серый/L": 2,
+        "Серый/XL": 2,
+        "Голубой/XL": 2,
+        "Серый/M": 1,
+        "Серый/S": 1,
+        "Голубой/L": 2,
+        "Голубой/M": 1,
+        "Голубой/S": 2
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-03-21",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 24900,
+    "returns_qty": 0,
+    "gross_profit": 58932,
+    "margin_pct": 78.9,
+    "supplier": "MYA",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 13,
+      "moscow": 5,
+      "tsum_online": 8,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 49800.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 24900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 24900.0
+      },
+      "total_qty": 3,
+      "total_rev": 74700.0
+    },
+    "supplied_qty": 16,
+    "supplied_cost": 84096.0,
+    "cost": 5256.0,
+    "retail": 24900,
+    "sell_through": 18.8,
+    "stock_value": 323700,
+    "stock_cost": 68328,
+    "first_supply_date": "2026-01-25",
+    "last_supply_date": "2026-01-25",
+    "days_since_first": 86,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 1.0,
+      "acceleration": 0.96
+    },
+    "wos": 55.7,
+    "recommendation": "DISCOUNT_20",
+    "recommendation_reason": "Продано 19% за 86 дн, ускорение слабое — скидка 15-20%",
+    "photo": "[59300b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки карго с клапанами",
+    "variants": {
+      "colors": {
+        "Хаки": 7,
+        "Чёрный": 9,
+        "Белый": 5
+      },
+      "sizes": {
+        "M": 7,
+        "L": 7,
+        "XL": 7
+      },
+      "matrix": {
+        "Хаки/XL": 3,
+        "Чёрный/M": 3,
+        "Белый/M": 2,
+        "Чёрный/L": 3,
+        "Хаки/M": 2,
+        "Чёрный/XL": 3,
+        "Белый/L": 2,
+        "Белый/XL": 1,
+        "Хаки/L": 2
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-02-17",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 15900,
+    "returns_qty": 0,
+    "gross_profit": 77442,
+    "margin_pct": 81.2,
+    "supplier": "SC",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 21,
+      "moscow": 12,
+      "tsum_online": 9,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "mar": {
+        "qty": 3,
+        "rev": 47700.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 31800.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 47700.0
+      },
+      "total_qty": 6,
+      "total_rev": 95400.0
+    },
+    "supplied_qty": 27,
+    "supplied_cost": 80811.0,
+    "cost": 2993.0,
+    "retail": 15900,
+    "sell_through": 22.2,
+    "stock_value": 333900,
+    "stock_cost": 62853,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 2.3,
+      "acceleration": 1.28
+    },
+    "wos": 30.0,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 22%, стабильно идёт 3 шт/мес — держим",
+    "photo": "[36976b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg классика",
+    "variants": {
+      "colors": {
+        "Голубой": 5,
+        "Чёрный": 7
+      },
+      "sizes": {
+        "S": 2,
+        "M": 3,
+        "L": 3,
+        "XL": 4
+      },
+      "matrix": {
+        "Голубой/S": 1,
+        "Чёрный/XL": 2,
+        "Голубой/XL": 2,
+        "Голубой/L": 1,
+        "Чёрный/M": 2,
+        "Чёрный/S": 1,
+        "Чёрный/L": 2,
+        "Голубой/M": 1
+      }
+    },
+    "last_sale": "2026-04-11",
+    "first_sale": "2026-03-25",
+    "days_since_last_sale": 10,
+    "avg_sale_price": 23900,
+    "returns_qty": 0,
+    "gross_profit": 75744,
+    "margin_pct": 79.2,
+    "supplier": "MYA",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 12,
+      "moscow": 4,
+      "tsum_online": 8,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 47800.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 47800.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 95600.0
+      },
+      "total_qty": 4,
+      "total_rev": 95600.0
+    },
+    "supplied_qty": 16,
+    "supplied_cost": 79424.0,
+    "cost": 4964.0,
+    "retail": 23900,
+    "sell_through": 25.0,
+    "stock_value": 286800,
+    "stock_cost": 59568,
+    "first_supply_date": "2026-01-25",
+    "last_supply_date": "2026-01-25",
+    "days_since_first": 86,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 1.4,
+      "acceleration": 2.87
+    },
+    "wos": 12.9,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 25%, стабильно идёт 4 шт/мес — держим",
+    "photo": "[60668b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки Adidas Originals с кнопками",
+    "variants": {
+      "colors": {
+        "Чёрный": 14
+      },
+      "sizes": {
+        "S": 1,
+        "M": 2,
+        "L": 3,
+        "XL": 3,
+        "2XL": 3,
+        "3XL": 2
+      },
+      "matrix": {
+        "Чёрный/XL": 3,
+        "Чёрный/2XL": 3,
+        "Чёрный/S": 1,
+        "Чёрный/M": 2,
+        "Чёрный/3XL": 2,
+        "Чёрный/L": 3
+      }
+    },
+    "last_sale": "2026-03-08",
+    "first_sale": "2026-02-27",
+    "days_since_last_sale": 44,
+    "avg_sale_price": 17900,
+    "returns_qty": 0,
+    "gross_profit": 27332,
+    "margin_pct": 76.3,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 14,
+      "moscow": 9,
+      "tsum_online": 5,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 17900.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 17900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 2,
+      "total_rev": 35800.0
+    },
+    "supplied_qty": 16,
+    "supplied_cost": 67744.0,
+    "cost": 4234.0,
+    "retail": 17900,
+    "sell_through": 12.5,
+    "stock_value": 250600,
+    "stock_cost": 59276,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.8,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "photo": "[44160b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы баллон с ремнём XSL26115",
+    "variants": {
+      "colors": {
+        "Синий": 10
+      },
+      "sizes": {
+        "S": 3,
+        "M": 3,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/M": 3,
+        "Синий/XL": 2,
+        "Синий/S": 3,
+        "Синий/L": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 78.3,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 10,
+      "moscow": 7,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 56130.0,
+    "cost": 5613.0,
+    "retail": 25900,
+    "sell_through": 0.0,
+    "stock_value": 259000,
+    "stock_cost": 56130,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "photo": "[56328b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка Nike TN",
+    "variants": {
+      "colors": {
+        "Белый": 8,
+        "Чёрный": 11
+      },
+      "sizes": {
+        "M": 5,
+        "L": 4,
+        "XL": 6,
+        "2XL": 4
+      },
+      "matrix": {
+        "Белый/2XL": 2,
+        "Чёрный/2XL": 2,
+        "Белый/XL": 2,
+        "Чёрный/L": 2,
+        "Чёрный/M": 3,
+        "Белый/M": 2,
+        "Чёрный/XL": 4,
+        "Белый/L": 2
+      }
+    },
+    "last_sale": "2026-04-18",
+    "first_sale": "2026-03-09",
+    "days_since_last_sale": 3,
+    "avg_sale_price": 12900,
+    "returns_qty": 0,
+    "gross_profit": 56960,
+    "margin_pct": 77.4,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 19,
+      "moscow": 8,
+      "tsum_online": 11,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 3,
+        "rev": 38700.0
+      },
+      "apr": {
+        "qty": 4,
+        "rev": 38700.0
+      },
+      "last_30d": {
+        "qty": 6,
+        "rev": 64500.0
+      },
+      "total_qty": 7,
+      "total_rev": 77400.0
+    },
+    "supplied_qty": 27,
+    "supplied_cost": 78840.0,
+    "cost": 2920.0,
+    "retail": 12900,
+    "sell_through": 25.9,
+    "stock_value": 245100,
+    "stock_cost": 55480,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 6,
+      "avg_30d": 3.0,
+      "acceleration": 2.03
+    },
+    "wos": 13.6,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 26%, стабильно идёт 6 шт/мес — держим",
+    "photo": "[40472b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg с ремнём Hermès",
+    "variants": {
+      "colors": {
+        "Синий": 10
+      },
+      "sizes": {
+        "S": 3,
+        "M": 3,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/L": 2,
+        "Синий/M": 3,
+        "Синий/S": 3,
+        "Синий/XL": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 78.3,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 10,
+      "moscow": 7,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 54000.0,
+    "cost": 5400.0,
+    "retail": 24900,
+    "sell_through": 0.0,
+    "stock_value": 249000,
+    "stock_cost": 54000,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "photo": "[47936b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы кюлоты 7/8",
+    "variants": {
+      "colors": {
+        "Синий": 8,
+        "Тёмно-серый": 8
+      },
+      "sizes": {
+        "S": 4,
+        "M": 4,
+        "L": 4,
+        "XL": 4
+      },
+      "matrix": {
+        "Синий/S": 2,
+        "Синий/XL": 2,
+        "Тёмно-серый/XL": 2,
+        "Тёмно-серый/L": 2,
+        "Тёмно-серый/M": 2,
+        "Синий/L": 2,
+        "Тёмно-серый/S": 2,
+        "Синий/M": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 80.1,
+    "supplier": "KS (K.S牛仔服饰)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 16,
+      "moscow": 10,
+      "tsum_online": 6,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 16,
+    "supplied_cost": 53728.0,
+    "cost": 3358.0,
+    "retail": 16900,
+    "sell_through": 0.0,
+    "stock_value": 270400,
+    "stock_cost": 53728,
+    "first_supply_date": "2026-01-24",
+    "last_supply_date": "2026-01-24",
+    "days_since_first": 87,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
+    "photo": "[62084b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы клёш с ремнём XSL26066",
+    "variants": {
+      "colors": {
+        "Синий": 10
+      },
+      "sizes": {
+        "S": 3,
+        "M": 3,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/M": 3,
+        "Синий/XL": 2,
+        "Синий/L": 2,
+        "Синий/S": 3
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 78.9,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 10,
+      "moscow": 6,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 52580.0,
+    "cost": 5258.0,
+    "retail": 24900,
+    "sell_through": 0.0,
+    "stock_value": 249000,
+    "stock_cost": 52580,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "photo": "[42404b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg с ремнём XSL26088",
+    "variants": {
+      "colors": {
+        "Синий": 10
+      },
+      "sizes": {
+        "S": 3,
+        "M": 3,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/M": 3,
+        "Синий/L": 2,
+        "Синий/S": 3,
+        "Синий/XL": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.2,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 10,
+      "moscow": 7,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 51870.0,
+    "cost": 5187.0,
+    "retail": 24900,
+    "sell_through": 0.0,
+    "stock_value": 249000,
+    "stock_cost": 51870,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "photo": "[57368b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки карго широкие с декором",
+    "variants": {
+      "colors": {
+        "Чёрный": 10
+      },
+      "sizes": {
+        "M": 4,
+        "L": 6
+      },
+      "matrix": {
+        "Чёрный/M": 4,
+        "Чёрный/L": 6
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.2,
+    "supplier": "DXJ (嘟小俊 / Ду Сяо Цзюнь)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 10,
+      "moscow": 6,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 49640.0,
+    "cost": 4964.0,
+    "retail": 23900,
+    "sell_through": 0.0,
+    "stock_value": 239000,
+    "stock_cost": 49640,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "photo": "[45240b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg особые с ремнём XSL26123",
+    "variants": {
+      "colors": {
+        "Синий": 9
+      },
+      "sizes": {
+        "S": 3,
+        "M": 3,
+        "L": 2,
+        "XL": 1
+      },
+      "matrix": {
+        "Синий/M": 3,
+        "Синий/L": 2,
+        "Синий/S": 3,
+        "Синий/XL": 1
+      }
+    },
+    "last_sale": "2026-03-25",
+    "first_sale": "2026-03-25",
+    "days_since_last_sale": 27,
+    "avg_sale_price": 24900,
+    "returns_qty": 0,
+    "gross_profit": 19429,
+    "margin_pct": 78.0,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 9,
+      "moscow": 7,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 24900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 24900.0
+      },
+      "total_qty": 1,
+      "total_rev": 24900.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 54710.0,
+    "cost": 5471.0,
+    "retail": 24900,
+    "sell_through": 10.0,
+    "stock_value": 224100,
+    "stock_cost": 49239,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.6
+    },
+    "wos": 38.6,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 10%, НО ускорение ×2.6 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[61836b]"
+  },
+  {
+    "article": null,
+    "name": "Худи на молнии",
+    "variants": {
+      "colors": {
+        "Светло-серый": 2,
+        "Синий": 9,
+        "Бежевый": 1,
+        "Чёрный": 6
+      },
+      "sizes": {
+        "OneSize": 18
+      },
+      "matrix": {
+        "Светло-серый/OneSize": 2,
+        "Синий/OneSize": 9,
+        "Бежевый/OneSize": 1,
+        "Чёрный/OneSize": 6
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-03-01",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 14223,
+    "returns_qty": 0,
+    "gross_profit": 129736,
+    "margin_pct": 82.4,
+    "supplier": "JY",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 18,
+      "moscow": 9,
+      "tsum_online": 9,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 7,
+        "rev": 89400.0
+      },
+      "apr": {
+        "qty": 6,
+        "rev": 74500.0
+      },
+      "last_30d": {
+        "qty": 7,
+        "rev": 89400.0
+      },
+      "total_qty": 13,
+      "total_rev": 163900.0
+    },
+    "supplied_qty": 33,
+    "supplied_cost": 86724.0,
+    "cost": 2628.0,
+    "retail": 14900,
+    "sell_through": 39.4,
+    "stock_value": 268200,
+    "stock_cost": 47304,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 7,
+      "avg_30d": 5.0,
+      "acceleration": 1.4
+    },
+    "wos": 11.0,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 39%, стабильно идёт 7 шт/мес — держим",
+    "photo": "[61904b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки карго",
+    "variants": {
+      "colors": {
+        "Хаки": 2,
+        "Серый": 3,
+        "Чёрный": 7
+      },
+      "sizes": {
+        "M": 5,
+        "L": 7
+      },
+      "matrix": {
+        "Хаки/L": 1,
+        "Серый/L": 2,
+        "Серый/M": 1,
+        "Хаки/M": 1,
+        "Чёрный/M": 3,
+        "Чёрный/L": 4
+      }
+    },
+    "last_sale": "2026-04-16",
+    "first_sale": "2026-02-26",
+    "days_since_last_sale": 5,
+    "avg_sale_price": 19900,
+    "returns_qty": 0,
+    "gross_profit": 128248,
+    "margin_pct": 80.6,
+    "supplier": "JL (金莱服饰 / Цзиньлай Фуши)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 12,
+      "moscow": 4,
+      "tsum_online": 8,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "mar": {
+        "qty": 4,
+        "rev": 79600.0
+      },
+      "apr": {
+        "qty": 3,
+        "rev": 59700.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 79600.0
+      },
+      "total_qty": 8,
+      "total_rev": 159200.0
+    },
+    "supplied_qty": 22,
+    "supplied_cost": 85118.0,
+    "cost": 3869.0,
+    "retail": 19900,
+    "sell_through": 36.4,
+    "stock_value": 238800,
+    "stock_cost": 46428,
+    "first_supply_date": "2026-01-25",
+    "last_supply_date": "2026-01-25",
+    "days_since_first": 86,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 2.8,
+      "acceleration": 1.43
+    },
+    "wos": 12.9,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 36%, стабильно идёт 4 шт/мес — держим",
+    "photo": "[64384b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки карго со складками",
+    "variants": {
+      "colors": {
+        "Чёрный": 9,
+        "Бежевый": 5
+      },
+      "sizes": {
+        "M": 5,
+        "L": 2,
+        "XL": 7
+      },
+      "matrix": {
+        "Чёрный/M": 3,
+        "Чёрный/XL": 4,
+        "Бежевый/M": 2,
+        "Бежевый/XL": 3,
+        "Чёрный/L": 2
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-02-22",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 15900,
+    "returns_qty": 0,
+    "gross_profit": 73938,
+    "margin_pct": 80.7,
+    "supplier": "SC",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 14,
+      "moscow": 9,
+      "tsum_online": 5,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 31800.0
+      },
+      "apr": {
+        "qty": 4,
+        "rev": 47700.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 47700.0
+      },
+      "total_qty": 7,
+      "total_rev": 95400.0
+    },
+    "supplied_qty": 21,
+    "supplied_cost": 64386.0,
+    "cost": 3066.0,
+    "retail": 15900,
+    "sell_through": 33.3,
+    "stock_value": 222600,
+    "stock_cost": 42924,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 2.7,
+      "acceleration": 1.47
+    },
+    "wos": 15.0,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 33%, стабильно идёт 4 шт/мес — держим",
+    "photo": "[33860b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки спортивные широкие",
+    "variants": {
+      "colors": {
+        "Чёрный": 9,
+        "Бежевый": 4,
+        "Коричневый": 4,
+        "Светло-серый": 4
+      },
+      "sizes": {
+        "OneSize": 21
+      },
+      "matrix": {
+        "Чёрный/OneSize": 9,
+        "Бежевый/OneSize": 4,
+        "Коричневый/OneSize": 4,
+        "Светло-серый/OneSize": 4
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-03-20",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 13900,
+    "returns_qty": 0,
+    "gross_profit": 43336,
+    "margin_pct": 85.3,
+    "supplier": "JY",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 21,
+      "moscow": 12,
+      "tsum_online": 9,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 27800.0
+      },
+      "apr": {
+        "qty": 4,
+        "rev": 27800.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 27800.0
+      },
+      "total_qty": 6,
+      "total_rev": 55600.0
+    },
+    "supplied_qty": 28,
+    "supplied_cost": 57232.0,
+    "cost": 2044.0,
+    "retail": 13900,
+    "sell_through": 21.4,
+    "stock_value": 291900,
+    "stock_cost": 42924,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 2.3,
+      "acceleration": 1.73
+    },
+    "wos": 22.5,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 21%, стабильно идёт 4 шт/мес — держим",
+    "photo": "[68180b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg винтаж",
+    "variants": {
+      "colors": {
+        "Синий": 9
+      },
+      "sizes": {
+        "S": 2,
+        "M": 4,
+        "L": 3
+      },
+      "matrix": {
+        "Синий/L": 3,
+        "Синий/M": 4,
+        "Синий/S": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.3,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 9,
+      "moscow": 5,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 9,
+    "supplied_cost": 42687.0,
+    "cost": 4743.0,
+    "retail": 22900,
+    "sell_through": 0.0,
+    "stock_value": 206100,
+    "stock_cost": 42687,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "photo": "[55764b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg с баской XSL26036",
+    "variants": {
+      "colors": {
+        "Синий": 7
+      },
+      "sizes": {
+        "S": 2,
+        "M": 1,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/M": 1,
+        "Синий/XL": 2,
+        "Синий/L": 2,
+        "Синий/S": 2
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-03-05",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 27900,
+    "returns_qty": 0,
+    "gross_profit": 65580,
+    "margin_pct": 78.4,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 7,
+      "moscow": 4,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 55800.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 27900.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 55800.0
+      },
+      "total_qty": 3,
+      "total_rev": 83700.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 60400.0,
+    "cost": 6040.0,
+    "retail": 27900,
+    "sell_through": 30.0,
+    "stock_value": 195300,
+    "stock_cost": 42280,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 1.2,
+      "acceleration": 1.73
+    },
+    "wos": 15.0,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 30%, стабильно идёт 2 шт/мес — держим",
+    "photo": "[64988b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки-бананы весенние",
+    "variants": {
+      "colors": {
+        "Чёрный": 7,
+        "Светло-серый": 3,
+        "Коричневый": 4
+      },
+      "sizes": {
+        "M": 4,
+        "L": 5,
+        "XL": 5
+      },
+      "matrix": {
+        "Чёрный/L": 3,
+        "Чёрный/XL": 3,
+        "Светло-серый/M": 1,
+        "Коричневый/M": 2,
+        "Коричневый/L": 1,
+        "Светло-серый/L": 1,
+        "Коричневый/XL": 1,
+        "Чёрный/M": 1,
+        "Светло-серый/XL": 1
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-02-15",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 15900,
+    "returns_qty": 0,
+    "gross_profit": 193605,
+    "margin_pct": 81.2,
+    "supplier": "SC",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 14,
+      "moscow": 7,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 6,
+        "rev": 95400.0
+      },
+      "mar": {
+        "qty": 8,
+        "rev": 127200.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "last_30d": {
+        "qty": 5,
+        "rev": 79500.0
+      },
+      "total_qty": 15,
+      "total_rev": 238500.0
+    },
+    "supplied_qty": 30,
+    "supplied_cost": 89790.0,
+    "cost": 2993.0,
+    "retail": 15900,
+    "sell_through": 50.0,
+    "stock_value": 222600,
+    "stock_cost": 41902,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 5,
+      "avg_30d": 5.8,
+      "acceleration": 0.86
+    },
+    "wos": 12.0,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 50%, стабильно идёт 5 шт/мес — держим",
+    "photo": "[59760b]"
+  },
+  {
+    "article": null,
+    "name": "Бомбер двусторонний экокожа",
+    "variants": {
+      "colors": {
+        "Хаки": 7
+      },
+      "sizes": {
+        "OneSize": 7
+      },
+      "matrix": {
+        "Хаки/OneSize": 7
+      }
+    },
+    "last_sale": "2026-03-09",
+    "first_sale": "2026-02-14",
+    "days_since_last_sale": 43,
+    "avg_sale_price": 22900,
+    "returns_qty": 0,
+    "gross_profit": 34266,
+    "margin_pct": 74.8,
+    "supplier": "YW",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 7,
+      "moscow": 4,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 22900.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 22900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 2,
+      "total_rev": 45800.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 57670.0,
+    "cost": 5767.0,
+    "retail": 22900,
+    "sell_through": 20.0,
+    "stock_value": 160300,
+    "stock_cost": 40369,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.9,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (68 дн на складе) — сильная скидка или списание",
+    "photo": "[68612b]"
+  },
+  {
+    "article": null,
+    "name": "Костюм рубашка-жакет + юбка",
+    "variants": {
+      "colors": {
+        "Чёрный": 5,
+        "Коричневый": 3
+      },
+      "sizes": {
+        "L": 8
+      },
+      "matrix": {
+        "Чёрный/L": 5,
+        "Коричневый/L": 3
+      }
+    },
+    "last_sale": "2026-03-26",
+    "first_sale": "2026-03-26",
+    "days_since_last_sale": 26,
+    "avg_sale_price": 25900,
+    "returns_qty": 0,
+    "gross_profit": 20863,
+    "margin_pct": 80.6,
+    "supplier": "MZ (美翥)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 5,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 25900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 25900.0
+      },
+      "total_qty": 1,
+      "total_rev": 25900.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 50370.0,
+    "cost": 5037.0,
+    "retail": 25900,
+    "sell_through": 10.0,
+    "stock_value": 207200,
+    "stock_cost": 40296,
+    "first_supply_date": "2026-01-27",
+    "last_supply_date": "2026-01-27",
+    "days_since_first": 84,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.8
+    },
+    "wos": 34.3,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 10%, НО ускорение ×2.8 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[74380b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы бананы двойной пояс",
+    "variants": {
+      "colors": {
+        "Синий": 7
+      },
+      "sizes": {
+        "S": 2,
+        "M": 3,
+        "L": 2
+      },
+      "matrix": {
+        "Синий/M": 3,
+        "Синий/L": 2,
+        "Синий/S": 2
+      }
+    },
+    "last_sale": "2026-03-03",
+    "first_sale": "2026-03-03",
+    "days_since_last_sale": 49,
+    "avg_sale_price": 22900,
+    "returns_qty": 0,
+    "gross_profit": 17223,
+    "margin_pct": 75.2,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 7,
+      "moscow": 4,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 22900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 22900.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 45416.0,
+    "cost": 5677.0,
+    "retail": 22900,
+    "sell_through": 12.5,
+    "stock_value": 160300,
+    "stock_cost": 39739,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.4,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "photo": "[61560b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки широкие на шнурке",
+    "variants": {
+      "colors": {
+        "Светло-серый": 4,
+        "Синий": 3,
+        "Чёрный": 7,
+        "Коричневый": 4
+      },
+      "sizes": {
+        "OneSize": 18
+      },
+      "matrix": {
+        "Светло-серый/OneSize": 4,
+        "Синий/OneSize": 3,
+        "Чёрный/OneSize": 7,
+        "Коричневый/OneSize": 4
+      }
+    },
+    "last_sale": "2026-04-11",
+    "first_sale": "2026-03-22",
+    "days_since_last_sale": 10,
+    "avg_sale_price": 13900,
+    "returns_qty": 0,
+    "gross_profit": 128810,
+    "margin_pct": 84.2,
+    "supplier": "JY",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 18,
+      "moscow": 7,
+      "tsum_online": 11,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 6,
+        "rev": 83400.0
+      },
+      "apr": {
+        "qty": 5,
+        "rev": 69500.0
+      },
+      "last_30d": {
+        "qty": 11,
+        "rev": 152900.0
+      },
+      "total_qty": 11,
+      "total_rev": 152900.0
+    },
+    "supplied_qty": 28,
+    "supplied_cost": 61320.0,
+    "cost": 2190.0,
+    "retail": 13900,
+    "sell_through": 39.3,
+    "stock_value": 250200,
+    "stock_cost": 39420,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 11,
+      "avg_30d": 4.2,
+      "acceleration": 2.6
+    },
+    "wos": 7.0,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 39%, осталось на 7 недель — дозаказать",
+    "photo": "[48808b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg с ремнём классика XSL26016",
+    "variants": {
+      "colors": {
+        "Синий": 8
+      },
+      "sizes": {
+        "S": 2,
+        "M": 3,
+        "L": 1,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/XL": 2,
+        "Синий/S": 2,
+        "Синий/L": 1,
+        "Синий/M": 3
+      }
+    },
+    "last_sale": "2026-03-24",
+    "first_sale": "2026-03-08",
+    "days_since_last_sale": 28,
+    "avg_sale_price": 22900,
+    "returns_qty": 0,
+    "gross_profit": 35994,
+    "margin_pct": 78.6,
+    "supplier": "XSL (西思黎牛仔服饰 / Сисыли)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 8,
+      "moscow": 5,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 45800.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 22900.0
+      },
+      "total_qty": 2,
+      "total_rev": 45800.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 49030.0,
+    "cost": 4903.0,
+    "retail": 22900,
+    "sell_through": 20.0,
+    "stock_value": 183200,
+    "stock_cost": 39224,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.8,
+      "acceleration": 1.3
+    },
+    "wos": 34.3,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 20%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[58532b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы бананы тяжёлая стирка",
+    "variants": {
+      "colors": {
+        "Чёрный": 6
+      },
+      "sizes": {
+        "S": 2,
+        "M": 3,
+        "L": 1
+      },
+      "matrix": {
+        "Чёрный/L": 1,
+        "Чёрный/M": 3,
+        "Чёрный/S": 2
+      }
+    },
+    "last_sale": "2026-04-09",
+    "first_sale": "2026-04-05",
+    "days_since_last_sale": 12,
+    "avg_sale_price": 25900,
+    "returns_qty": 0,
+    "gross_profit": 39008,
+    "margin_pct": 75.3,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 6,
+      "moscow": 3,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 51800.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 51800.0
+      },
+      "total_qty": 2,
+      "total_rev": 51800.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 51168.0,
+    "cost": 6396.0,
+    "retail": 25900,
+    "sell_through": 25.0,
+    "stock_value": 155400,
+    "stock_cost": 38376,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 0.8,
+      "acceleration": 2.57
+    },
+    "wos": 12.9,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 25%, стабильно идёт 2 шт/мес — держим",
+    "photo": "[50076b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg тёмные",
+    "variants": {
+      "colors": {
+        "Чёрно-серый": 8
+      },
+      "sizes": {
+        "S": 2,
+        "M": 4,
+        "L": 2
+      },
+      "matrix": {
+        "Чёрно-серый/S": 2,
+        "Чёрно-серый/L": 2,
+        "Чёрно-серый/M": 4
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 76.5,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 8,
+      "moscow": 5,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 37368.0,
+    "cost": 4671.0,
+    "retail": 19900,
+    "sell_through": 0.0,
+    "stock_value": 159200,
+    "stock_cost": 37368,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "photo": "[27892b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка Nike swoosh оверсайз",
+    "variants": {
+      "colors": {
+        "Белый": 6,
+        "Чёрный": 9
+      },
+      "sizes": {
+        "L": 1,
+        "2XL": 4,
+        "3XL": 9,
+        "4XL": 1
+      },
+      "matrix": {
+        "Белый/3XL": 5,
+        "Чёрный/L": 1,
+        "Белый/4XL": 1,
+        "Чёрный/2XL": 4,
+        "Чёрный/3XL": 4
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-02-15",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 9588,
+    "returns_qty": 0,
+    "gross_profit": 157503,
+    "margin_pct": 76.4,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 15,
+      "moscow": 6,
+      "tsum_online": 9,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 4,
+        "rev": 39600.0
+      },
+      "mar": {
+        "qty": 19,
+        "rev": 147438.1
+      },
+      "apr": {
+        "qty": 6,
+        "rev": 38208.79
+      },
+      "last_30d": {
+        "qty": 12,
+        "rev": 87708.79
+      },
+      "total_qty": 29,
+      "total_rev": 225246.89
+    },
+    "supplied_qty": 49,
+    "supplied_cost": 114464.0,
+    "cost": 2336.0,
+    "retail": 9900,
+    "sell_through": 59.2,
+    "stock_value": 148500,
+    "stock_cost": 35040,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 12,
+      "avg_30d": 12.3,
+      "acceleration": 0.98
+    },
+    "wos": 5.4,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 59%, осталось на 5 недель — дозаказать",
+    "photo": "[43112b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы кюлоты А-силуэт",
+    "variants": {
+      "colors": {
+        "Чёрный": 3,
+        "Тёмно-синий": 6
+      },
+      "sizes": {
+        "S": 3,
+        "M": 4,
+        "L": 2
+      },
+      "matrix": {
+        "Чёрный/M": 1,
+        "Чёрный/S": 1,
+        "Тёмно-синий/S": 2,
+        "Тёмно-синий/L": 1,
+        "Тёмно-синий/M": 3,
+        "Чёрный/L": 1
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-04-07",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 16900,
+    "returns_qty": 0,
+    "gross_profit": 26038,
+    "margin_pct": 77.0,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 9,
+      "moscow": 6,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 33800.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 33800.0
+      },
+      "total_qty": 2,
+      "total_rev": 33800.0
+    },
+    "supplied_qty": 11,
+    "supplied_cost": 42691.0,
+    "cost": 3881.0,
+    "retail": 16900,
+    "sell_through": 18.2,
+    "stock_value": 152100,
+    "stock_cost": 34929,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 0.8,
+      "acceleration": 2.57
+    },
+    "wos": 19.3,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 18%, НО ускорение ×2.6 (2/мес) — весна разгонит, скидку не давать",
+    "photo": "[66536b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg градиент",
+    "variants": {
+      "colors": {
+        "Сине-серый": 7
+      },
+      "sizes": {
+        "S": 1,
+        "M": 2,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Сине-серый/L": 2,
+        "Сине-серый/S": 1,
+        "Сине-серый/M": 2,
+        "Сине-серый/XL": 2
+      }
+    },
+    "last_sale": "2026-02-17",
+    "first_sale": "2026-02-17",
+    "days_since_last_sale": 63,
+    "avg_sale_price": 23900,
+    "returns_qty": 0,
+    "gross_profit": 18936,
+    "margin_pct": 79.2,
+    "supplier": "MYA",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 7,
+      "moscow": 3,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 23900.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 23900.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 39712.0,
+    "cost": 4964.0,
+    "retail": 23900,
+    "sell_through": 12.5,
+    "stock_value": 167300,
+    "stock_cost": 34748,
+    "first_supply_date": "2026-01-25",
+    "last_supply_date": "2026-01-25",
+    "days_since_first": 86,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.3,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
+    "photo": "[59388b]"
+  },
+  {
+    "article": null,
+    "name": "Костюм спортивный на молнии",
+    "variants": {
+      "colors": {
+        "Чёрный": 3,
+        "Серый меланж": 1,
+        "Синий": 2
+      },
+      "sizes": {
+        "L": 6
+      },
+      "matrix": {
+        "Чёрный/L": 3,
+        "Серый меланж/L": 1,
+        "Синий/L": 2
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-03-05",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 26900,
+    "returns_qty": 0,
+    "gross_profit": 126798,
+    "margin_pct": 78.6,
+    "supplier": "MZ (美翥)",
+    "subfolder": "Костюмы",
+    "stock": {
+      "total": 6,
+      "moscow": 5,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 5,
+        "rev": 134500.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 26900.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 80700.0
+      },
+      "total_qty": 6,
+      "total_rev": 161400.0
+    },
+    "supplied_qty": 13,
+    "supplied_cost": 74971.0,
+    "cost": 5767.0,
+    "retail": 26900,
+    "sell_through": 46.2,
+    "stock_value": 161400,
+    "stock_cost": 34602,
+    "first_supply_date": "2026-01-27",
+    "last_supply_date": "2026-01-27",
+    "days_since_first": 84,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 2.1,
+      "acceleration": 1.4
+    },
+    "wos": 8.6,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 46%, стабильно идёт 3 шт/мес — держим",
+    "photo": "[55080b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы классика",
+    "variants": {
+      "colors": {
+        "Джинс": 8
+      },
+      "sizes": {
+        "S": 2,
+        "M": 4,
+        "L": 2
+      },
+      "matrix": {
+        "Джинс/M": 4,
+        "Джинс/S": 2,
+        "Джинс/L": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 82.0,
+    "supplier": "DXJ (嘟小俊 / Ду Сяо Цзюнь)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 9,
+    "supplied_cost": 38763.0,
+    "cost": 4307.0,
+    "retail": 23900,
+    "sell_through": 0.0,
+    "stock_value": 191200,
+    "stock_cost": 34456,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "photo": "[64236b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы бананы с лампасом",
+    "variants": {
+      "colors": {
+        "Синий": 6
+      },
+      "sizes": {
+        "S": 1,
+        "M": 2,
+        "L": 3
+      },
+      "matrix": {
+        "Синий/L": 3,
+        "Синий/M": 2,
+        "Синий/S": 1
+      }
+    },
+    "last_sale": "2026-04-03",
+    "first_sale": "2026-03-21",
+    "days_since_last_sale": 18,
+    "avg_sale_price": 19900,
+    "returns_qty": 0,
+    "gross_profit": 28446,
+    "margin_pct": 71.5,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 6,
+      "moscow": 3,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "total_qty": 2,
+      "total_rev": 39800.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 45416.0,
+    "cost": 5677.0,
+    "retail": 19900,
+    "sell_through": 25.0,
+    "stock_value": 119400,
+    "stock_cost": 34062,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.8,
+      "acceleration": 1.28
+    },
+    "wos": 25.7,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 25%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[58216b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg градиент с накладкой",
+    "variants": {
+      "colors": {
+        "Чёрно-серый": 7
+      },
+      "sizes": {
+        "S": 2,
+        "M": 3,
+        "L": 2
+      },
+      "matrix": {
+        "Чёрно-серый/M": 3,
+        "Чёрно-серый/S": 2,
+        "Чёрно-серый/L": 2
+      }
+    },
+    "last_sale": "2026-04-03",
+    "first_sale": "2026-04-03",
+    "days_since_last_sale": 18,
+    "avg_sale_price": 19900,
+    "returns_qty": 0,
+    "gross_profit": 15157,
+    "margin_pct": 76.2,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 7,
+      "moscow": 4,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "total_qty": 1,
+      "total_rev": 19900.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 37944.0,
+    "cost": 4743.0,
+    "retail": 19900,
+    "sell_through": 12.5,
+    "stock_value": 139300,
+    "stock_cost": 33201,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.57
+    },
+    "wos": 30.0,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 12%, НО ускорение ×2.6 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[65380b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки Nike с кантами",
+    "variants": {
+      "colors": {
+        "Чёрный": 8
+      },
+      "sizes": {
+        "M": 1,
+        "L": 2,
+        "XL": 1,
+        "2XL": 2,
+        "3XL": 2
+      },
+      "matrix": {
+        "Чёрный/XL": 1,
+        "Чёрный/2XL": 2,
+        "Чёрный/3XL": 2,
+        "Чёрный/M": 1,
+        "Чёрный/L": 2
+      }
+    },
+    "last_sale": "2026-04-16",
+    "first_sale": "2026-03-08",
+    "days_since_last_sale": 5,
+    "avg_sale_price": 16900,
+    "returns_qty": 0,
+    "gross_profit": 72658,
+    "margin_pct": 75.7,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 5,
+        "rev": 67600.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 33800.0
+      },
+      "last_30d": {
+        "qty": 6,
+        "rev": 84500.0
+      },
+      "total_qty": 7,
+      "total_rev": 101400.0
+    },
+    "supplied_qty": 15,
+    "supplied_cost": 61593.75,
+    "cost": 4106.0,
+    "retail": 16900,
+    "sell_through": 46.7,
+    "stock_value": 135200,
+    "stock_cost": 32848,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 6,
+      "avg_30d": 3.0,
+      "acceleration": 2.03
+    },
+    "wos": 5.7,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 47%, осталось на 6 недель — дозаказать",
+    "photo": "[42352b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg цветные",
+    "variants": {
+      "colors": {
+        "Хаки": 8
+      },
+      "sizes": {
+        "S": 2,
+        "M": 2,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Хаки/M": 2,
+        "Хаки/L": 2,
+        "Хаки/S": 2,
+        "Хаки/XL": 2
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.5,
+    "supplier": "KS (K.S牛仔服饰)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 8,
+      "moscow": 5,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 30952.0,
+    "cost": 3869.0,
+    "retail": 18900,
+    "sell_through": 0.0,
+    "stock_value": 151200,
+    "stock_cost": 30952,
+    "first_supply_date": "2026-01-24",
+    "last_supply_date": "2026-01-24",
+    "days_since_first": 87,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
+    "photo": "[62416b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg высокая посадка",
+    "variants": {
+      "colors": {
+        "Синий": 7
+      },
+      "sizes": {
+        "S": 1,
+        "M": 2,
+        "L": 2,
+        "XL": 2
+      },
+      "matrix": {
+        "Синий/S": 1,
+        "Синий/XL": 2,
+        "Синий/L": 2,
+        "Синий/M": 2
+      }
+    },
+    "last_sale": "2026-03-10",
+    "first_sale": "2026-03-10",
+    "days_since_last_sale": 42,
+    "avg_sale_price": 19900,
+    "returns_qty": 0,
+    "gross_profit": 15739,
+    "margin_pct": 79.1,
+    "supplier": "KS (K.S牛仔服饰)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 7,
+      "moscow": 4,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 19900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 19900.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 33288.0,
+    "cost": 4161.0,
+    "retail": 19900,
+    "sell_through": 12.5,
+    "stock_value": 139300,
+    "stock_cost": 29127,
+    "first_supply_date": "2026-01-24",
+    "last_supply_date": "2026-01-24",
+    "days_since_first": 87,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.3,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
+    "photo": "[68592b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка Nike NOCTA",
+    "variants": {
+      "colors": {
+        "Белый": 3,
+        "Чёрный": 6
+      },
+      "sizes": {
+        "M": 2,
+        "L": 2,
+        "XL": 3,
+        "2XL": 2
+      },
+      "matrix": {
+        "Белый/XL": 1,
+        "Белый/M": 1,
+        "Белый/2XL": 1,
+        "Чёрный/2XL": 1,
+        "Чёрный/M": 1,
+        "Чёрный/L": 2,
+        "Чёрный/XL": 2
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-02-17",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 12900,
+    "returns_qty": 0,
+    "gross_profit": 113096,
+    "margin_pct": 75.1,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 9,
+      "moscow": 0,
+      "tsum_online": 9,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 2,
+        "rev": 25800.0
+      },
+      "mar": {
+        "qty": 7,
+        "rev": 51600.0
+      },
+      "apr": {
+        "qty": 8,
+        "rev": 90300.0
+      },
+      "last_30d": {
+        "qty": 9,
+        "rev": 90300.0
+      },
+      "total_qty": 17,
+      "total_rev": 167700.0
+    },
+    "supplied_qty": 27,
+    "supplied_cost": 86724.0,
+    "cost": 3212.0,
+    "retail": 12900,
+    "sell_through": 63.0,
+    "stock_value": 116100,
+    "stock_cost": 28908,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 9,
+      "avg_30d": 7.2,
+      "acceleration": 1.25
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 63% (хит), продаётся 9 шт/мес — дозаказать срочно",
+    "photo": "[43968b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки спортивные широкие с контрастом",
+    "variants": {
+      "colors": {
+        "Светло-серый": 4,
+        "Чёрный": 9
+      },
+      "sizes": {
+        "OneSize": 13
+      },
+      "matrix": {
+        "Светло-серый/OneSize": 4,
+        "Чёрный/OneSize": 9
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-03-29",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 13900,
+    "returns_qty": 0,
+    "gross_profit": 45015,
+    "margin_pct": 84.8,
+    "supplier": "JY",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 13,
+      "moscow": 9,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 3,
+        "rev": 27800.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 27800.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 55600.0
+      },
+      "total_qty": 5,
+      "total_rev": 55600.0
+    },
+    "supplied_qty": 18,
+    "supplied_cost": 38106.0,
+    "cost": 2117.0,
+    "retail": 13900,
+    "sell_through": 27.8,
+    "stock_value": 180700,
+    "stock_cost": 27521,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 1.9,
+      "acceleration": 2.08
+    },
+    "wos": 13.9,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 28%, стабильно идёт 4 шт/мес — держим",
+    "photo": "[64520b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки карго кюлоты",
+    "variants": {
+      "colors": {
+        "Хаки-зелёный": 5
+      },
+      "sizes": {
+        "S": 1,
+        "M": 3,
+        "L": 1
+      },
+      "matrix": {
+        "Хаки-зелёный/S": 1,
+        "Хаки-зелёный/L": 1,
+        "Хаки-зелёный/M": 3
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 79.3,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 5,
+      "moscow": 3,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 5,
+    "supplied_cost": 23715.0,
+    "cost": 4743.0,
+    "retail": 22900,
+    "sell_through": 0.0,
+    "stock_value": 114500,
+    "stock_cost": 23715,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "photo": "[59464b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы wide-leg с лампасом",
+    "variants": {
+      "colors": {
+        "Голубой": 4
+      },
+      "sizes": {
+        "S": 1,
+        "M": 1,
+        "L": 2
+      },
+      "matrix": {
+        "Голубой/M": 1,
+        "Голубой/L": 2,
+        "Голубой/S": 1
+      }
+    },
+    "last_sale": "2026-03-24",
+    "first_sale": "2026-02-14",
+    "days_since_last_sale": 28,
+    "avg_sale_price": 25900,
+    "returns_qty": 0,
+    "gross_profit": 40850,
+    "margin_pct": 78.9,
+    "supplier": "MYA",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 4,
+      "moscow": 1,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 25900.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 25900.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 25900.0
+      },
+      "total_qty": 2,
+      "total_rev": 51800.0
+    },
+    "supplied_qty": 6,
+    "supplied_cost": 32850.0,
+    "cost": 5475.0,
+    "retail": 25900,
+    "sell_through": 33.3,
+    "stock_value": 103600,
+    "stock_cost": 21900,
+    "first_supply_date": "2026-01-25",
+    "last_supply_date": "2026-01-25",
+    "days_since_first": 86,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.7,
+      "acceleration": 1.43
+    },
+    "wos": 17.1,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 33%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[54368b]"
+  },
+  {
+    "article": null,
+    "name": "Куртка Adidas с 3 полосами",
+    "variants": {
+      "colors": {
+        "Бежевый": 2,
+        "Чёрный": 2
+      },
+      "sizes": {
+        "M": 1,
+        "L": 1,
+        "XL": 2
+      },
+      "matrix": {
+        "Бежевый/L": 1,
+        "Бежевый/XL": 1,
+        "Чёрный/M": 1,
+        "Чёрный/XL": 1
+      }
+    },
+    "last_sale": "2026-03-31",
+    "first_sale": "2026-02-14",
+    "days_since_last_sale": 21,
+    "avg_sale_price": 22600,
+    "returns_qty": 0,
+    "gross_profit": 528981,
+    "margin_pct": 76.0,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верхняя одежда",
+    "stock": {
+      "total": 4,
+      "moscow": 0,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 9,
+        "rev": 206100.0
+      },
+      "mar": {
+        "qty": 22,
+        "rev": 491800.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 11,
+        "rev": 254900.0
+      },
+      "total_qty": 31,
+      "total_rev": 697900.0
+    },
+    "supplied_qty": 34,
+    "supplied_cost": 185894.5,
+    "cost": 5449.0,
+    "retail": 22712,
+    "sell_through": 91.2,
+    "stock_value": 90850,
+    "stock_cost": 21796,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 11,
+      "avg_30d": 13.1,
+      "acceleration": 0.84
+    },
+    "wos": 1.6,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 91% (хит), продаётся 11 шт/мес — дозаказать срочно",
+    "photo": "[17552b]"
+  },
+  {
+    "article": null,
+    "name": "Лонгслив асимметричный с разрезом",
+    "variants": {
+      "colors": {
+        "Серый": 2,
+        "Белый": 2,
+        "Тёмно-синий": 3,
+        "Чёрный": 4
+      },
+      "sizes": {
+        "OneSize": 11
+      },
+      "matrix": {
+        "Серый/OneSize": 2,
+        "Белый/OneSize": 2,
+        "Тёмно-синий/OneSize": 3,
+        "Чёрный/OneSize": 4
+      }
+    },
+    "last_sale": "2026-04-17",
+    "first_sale": "2026-04-17",
+    "days_since_last_sale": 4,
+    "avg_sale_price": 9900,
+    "returns_qty": 0,
+    "gross_profit": 5958,
+    "margin_pct": 80.1,
+    "supplier": "YYG (衣优谷 / Ийоугу)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 11,
+      "moscow": 6,
+      "tsum_online": 5,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 9900.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 9900.0
+      },
+      "total_qty": 2,
+      "total_rev": 9900.0
+    },
+    "supplied_qty": 14,
+    "supplied_cost": 27594.0,
+    "cost": 1971.0,
+    "retail": 9900,
+    "sell_through": 14.3,
+    "stock_value": 108900,
+    "stock_cost": 21681,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 0.8,
+      "acceleration": 2.6
+    },
+    "wos": 23.6,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 14%, НО ускорение ×2.6 (2/мес) — весна разгонит, скидку не давать",
+    "photo": "[50628b]"
+  },
+  {
+    "article": null,
+    "name": "Куртка Nike с кантами",
+    "variants": {
+      "colors": {
+        "Чёрный": 4
+      },
+      "sizes": {
+        "L": 1,
+        "2XL": 2,
+        "3XL": 1
+      },
+      "matrix": {
+        "Чёрный/2XL": 2,
+        "Чёрный/L": 1,
+        "Чёрный/3XL": 1
+      }
+    },
+    "last_sale": "2026-04-19",
+    "first_sale": "2026-03-08",
+    "days_since_last_sale": 2,
+    "avg_sale_price": 19900,
+    "returns_qty": 0,
+    "gross_profit": 143791,
+    "margin_pct": 74.8,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верхняя одежда",
+    "stock": {
+      "total": 4,
+      "moscow": 2,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 8,
+        "rev": 139300.0
+      },
+      "apr": {
+        "qty": 3,
+        "rev": 59700.0
+      },
+      "last_30d": {
+        "qty": 10,
+        "rev": 179100.0
+      },
+      "total_qty": 11,
+      "total_rev": 199000.0
+    },
+    "supplied_qty": 15,
+    "supplied_cost": 75281.25,
+    "cost": 5019.0,
+    "retail": 19900,
+    "sell_through": 73.3,
+    "stock_value": 79600,
+    "stock_cost": 20076,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 10,
+      "avg_30d": 4.6,
+      "acceleration": 2.15
+    },
+    "wos": 1.7,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 73% (хит), продаётся 10 шт/мес — дозаказать срочно",
+    "photo": "[42824b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы бананы с тремя полосами",
+    "variants": {
+      "colors": {
+        "Синий": 4
+      },
+      "sizes": {
+        "S": 1,
+        "M": 2,
+        "L": 1
+      },
+      "matrix": {
+        "Синий/L": 1,
+        "Синий/S": 1,
+        "Синий/M": 2
+      }
+    },
+    "last_sale": "2026-04-15",
+    "first_sale": "2026-02-27",
+    "days_since_last_sale": 6,
+    "avg_sale_price": 21900,
+    "returns_qty": 0,
+    "gross_profit": 67764,
+    "margin_pct": 77.4,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 4,
+      "moscow": 2,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 21900.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 21900.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 43800.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 65700.0
+      },
+      "total_qty": 4,
+      "total_rev": 87600.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 39672.0,
+    "cost": 4959.0,
+    "retail": 21900,
+    "sell_through": 50.0,
+    "stock_value": 87600,
+    "stock_cost": 19836,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 1.6,
+      "acceleration": 1.92
+    },
+    "wos": 5.7,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 50%, осталось на 6 недель — дозаказать",
+    "photo": "[57612b]"
+  },
+  {
+    "article": null,
+    "name": "Бомбер экокожа с заклёпками",
+    "variants": {
+      "colors": {
+        "Тёмно-серый": 3
+      },
+      "sizes": {
+        "OneSize": 3
+      },
+      "matrix": {
+        "Тёмно-серый/OneSize": 3
+      }
+    },
+    "last_sale": "2026-04-03",
+    "first_sale": "2026-03-24",
+    "days_since_last_sale": 18,
+    "avg_sale_price": 28900,
+    "returns_qty": 0,
+    "gross_profit": 67209,
+    "margin_pct": 77.5,
+    "supplier": "DXJ (嘟小俊 / Ду Сяо Цзюнь)",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 3,
+      "moscow": 2,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 57800.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 28900.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 86700.0
+      },
+      "total_qty": 3,
+      "total_rev": 86700.0
+    },
+    "supplied_qty": 6,
+    "supplied_cost": 38982.0,
+    "cost": 6497.0,
+    "retail": 28900,
+    "sell_through": 50.0,
+    "stock_value": 86700,
+    "stock_cost": 19491,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 1.1,
+      "acceleration": 2.83
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 50%, осталось на 4 недель — дозаказать",
+    "photo": "[80036b]"
+  },
+  {
+    "article": null,
+    "name": "Ветровка с лампасами",
+    "variants": {
+      "colors": {
+        "Чёрный": 9
+      },
+      "sizes": {
+        "OneSize": 9
+      },
+      "matrix": {
+        "Чёрный/OneSize": 9
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 84.8,
+    "supplier": "YQ",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 9,
+      "moscow": 5,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 9,
+    "supplied_cost": 19053.0,
+    "cost": 2117.0,
+    "retail": 13900,
+    "sell_through": 0.0,
+    "stock_value": 125100,
+    "stock_cost": 19053,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "photo": "[32228b]"
+  },
+  {
+    "article": null,
+    "name": "Лонгслив с необработанным краем",
+    "variants": {
+      "colors": {
+        "Белый": 2,
+        "Чёрный": 4,
+        "Фиолетовый": 3
+      },
+      "sizes": {
+        "OneSize": 9
+      },
+      "matrix": {
+        "Белый/OneSize": 2,
+        "Чёрный/OneSize": 4,
+        "Фиолетовый/OneSize": 3
+      }
+    },
+    "last_sale": "2026-02-20",
+    "first_sale": "2026-02-20",
+    "days_since_last_sale": 60,
+    "avg_sale_price": 8900,
+    "returns_qty": 0,
+    "gross_profit": 6783,
+    "margin_pct": 76.2,
+    "supplier": "MIL (MILDNESS)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 9,
+      "moscow": 6,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 8900.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 8900.0
+    },
+    "supplied_qty": 11,
+    "supplied_cost": 23287.0,
+    "cost": 2117.0,
+    "retail": 8900,
+    "sell_through": 9.1,
+    "stock_value": 80100,
+    "stock_cost": 19053,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.4,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "photo": "[49464b]"
+  },
+  {
+    "article": null,
+    "name": "Худи зип вош",
+    "variants": {
+      "colors": {
+        "Чёрный": 6
+      },
+      "sizes": {
+        "OneSize": 6
+      },
+      "matrix": {
+        "Чёрный/OneSize": 6
+      }
+    },
+    "last_sale": "2026-04-13",
+    "first_sale": "2026-03-20",
+    "days_since_last_sale": 8,
+    "avg_sale_price": 12900,
+    "returns_qty": 0,
+    "gross_profit": 39044,
+    "margin_pct": 75.7,
+    "supplier": "GYL",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 6,
+      "moscow": 3,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 12900.0
+      },
+      "apr": {
+        "qty": 3,
+        "rev": 38700.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 38700.0
+      },
+      "total_qty": 4,
+      "total_rev": 51600.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 31390.0,
+    "cost": 3139.0,
+    "retail": 12900,
+    "sell_through": 40.0,
+    "stock_value": 77400,
+    "stock_cost": 18834,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 1.8,
+      "acceleration": 1.7
+    },
+    "wos": 8.6,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 40%, стабильно идёт 3 шт/мес — держим",
+    "photo": "[19176b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка базовая",
+    "variants": {
+      "colors": {
+        "Белый": 3,
+        "Серый меланж": 2,
+        "Чёрный": 3,
+        "Серо-коричневый": 2
+      },
+      "sizes": {
+        "OneSize": 10
+      },
+      "matrix": {
+        "Белый/OneSize": 3,
+        "Серый меланж/OneSize": 2,
+        "Чёрный/OneSize": 3,
+        "Серо-коричневый/OneSize": 2
+      }
+    },
+    "last_sale": "2026-04-15",
+    "first_sale": null,
+    "days_since_last_sale": 6,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": -1825,
+    "margin_pct": 79.5,
+    "supplier": "YYG (衣优谷 / Ийоугу)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 10,
+      "moscow": 7,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 14,
+    "supplied_cost": 25550.0,
+    "cost": 1825.0,
+    "retail": 8900,
+    "sell_through": 7.1,
+    "stock_value": 89000,
+    "stock_cost": 18250,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.6
+    },
+    "wos": 42.9,
+    "recommendation": "GROWING",
+    "recommendation_reason": "Продано пока 7%, НО ускорение ×2.6 (1/мес) — весна разгонит, скидку не давать",
+    "photo": "[54756b]"
+  },
+  {
+    "article": null,
+    "name": "Лонгслив с декоративной строчкой",
+    "variants": {
+      "colors": {
+        "Чёрный": 5,
+        "Белый": 3
+      },
+      "sizes": {
+        "OneSize": 8
+      },
+      "matrix": {
+        "Чёрный/OneSize": 5,
+        "Белый/OneSize": 3
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-03-16",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 10900,
+    "returns_qty": 0,
+    "gross_profit": 17566,
+    "margin_pct": 80.6,
+    "supplier": "YYG (衣优谷 / Ийоугу)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 5,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 10900.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 10900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 10900.0
+      },
+      "total_qty": 2,
+      "total_rev": 21800.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 21170.0,
+    "cost": 2117.0,
+    "retail": 10900,
+    "sell_through": 20.0,
+    "stock_value": 87200,
+    "stock_cost": 16936,
+    "first_supply_date": "2026-02-02",
+    "last_supply_date": "2026-02-02",
+    "days_since_first": 78,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.8,
+      "acceleration": 1.3
+    },
+    "wos": 34.3,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 20%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[51772b]"
+  },
+  {
+    "article": null,
+    "name": "Джинсы кюлоты рваные",
+    "variants": {
+      "colors": {
+        "Чёрный": 4
+      },
+      "sizes": {
+        "M": 1,
+        "L": 2,
+        "XL": 1
+      },
+      "matrix": {
+        "Чёрный/L": 2,
+        "Чёрный/M": 1,
+        "Чёрный/XL": 1
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 76.2,
+    "supplier": "DLJ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 4,
+      "moscow": 2,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 4,
+    "supplied_cost": 16096.0,
+    "cost": 4024.0,
+    "retail": 16900,
+    "sell_through": 0.0,
+    "stock_value": 67600,
+    "stock_cost": 16096,
+    "first_supply_date": "2026-02-03",
+    "last_supply_date": "2026-02-03",
+    "days_since_first": 77,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "photo": "[29740b]"
+  },
+  {
+    "article": null,
+    "name": "Лонгслив оверсайз хлопковый",
+    "variants": {
+      "colors": {
+        "Чёрный": 4,
+        "Серый": 2,
+        "Белый": 1,
+        "Хаки-зелёный": 1
+      },
+      "sizes": {
+        "OneSize": 8
+      },
+      "matrix": {
+        "Чёрный/OneSize": 4,
+        "Серый/OneSize": 2,
+        "Белый/OneSize": 1,
+        "Хаки-зелёный/OneSize": 1
+      }
+    },
+    "last_sale": "2026-04-12",
+    "first_sale": "2026-02-15",
+    "days_since_last_sale": 9,
+    "avg_sale_price": 9900,
+    "returns_qty": 0,
+    "gross_profit": 43632,
+    "margin_pct": 80.1,
+    "supplier": "X5S (小5·SHOP)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 2,
+        "rev": 19800.0
+      },
+      "mar": {
+        "qty": 3,
+        "rev": 19800.0
+      },
+      "apr": {
+        "qty": 3,
+        "rev": 19800.0
+      },
+      "last_30d": {
+        "qty": 6,
+        "rev": 39600.0
+      },
+      "total_qty": 8,
+      "total_rev": 59400.0
+    },
+    "supplied_qty": 16,
+    "supplied_cost": 31536.0,
+    "cost": 1971.0,
+    "retail": 9900,
+    "sell_through": 50.0,
+    "stock_value": 79200,
+    "stock_cost": 15768,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 6,
+      "avg_30d": 2.8,
+      "acceleration": 2.12
+    },
+    "wos": 5.7,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 50%, осталось на 6 недель — дозаказать",
+    "photo": "[69264b]"
+  },
+  {
+    "article": null,
+    "name": "Рубашка оверсайз",
+    "variants": {
+      "colors": {
+        "Белый": 1,
+        "Чёрный": 5
+      },
+      "sizes": {
+        "OneSize": 6
+      },
+      "matrix": {
+        "Белый/OneSize": 1,
+        "Чёрный/OneSize": 5
+      }
+    },
+    "last_sale": "2026-04-05",
+    "first_sale": null,
+    "days_since_last_sale": 16,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": -5256,
+    "margin_pct": 79.6,
+    "supplier": "HH",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 6,
+      "moscow": 3,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "total_qty": 2,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 21024.0,
+    "cost": 2628.0,
+    "retail": 12900,
+    "sell_through": 25.0,
+    "stock_value": 77400,
+    "stock_cost": 15768,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.8,
+      "acceleration": 1.18
+    },
+    "wos": 25.7,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 25%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[25788b]"
+  },
+  {
+    "article": null,
+    "name": "Лонгслив базовый",
+    "variants": {
+      "colors": {
+        "Тёмно-серый": 3,
+        "Чёрный": 4,
+        "Белый": 1
+      },
+      "sizes": {
+        "OneSize": 8
+      },
+      "matrix": {
+        "Тёмно-серый/OneSize": 3,
+        "Чёрный/OneSize": 4,
+        "Белый/OneSize": 1
+      }
+    },
+    "last_sale": "2026-04-15",
+    "first_sale": "2026-03-12",
+    "days_since_last_sale": 6,
+    "avg_sale_price": 8900,
+    "returns_qty": 0,
+    "gross_profit": 21663,
+    "margin_pct": 81.1,
+    "supplier": "MIL (MILDNESS)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 17800.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 8900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 8900.0
+      },
+      "total_qty": 3,
+      "total_rev": 26700.0
+    },
+    "supplied_qty": 11,
+    "supplied_cost": 18469.0,
+    "cost": 1679.0,
+    "retail": 8900,
+    "sell_through": 27.3,
+    "stock_value": 71200,
+    "stock_cost": 13432,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 1.3,
+      "acceleration": 0.79
+    },
+    "wos": 34.3,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 27%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[49464b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка рибана хенли",
+    "variants": {
+      "colors": {
+        "Белый": 4,
+        "Хаки": 5,
+        "Серый": 4
+      },
+      "sizes": {
+        "OneSize": 13
+      },
+      "matrix": {
+        "Белый/OneSize": 4,
+        "Хаки/OneSize": 5,
+        "Серый/OneSize": 4
+      }
+    },
+    "last_sale": "2026-04-04",
+    "first_sale": "2026-03-19",
+    "days_since_last_sale": 17,
+    "avg_sale_price": 4900,
+    "returns_qty": 0,
+    "gross_profit": 6734,
+    "margin_pct": 79.1,
+    "supplier": "DJQ (丹佳琦服饰)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 13,
+      "moscow": 6,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 4900.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 4900.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 4900.0
+      },
+      "total_qty": 3,
+      "total_rev": 9800.0
+    },
+    "supplied_qty": 15,
+    "supplied_cost": 15330.0,
+    "cost": 1022.0,
+    "retail": 4900,
+    "sell_through": 20.0,
+    "stock_value": 63700,
+    "stock_cost": 13286,
+    "first_supply_date": "2026-02-10",
+    "last_supply_date": "2026-02-10",
+    "days_since_first": 70,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 1.3,
+      "acceleration": 1.56
+    },
+    "wos": 27.9,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 20%, стабильно идёт 2 шт/мес — держим",
+    "photo": "[41004b]"
+  },
+  {
+    "article": null,
+    "name": "Рубашка оверсайз с вышивкой",
+    "variants": {
+      "colors": {
+        "Белый": 1,
+        "Чёрный": 4
+      },
+      "sizes": {
+        "OneSize": 5
+      },
+      "matrix": {
+        "Белый/OneSize": 1,
+        "Чёрный/OneSize": 4
+      }
+    },
+    "last_sale": "2026-04-07",
+    "first_sale": "2026-04-04",
+    "days_since_last_sale": 14,
+    "avg_sale_price": 12900,
+    "returns_qty": 0,
+    "gross_profit": 20544,
+    "margin_pct": 79.6,
+    "supplier": "HH",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 5,
+      "moscow": 3,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 25800.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 25800.0
+      },
+      "total_qty": 2,
+      "total_rev": 25800.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 21024.0,
+    "cost": 2628.0,
+    "retail": 12900,
+    "sell_through": 25.0,
+    "stock_value": 64500,
+    "stock_cost": 13140,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 0.8,
+      "acceleration": 2.37
+    },
+    "wos": 10.7,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 25%, стабильно идёт 2 шт/мес — держим",
+    "photo": "[25788b]"
+  },
+  {
+    "article": null,
+    "name": "Шакет",
+    "variants": {
+      "colors": {
+        "Чёрный": 4
+      },
+      "sizes": {
+        "OneSize": 4
+      },
+      "matrix": {
+        "Чёрный/OneSize": 4
+      }
+    },
+    "last_sale": "2026-04-15",
+    "first_sale": "2026-04-15",
+    "days_since_last_sale": 6,
+    "avg_sale_price": 15900,
+    "returns_qty": 0,
+    "gross_profit": 12615,
+    "margin_pct": 79.3,
+    "supplier": "HH",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 4,
+      "moscow": 2,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 15900.0
+      },
+      "total_qty": 1,
+      "total_rev": 15900.0
+    },
+    "supplied_qty": 5,
+    "supplied_cost": 16425.0,
+    "cost": 3285.0,
+    "retail": 15900,
+    "sell_through": 20.0,
+    "stock_value": 63600,
+    "stock_cost": 13140,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.4,
+      "acceleration": 2.37
+    },
+    "wos": 17.1,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 20%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[26788b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка вош оверсайз",
+    "variants": {
+      "colors": {
+        "Бежевый": 7,
+        "Серый": 1
+      },
+      "sizes": {
+        "OneSize": 8
+      },
+      "matrix": {
+        "Бежевый/OneSize": 7,
+        "Серый/OneSize": 1
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-03-01",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 7900,
+    "returns_qty": 0,
+    "gross_profit": 53434,
+    "margin_pct": 79.7,
+    "supplier": "GYL",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 7,
+        "rev": 39500.0
+      },
+      "apr": {
+        "qty": 4,
+        "rev": 31600.0
+      },
+      "last_30d": {
+        "qty": 8,
+        "rev": 63200.0
+      },
+      "total_qty": 11,
+      "total_rev": 71100.0
+    },
+    "supplied_qty": 20,
+    "supplied_cost": 32120.0,
+    "cost": 1606.0,
+    "retail": 7900,
+    "sell_through": 55.0,
+    "stock_value": 63200,
+    "stock_cost": 12848,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 8,
+      "avg_30d": 4.9,
+      "acceleration": 1.65
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 55%, осталось на 4 недель — дозаказать",
+    "photo": "[6948b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка Nike swoosh",
+    "variants": {
+      "colors": {
+        "Белый": 3,
+        "Чёрный": 2
+      },
+      "sizes": {
+        "L": 1,
+        "2XL": 3,
+        "3XL": 1
+      },
+      "matrix": {
+        "Белый/2XL": 1,
+        "Чёрный/2XL": 2,
+        "Белый/L": 1,
+        "Белый/3XL": 1
+      }
+    },
+    "last_sale": "2026-04-17",
+    "first_sale": "2026-02-16",
+    "days_since_last_sale": 4,
+    "avg_sale_price": 10900,
+    "returns_qty": 0,
+    "gross_profit": 109845,
+    "margin_pct": 76.6,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 5,
+      "moscow": 2,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 5,
+        "rev": 43600.0
+      },
+      "mar": {
+        "qty": 12,
+        "rev": 98100.0
+      },
+      "apr": {
+        "qty": 4,
+        "rev": 21800.0
+      },
+      "last_30d": {
+        "qty": 11,
+        "rev": 76300.0
+      },
+      "total_qty": 21,
+      "total_rev": 163500.0
+    },
+    "supplied_qty": 26,
+    "supplied_cost": 66430.0,
+    "cost": 2555.0,
+    "retail": 10900,
+    "sell_through": 80.8,
+    "stock_value": 54500,
+    "stock_cost": 12775,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 11,
+      "avg_30d": 8.9,
+      "acceleration": 1.24
+    },
+    "wos": 1.9,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 81% (хит), продаётся 11 шт/мес — дозаказать срочно",
+    "photo": "[39832b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка укороченная на молнии",
+    "variants": {
+      "colors": {
+        "Белый": 4,
+        "Чёрный": 3
+      },
+      "sizes": {
+        "OneSize": 7
+      },
+      "matrix": {
+        "Белый/OneSize": 4,
+        "Чёрный/OneSize": 3
+      }
+    },
+    "last_sale": "2026-04-08",
+    "first_sale": "2026-02-17",
+    "days_since_last_sale": 13,
+    "avg_sale_price": 6900,
+    "returns_qty": 0,
+    "gross_profit": 45310,
+    "margin_pct": 75.7,
+    "supplier": "XIL",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 7,
+      "moscow": 4,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 3,
+        "rev": 20700.0
+      },
+      "mar": {
+        "qty": 5,
+        "rev": 27600.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 13800.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 27600.0
+      },
+      "total_qty": 10,
+      "total_rev": 62100.0
+    },
+    "supplied_qty": 20,
+    "supplied_cost": 33580.0,
+    "cost": 1679.0,
+    "retail": 6900,
+    "sell_through": 50.0,
+    "stock_value": 48300,
+    "stock_cost": 11753,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 4.2,
+      "acceleration": 0.95
+    },
+    "wos": 7.5,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 50%, осталось на 8 недель — дозаказать",
+    "photo": "[44280b]"
+  },
+  {
+    "article": null,
+    "name": "Лонгслив тонкий снежный хлопок",
+    "variants": {
+      "colors": {
+        "Серый": 3,
+        "Чёрный": 5
+      },
+      "sizes": {
+        "OneSize": 8
+      },
+      "matrix": {
+        "Серый/OneSize": 3,
+        "Чёрный/OneSize": 5
+      }
+    },
+    "last_sale": "2026-04-12",
+    "first_sale": "2026-03-12",
+    "days_since_last_sale": 9,
+    "avg_sale_price": 7900,
+    "returns_qty": 0,
+    "gross_profit": 12880,
+    "margin_pct": 81.5,
+    "supplier": "X5S (小5·SHOP)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 7900.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 7900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 7900.0
+      },
+      "total_qty": 2,
+      "total_rev": 15800.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 14600.0,
+    "cost": 1460.0,
+    "retail": 7900,
+    "sell_through": 20.0,
+    "stock_value": 63200,
+    "stock_cost": 11680,
+    "first_supply_date": "2026-01-26",
+    "last_supply_date": "2026-01-26",
+    "days_since_first": 85,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.7,
+      "acceleration": 1.42
+    },
+    "wos": 34.3,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 20%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[68532b]"
+  },
+  {
+    "article": null,
+    "name": "Худи зип вош укороченный",
+    "variants": {
+      "colors": {
+        "Чёрный": 4
+      },
+      "sizes": {
+        "OneSize": 4
+      },
+      "matrix": {
+        "Чёрный/OneSize": 4
+      }
+    },
+    "last_sale": "2026-03-31",
+    "first_sale": "2026-03-09",
+    "days_since_last_sale": 21,
+    "avg_sale_price": 11900,
+    "returns_qty": 0,
+    "gross_profit": 41980,
+    "margin_pct": 75.5,
+    "supplier": "GYL",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 4,
+      "moscow": 1,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 6,
+        "rev": 59500.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 5,
+        "rev": 47600.0
+      },
+      "total_qty": 6,
+      "total_rev": 59500.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 29200.0,
+    "cost": 2920.0,
+    "retail": 11900,
+    "sell_through": 60.0,
+    "stock_value": 47600,
+    "stock_cost": 11680,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 5,
+      "avg_30d": 2.6,
+      "acceleration": 1.89
+    },
+    "wos": 3.4,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 60% (хит), продаётся 5 шт/мес — дозаказать срочно",
+    "photo": "[17068b]"
+  },
+  {
+    "article": null,
+    "name": "Майка борцовка",
+    "variants": {
+      "colors": {
+        "Чёрный": 3,
+        "Тёмно-серый": 2,
+        "Бежевый": 3
+      },
+      "sizes": {
+        "OneSize": 8
+      },
+      "matrix": {
+        "Чёрный/OneSize": 3,
+        "Тёмно-серый/OneSize": 2,
+        "Бежевый/OneSize": 3
+      }
+    },
+    "last_sale": "2026-04-09",
+    "first_sale": "2026-03-08",
+    "days_since_last_sale": 12,
+    "avg_sale_price": 6900,
+    "returns_qty": 0,
+    "gross_profit": 16758,
+    "margin_pct": 81.0,
+    "supplier": "MIL (MILDNESS)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 8,
+      "moscow": 4,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 6900.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 13800.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 13800.0
+      },
+      "total_qty": 3,
+      "total_rev": 20700.0
+    },
+    "supplied_qty": 11,
+    "supplied_cost": 14454.0,
+    "cost": 1314.0,
+    "retail": 6900,
+    "sell_through": 27.3,
+    "stock_value": 55200,
+    "stock_cost": 10512,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 1.3,
+      "acceleration": 1.58
+    },
+    "wos": 17.1,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 27%, стабильно идёт 2 шт/мес — держим",
+    "photo": "[49464b]"
+  },
+  {
+    "article": null,
+    "name": "Брюки спортивные с лампасом",
+    "variants": {
+      "colors": {
+        "Чёрный": 5
+      },
+      "sizes": {
+        "OneSize": 5
+      },
+      "matrix": {
+        "Чёрный/OneSize": 5
+      }
+    },
+    "last_sale": "2026-04-06",
+    "first_sale": "2026-02-17",
+    "days_since_last_sale": 15,
+    "avg_sale_price": 12900,
+    "returns_qty": 0,
+    "gross_profit": 43424,
+    "margin_pct": 84.2,
+    "supplier": "YQ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 5,
+      "moscow": 2,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 12900.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 25800.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 12900.0
+      },
+      "last_30d": {
+        "qty": 1,
+        "rev": 12900.0
+      },
+      "total_qty": 4,
+      "total_rev": 51600.0
+    },
+    "supplied_qty": 9,
+    "supplied_cost": 18396.0,
+    "cost": 2044.0,
+    "retail": 12900,
+    "sell_through": 44.4,
+    "stock_value": 64500,
+    "stock_cost": 10220,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 1.7,
+      "acceleration": 0.59
+    },
+    "wos": 21.4,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 44%, стабильно идёт 1 шт/мес — держим",
+    "photo": "[45156b]"
+  },
+  {
+    "article": null,
+    "name": "Майка базовая",
+    "variants": {
+      "colors": {
+        "Чёрный": 4,
+        "Белый": 3
+      },
+      "sizes": {
+        "OneSize": 7
+      },
+      "matrix": {
+        "Чёрный/OneSize": 4,
+        "Белый/OneSize": 3
+      }
+    },
+    "last_sale": null,
+    "first_sale": null,
+    "days_since_last_sale": null,
+    "avg_sale_price": 0,
+    "returns_qty": 0,
+    "gross_profit": 0,
+    "margin_pct": 78.8,
+    "supplier": "MIL (MILDNESS)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 7,
+      "moscow": 5,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 0,
+      "total_rev": 0.0
+    },
+    "supplied_qty": 8,
+    "supplied_cost": 11680.0,
+    "cost": 1460.0,
+    "retail": 6900,
+    "sell_through": 0.0,
+    "stock_value": 48300,
+    "stock_cost": 10220,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.0,
+      "acceleration": 0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "photo": "[49464b]"
+  },
+  {
+    "article": null,
+    "name": "Сумка хобо плетёная",
+    "variants": {
+      "colors": {
+        "Чёрный": 4,
+        "Белый": 1,
+        "Розовый": 1,
+        "Тёмно-синий": 3,
+        "Серый": 2,
+        "Бежевый": 5
+      },
+      "sizes": {
+        "OneSize": 16
+      },
+      "matrix": {
+        "Чёрный/OneSize": 4,
+        "Белый/OneSize": 1,
+        "Розовый/OneSize": 1,
+        "Тёмно-синий/OneSize": 3,
+        "Серый/OneSize": 2,
+        "Бежевый/OneSize": 5
+      }
+    },
+    "last_sale": "2026-04-15",
+    "first_sale": "2026-02-16",
+    "days_since_last_sale": 6,
+    "avg_sale_price": 5605,
+    "returns_qty": 0,
+    "gross_profit": 79452,
+    "margin_pct": 89.5,
+    "supplier": "YF",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 16,
+      "moscow": 9,
+      "tsum_online": 7,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 4,
+        "rev": 23600.0
+      },
+      "mar": {
+        "qty": 7,
+        "rev": 35400.0
+      },
+      "apr": {
+        "qty": 6,
+        "rev": 30975.0
+      },
+      "last_30d": {
+        "qty": 10,
+        "rev": 54575.0
+      },
+      "total_qty": 17,
+      "total_rev": 89975.0
+    },
+    "supplied_qty": 35,
+    "supplied_cost": 21665.0,
+    "cost": 619.0,
+    "retail": 5900,
+    "sell_through": 48.6,
+    "stock_value": 94400,
+    "stock_cost": 9904,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 10,
+      "avg_30d": 7.5,
+      "acceleration": 1.33
+    },
+    "wos": 6.9,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 49%, осталось на 7 недель — дозаказать",
+    "photo": "[52812b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка рибана базовая",
+    "variants": {
+      "colors": {
+        "Белый": 3,
+        "Хаки": 4,
+        "Серый": 3
+      },
+      "sizes": {
+        "OneSize": 10
+      },
+      "matrix": {
+        "Белый/OneSize": 3,
+        "Хаки/OneSize": 4,
+        "Серый/OneSize": 3
+      }
+    },
+    "last_sale": "2026-04-06",
+    "first_sale": "2026-02-14",
+    "days_since_last_sale": 15,
+    "avg_sale_price": 4900,
+    "returns_qty": 0,
+    "gross_profit": 26708,
+    "margin_pct": 80.6,
+    "supplier": "DJQ (丹佳琦服饰)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 10,
+      "moscow": 6,
+      "tsum_online": 4,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 2,
+        "rev": 9800.0
+      },
+      "mar": {
+        "qty": 4,
+        "rev": 14700.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 9800.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 14700.0
+      },
+      "total_qty": 8,
+      "total_rev": 34300.0
+    },
+    "supplied_qty": 19,
+    "supplied_cost": 18031.0,
+    "cost": 949.0,
+    "retail": 4900,
+    "sell_through": 42.1,
+    "stock_value": 49000,
+    "stock_cost": 9490,
+    "first_supply_date": "2026-02-10",
+    "last_supply_date": "2026-02-10",
+    "days_since_first": 70,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 3.4,
+      "acceleration": 1.17
+    },
+    "wos": 10.7,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 42%, стабильно идёт 4 шт/мес — держим",
+    "photo": "[38360b]"
+  },
+  {
+    "article": null,
+    "name": "Рубашка полосатая",
+    "variants": {
+      "colors": {
+        "Серая полоска": 1,
+        "Синяя полоска": 2
+      },
+      "sizes": {
+        "OneSize": 3
+      },
+      "matrix": {
+        "Серая полоска/OneSize": 1,
+        "Синяя полоска/OneSize": 2
+      }
+    },
+    "last_sale": "2026-04-05",
+    "first_sale": "2026-02-27",
+    "days_since_last_sale": 16,
+    "avg_sale_price": 13900,
+    "returns_qty": 0,
+    "gross_profit": 52418,
+    "margin_pct": 79.5,
+    "supplier": "DQJ (大琴家服饰)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 3,
+      "moscow": 1,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 13900.0
+      },
+      "mar": {
+        "qty": 4,
+        "rev": 41700.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 13900.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 41700.0
+      },
+      "total_qty": 6,
+      "total_rev": 69500.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 28470.0,
+    "cost": 2847.0,
+    "retail": 13900,
+    "sell_through": 60.0,
+    "stock_value": 41700,
+    "stock_cost": 8541,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 2.5,
+      "acceleration": 1.18
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 60% (хит), продаётся 3 шт/мес — дозаказать срочно",
+    "photo": "[55888b]"
+  },
+  {
+    "article": null,
+    "name": "Куртка джинсовая на молнии с 3 полосками",
+    "variants": {
+      "colors": {
+        "Синий": 1
+      },
+      "sizes": {
+        "L": 1
+      },
+      "matrix": {
+        "Синий/L": 1
+      }
+    },
+    "last_sale": "2026-04-15",
+    "first_sale": "2026-02-18",
+    "days_since_last_sale": 6,
+    "avg_sale_price": 28900,
+    "returns_qty": 0,
+    "gross_profit": 196866,
+    "margin_pct": 75.7,
+    "supplier": "ZZ (Неизвестный поставщик)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 2,
+        "rev": 57800.0
+      },
+      "mar": {
+        "qty": 5,
+        "rev": 144500.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 57800.0
+      },
+      "last_30d": {
+        "qty": 3,
+        "rev": 86700.0
+      },
+      "total_qty": 9,
+      "total_rev": 260100.0
+    },
+    "supplied_qty": 10,
+    "supplied_cost": 70262.5,
+    "cost": 7026.0,
+    "retail": 28900,
+    "sell_through": 90.0,
+    "stock_value": 28900,
+    "stock_cost": 7026,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 3.8,
+      "acceleration": 0.79
+    },
+    "wos": 1.4,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 90% (хит), продаётся 3 шт/мес — дозаказать срочно",
+    "photo": "[42688b]"
+  },
+  {
+    "article": null,
+    "name": "Шорты-юбка классика",
+    "variants": {
+      "colors": {
+        "Чёрный": 2
+      },
+      "sizes": {
+        "L": 1,
+        "XL": 1
+      },
+      "matrix": {
+        "Чёрный/XL": 1,
+        "Чёрный/L": 1
+      }
+    },
+    "last_sale": "2026-02-17",
+    "first_sale": "2026-02-17",
+    "days_since_last_sale": 63,
+    "avg_sale_price": 13900,
+    "returns_qty": 0,
+    "gross_profit": 11272,
+    "margin_pct": 81.1,
+    "supplier": "JL (金莱服饰 / Цзиньлай Фуши)",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 2,
+      "moscow": 1,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 1,
+        "rev": 13900.0
+      },
+      "mar": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 1,
+      "total_rev": 13900.0
+    },
+    "supplied_qty": 4,
+    "supplied_cost": 10512.0,
+    "cost": 2628.0,
+    "retail": 13900,
+    "sell_through": 25.0,
+    "stock_value": 27800,
+    "stock_cost": 5256,
+    "first_supply_date": "2026-01-25",
+    "last_supply_date": "2026-01-25",
+    "days_since_first": 86,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.3,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "DEAD",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
+    "photo": "[68292b]"
+  },
+  {
+    "article": null,
+    "name": "Футболка приталенная",
+    "variants": {
+      "colors": {
+        "Чёрный": 2,
+        "Тёмно-серый": 1
+      },
+      "sizes": {
+        "OneSize": 3
+      },
+      "matrix": {
+        "Чёрный/OneSize": 2,
+        "Тёмно-серый/OneSize": 1
+      }
+    },
+    "last_sale": "2026-04-01",
+    "first_sale": "2026-03-07",
+    "days_since_last_sale": 20,
+    "avg_sale_price": 6900,
+    "returns_qty": 0,
+    "gross_profit": 39140,
+    "margin_pct": 76.7,
+    "supplier": "MIL (MILDNESS)",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 3,
+      "moscow": 1,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 8,
+        "rev": 48300.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 6900.0
+      },
+      "last_30d": {
+        "qty": 5,
+        "rev": 27600.0
+      },
+      "total_qty": 10,
+      "total_rev": 55200.0
+    },
+    "supplied_qty": 14,
+    "supplied_cost": 22484.0,
+    "cost": 1606.0,
+    "retail": 6900,
+    "sell_through": 71.4,
+    "stock_value": 20700,
+    "stock_cost": 4818,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 5,
+      "avg_30d": 4.2,
+      "acceleration": 1.18
+    },
+    "wos": 2.6,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 71% (хит), продаётся 5 шт/мес — дозаказать срочно",
+    "photo": "[49464b]"
+  },
+  {
+    "article": null,
+    "name": "Жилет укороченный",
+    "variants": {
+      "colors": {
+        "Чёрный": 2
+      },
+      "sizes": {
+        "OneSize": 2
+      },
+      "matrix": {
+        "Чёрный/OneSize": 2
+      }
+    },
+    "last_sale": "2026-04-05",
+    "first_sale": "2026-03-07",
+    "days_since_last_sale": 16,
+    "avg_sale_price": 12900,
+    "returns_qty": 0,
+    "gross_profit": 32568,
+    "margin_pct": 84.2,
+    "supplier": "YQ",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 2,
+      "moscow": 1,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 1,
+        "rev": 12900.0
+      },
+      "apr": {
+        "qty": 2,
+        "rev": 25800.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 25800.0
+      },
+      "total_qty": 3,
+      "total_rev": 38700.0
+    },
+    "supplied_qty": 5,
+    "supplied_cost": 10220.0,
+    "cost": 2044.0,
+    "retail": 12900,
+    "sell_through": 60.0,
+    "stock_value": 25800,
+    "stock_cost": 4088,
+    "first_supply_date": "2026-02-09",
+    "last_supply_date": "2026-02-09",
+    "days_since_first": 71,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 1.3,
+      "acceleration": 1.58
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 60% (хит), продаётся 2 шт/мес — дозаказать срочно",
+    "photo": "[49756b]"
+  },
+  {
+    "article": null,
+    "name": "Майка вош с цепочкой",
+    "variants": {
+      "colors": {
+        "Чёрный": 2
+      },
+      "sizes": {
+        "OneSize": 2
+      },
+      "matrix": {
+        "Чёрный/OneSize": 2
+      }
+    },
+    "last_sale": "2026-04-20",
+    "first_sale": "2026-03-20",
+    "days_since_last_sale": 1,
+    "avg_sale_price": 7900,
+    "returns_qty": 0,
+    "gross_profit": 10763,
+    "margin_pct": 78.7,
+    "supplier": "GYL",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 2,
+      "moscow": 1,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "mar": {
+        "qty": 2,
+        "rev": 15800.0
+      },
+      "apr": {
+        "qty": 1,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 2,
+        "rev": 7900.0
+      },
+      "total_qty": 3,
+      "total_rev": 15800.0
+    },
+    "supplied_qty": 5,
+    "supplied_cost": 8395.0,
+    "cost": 1679.0,
+    "retail": 7900,
+    "sell_through": 60.0,
+    "stock_value": 15800,
+    "stock_cost": 3358,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 1.3,
+      "acceleration": 1.51
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 60% (хит), продаётся 2 шт/мес — дозаказать срочно",
+    "photo": "[21088b]"
+  },
+  {
+    "article": null,
+    "name": "Кепка бейсболка вош",
+    "variants": {
+      "colors": {
+        "Чёрный": 3,
+        "Коричневый": 1
+      },
+      "sizes": {
+        "OneSize": 4
+      },
+      "matrix": {
+        "Чёрный/OneSize": 3,
+        "Коричневый/OneSize": 1
+      }
+    },
+    "last_sale": "2026-04-17",
+    "first_sale": "2026-02-20",
+    "days_since_last_sale": 4,
+    "avg_sale_price": 5900,
+    "returns_qty": 0,
+    "gross_profit": 46808,
+    "margin_pct": 90.3,
+    "supplier": "KPK",
+    "subfolder": "Прочее",
+    "stock": {
+      "total": 4,
+      "moscow": 1,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 2,
+        "rev": 5900.0
+      },
+      "mar": {
+        "qty": 6,
+        "rev": 29500.0
+      },
+      "apr": {
+        "qty": 3,
+        "rev": 17700.0
+      },
+      "last_30d": {
+        "qty": 4,
+        "rev": 23600.0
+      },
+      "total_qty": 11,
+      "total_rev": 53100.0
+    },
+    "supplied_qty": 15,
+    "supplied_cost": 8580.0,
+    "cost": 572.0,
+    "retail": 5900,
+    "sell_through": 73.3,
+    "stock_value": 23600,
+    "stock_cost": 2288,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 4.9,
+      "acceleration": 0.82
+    },
+    "wos": 4.3,
+    "recommendation": "REORDER",
+    "recommendation_reason": "Продано 73% (хит), продаётся 4 шт/мес — дозаказать срочно",
+    "photo": "[26464b]"
+  },
+  {
+    "article": null,
+    "name": "Куртка укороченная экокожа",
+    "variants": {
+      "colors": {},
+      "sizes": {},
+      "matrix": {}
+    },
+    "last_sale": "2026-03-12",
+    "first_sale": "2026-02-19",
+    "days_since_last_sale": 40,
+    "avg_sale_price": 24900,
+    "returns_qty": 0,
+    "gross_profit": 93475,
+    "margin_pct": 75.1,
+    "supplier": "YW",
+    "subfolder": "Верхняя одежда",
+    "stock": {
+      "total": 0,
+      "moscow": 0,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sales": {
+      "jan": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "feb": {
+        "qty": 2,
+        "rev": 49800.0
+      },
+      "mar": {
+        "qty": 3,
+        "rev": 74700.0
+      },
+      "apr": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "last_30d": {
+        "qty": 0,
+        "rev": 0.0
+      },
+      "total_qty": 5,
+      "total_rev": 124500.0
+    },
+    "supplied_qty": 5,
+    "supplied_cost": 31025.0,
+    "cost": 6205.0,
+    "retail": 24900,
+    "sell_through": 100.0,
+    "stock_value": 0,
+    "stock_cost": 0,
+    "first_supply_date": "2026-02-12",
+    "last_supply_date": "2026-02-12",
+    "days_since_first": 68,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 2.2,
+      "acceleration": 0.0
+    },
+    "wos": 999,
+    "recommendation": "SOLD_OUT",
+    "recommendation_reason": "Остаток закончился, продано 100% от завоза — дозаказать если хит",
+    "photo": "[58592b]"
+  }
+]
