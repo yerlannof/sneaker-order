@@ -514,7 +514,8 @@ def render_html(results: list):
   .item-main { padding:10px; gap:10px; }
   .item-photo, .item-photo-empty { width:70px; height:70px; }
   .item-name { font-size:13px; }
-  .disc-btn { padding:7px 11px; font-size:12px; min-width:42px; }
+  .disc-btn { padding:10px 14px; font-size:14px; min-width:50px; min-height:38px; }
+  .disc-btns { gap:5px; }
   .bottom { padding:10px 14px; }
   .stock-grid { gap:3px; }
   .stock-cell-val { font-size:13px; }
@@ -695,7 +696,8 @@ function renderVariants(item) {
 }
 
 function renderItem(item, idx) {
-  const disc = discounts[item.article] || 0;
+  const itemKey = item.article || item.name;
+  const disc = discounts[itemKey] || 0;
   const newPrice = disc > 0 ? Math.round(item.retail * (1 - disc/100)) : 0;
   const stBadge = stClass(item.sell_through);
   const REC_LABELS = ''' + REC_LABELS_JS + ''';
@@ -843,7 +845,7 @@ function renderItem(item, idx) {
       <div class="discount-row" style="flex-wrap:wrap" data-tip="Выбери скидку — сохранится локально и в Supabase при нажатии Сохранить">
         <label>Скидка</label>
         <div class="disc-btns">
-          ${[0,5,10,15,20,25,30,40,50].map(d => `<div class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${item.article || item.name}',${d})">${d?d+'%':'✕'}</div>`).join('')}
+          ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${(item.article || item.name).replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
         </div>
         ${newPrice > 0
           ? `<span class="new-price" data-tip="Новая цена после скидки">${fmt(newPrice)}₸</span>`
@@ -880,6 +882,40 @@ function renderItem(item, idx) {
     new_html = new_html.replace(
         "navigator.clipboard.writeText('${item.article}')",
         "navigator.clipboard.writeText('${item.article || item.name}')"
+    )
+
+    # 14. Починить saveDiscounts, updateStats, exportCSV, onDiscount — использовать item.article || item.name везде
+    # 14a. updateStats и exportCSV: discounts[i.article] → discounts[i.article || i.name]
+    new_html = new_html.replace(
+        "const disc = discounts[i.article] || 0;\n    const price = disc > 0 ? i.retail * (1 - disc/100) : i.retail;",
+        "const disc = discounts[i.article || i.name] || 0;\n    const price = disc > 0 ? i.retail * (1 - disc/100) : i.retail;"
+    )
+    new_html = new_html.replace(
+        "const disc = discounts[i.article] || 0;\n    const newP = disc > 0 ? Math.round(i.retail * (1 - disc/100)) : i.retail;",
+        "const disc = discounts[i.article || i.name] || 0;\n    const newP = disc > 0 ? Math.round(i.retail * (1 - disc/100)) : i.retail;"
+    )
+    # 14b. saveDiscounts
+    new_html = new_html.replace(
+        "const discountItems = ALL_ITEMS.filter(i => discounts[i.article]).map(i => ({",
+        "const discountItems = ALL_ITEMS.filter(i => discounts[i.article || i.name]).map(i => ({"
+    )
+    new_html = new_html.replace(
+        "discount: discounts[i.article],",
+        "discount: discounts[i.article || i.name],"
+    )
+    new_html = new_html.replace(
+        "new_price: Math.round(i.retail * (1 - discounts[i.article]/100)),",
+        "new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),"
+    )
+    # 14c. onDiscount — в re-render найти item тоже по fallback, и обновлять новую кнопку
+    new_html = new_html.replace(
+        "const item = ALL_ITEMS.find(i => i.article === article);",
+        "const item = ALL_ITEMS.find(i => (i.article || i.name) === article);"
+    )
+    # CSS активного состояния button
+    new_html = new_html.replace(
+        '.disc-btn.active { background:var(--red); color:#fff; border-color:var(--red); }',
+        '.disc-btn.active { background:var(--red); color:#fff; border-color:var(--red); }\n.disc-btn { -webkit-appearance:none; appearance:none; }\n.disc-btn:focus { outline:none; }'
     )
 
     OUT_HTML.write_text(new_html)
