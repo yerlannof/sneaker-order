@@ -376,32 +376,16 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
   </div>
 </div>
 
-<div class="legend-row"><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</div>
+<button class="legend-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? '❓ Как читать — скрыть' : '❓ Как читать эти цифры'">❓ Как читать эти цифры</button>
+<div class="legend-body">
+  <div class="legend-row"><b>% справа вверху</b> — sell-through: сколько % от завоза уже продано. 60%+ = хит.</div>
+  <div class="legend-row"><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</div>
   <div class="legend-row"><b>⚡ Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение с средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</div>
   <div class="legend-row"><b>📦 Запас на X нед</b> — сколько недель хватит текущего остатка при нынешней скорости. <4 нед = срочно дозаказать, >10 = много.</div>
   <div class="legend-row"><b>🎨 Цвета и 📏 Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span> = 0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span> = 1-2 шт (мало), <span style="color:#10b981">зелёный</span> = норма.</div>
   <div class="legend-row"><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ = хит, 📈 РАСТЁТ = продажи ускоряются (скидку не давать), 🔵 ДЕРЖИМ = норма, 🟠 СКИДКА = плохо идёт, 🔴 СИЛЬНАЯ СКИДКА = мёртвый товар.</div>
   <div class="legend-row"><b>🚛 Подсказка</b> появляется когда в магазине дисбаланс — например, в Москве 0 шт, но на складе лежит.</div>
 </div>
-
-<div class="legend-row"><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</div>
-  <div class="legend-row"><b>⚡ Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение с средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</div>
-  <div class="legend-row"><b>📦 Запас на X нед</b> — сколько недель хватит текущего остатка при нынешней скорости. <4 нед = срочно дозаказать, >10 = много.</div>
-  <div class="legend-row"><b>🎨 Цвета и 📏 Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span> = 0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span> = 1-2 шт (мало), <span style="color:#10b981">зелёный</span> = норма.</div>
-  <div class="legend-row"><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ = хит, 📈 РАСТЁТ = продажи ускоряются (скидку не давать), 🔵 ДЕРЖИМ = норма, 🟠 СКИДКА = плохо идёт, 🔴 СИЛЬНАЯ СКИДКА = мёртвый товар.</div>
-  <div class="legend-row"><b>🚛 Подсказка</b> появляется когда в магазине дисбаланс — например, в Москве 0 шт, но на складе лежит.</div>
-</div>
-
-<details style="margin:6px 16px 8px;">
-  <summary style="padding:8px 14px; background:var(--blue-light); color:var(--blue); border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">❓ Как читать эти цифры</summary>
-  <div style="margin-top:6px; padding:12px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; line-height:1.6; color:var(--text2);">
-    <p><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</p>
-    <p>⚡ <b>Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение со средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</p>
-    <p>📦 <b>Запас на X нед</b> — сколько недель хватит остатка при нынешней скорости. &lt;4 = срочно дозаказать, &gt;10 = много.</p>
-    <p>📏 <b>Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span>=0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span>=1-2 шт, <span style="color:#10b981">зелёный</span>=норма.</p>
-    <p><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ=хит, 📈 РАСТЁТ=скидку не давать, 🔵 ДЕРЖИМ=норма, 🟠 СКИДКА=плохо идёт, 🔴 СИЛЬНАЯ СКИДКА=мёртвый.</p>
-  </div>
-</details>
 
 <div class="controls">
   <input type="text" class="search-input" id="search" placeholder="Поиск по названию или артикулу..." oninput="applyFilters()">
@@ -413,8 +397,6 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <option value="cost">По заморож. себес</option>
     <option value="frozen_retail">По стоимости в РЦ</option>
     <option value="velocity">По скорости 30д</option>
-    <option value="velocity">По скорости (30д)</option>
-    <option value="wos_asc">По WOS (срочно)</option>
     <option value="velocity">По скорости (30д)</option>
     <option value="wos_asc">По WOS (срочно)</option>
   </select>

@@ -582,24 +582,32 @@ async function loadData() {
                       f'{loader_html}<div class="items" id="itemsList"></div>',
                       new_html, count=1)
 
-    # Легенда — на <details>, скрыта по умолчанию
-    legend_html = '''<details style="margin:6px 16px 8px;">
-  <summary style="padding:8px 14px; background:var(--blue-light); color:var(--blue); border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">❓ Как читать эти цифры</summary>
-  <div style="margin-top:6px; padding:12px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; line-height:1.6; color:var(--text2);">
-    <p><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</p>
-    <p>⚡ <b>Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение со средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</p>
-    <p>📦 <b>Запас на X нед</b> — сколько недель хватит остатка при нынешней скорости. &lt;4 = срочно дозаказать, &gt;10 = много.</p>
-    <p>📏 <b>Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span>=0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span>=1-2 шт, <span style="color:#10b981">зелёный</span>=норма.</p>
-    <p><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ=хит, 📈 РАСТЁТ=скидку не давать, 🔵 ДЕРЖИМ=норма, 🟠 СКИДКА=плохо идёт, 🔴 СИЛЬНАЯ СКИДКА=мёртвый.</p>
-  </div>
-</details>
-'''
-    # удалим старый legend block (button + div .legend-body) если есть
-    new_html = re.sub(r'<button class="legend-toggle"[^>]*>.*?</button>\s*<div class="legend-body">.*?</div>\s*',
-                      '', new_html, flags=re.DOTALL)
-    # вставим новую перед .controls
-    new_html = new_html.replace('<div class="controls">',
-                                legend_html + '\n<div class="controls">', 1)
+    # Не вставляем дополнительный legend — оставим из шаблона
+    legend_html = ''
+    # Финальная чистка дубликатов через построчную обработку
+    lines = new_html.split('\n')
+    cleaned = []
+    seen_legend_block = False
+    in_legend = False
+    seen_options = set()
+    seen_legend_rows = set()
+    for ln in lines:
+        # Дедуп option в select
+        opt = re.search(r'<option value="(\w+)"[^>]*>([^<]+)</option>', ln)
+        if opt:
+            key = (opt.group(1), opt.group(2))
+            if key in seen_options:
+                continue  # пропускаем дубликат
+            seen_options.add(key)
+        # Дедуп <div class="legend-row">...</div> по полному тексту
+        if 'class="legend-row"' in ln:
+            content = re.sub(r'\s+', ' ', ln.strip())
+            if content in seen_legend_rows:
+                continue
+            seen_legend_rows.add(content)
+        cleaned.append(ln)
+    new_html = '\n'.join(cleaned)
+    # legend оставляем как есть из шаблона, ничего не вставляем
 
     # Удаляем дубликаты legend block (если они есть)
     legend_pattern = r'<button class="legend-toggle"[^>]*>[^<]*</button>\s*<div class="legend-body">.*?</div>\s*\n*'
