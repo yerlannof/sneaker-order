@@ -376,10 +376,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
   </div>
 </div>
 
-<button class="legend-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? '❓ Как читать — скрыть' : '❓ Как читать эти цифры'">❓ Как читать эти цифры</button>
-<div class="legend-body">
-  <div class="legend-row"><b>% справа вверху</b> — sell-through: сколько % от завоза уже продано. 60%+ = хит.</div>
-  <div class="legend-row"><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</div>
+<div class="legend-row"><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</div>
   <div class="legend-row"><b>⚡ Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение с средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</div>
   <div class="legend-row"><b>📦 Запас на X нед</b> — сколько недель хватит текущего остатка при нынешней скорости. <4 нед = срочно дозаказать, >10 = много.</div>
   <div class="legend-row"><b>🎨 Цвета и 📏 Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span> = 0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span> = 1-2 шт (мало), <span style="color:#10b981">зелёный</span> = норма.</div>
@@ -394,6 +391,17 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
   <div class="legend-row"><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ = хит, 📈 РАСТЁТ = продажи ускоряются (скидку не давать), 🔵 ДЕРЖИМ = норма, 🟠 СКИДКА = плохо идёт, 🔴 СИЛЬНАЯ СКИДКА = мёртвый товар.</div>
   <div class="legend-row"><b>🚛 Подсказка</b> появляется когда в магазине дисбаланс — например, в Москве 0 шт, но на складе лежит.</div>
 </div>
+
+<details style="margin:6px 16px 8px;">
+  <summary style="padding:8px 14px; background:var(--blue-light); color:var(--blue); border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">❓ Как читать эти цифры</summary>
+  <div style="margin-top:6px; padding:12px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; line-height:1.6; color:var(--text2);">
+    <p><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</p>
+    <p>⚡ <b>Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение со средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</p>
+    <p>📦 <b>Запас на X нед</b> — сколько недель хватит остатка при нынешней скорости. &lt;4 = срочно дозаказать, &gt;10 = много.</p>
+    <p>📏 <b>Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span>=0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span>=1-2 шт, <span style="color:#10b981">зелёный</span>=норма.</p>
+    <p><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ=хит, 📈 РАСТЁТ=скидку не давать, 🔵 ДЕРЖИМ=норма, 🟠 СКИДКА=плохо идёт, 🔴 СИЛЬНАЯ СКИДКА=мёртвый.</p>
+  </div>
+</details>
 
 <div class="controls">
   <input type="text" class="search-input" id="search" placeholder="Поиск по названию или артикулу..." oninput="applyFilters()">
@@ -430,6 +438,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 <button class="filter-btn" onclick="setFilter('brand:Yeezy')">Yeezy (14)</button>
 </div>
 
+<div id="loader" style="text-align:center; padding:20px; color:#3b82f6; font-weight:600;">⏳ Загружаю…</div>
 <div class="items" id="itemsList"></div>
 
 <div class="bottom">
@@ -464,9 +473,26 @@ const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABA
 let ALL_ITEMS = [];
 
 async function loadData() {
-  const r = await fetch('sneakers_items.json');
+  const loader = document.getElementById('loader');
+  if (loader) loader.textContent = '⏳ Загружаю данные…';
+  const r = await fetch('sneakers_lite.json');
   ALL_ITEMS = await r.json();
+  if (loader) loader.textContent = '⏳ Рендерим карточки…';
   applyFilters();
+  if (loader) loader.style.display = 'none';
+
+  // Фото догружаем в фоне (не блокирует UI)
+  setTimeout(async () => {
+    try {
+      const r2 = await fetch('sneakers_photos.json');
+      const photos = await r2.json();
+      ALL_ITEMS.forEach(it => {
+        const k = it.article || it.name;
+        if (photos[k]) it.photo = photos[k];
+      });
+      applyFilters();
+    } catch(e) { console.error('Photos load failed:', e); }
+  }, 100);
 }
 
 // === STATE ===

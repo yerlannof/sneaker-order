@@ -526,29 +526,80 @@ def render_html(items: list):
     new_html = new_html.replace('<div class="stat-label">На полке РЦ</div>',
                                 '<div class="stat-label">Стоимость в РЦ</div>', 1)
 
-    # ALL_ITEMS — пишем в ОТДЕЛЬНЫЙ JSON файл (inline 7MB ломает Chrome)
-    items_json = json.dumps(adapted_items, ensure_ascii=False)
-    items_file = PROJECT_ROOT / 'sneaker-order' / 'sneakers_items.json'
-    items_file.write_text(items_json)
-    print(f"   ✓ Items JSON: {items_file} ({items_file.stat().st_size/1024/1024:.1f} MB)")
+    # ALL_ITEMS — разделяем на 2 файла: данные (быстрый) + фото (медленный)
+    items_lite = []
+    photos_only = {}
+    for it in adapted_items:
+        photo = it.pop('photo', '')
+        items_lite.append(it)
+        if photo:
+            photos_only[it['article'] or it['name']] = photo
 
-    # В HTML вставляем fetch loader — данные загружаются асинхронно
+    lite_file = PROJECT_ROOT / 'sneaker-order' / 'sneakers_lite.json'
+    photos_file = PROJECT_ROOT / 'sneaker-order' / 'sneakers_photos.json'
+    lite_file.write_text(json.dumps(items_lite, ensure_ascii=False))
+    photos_file.write_text(json.dumps(photos_only, ensure_ascii=False))
+    print(f"   ✓ Lite (без фото): {lite_file.stat().st_size/1024:.0f} KB")
+    print(f"   ✓ Фото: {photos_file.stat().st_size/1024/1024:.1f} MB")
+
+    # В HTML вставляем 2-stage loader: сначала данные → рендер, потом фото → дорендерим
     new_data_block = '''// === DATA ===
 let ALL_ITEMS = [];
 
 async function loadData() {
-  const r = await fetch('sneakers_items.json');
+  const loader = document.getElementById('loader');
+  if (loader) loader.textContent = '⏳ Загружаю данные…';
+  const r = await fetch('sneakers_lite.json');
   ALL_ITEMS = await r.json();
+  if (loader) loader.textContent = '⏳ Рендерим карточки…';
   applyFilters();
+  if (loader) loader.style.display = 'none';
+
+  // Фото догружаем в фоне (не блокирует UI)
+  setTimeout(async () => {
+    try {
+      const r2 = await fetch('sneakers_photos.json');
+      const photos = await r2.json();
+      ALL_ITEMS.forEach(it => {
+        const k = it.article || it.name;
+        if (photos[k]) it.photo = photos[k];
+      });
+      applyFilters();
+    } catch(e) { console.error('Photos load failed:', e); }
+  }, 100);
 }
 
 '''
     new_html = re.sub(r'// === DATA ===.*?(?=// === STATE ===)',
                       lambda _: new_data_block,
                       new_html, count=1, flags=re.DOTALL)
-    # Заменим INIT — вместо applyFilters() сразу loadData()
     new_html = new_html.replace('// === INIT ===\napplyFilters();',
                                 '// === INIT ===\nloadData();')
+
+    # Лоадер сверху и заменим легенду на нативный <details>
+    loader_html = '<div id="loader" style="text-align:center; padding:20px; color:#3b82f6; font-weight:600;">⏳ Загружаю…</div>\n'
+    new_html = re.sub(r'<div class="items" id="itemsList"></div>',
+                      f'{loader_html}<div class="items" id="itemsList"></div>',
+                      new_html, count=1)
+
+    # Легенда — на <details>, скрыта по умолчанию
+    legend_html = '''<details style="margin:6px 16px 8px;">
+  <summary style="padding:8px 14px; background:var(--blue-light); color:var(--blue); border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">❓ Как читать эти цифры</summary>
+  <div style="margin-top:6px; padding:12px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; line-height:1.6; color:var(--text2);">
+    <p><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</p>
+    <p>⚡ <b>Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение со средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</p>
+    <p>📦 <b>Запас на X нед</b> — сколько недель хватит остатка при нынешней скорости. &lt;4 = срочно дозаказать, &gt;10 = много.</p>
+    <p>📏 <b>Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span>=0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span>=1-2 шт, <span style="color:#10b981">зелёный</span>=норма.</p>
+    <p><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ=хит, 📈 РАСТЁТ=скидку не давать, 🔵 ДЕРЖИМ=норма, 🟠 СКИДКА=плохо идёт, 🔴 СИЛЬНАЯ СКИДКА=мёртвый.</p>
+  </div>
+</details>
+'''
+    # удалим старый legend block (button + div .legend-body) если есть
+    new_html = re.sub(r'<button class="legend-toggle"[^>]*>.*?</button>\s*<div class="legend-body">.*?</div>\s*',
+                      '', new_html, flags=re.DOTALL)
+    # вставим новую перед .controls
+    new_html = new_html.replace('<div class="controls">',
+                                legend_html + '\n<div class="controls">', 1)
 
     # Удаляем дубликаты legend block (если они есть)
     legend_pattern = r'<button class="legend-toggle"[^>]*>[^<]*</button>\s*<div class="legend-body">.*?</div>\s*\n*'
