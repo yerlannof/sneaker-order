@@ -526,12 +526,29 @@ def render_html(items: list):
     new_html = new_html.replace('<div class="stat-label">На полке РЦ</div>',
                                 '<div class="stat-label">Стоимость в РЦ</div>', 1)
 
-    # ALL_ITEMS — заменяем через маркеры // === DATA === ... // === STATE ===
+    # ALL_ITEMS — пишем в ОТДЕЛЬНЫЙ JSON файл (inline 7MB ломает Chrome)
     items_json = json.dumps(adapted_items, ensure_ascii=False)
-    new_data_block = f'// === DATA ===\nconst ALL_ITEMS = {items_json};\n\n'
+    items_file = PROJECT_ROOT / 'sneaker-order' / 'sneakers_items.json'
+    items_file.write_text(items_json)
+    print(f"   ✓ Items JSON: {items_file} ({items_file.stat().st_size/1024/1024:.1f} MB)")
+
+    # В HTML вставляем fetch loader — данные загружаются асинхронно
+    new_data_block = '''// === DATA ===
+let ALL_ITEMS = [];
+
+async function loadData() {
+  const r = await fetch('sneakers_items.json');
+  ALL_ITEMS = await r.json();
+  applyFilters();
+}
+
+'''
     new_html = re.sub(r'// === DATA ===.*?(?=// === STATE ===)',
                       lambda _: new_data_block,
                       new_html, count=1, flags=re.DOTALL)
+    # Заменим INIT — вместо applyFilters() сразу loadData()
+    new_html = new_html.replace('// === INIT ===\napplyFilters();',
+                                '// === INIT ===\nloadData();')
 
     # Удаляем дубликаты legend block (если они есть)
     legend_pattern = r'<button class="legend-toggle"[^>]*>[^<]*</button>\s*<div class="legend-body">.*?</div>\s*\n*'
