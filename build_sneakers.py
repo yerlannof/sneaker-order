@@ -595,29 +595,78 @@ def render_html(items: list):
                       f'<div class="filter-bar" id="filterBar">\n{chr(10).join(cat_emoji_count)}\n</div>',
                       new_html, count=1, flags=re.DOTALL)
 
-    # applyFilters — поддержка cat:XXX и brand:XXX
-    new_html = new_html.replace(
-        "if (currentFilter !== 'all' && item.subfolder !== currentFilter) return false;",
-        """if (currentFilter !== 'all') {
+    # === Заменяем целиком блок FILTERS & SORT === ... === RENDER ===
+    new_filter_block = '''// === FILTERS & SORT ===
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    const onclick = b.getAttribute('onclick') || '';
+    const m = onclick.match(/setFilter\\('([^']+)'\\)/);
+    b.classList.toggle('active', m && m[1] === f);
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const sort = document.getElementById('sortSelect').value;
+
+  let filtered = ALL_ITEMS.filter(item => {
+    if (currentFilter !== 'all') {
       if (currentFilter.startsWith('cat:')) {
         if (item.category !== currentFilter.slice(4)) return false;
       } else if (currentFilter.startsWith('brand:')) {
         if (item.brand !== currentFilter.slice(6)) return false;
       } else if (item.subfolder !== currentFilter) return false;
-    }"""
-    )
-    # setFilter active class
-    new_html = new_html.replace(
-        """document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.toggle('active',
-      (f === 'all' && b.textContent === 'Все') || b.textContent === f
-    );
-  });""",
-        """document.querySelectorAll('.filter-btn').forEach(b => {
-    const onclick = b.getAttribute('onclick') || '';
-    const m = onclick.match(/setFilter\\('([^']+)'\\)/);
-    b.classList.toggle('active', m && m[1] === f);
-  });""")
+    }
+    if (q && !item.name.toLowerCase().includes(q) && !(item.article || '').toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    switch(sort) {
+      case 'stock_value': return (b.frozen_retail || 0) - (a.frozen_retail || 0);
+      case 'sell_through': return (b.sell_through || 0) - (a.sell_through || 0);
+      case 'stock': return (b.stock.total || 0) - (a.stock.total || 0);
+      case 'name': return a.name.localeCompare(b.name);
+      case 'cost': return (b.frozen_cost || 0) - (a.frozen_cost || 0);
+      case 'frozen_retail': return (b.frozen_retail || 0) - (a.frozen_retail || 0);
+      case 'velocity': return ((b.sales && b.sales.s30) || 0) - ((a.sales && a.sales.s30) || 0);
+      default: return 0;
+    }
+  });
+
+  renderItems(filtered);
+  updateStats(filtered);
+}
+
+function updateStats(items) {
+  const totalStock = items.reduce((s,i) => s + i.stock.total, 0);
+  const totalS30 = items.reduce((s,i) => s + ((i.sales && i.sales.s30) || 0), 0);
+  const totalCost = items.reduce((s,i) => s + (i.frozen_cost || 0), 0);
+  const totalRetail = items.reduce((s,i) => {
+    const disc = discounts[i.article || i.name] || 0;
+    const price = disc > 0 ? i.retail * (1 - disc/100) : i.retail;
+    return s + i.stock.total * price;
+  }, 0);
+  const avgPrice = totalStock ? totalRetail / totalStock : 0;
+  const totalRev = totalS30 * avgPrice;
+
+  document.getElementById('stat-items').textContent = items.length;
+  document.getElementById('stat-stock').textContent = fmt(totalStock);
+  document.getElementById('stat-sold').textContent = fmt(totalS30);
+  document.getElementById('stat-cost').textContent = fmt(Math.round(totalCost));
+  document.getElementById('stat-retail').textContent = fmt(Math.round(totalRetail));
+  document.getElementById('stat-revenue').textContent = fmt(Math.round(totalRev));
+  document.getElementById('bottom-count').textContent = totalStock + ' шт';
+  document.getElementById('bottom-value').textContent = fmt(Math.round(totalRetail)) + ' ₸';
+}
+
+'''
+    new_html = re.sub(r'// === FILTERS & SORT ===.*?(?=// === RENDER ===)',
+                      lambda _: new_filter_block,
+                      new_html, count=1, flags=re.DOTALL)
+    # setFilter уже в новом filter_block выше
 
     # Sort options
     new_html = new_html.replace(
