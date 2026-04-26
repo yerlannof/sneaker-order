@@ -337,6 +337,106 @@ def main():
     return items
 
 
+def new_render_function() -> str:
+    """Возвращает JS-код renderItem функции для кроссовок."""
+    cat_labels = json.dumps({k: v['label'] for k, v in CAT_CONFIG.items()}, ensure_ascii=False)
+    return r'''
+function renderItem(item, idx) {
+  const itemKey = item.article || item.name;
+  const disc = discounts[itemKey] || 0;
+  const newPrice = disc > 0 ? Math.round(item.retail * (1 - disc/100)) : 0;
+  const stBadge = stClass(item.sell_through);
+  const CAT_LABELS = ''' + cat_labels + r''';
+
+  const photoHtml = item.photo
+    ? `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" alt="${item.name}" onclick="openLightbox('${itemKey.replace(/'/g,"")}')">`
+    : `<div class="item-photo-empty"><div class="art">${(item.article||'—').substring(0,8)}</div><div class="nf">нет фото</div></div>`;
+
+  const catLabel = CAT_LABELS[item.category] || item.category;
+  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>
+    <div class="cat-reason">${item.reason || ''}</div></div>`;
+
+  let unprofitWarn = '';
+  if (item.category === 'UNPROFITABLE' && item.cost > item.retail) {
+    const loss = Math.round(item.cost - item.retail);
+    unprofitWarn = `<div class="unprofit-warn">⚠️ Каждая продажа = убыток ${fmt(loss)}₸/пара. Поднять цену хотя бы до ${fmt(Math.round(item.cost * 1.3))}₸</div>`;
+  }
+
+  const s30 = (item.sales && item.sales.s30) || 0;
+  const s90 = (item.sales && item.sales.s90) || 0;
+  const wos = item.wos || 999;
+  const wosClass = wos < 4 ? 'wos-bad' : wos < 12 ? 'wos-warn' : wos >= 99 ? '' : 'wos-ok';
+  const wosLabel = wos >= 99 ? 'не продаётся' : wos < 4 ? `${wos.toFixed(0)} нед (мало)` : wos < 12 ? `${wos.toFixed(0)} нед` : `${wos.toFixed(0)} нед (много)`;
+  const velHtml = `<div class="velocity-box">
+    <span>⚡ <b>${s30}</b> шт/мес (посл 30д)</span>
+    <span style="color:var(--text3)">за 90д: ${s90}</span>
+    <span style="margin-left:auto" class="${wosClass}">📦 ${wosLabel}</span>
+  </div>`;
+
+  const flowHtml = `<div class="flow-box">
+    <div class="flow-cell">
+      <div class="flow-label">Остаток</div>
+      <div class="flow-val" style="color:#3b82f6">${item.stock.total}</div>
+      <div class="flow-sub">${item.frozen_cost > 0 ? fmtK(item.frozen_cost) + '₸ себес' : ''}</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">Продано 90д</div>
+      <div class="flow-val" style="color:#10b981">${s90}</div>
+      <div class="flow-sub">из них 30д: ${s30}</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">Посл. продажа</div>
+      <div class="flow-val" style="font-size:14px">${item.last_sale ? item.last_sale.slice(5) : '—'}</div>
+      <div class="flow-sub">${item.days_no_sale != null ? item.days_no_sale + ' дн назад' : 'не было'}</div>
+    </div>
+  </div>`;
+
+  return `
+  <div class="item" data-article="${itemKey}">
+    <div class="item-main">
+      ${photoHtml}
+      <div class="item-body">
+        <div class="item-name">${item.name}</div>
+        <div class="item-article"><span class="brand-badge">${item.brand}</span><span style="color:var(--blue);cursor:pointer" onclick="navigator.clipboard.writeText('${itemKey}').then(()=>toast('${itemKey} скопирован'))">${item.article} 📋</span></div>
+      </div>
+      <div class="item-right">
+        <span class="st-badge ${stBadge}">${item.sell_through > 0 ? item.sell_through.toFixed(0) + '%' : '—'}</span>
+        <div class="stock-total">${item.stock.total}</div>
+      </div>
+    </div>
+    <div class="item-details">
+      ${catHtml}
+      ${unprofitWarn}
+      ${flowHtml}
+      ${velHtml}
+      <div class="stock-grid">
+        <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
+        <div class="stock-cell"><div class="stock-cell-label">ЦУМ+Онл</div><div class="stock-cell-val ${item.stock.tsum_online === 0 ? 'zero' : ''}">${item.stock.tsum_online}</div></div>
+        <div class="stock-cell"><div class="stock-cell-label">Аружан</div><div class="stock-cell-val ${item.stock.aruzhan === 0 ? 'zero' : ''}">${item.stock.aruzhan}</div></div>
+        <div class="stock-cell"><div class="stock-cell-label">Склад</div><div class="stock-cell-val ${item.stock.warehouse === 0 ? 'zero' : ''}">${item.stock.warehouse}</div></div>
+      </div>
+      ${renderSizes(item)}
+      <div class="price-row">
+        <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
+        <div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>
+        ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
+        ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
+      </div>
+      <div class="discount-row" style="flex-wrap:wrap">
+        <label>Скидка</label>
+        <div class="disc-btns">
+          ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
+        </div>
+        ${newPrice > 0
+          ? `<span class="new-price">${fmt(newPrice)}₸</span>`
+          : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
+      </div>
+    </div>
+  </div>`;
+}
+'''
+
+
 CAT_CONFIG = {
     'UNPROFITABLE': {'label': '⚠️ УБЫТОЧНЫЕ', 'color': '#dc2626', 'bg': '#fef2f2'},
     'DEAD':         {'label': '🔴 МЁРТВЫЕ',    'color': '#ef4444', 'bg': '#fef2f2'},
@@ -349,10 +449,20 @@ CAT_CONFIG = {
 
 
 def render_html(items: list):
-    """Собирает sneakers.html на основе clothing.html template."""
+    """Собирает sneakers.html на основе clothing.html template (надёжно через маркеры)."""
     if not TEMPLATE_HTML.exists():
         print(f"⚠️ Нет {TEMPLATE_HTML}")
         return
+
+    # Адаптируем формат items под шаблон одежды:
+    # одежда: item.variants = {colors:{}, sizes:{}}
+    # кроссовки: item.sizes напрямую → положу в variants
+    adapted_items = []
+    for it in items:
+        adapted = {**it,
+                   'variants': {'colors': {}, 'sizes': it.get('sizes', {}), 'matrix': {}},
+                   'subfolder': it.get('brand', 'Прочее')}  # filter по бренду через subfolder
+        adapted_items.append(adapted)
 
     new_html = TEMPLATE_HTML.read_text()
 
@@ -368,16 +478,16 @@ def render_html(items: list):
         if n >= 1000: return f'{round(n/1000)}K'
         return str(round(n))
 
-    # Title
-    new_html = new_html.replace('<title>Женская одежда — Dashboard</title>',
-                                '<title>Кроссовки — Dashboard</title>')
-    # H1
-    new_html = re.sub(r'<h1>Женская одежда</h1>\s*<span class="badge badge-info">\d+ моделей</span>',
+    # Title — гибко
+    new_html = re.sub(r'<title>[^<]+</title>',
+                      '<title>Кроссовки — Dashboard</title>', new_html)
+    # H1 + badge
+    new_html = re.sub(r'<h1>[^<]+</h1>\s*<span class="badge badge-info">[^<]+</span>',
                       f'<h1>Кроссовки</h1>\n    <span class="badge badge-info">{total_models} моделей</span>',
                       new_html)
     # Header meta
     today_s = date.today().strftime('%d.%m.%Y')
-    new_html = re.sub(r'<div class="header-meta">Остатки:.*?</div>',
+    new_html = re.sub(r'<div class="header-meta">Остатки:[^<]*</div>',
                       f'<div class="header-meta">Остатки: {today_s} | Все 200000-209999</div>',
                       new_html)
     # Stats
@@ -416,11 +526,20 @@ def render_html(items: list):
     new_html = new_html.replace('<div class="stat-label">На полке РЦ</div>',
                                 '<div class="stat-label">Стоимость в РЦ</div>', 1)
 
-    # ALL_ITEMS
-    items_json = json.dumps(items, ensure_ascii=False)
-    new_html = re.sub(r'const ALL_ITEMS = \[.*?\];',
-                      lambda _: f'const ALL_ITEMS = {items_json};',
+    # ALL_ITEMS — заменяем через маркеры // === DATA === ... // === STATE ===
+    items_json = json.dumps(adapted_items, ensure_ascii=False)
+    new_data_block = f'// === DATA ===\nconst ALL_ITEMS = {items_json};\n\n'
+    new_html = re.sub(r'// === DATA ===.*?(?=// === STATE ===)',
+                      lambda _: new_data_block,
                       new_html, count=1, flags=re.DOTALL)
+
+    # Удаляем дубликаты legend block (если они есть)
+    legend_pattern = r'<button class="legend-toggle"[^>]*>[^<]*</button>\s*<div class="legend-body">.*?</div>\s*\n*'
+    matches = list(re.finditer(legend_pattern, new_html, flags=re.DOTALL))
+    if len(matches) > 1:
+        # Оставим только первый, удалим остальные
+        for m in matches[1:][::-1]:  # reverse чтобы offsets оставались валидными
+            new_html = new_html[:m.start()] + new_html[m.end():]
 
     # CSS — добавим badges для категорий + лёгкая адаптация
     extra_css = '''
@@ -513,14 +632,23 @@ def render_html(items: list):
     new_html = new_html.replace('<option value="stock_value">По стоимости</option>',
                                 '<option value="stock_value">По заморож. (РЦ)</option>')
 
-    # Полная подмена renderItem (используем lambda чтобы не интерпретировать \d)
+    # === ВАЖНО ===
+    # Удаляем СТАРЫЕ функции renderItem/renderVariants (от clothing template)
+    # перед тем как вставить НОВЫЕ — иначе будут дубликаты которые ломают логику
+    # Удаляем весь блок RENDER целиком — потом вставим свой
+    render_block_re = r'// === RENDER ===.*?(?=// === DISCOUNT ===)'
+
     CAT_LABELS_JS = json.dumps({k: v['label'] for k, v in CAT_CONFIG.items()}, ensure_ascii=False)
-    new_render = '''
+    new_render_block = '''// === RENDER ===
+function renderItems(items) {
+  const container = document.getElementById('itemsList');
+  container.innerHTML = items.map((item, idx) => renderItem(item, idx)).join('');
+}
+
 function renderSizes(item) {
-  const s = item.sizes || {};
+  const s = (item.variants && item.variants.sizes) || item.sizes || {};
   const keys = Object.keys(s);
   if (!keys.length) return '';
-  // Сортировка: числовые, затем строковые
   const sorted = keys.slice().sort((a,b) => parseFloat(a) - parseFloat(b));
   const chips = sorted.map(sz => {
     const q = s[sz];
@@ -530,6 +658,14 @@ function renderSizes(item) {
   return `<div class="size-chips">${chips}</div>`;
 }
 
+''' + new_render_function() + '''
+
+'''
+    new_html = re.sub(render_block_re,
+                      lambda _: new_render_block,
+                      new_html, count=1, flags=re.DOTALL)
+
+    _DEAD_CODE_FROM_OLD_VERSION = '''DEAD
 function renderItem(item, idx) {
   const itemKey = item.article || item.name;
   const disc = discounts[itemKey] || 0;
@@ -625,12 +761,9 @@ function renderItem(item, idx) {
     </div>
   </div>`;
 }
-'''
-    new_html = re.sub(r'function renderItem\(item, idx\) \{.*?\n\}\s*\n',
-                      lambda _: new_render + '\n',
-                      new_html, count=1, flags=re.DOTALL)
+'''  # конец _DEAD_CODE_FROM_OLD_VERSION
 
-    # Discount fallback в saveDiscounts/updateStats/exportCSV — уже в clothing.html v3 норм
+    # Discount fallback в saveDiscounts/updateStats/exportCSV
     new_html = new_html.replace(
         "const item = ALL_ITEMS.find(i => i.article === article);",
         "const item = ALL_ITEMS.find(i => (i.article || i.name) === article);")
