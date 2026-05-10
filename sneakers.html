@@ -336,42 +336,42 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 <div class="header">
   <div class="header-top">
     <h1>Кроссовки</h1>
-    <span class="badge badge-info">488 моделей</span>
+    <span class="badge badge-info">515 моделей</span>
   </div>
-  <div class="header-meta">Остатки: 26.04.2026 | Все 200000-209999</div>
+  <div class="header-meta">Остатки: 10.05.2026 | Все 200000-209999</div>
 </div>
 
 <div class="stats" id="stats">
   <div class="stat">
-    <div class="stat-num" id="stat-items">488</div>
+    <div class="stat-num" id="stat-items">515</div>
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5620</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5826</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">58</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">63</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
-    <div class="stat-num blue" id="stat-stock">6953</div>
+    <div class="stat-num blue" id="stat-stock">7832</div>
     <div class="stat-label">Остаток шт</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-cost">45.0М</div>
+    <div class="stat-num" id="stat-cost">46.8М</div>
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">1741</div>
+    <div class="stat-num green" id="stat-sold">1608</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-revenue">42.2М</div>
+    <div class="stat-num green" id="stat-revenue">39.4М</div>
     <div class="stat-label">Выручка</div>
   </div>
   <div class="stat">
-    <div class="stat-num purple" id="stat-retail">168.4М</div>
+    <div class="stat-num purple" id="stat-retail">191.9М</div>
     <div class="stat-label">Стоимость в РЦ</div>
   </div>
 </div>
@@ -404,16 +404,16 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
-<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (56)</button>
-<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (20)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (58)</button>
-<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (34)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (75)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (187)</button>
+<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (58)</button>
+<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (26)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (63)</button>
+<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (26)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (82)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (202)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (58)</button>
-<button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (203)</button>
-<button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (91)</button>
-<button class="filter-btn" onclick="setFilter('brand:Adidas')">Adidas (62)</button>
+<button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (220)</button>
+<button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
+<button class="filter-btn" onclick="setFilter('brand:Adidas')">Adidas (71)</button>
 <button class="filter-btn" onclick="setFilter('brand:New Balance')">New Balance (25)</button>
 <button class="filter-btn" onclick="setFilter('brand:Прочее')">Прочее (20)</button>
 <button class="filter-btn" onclick="setFilter('brand:Asics')">Asics (20)</button>
@@ -687,6 +687,12 @@ function renderItem(item, idx) {
           ? `<span class="new-price">${fmt(newPrice)}₸</span>`
           : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
       </div>
+      ${(item.suggested_discount > 0 && disc === 0) ? `
+      <div class="discount-row" style="background:#fef3c7;border:1px dashed #d97706;margin-top:6px">
+        <label style="color:#92400e">💡 Реком</label>
+        <button type="button" class="disc-btn active" style="background:#d97706;color:#fff;border-color:#d97706" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${item.suggested_discount})">Применить ${item.suggested_discount}%</button>
+        <span style="font-size:11px;color:#92400e">→ ${fmt(Math.round(item.retail * (1 - item.suggested_discount/100)))}₸ (${item.health_v2 || ''})</span>
+      </div>` : ''}
     </div>
   </div>`;
 }

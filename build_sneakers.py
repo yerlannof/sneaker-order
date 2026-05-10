@@ -29,8 +29,8 @@ OUT_HTML = PROJECT_ROOT / 'sneaker-order' / 'sneakers.html'
 OUT_JSON = PROJECT_ROOT / 'sneaker-order' / 'sneakers_data.json'
 PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 
-SNAPSHOT_DATE = '20260423'
-PRICES_DATE = '20260423'
+SNAPSHOT_DATE = '20260510'
+PRICES_DATE = '20260510'
 
 
 def detect_brand(name: str) -> str:
@@ -287,6 +287,32 @@ def main():
         item['reason'] = reason
         items.append(item)
 
+    # Подмешиваем suggested_discount из стратегического аналитического слоя (если есть)
+    # Это даёт пользователю стартовое значение скидки которое он может скорректировать
+    layer_csv = PROJECT_ROOT / 'reports' / 'strategic' / f'assortment_layer_{SNAPSHOT_DATE}.csv'
+    suggested_by_article = {}
+    health_by_article = {}
+    if layer_csv.exists():
+        import csv
+        with open(layer_csv) as f:
+            for row in csv.DictReader(f):
+                art = (row.get('article') or '').strip()
+                if not art: continue
+                # article в CSV может быть float (типа "200001.0")
+                art_clean = art.split('.')[0] if '.' in art else art
+                try:
+                    sd = int(float(row.get('suggested_discount') or 0))
+                except (ValueError, TypeError):
+                    sd = 0
+                suggested_by_article[art_clean] = sd
+                health_by_article[art_clean] = row.get('health', '')
+        print(f"   Подмешали suggested_discount из {layer_csv.name}: {len(suggested_by_article)} артикулов")
+
+    for it in items:
+        art = it.get('article', '')
+        it['suggested_discount'] = suggested_by_article.get(art, 0)
+        it['health_v2'] = health_by_article.get(art, '')
+
     # Сортируем: убыточные → мёртвые → медленные → новые → хиты → норма → намеренные
     cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'SLOW': 2, 'NEW': 3, 'HOT': 4, 'NORMAL': 5, 'INTENTIONAL': 6}
     items.sort(key=lambda x: (cat_order.get(x['category'], 99), -x['frozen_cost']))
@@ -431,6 +457,12 @@ function renderItem(item, idx) {
           ? `<span class="new-price">${fmt(newPrice)}₸</span>`
           : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
       </div>
+      ${(item.suggested_discount > 0 && disc === 0) ? `
+      <div class="discount-row" style="background:#fef3c7;border:1px dashed #d97706;margin-top:6px">
+        <label style="color:#92400e">💡 Реком</label>
+        <button type="button" class="disc-btn active" style="background:#d97706;color:#fff;border-color:#d97706" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${item.suggested_discount})">Применить ${item.suggested_discount}%</button>
+        <span style="font-size:11px;color:#92400e">→ ${fmt(Math.round(item.retail * (1 - item.suggested_discount/100)))}₸ (${item.health_v2 || ''})</span>
+      </div>` : ''}
     </div>
   </div>`;
 }
