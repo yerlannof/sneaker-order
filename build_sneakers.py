@@ -29,8 +29,8 @@ OUT_HTML = PROJECT_ROOT / 'sneaker-order' / 'sneakers.html'
 OUT_JSON = PROJECT_ROOT / 'sneaker-order' / 'sneakers_data.json'
 PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 
-SNAPSHOT_DATE = '20260510'
-PRICES_DATE = '20260510'
+SNAPSHOT_DATE = '20260511'
+PRICES_DATE = '20260511'
 
 
 def detect_brand(name: str) -> str:
@@ -66,7 +66,7 @@ def is_intentional_dead(name: str) -> bool:
 def categorize(item: dict) -> tuple[str, str]:
     """Возвращает (код, причина по-русски)."""
     cost = item['cost']; retail = item['retail']
-    s30 = item['sales']['s30']; total = item['stock']['total']
+    s30 = item['sales']['s30']; s90 = item['sales']['s90']; total = item['stock']['total']
     days_no_sale = item['days_no_sale']
     days_since_supply = item['days_since_supply']
 
@@ -75,9 +75,20 @@ def categorize(item: dict) -> tuple[str, str]:
         return ('INTENTIONAL', 'NB/Asics/Puma — намеренный неликвид, не трогать')
 
     # Убыточные (РЦ < себес или маржа < 10%)
+    # ВАЖНО: рекомендация зависит от того идёт ли товар:
+    # - есть продажи → поднять цену (есть спрос, нечего терять маржу)
+    # - не идёт → сейлить и списать (себес уже потерян, важнее вернуть кэш)
     if cost > 0 and retail > 0 and retail < cost * 1.1:
         loss = cost - retail
-        return ('UNPROFITABLE', f'РЦ {retail:,.0f} ≤ себес {cost:,.0f} (теряем {loss:,.0f}/пара) — поднять цену или списать')
+        if s30 > 0:
+            # Есть продажи — поднять цену чтобы зафиксировать маржу
+            return ('UNPROFITABLE', f'РЦ {retail:,.0f} ≤ себес {cost:,.0f} (теряем {loss:,.0f}/пара). Продано 30д={s30} → ПОДНЯТЬ цену до {cost*1.3:,.0f}')
+        elif days_no_sale and days_no_sale > 30:
+            # Нет продаж и убыточный — лучше сейл (себес уже потерян)
+            new_p = int(retail * 0.7)
+            return ('UNPROFITABLE', f'РЦ {retail:,.0f} < себес {cost:,.0f}, НЕ продаётся {days_no_sale}д. Сейлить -30% (→ {new_p:,.0f}₸) и списать остатки')
+        else:
+            return ('UNPROFITABLE', f'РЦ {retail:,.0f} ≤ себес {cost:,.0f} (теряем {loss:,.0f}/пара). Поднять цену или ждать ещё 30д')
 
     # Слишком новый — не судить
     if days_since_supply < 30 and total >= 3 and s30 < 3:
