@@ -49,6 +49,18 @@ def main():
     snap = latest_snapshot(con)
     print(f"Снапшот: {snap}\n")
 
+    # Snapshot 6 мес назад — для истории прихода
+    snap_tables = con.execute("""
+        SELECT table_name FROM information_schema.tables
+        WHERE table_name LIKE 'inventory_snapshot_stores_%'
+        ORDER BY table_name
+    """).fetchall()
+    target_180 = (today - timedelta(days=180)).strftime('%Y%m%d')
+    snap_6mo = min([(t[0][-8:], t[0]) for t in snap_tables],
+                   key=lambda x: abs(int(x[0]) - int(target_180)))
+    snap_6mo_date = f"{snap_6mo[0][:4]}-{snap_6mo[0][4:6]}-{snap_6mo[0][6:]}"
+    print(f"   Снапшот ~6 мес назад: {snap_6mo[1]} ({snap_6mo_date})")
+
     # 1. Базовый запрос — артикулы с продажами ≥ 5 за 35 дней, WOS < 10
     print("1. Отбираю модели в заказ...")
     base_rows = con.execute(f"""
@@ -64,6 +76,30 @@ WITH s35 AS (
       AND price > 0
       AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
     GROUP BY article HAVING SUM(quantity) >= 5
+),
+sales_periods AS (
+    SELECT article,
+        SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 30 DAY AND price > 0) AS s30,
+        SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY AND price > 0) AS s90,
+        SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 180 DAY AND price > 0) AS s180,
+        SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 365 DAY AND price > 0) AS s365,
+        SUM(quantity) FILTER (WHERE price > 0) AS sall,
+        MAX(DATE(document_moment)) AS last_sale_d
+    FROM retaildemand_positions GROUP BY article
+),
+first_supply AS (
+    SELECT product_article AS article,
+        MIN(DATE(supply_moment)) AS first_supply_d,
+        SUM(quantity) AS first_supply_qty
+    FROM supply_positions
+    WHERE product_article IS NOT NULL
+    GROUP BY product_article
+),
+stock_6mo AS (
+    SELECT article, SUM(total_stock) AS stock_6mo
+    FROM {snap_6mo[1]}
+    WHERE TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
+    GROUP BY article
 ),
 s60 AS (
     SELECT article, SUM(quantity) AS qty_60d
@@ -98,11 +134,23 @@ SELECT s35.article, s35.model, s35.qty_35d, s35.adj_rate, s35.avg_price,
     COALESCE(stk.wh,0) AS wh,
     CASE WHEN s35.adj_rate>0 THEN ROUND(COALESCE(stk.total,0)/s35.adj_rate,1) ELSE 999 END AS wos,
     COALESCE(buy_p.buy_price, 0) AS buy_price,
-    buy_p.supplier
+    buy_p.supplier,
+    COALESCE(sp.s30, 0) AS s30,
+    COALESCE(sp.s90, 0) AS s90,
+    COALESCE(sp.s180, 0) AS s180,
+    COALESCE(sp.s365, 0) AS s365,
+    COALESCE(sp.sall, 0) AS sall,
+    sp.last_sale_d,
+    fs.first_supply_d,
+    COALESCE(fs.first_supply_qty, 0) AS first_supply_qty,
+    COALESCE(st6.stock_6mo, 0) AS stock_6mo
 FROM s35
 LEFT JOIN s60 ON s35.article = s60.article
 LEFT JOIN stk ON s35.article = stk.article
 LEFT JOIN buy_p ON s35.article = buy_p.article
+LEFT JOIN sales_periods sp ON s35.article = sp.article
+LEFT JOIN first_supply fs ON s35.article = fs.article
+LEFT JOIN stock_6mo st6 ON s35.article = st6.article
 WHERE CASE WHEN s35.adj_rate>0 THEN COALESCE(stk.total,0)/s35.adj_rate ELSE 999 END < 10
 ORDER BY s35.adj_rate DESC
 """).fetchall()
@@ -113,7 +161,9 @@ ORDER BY s35.adj_rate DESC
     items = []
     for r in base_rows:
         (article, model, qty_35d, adj_rate, avg_price, qty_60d,
-         total, msk, ts, onl, ar, wh, wos, buy_price, supplier) = r
+         total, msk, ts, onl, ar, wh, wos, buy_price, supplier,
+         s30, s90, s180, s365, sall, last_sale_d,
+         first_supply_d, first_supply_qty, stock_at_6mo) = r
 
         # Размеры с остатком (с разделением по магазинам)
         size_stock = con.execute(f"""
@@ -181,6 +231,10 @@ ORDER BY s35.adj_rate DESC
         # Рекомендация: сколько нужно для покрытия 8 недель спроса
         target_total = max(0, round(float(adj_rate) * 8 - int(total)))
 
+        # Days
+        days_no_sale = (today - last_sale_d).days if last_sale_d else None
+        days_since_first = (today - first_supply_d).days if first_supply_d else None
+
         items.append({
             'article': str(article),
             'model': model or '',
@@ -200,7 +254,20 @@ ORDER BY s35.adj_rate DESC
             },
             'wos': float(wos),
             'sizes': sizes,
-            'target_total': target_total,  # рекомендованный заказ всего
+            'target_total': target_total,
+            'sales': {
+                's30': int(s30 or 0), 's90': int(s90 or 0),
+                's180': int(s180 or 0), 's365': int(s365 or 0),
+                'sall': int(sall or 0),
+            },
+            'last_sale': last_sale_d.isoformat() if last_sale_d else None,
+            'days_no_sale': days_no_sale,
+            'history': {
+                'first_supply_date': first_supply_d.isoformat() if first_supply_d else None,
+                'first_supply_qty': int(first_supply_qty or 0),
+                'snap_6mo_date': snap_6mo_date,
+                'stock_6mo': int(stock_at_6mo or 0),
+            },
         })
 
     # 3. Фото из кэша
@@ -295,6 +362,22 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var
   color:var(--text2); }
 .stat-pill { padding:3px 8px; border-radius:6px; background:var(--bg); }
 .stat-pill b { color:var(--text); }
+
+.flow-box { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:0 12px 8px;
+  padding:8px; background:#fafbfc; border-radius:8px; border:1px solid var(--border); }
+.flow-cell { text-align:center; }
+.flow-label { font-size:9px; font-weight:600; color:var(--text3); text-transform:uppercase; }
+.flow-val { font-size:18px; font-weight:800; margin:2px 0; }
+.flow-sub { font-size:10px; color:var(--text3); }
+
+.history-row, .velocity-row { margin:0 12px 8px; padding:8px 10px; border-radius:6px;
+  font-size:12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.history-row { background:#f1f5f9; }
+.velocity-row { background:var(--bg); }
+.history-row b, .velocity-row b { color:var(--text); }
+.vel-item { display:inline-flex; align-items:center; gap:3px; }
+.vel-item .vel-num { font-weight:800; }
+.vel-item .vel-lbl { font-size:10px; color:var(--text3); }
 
 .stocks-row { padding:8px 12px; display:grid; grid-template-columns:repeat(4,1fr); gap:4px;
   margin-bottom:4px; }
@@ -534,12 +617,45 @@ function renderItemHTML(item) {
       </div>
     </div>
 
+    <div class="flow-box">
+      <div class="flow-cell">
+        <div class="flow-label">Остаток</div>
+        <div class="flow-val" style="color:var(--blue)">${item.stock.total}</div>
+        <div class="flow-sub">${item.buy_price > 0 ? fmt(item.stock.total * item.buy_price/1000) + 'K₸ закуп' : ''}</div>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-label">Продано 90д</div>
+        <div class="flow-val" style="color:var(--green)">${item.sales.s90}</div>
+        <div class="flow-sub">из них 30д: ${item.sales.s30}</div>
+      </div>
+      <div class="flow-cell">
+        <div class="flow-label">Посл. продажа</div>
+        <div class="flow-val" style="font-size:14px">${item.last_sale ? item.last_sale.slice(5) : '—'}</div>
+        <div class="flow-sub">${item.days_no_sale!=null ? item.days_no_sale + ' дн назад' : 'не было'}</div>
+      </div>
+    </div>
+
+    ${item.history.first_supply_date ? `<div class="history-row">
+      <span>📅 <b>${item.history.first_supply_date.slice(0,7)}</b>: поставка ${item.history.first_supply_qty} пар</span>
+      ${item.history.stock_6mo > 0 ? '<span style="color:var(--text3)">→ '+item.history.snap_6mo_date.slice(0,7)+': <b>'+item.history.stock_6mo+'</b></span>' : ''}
+      <span style="color:var(--blue)">→ сейчас: <b>${item.stock.total}</b></span>
+    </div>` : ''}
+
+    <div class="velocity-row">
+      <span>⚡ Продано:</span>
+      <span class="vel-item"><span class="vel-num">${item.sales.s30}</span><span class="vel-lbl">30д</span></span>
+      <span class="vel-item"><span class="vel-num">${item.sales.s90}</span><span class="vel-lbl">90д</span></span>
+      <span class="vel-item"><span class="vel-num">${item.sales.s180}</span><span class="vel-lbl">180д</span></span>
+      <span class="vel-item"><span class="vel-num">${item.sales.s365}</span><span class="vel-lbl">365д</span></span>
+      <span class="vel-item"><span class="vel-num">${item.sales.sall}</span><span class="vel-lbl">всё</span></span>
+      <span style="margin-left:auto;color:var(--text3)">📊 ${item.adj_rate}/нед</span>
+    </div>
+
     <div class="item-stats">
-      <span class="stat-pill">⚡ <b>${item.qty_35d}</b> за 35д (${item.qty_60d} за 60д)</span>
-      <span class="stat-pill">📊 <b>${item.adj_rate}</b>/нед</span>
       <span class="stat-pill">💵 РЦ <b>${fmt(item.avg_price)}</b>₸</span>
       ${item.buy_price > 0 ? '<span class="stat-pill">💸 Закуп <b>'+fmt(item.buy_price)+'</b>₸</span>' : ''}
-      <span class="stat-pill">🎯 цель <b>${item.target_total}</b> пар</span>
+      <span class="stat-pill">🎯 цель заказа <b>${item.target_total}</b> пар</span>
+      <span class="stat-pill">📦 на 8 нед</span>
     </div>
 
     <div class="stocks-row">
