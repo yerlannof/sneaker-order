@@ -338,7 +338,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <h1>Кроссовки</h1>
     <span class="badge badge-info">515 моделей</span>
   </div>
-  <div class="header-meta">Остатки: 10.05.2026 | Все 200000-209999</div>
+  <div class="header-meta">Остатки: 11.05.2026 | Все 200000-209999</div>
 </div>
 
 <div class="stats" id="stats">
@@ -351,7 +351,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">63</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">65</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
@@ -363,11 +363,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">1608</div>
+    <div class="stat-num green" id="stat-sold">1615</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-revenue">39.4М</div>
+    <div class="stat-num green" id="stat-revenue">39.6М</div>
     <div class="stat-label">Выручка</div>
   </div>
   <div class="stat">
@@ -406,10 +406,10 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
 <button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (58)</button>
 <button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (26)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (63)</button>
-<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (26)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (82)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (202)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (65)</button>
+<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (24)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (80)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (204)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (58)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (220)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
@@ -620,14 +620,38 @@ function renderItem(item, idx) {
 
   const s30 = (item.sales && item.sales.s30) || 0;
   const s90 = (item.sales && item.sales.s90) || 0;
+  const s180 = (item.sales && item.sales.s180) || 0;
+  const s365 = (item.sales && item.sales.s365) || 0;
+  const sall = (item.sales && item.sales.sall) || 0;
   const wos = item.wos || 999;
   const wosClass = wos < 4 ? 'wos-bad' : wos < 12 ? 'wos-warn' : wos >= 99 ? '' : 'wos-ok';
   const wosLabel = wos >= 99 ? 'не продаётся' : wos < 4 ? `${wos.toFixed(0)} нед (мало)` : wos < 12 ? `${wos.toFixed(0)} нед` : `${wos.toFixed(0)} нед (много)`;
   const velHtml = `<div class="velocity-box">
-    <span>⚡ <b>${s30}</b> шт/мес (посл 30д)</span>
-    <span style="color:var(--text3)">за 90д: ${s90}</span>
+    <span>⚡ Продано:</span>
+    <span><b>${s30}</b> <span style="color:var(--text3);font-size:11px">30д</span></span>
+    <span><b>${s90}</b> <span style="color:var(--text3);font-size:11px">90д</span></span>
+    <span><b>${s180}</b> <span style="color:var(--text3);font-size:11px">180д</span></span>
+    <span><b>${s365}</b> <span style="color:var(--text3);font-size:11px">365д</span></span>
+    <span><b>${sall}</b> <span style="color:var(--text3);font-size:11px">всё</span></span>
     <span style="margin-left:auto" class="${wosClass}">📦 ${wosLabel}</span>
   </div>`;
+
+  // История прихода: первая поставка → 6 мес назад → сейчас
+  const h = item.history || {};
+  let historyHtml = '';
+  if (h.first_supply_date || h.stock_6mo > 0) {
+    const parts = [];
+    if (h.first_supply_date) {
+      const fd = h.first_supply_date.slice(0, 7);  // YYYY-MM
+      parts.push(`<span>📅 <b>${fd}</b>: поставка ${h.first_supply_qty || '?'} пар</span>`);
+    }
+    if (h.snap_6mo_date) {
+      const snapDate = h.snap_6mo_date.slice(0, 7);
+      parts.push(`<span style="color:var(--text3)">→ ${snapDate}: <b>${h.stock_6mo}</b></span>`);
+    }
+    parts.push(`<span style="color:var(--blue)">→ сейчас: <b>${item.stock.total}</b></span>`);
+    historyHtml = `<div class="velocity-box" style="background:#f1f5f9">${parts.join(' ')}</div>`;
+  }
 
   const flowHtml = `<div class="flow-box">
     <div class="flow-cell">
@@ -664,6 +688,7 @@ function renderItem(item, idx) {
       ${catHtml}
       ${unprofitWarn}
       ${flowHtml}
+      ${historyHtml}
       ${velHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>

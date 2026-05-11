@@ -193,24 +193,36 @@ def main():
         prices AS (SELECT article, MAX(buy_price) c, MAX(sale_price) r FROM {prices} GROUP BY article),
         s30 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
         s90 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
+        s180 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
+        s365 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
+        sall AS (SELECT article, SUM(quantity) q FROM sales WHERE price > 0 GROUP BY article),
         last_sale AS (SELECT article, MAX(DATE(sale_datetime)) d FROM sales WHERE price > 0 GROUP BY article),
         last_supply AS (SELECT product_article AS article, MAX(DATE(supply_moment)) d FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
-        first_supply AS (SELECT product_article AS article, MIN(DATE(supply_moment)) d FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
+        first_supply AS (SELECT product_article AS article, MIN(DATE(supply_moment)) d, SUM(quantity) qty
+                         FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
         sup_cost AS (SELECT product_article AS article, ROUND(AVG(price)) c FROM supply_positions WHERE price > 0 GROUP BY product_article)
         SELECT s.article, s.pname, s.total, s.msk, s.tsum, s.online, s.aruz, s.wh,
                COALESCE(p.c, sc.c, 0) AS cost,
                COALESCE(p.r, 0) AS retail,
                COALESCE(s30.q, 0) AS s30, COALESCE(s90.q, 0) AS s90,
-               last_sale.d AS last_sale_d, last_supply.d AS last_supply_d, first_supply.d AS first_supply_d
+               COALESCE(s180.q, 0) AS s180, COALESCE(s365.q, 0) AS s365, COALESCE(sall.q, 0) AS sall,
+               last_sale.d AS last_sale_d, last_supply.d AS last_supply_d,
+               first_supply.d AS first_supply_d, first_supply.qty AS first_supply_qty
         FROM stock s
         LEFT JOIN prices p USING(article)
         LEFT JOIN sup_cost sc USING(article)
         LEFT JOIN s30 USING(article)
         LEFT JOIN s90 USING(article)
+        LEFT JOIN s180 USING(article)
+        LEFT JOIN s365 USING(article)
+        LEFT JOIN sall USING(article)
         LEFT JOIN last_sale USING(article)
         LEFT JOIN last_supply USING(article)
         LEFT JOIN first_supply USING(article)
-    """, [d30, (today - timedelta(days=90)).isoformat()]).fetchall()
+    """, [d30,
+          (today - timedelta(days=90)).isoformat(),
+          (today - timedelta(days=180)).isoformat(),
+          (today - timedelta(days=365)).isoformat()]).fetchall()
     print(f"   Найдено моделей: {len(rows)}")
 
     # Размеры — отдельный запрос (variants) — берём из снапшота через product_name
@@ -233,15 +245,40 @@ def main():
                 sizes_by_article.setdefault(art, {})
                 sizes_by_article[art][size] = sizes_by_article[art].get(size, 0) + int(qty)
 
-    print("\n3. Сборка items...")
+    # Snapshot ~6 месяцев назад (180 дней) — ищем ближайшую существующую таблицу
+    target_180 = (today - timedelta(days=180)).strftime('%Y%m%d')
+    snap_tables = con.execute("""
+        SELECT table_name FROM information_schema.tables
+        WHERE table_name LIKE 'inventory_snapshot_stores_%'
+        ORDER BY table_name
+    """).fetchall()
+    snap_dates = [(t[0][-8:], t[0]) for t in snap_tables]
+    # Ближайший к target_180 (но не позже сегодня)
+    snap_6mo = min(snap_dates, key=lambda x: abs(int(x[0]) - int(target_180)))
+    print(f"\n3a. Снапшот ~6 мес назад: {snap_6mo[1]} (цель: {target_180})")
+    stock_6mo = {}
+    if articles:
+        ph = ','.join(['?'] * len(articles))
+        r6mo = con.execute(f"""
+            SELECT article, SUM(total_stock) FROM {snap_6mo[1]}
+            WHERE article IN ({ph}) GROUP BY article
+        """, articles).fetchall()
+        stock_6mo = {a: int(t or 0) for a, t in r6mo}
+    snap_6mo_iso = f"{snap_6mo[0][:4]}-{snap_6mo[0][4:6]}-{snap_6mo[0][6:]}"
+
+    print("\n3b. Сборка items...")
     items = []
     for r in rows:
         (art, pname, total, msk, tsum, online, aruz, wh,
-         cost, retail, s30, s90, last_sale_d, last_supply_d, first_supply_d) = r
+         cost, retail, s30, s90, s180, s365, sall,
+         last_sale_d, last_supply_d, first_supply_d, first_supply_qty) = r
         cost = float(cost or 0); retail = float(retail or 0)
         s30 = int(s30 or 0); s90 = int(s90 or 0)
+        s180 = int(s180 or 0); s365 = int(s365 or 0); sall = int(sall or 0)
         total = int(total or 0)
         msk, tsum, online, aruz, wh = [int(x or 0) for x in (msk, tsum, online, aruz, wh)]
+        first_supply_qty = int(first_supply_qty or 0)
+        stock_at_6mo = stock_6mo.get(art, 0)
 
         days_no_sale = (today - last_sale_d).days if last_sale_d else 999
         days_since_supply = (today - last_supply_d).days if last_supply_d else 999
@@ -265,9 +302,15 @@ def main():
             'sizes': sizes_by_article.get(art, {}),
             'cost': cost, 'retail': retail,
             'margin_pct': round((retail - cost) / retail * 100, 1) if retail > 0 else 0,
-            'sales': {'s30': s30, 's90': s90,
-                      'rev_30d': s30 * retail,  # приближение
+            'sales': {'s30': s30, 's90': s90, 's180': s180, 's365': s365, 'sall': sall,
+                      'rev_30d': s30 * retail,
                       'rev_90d': s90 * retail},
+            'history': {
+                'first_supply_date': first_supply_d.isoformat() if first_supply_d else None,
+                'first_supply_qty': first_supply_qty,
+                'snap_6mo_date': snap_6mo_iso,
+                'stock_6mo': stock_at_6mo,
+            },
             'last_sale': last_sale_d.isoformat() if last_sale_d else None,
             'days_no_sale': days_no_sale if days_no_sale < 999 else None,
             'days_since_supply': days_since_supply if days_since_supply < 999 else None,
@@ -390,14 +433,38 @@ function renderItem(item, idx) {
 
   const s30 = (item.sales && item.sales.s30) || 0;
   const s90 = (item.sales && item.sales.s90) || 0;
+  const s180 = (item.sales && item.sales.s180) || 0;
+  const s365 = (item.sales && item.sales.s365) || 0;
+  const sall = (item.sales && item.sales.sall) || 0;
   const wos = item.wos || 999;
   const wosClass = wos < 4 ? 'wos-bad' : wos < 12 ? 'wos-warn' : wos >= 99 ? '' : 'wos-ok';
   const wosLabel = wos >= 99 ? 'не продаётся' : wos < 4 ? `${wos.toFixed(0)} нед (мало)` : wos < 12 ? `${wos.toFixed(0)} нед` : `${wos.toFixed(0)} нед (много)`;
   const velHtml = `<div class="velocity-box">
-    <span>⚡ <b>${s30}</b> шт/мес (посл 30д)</span>
-    <span style="color:var(--text3)">за 90д: ${s90}</span>
+    <span>⚡ Продано:</span>
+    <span><b>${s30}</b> <span style="color:var(--text3);font-size:11px">30д</span></span>
+    <span><b>${s90}</b> <span style="color:var(--text3);font-size:11px">90д</span></span>
+    <span><b>${s180}</b> <span style="color:var(--text3);font-size:11px">180д</span></span>
+    <span><b>${s365}</b> <span style="color:var(--text3);font-size:11px">365д</span></span>
+    <span><b>${sall}</b> <span style="color:var(--text3);font-size:11px">всё</span></span>
     <span style="margin-left:auto" class="${wosClass}">📦 ${wosLabel}</span>
   </div>`;
+
+  // История прихода: первая поставка → 6 мес назад → сейчас
+  const h = item.history || {};
+  let historyHtml = '';
+  if (h.first_supply_date || h.stock_6mo > 0) {
+    const parts = [];
+    if (h.first_supply_date) {
+      const fd = h.first_supply_date.slice(0, 7);  // YYYY-MM
+      parts.push(`<span>📅 <b>${fd}</b>: поставка ${h.first_supply_qty || '?'} пар</span>`);
+    }
+    if (h.snap_6mo_date) {
+      const snapDate = h.snap_6mo_date.slice(0, 7);
+      parts.push(`<span style="color:var(--text3)">→ ${snapDate}: <b>${h.stock_6mo}</b></span>`);
+    }
+    parts.push(`<span style="color:var(--blue)">→ сейчас: <b>${item.stock.total}</b></span>`);
+    historyHtml = `<div class="velocity-box" style="background:#f1f5f9">${parts.join(' ')}</div>`;
+  }
 
   const flowHtml = `<div class="flow-box">
     <div class="flow-cell">
@@ -434,6 +501,7 @@ function renderItem(item, idx) {
       ${catHtml}
       ${unprofitWarn}
       ${flowHtml}
+      ${historyHtml}
       ${velHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
@@ -892,6 +960,7 @@ function renderItem(item, idx) {
       ${catHtml}
       ${unprofitWarn}
       ${flowHtml}
+      ${historyHtml}
       ${velHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
