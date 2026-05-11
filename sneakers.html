@@ -347,11 +347,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5826</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5819</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">65</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">69</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
@@ -363,11 +363,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">1615</div>
+    <div class="stat-num green" id="stat-sold">1667</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-revenue">39.6М</div>
+    <div class="stat-num green" id="stat-revenue">40.8М</div>
     <div class="stat-label">Выручка</div>
   </div>
   <div class="stat">
@@ -405,11 +405,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
 <button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (58)</button>
-<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (26)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (65)</button>
-<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (24)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (80)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (204)</button>
+<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (19)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (69)</button>
+<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (22)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (81)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (208)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (58)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (220)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
@@ -427,8 +427,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
   <div class="bottom-info">
     <span id="bottom-count">1883 шт</span> |
     <b id="bottom-value">28,693,700 ₸</b>
+    <span id="discount-progress" style="margin-left:8px;color:#d97706;font-weight:700;display:none">📝 <span id="dp-count">0</span> со скидкой</span>
   </div>
   <div style="display:flex; gap:6px;">
+    <button class="btn btn-outline" onclick="resetAllDiscounts()" title="Сбросить все скидки">🔄</button>
+    <button class="btn btn-outline" onclick="exportJSON()" title="Экспорт JSON для применения цен в МойСкладе">JSON</button>
     <button class="btn btn-outline" onclick="exportCSV()">CSV</button>
     <button class="btn btn-green" id="saveBtn" onclick="saveDiscounts()" disabled>Сохранить</button>
   </div>
@@ -575,6 +578,55 @@ function updateStats(items) {
   document.getElementById('stat-revenue').textContent = fmt(Math.round(totalRev));
   document.getElementById('bottom-count').textContent = totalStock + ' шт';
   document.getElementById('bottom-value').textContent = fmt(Math.round(totalRetail)) + ' ₸';
+
+  // Прогресс — сколько товаров со скидкой
+  const discCount = Object.keys(discounts).filter(k => discounts[k] > 0).length;
+  const dpEl = document.getElementById('discount-progress');
+  const dpCount = document.getElementById('dp-count');
+  if (dpEl && dpCount) {
+    if (discCount > 0) {
+      dpEl.style.display = 'inline';
+      dpCount.textContent = discCount;
+    } else {
+      dpEl.style.display = 'none';
+    }
+  }
+}
+
+// === EXPORT JSON для update_ms_prices.py ===
+function exportJSON() {
+  const items = ALL_ITEMS.filter(i => discounts[i.article || i.name] > 0).map(i => ({
+    article: i.article,
+    name: i.name,
+    current_retail: i.retail,
+    discount: discounts[i.article || i.name],
+    new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
+    stock: i.stock.total,
+    cost: i.cost,
+    health: i.health_v2 || i.category,
+  }));
+  if (items.length === 0) { toast('Нет скидок для экспорта'); return; }
+  const payload = { generated_at: new Date().toISOString(), total_items: items.length, items: items };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'clearance_decisions_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Экспорт: ' + items.length + ' позиций');
+}
+
+// === RESET ALL DISCOUNTS ===
+function resetAllDiscounts() {
+  const n = Object.keys(discounts).filter(k => discounts[k] > 0).length;
+  if (n === 0) { toast('Нет скидок для сброса'); return; }
+  if (!confirm('Сбросить ВСЕ скидки (' + n + ' позиций)? Это нельзя отменить.')) return;
+  discounts = {};
+  try { localStorage.setItem('clothing_discounts', JSON.stringify(discounts)); } catch(e) {}
+  hasChanges = true;
+  applyFilters();
+  toast('Сброшено: ' + n + ' скидок');
 }
 
 // === RENDER ===

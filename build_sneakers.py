@@ -191,12 +191,15 @@ def main():
           GROUP BY article
         ),
         prices AS (SELECT article, MAX(buy_price) c, MAX(sale_price) r FROM {prices} GROUP BY article),
-        s30 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
-        s90 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
-        s180 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
-        s365 AS (SELECT article, SUM(quantity) q FROM sales WHERE sale_datetime >= ?::DATE AND price > 0 GROUP BY article),
-        sall AS (SELECT article, SUM(quantity) q FROM sales WHERE price > 0 GROUP BY article),
-        last_sale AS (SELECT article, MAX(DATE(sale_datetime)) d FROM sales WHERE price > 0 GROUP BY article),
+        -- Продажи через retaildemand_positions (правильный источник — позиции каждого чека).
+        -- Старая sales таблица (через /report/profit/byvariant) имеет дыры за янв-апр 2024
+        -- и недостоверна по конкретным артикулам.
+        s30 AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE document_moment >= ?::DATE AND price > 0 GROUP BY article),
+        s90 AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE document_moment >= ?::DATE AND price > 0 GROUP BY article),
+        s180 AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE document_moment >= ?::DATE AND price > 0 GROUP BY article),
+        s365 AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE document_moment >= ?::DATE AND price > 0 GROUP BY article),
+        sall AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE price > 0 GROUP BY article),
+        last_sale AS (SELECT article, MAX(DATE(document_moment)) d FROM retaildemand_positions WHERE price > 0 GROUP BY article),
         last_supply AS (SELECT product_article AS article, MAX(DATE(supply_moment)) d FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
         first_supply AS (SELECT product_article AS article, MIN(DATE(supply_moment)) d, SUM(quantity) qty
                          FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
@@ -1004,6 +1007,89 @@ function renderItem(item, idx) {
     )
     # Supabase orderId — отдельный для кроссовок чтобы не пересекалось с одеждой
     new_html = new_html.replace("'CLOTHING-001'", "'SNEAKERS-001'")
+
+    # === ДОБАВИТЬ JSON-экспорт, сброс и прогресс для воркфлоу /clearance ===
+    # 1. Кнопки JSON и Reset в footer + прогресс-индикатор
+    new_html = new_html.replace(
+        '''  <div style="display:flex; gap:6px;">
+    <button class="btn btn-outline" onclick="exportCSV()">CSV</button>
+    <button class="btn btn-green" id="saveBtn" onclick="saveDiscounts()" disabled>Сохранить</button>
+  </div>''',
+        '''  <div style="display:flex; gap:6px;">
+    <button class="btn btn-outline" onclick="resetAllDiscounts()" title="Сбросить все скидки">🔄</button>
+    <button class="btn btn-outline" onclick="exportJSON()" title="Экспорт JSON для применения цен в МойСкладе">JSON</button>
+    <button class="btn btn-outline" onclick="exportCSV()">CSV</button>
+    <button class="btn btn-green" id="saveBtn" onclick="saveDiscounts()" disabled>Сохранить</button>
+  </div>'''
+    )
+    new_html = new_html.replace(
+        '''    <span id="bottom-count">1883 шт</span> |
+    <b id="bottom-value">28,693,700 ₸</b>
+  </div>''',
+        '''    <span id="bottom-count">1883 шт</span> |
+    <b id="bottom-value">28,693,700 ₸</b>
+    <span id="discount-progress" style="margin-left:8px;color:#d97706;font-weight:700;display:none">📝 <span id="dp-count">0</span> со скидкой</span>
+  </div>'''
+    )
+
+    # 2. Добавить функции exportJSON, resetAllDiscounts + прогресс в updateStats
+    new_html = new_html.replace(
+        '''  document.getElementById('bottom-count').textContent = totalStock + ' шт';
+  document.getElementById('bottom-value').textContent = fmt(Math.round(totalRetail)) + ' ₸';
+}''',
+        '''  document.getElementById('bottom-count').textContent = totalStock + ' шт';
+  document.getElementById('bottom-value').textContent = fmt(Math.round(totalRetail)) + ' ₸';
+
+  // Прогресс — сколько товаров со скидкой
+  const discCount = Object.keys(discounts).filter(k => discounts[k] > 0).length;
+  const dpEl = document.getElementById('discount-progress');
+  const dpCount = document.getElementById('dp-count');
+  if (dpEl && dpCount) {
+    if (discCount > 0) {
+      dpEl.style.display = 'inline';
+      dpCount.textContent = discCount;
+    } else {
+      dpEl.style.display = 'none';
+    }
+  }
+}
+
+// === EXPORT JSON для update_ms_prices.py ===
+function exportJSON() {
+  const items = ALL_ITEMS.filter(i => discounts[i.article || i.name] > 0).map(i => ({
+    article: i.article,
+    name: i.name,
+    current_retail: i.retail,
+    discount: discounts[i.article || i.name],
+    new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
+    stock: i.stock.total,
+    cost: i.cost,
+    health: i.health_v2 || i.category,
+  }));
+  if (items.length === 0) { toast('Нет скидок для экспорта'); return; }
+  const payload = { generated_at: new Date().toISOString(), total_items: items.length, items: items };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'clearance_decisions_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Экспорт: ' + items.length + ' позиций');
+}
+
+// === RESET ALL DISCOUNTS ===
+function resetAllDiscounts() {
+  const n = Object.keys(discounts).filter(k => discounts[k] > 0).length;
+  if (n === 0) { toast('Нет скидок для сброса'); return; }
+  if (!confirm('Сбросить ВСЕ скидки (' + n + ' позиций)? Это нельзя отменить.')) return;
+  discounts = {};
+  try { localStorage.setItem('clothing_discounts', JSON.stringify(discounts)); } catch(e) {}
+  hasChanges = true;
+  applyFilters();
+  toast('Сброшено: ' + n + ' скидок');
+}'''
+    )
 
     OUT_HTML.write_text(new_html)
     size_mb = OUT_HTML.stat().st_size / 1024 / 1024
