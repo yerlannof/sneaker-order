@@ -115,10 +115,22 @@ stk AS (
     FROM {snap} WHERE TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
     GROUP BY article
 ),
-buy AS (
+buy_in AS (
+    -- Приоритет: закупочная цена от "Поставщик In" (основной поставщик)
     SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
     FROM supply_positions WHERE agent_name='Поставщик In' AND supply_moment>='2025-01-01'
     GROUP BY product_article
+),
+buy_any AS (
+    -- Fallback: любой поставщик (для моделей которых нет у In)
+    SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
+    FROM supply_positions WHERE price > 0 AND supply_moment>='2025-01-01'
+    GROUP BY product_article
+),
+buy AS (
+    SELECT COALESCE(buy_in.article, buy_any.article) AS article,
+        COALESCE(buy_in.bp, buy_any.bp) AS bp
+    FROM buy_any LEFT JOIN buy_in ON buy_any.article = buy_in.article
 )
 SELECT s35.article, s35.model, s35.qty_35d, s35.adj_rate, s35.avg_price,
     COALESCE(stk.total,0), COALESCE(stk.msk,0),
