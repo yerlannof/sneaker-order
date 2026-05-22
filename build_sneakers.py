@@ -29,8 +29,8 @@ OUT_HTML = PROJECT_ROOT / 'sneaker-order' / 'sneakers.html'
 OUT_JSON = PROJECT_ROOT / 'sneaker-order' / 'sneakers_data.json'
 PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 
-SNAPSHOT_DATE = '20260511'
-PRICES_DATE = '20260511'
+SNAPSHOT_DATE = '20260522'
+PRICES_DATE = '20260522'
 
 
 def detect_brand(name: str) -> str:
