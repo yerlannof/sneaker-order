@@ -22,6 +22,34 @@ PHOTO_CACHE = Path(__file__).parent / ".photo_cache_sneakers.json"
 SEASON = {1: 0.59, 2: 0.79, 3: 1.35, 4: 1.26, 5: 1.00, 6: 0.99,
           7: 0.79, 8: 1.33, 9: 1.08, 10: 1.06, 11: 0.91, 12: 0.86}
 
+# Глобальные веса размеров (из 6 мес реальных данных, см. size_ordering_strategy.md)
+SIZE_WEIGHTS_M = {'40': 0.07, '41': 0.16, '42': 0.24, '43': 0.23, '44': 0.18, '45': 0.10}
+SIZE_WEIGHTS_W = {'36': 0.12, '37': 0.15, '38': 0.27, '39': 0.22, '40': 0.18, '41': 0.06}
+
+
+def target_pairs_for_rate(rate):
+    """Целевое количество пар на модель в зависимости от скорости.
+    Из памяти sneaker_order_workflow.md."""
+    if rate > 3: return 54
+    if rate >= 1.5: return 42
+    if rate >= 0.5: return 30
+    return 24
+
+
+def stock_to_subtract(stock, wos):
+    """Сколько от стока вычесть при расчёте заказа (учёт WOS).
+    Из памяти sneaker_order_workflow.md.
+
+    WOS < 2 — не вычитать (сетка горит, заказывать как с 0)
+    WOS 2-5 — вычесть 30% (часть размеров уже не нужна)
+    WOS 5-10 — вычесть 60%
+    WOS > 10 — вычесть 90% (почти всё ещё лежит)
+    """
+    if wos < 2: return 0
+    if wos < 5: return round(stock * 0.3)
+    if wos < 10: return round(stock * 0.6)
+    return round(stock * 0.9)
+
 
 def latest_snapshot(con):
     return con.execute("""SELECT table_name FROM information_schema.tables
@@ -121,22 +149,24 @@ ORDER BY s35.adj_rate DESC
          first_d, first_qty, stock_6mo) = r
 
         # Stock by size (with breakdown by store)
+        # Учитываем оба формата артикула — '201495' и '201495.0' (см. sneaker_order_workflow.md)
+        art_str = str(article)
         size_rows = con.execute(f"""
             SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1) AS sz,
                 SUM(moscow) AS m, SUM(tsum) AS t, SUM(online) AS o,
                 SUM(astana_aruzhan) AS a, SUM(main_warehouse) AS w,
                 SUM(total_stock) AS tot
             FROM {snap}
-            WHERE article = '{article}' AND total_stock > 0
+            WHERE article IN ('{art_str}', '{art_str}.0') AND total_stock > 0
             GROUP BY 1 ORDER BY 1
         """).fetchall()
 
-        # Sold by size (60d)
+        # Sold by size (60d) — критично проверять оба варианта артикула!
         sold_rows = con.execute(f"""
             SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1) AS sz,
                 CAST(SUM(quantity) AS INT)
             FROM retaildemand_positions
-            WHERE article = '{article}' AND price>0
+            WHERE article IN ('{art_str}', '{art_str}.0') AND price>0
               AND document_moment >= CURRENT_DATE - INTERVAL 60 DAY
             GROUP BY 1
         """).fetchall()
@@ -171,7 +201,45 @@ ORDER BY s35.adj_rate DESC
         else:
             gender = '?'
 
-        target = max(0, round(float(adj_rate) * 8 - int(total)))
+        # Целевое количество пар по правильной формуле (память sneaker_order_workflow.md)
+        target_base = target_pairs_for_rate(float(adj_rate))
+        stock_adj = stock_to_subtract(int(total), float(wos))
+        target = max(0, target_base - stock_adj)
+
+        # Округлим target до ближайшего кратного 12 (правило коробки)
+        if target > 0:
+            rem = target % 12
+            if rem >= 6: target += (12 - rem)
+            else: target -= rem
+            target = max(12, target)
+
+        # Рекомендованное распределение по размерам (по ГЛОБАЛЬНЫМ весам, не per-model)
+        # Per-model веса искажены: то что в стоке не хватало = 0 продаж = 0 рекомендация
+        if target > 0:
+            weights = SIZE_WEIGHTS_W if gender == 'Ж' else SIZE_WEIGHTS_M if gender == 'М' else None
+            recommended_by_size = {}
+            if weights:
+                # Текущий остаток по размеру (для приоритета — горящие размеры важнее)
+                stock_by_size = {s['size']: s['stock'] for s in sizes}
+                for sz, weight in weights.items():
+                    base = round(target * weight)
+                    # Если этот размер выбит (0 в стоке) — увеличить, если перетарен — снизить
+                    cur_stock = stock_by_size.get(sz, 0)
+                    if cur_stock == 0 and base > 0:
+                        base = max(2, base)  # минимум 2 пары когда полный пробой
+                    recommended_by_size[sz] = base
+                # Скорректировать чтобы сумма = target
+                cur_sum = sum(recommended_by_size.values())
+                if cur_sum != target:
+                    diff = target - cur_sum
+                    # Добавим/уберём с ходового размера (42 муж / 38 жен)
+                    pivot = '38' if gender == 'Ж' else '42'
+                    if pivot in recommended_by_size:
+                        recommended_by_size[pivot] = max(0, recommended_by_size[pivot] + diff)
+            else:
+                recommended_by_size = {}
+        else:
+            recommended_by_size = {}
         days_no_sale = (today - last_sale_d).days if last_sale_d else None
 
         items.append({
@@ -181,6 +249,7 @@ ORDER BY s35.adj_rate DESC
             'stock': {'total': int(total), 'msk': int(msk), 'tsum_online': int(tsum_onl),
                       'aruzhan': int(ar), 'warehouse': int(wh)},
             'wos': float(wos), 'sizes': sizes, 'target_total': target,
+            'recommended_by_size': recommended_by_size,
             'sales': {'s30': int(s30), 's90': int(s90), 's180': int(s180),
                       's365': int(s365), 'sall': int(sall)},
             'last_sale': last_sale_d.isoformat() if last_sale_d else None,
@@ -455,6 +524,28 @@ function wosLabel(w) {
   return '🟢 ' + w.toFixed(1) + ' нед';
 }
 
+function applyRecommended(art) {
+  const item = ITEMS.find(i => i.article === art);
+  if (!item || !item.recommended_by_size) return;
+  order[art] = {};
+  for (const sz in item.recommended_by_size) {
+    if (item.recommended_by_size[sz] > 0) {
+      order[art][sz] = item.recommended_by_size[sz];
+    }
+  }
+  save();
+  renderItem(art);
+  updateBottom();
+  toast('Применено: ' + item.target_total + ' пар');
+}
+
+function clearItem(art) {
+  delete order[art];
+  save();
+  renderItem(art);
+  updateBottom();
+}
+
 function adjSize(art, sz, delta) {
   if (!order[art]) order[art] = {};
   const cur = order[art][sz] || 0;
@@ -611,9 +702,15 @@ function renderItemHTML(item) {
         ${total > 0 ? '<div class="price-item"><span class="label">Сумма заказа</span> <span class="val">'+fmt(sum_buy)+'₸</span></div>' : ''}
       </div>
       <div class="size-grid">${sizesHtml}</div>
+      ${(item.target_total > 0 && total === 0) ? `
+      <div class="total-bar" style="background:#fef3c7;border:1px dashed #d97706;cursor:pointer" onclick="applyRecommended('${item.article}')">
+        <span>💡 <b>Применить рекомендованное:</b> ${item.target_total} пар (${Object.entries(item.recommended_by_size||{}).filter(e=>e[1]>0).map(e=>e[0]+'×'+e[1]).join(', ')})</span>
+        <span class="total-hint" style="margin-left:auto;color:#92400e">кликни →</span>
+      </div>` : ''}
       <div class="total-bar ${h.cls}">
         <span>Всего к заказу: <span class="total-amount ${h.amt_cls}">${total}</span> пар</span>
         <span class="total-hint">${h.text}</span>
+        ${total > 0 ? '<span style="margin-left:auto;font-size:11px;color:var(--text3);cursor:pointer" onclick="clearItem(\\''+item.article+'\\')">очистить ✕</span>' : ''}
       </div>
     </div>
   </div>`;
