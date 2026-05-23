@@ -30,7 +30,7 @@ OUT_JSON = PROJECT_ROOT / 'sneaker-order' / 'sneakers_data.json'
 PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 
 SNAPSHOT_DATE = '20260522'
-PRICES_DATE = '20260522'
+PRICES_DATE = '20260523'  # исправленный снапшот: sale_price = изначальная "Цена продажи"
 
 
 def detect_brand(name: str) -> str:
@@ -201,7 +201,7 @@ def main():
           WHERE TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999 AND total_stock > 0
           GROUP BY article
         ),
-        prices AS (SELECT article, MAX(buy_price) c, MAX(sale_price) r FROM {prices} GROUP BY article),
+        prices AS (SELECT article, MAX(buy_price) c, MAX(sale_price) r, MAX(new_price) np FROM {prices} GROUP BY article),
         -- Продажи через retaildemand_positions (правильный источник — позиции каждого чека).
         -- Старая sales таблица (через /report/profit/byvariant) имеет дыры за янв-апр 2024
         -- и недостоверна по конкретным артикулам.
@@ -218,6 +218,7 @@ def main():
         SELECT s.article, s.pname, s.total, s.msk, s.tsum, s.online, s.aruz, s.wh,
                COALESCE(p.c, sc.c, 0) AS cost,
                COALESCE(p.r, 0) AS retail,
+               COALESCE(p.np, 0) AS new_price,
                COALESCE(s30.q, 0) AS s30, COALESCE(s90.q, 0) AS s90,
                COALESCE(s180.q, 0) AS s180, COALESCE(s365.q, 0) AS s365, COALESCE(sall.q, 0) AS sall,
                last_sale.d AS last_sale_d, last_supply.d AS last_supply_d,
@@ -284,9 +285,12 @@ def main():
     items = []
     for r in rows:
         (art, pname, total, msk, tsum, online, aruz, wh,
-         cost, retail, s30, s90, s180, s365, sall,
+         cost, retail, new_price, s30, s90, s180, s365, sall,
          last_sale_d, last_supply_d, first_supply_d, first_supply_qty) = r
         cost = float(cost or 0); retail = float(retail or 0)
+        new_price = float(new_price or 0)
+        # Текущая скидка в МС: насколько "новая" ниже изначальной "Цена продажи"
+        cur_disc = round(100 * (1 - new_price / retail)) if (retail > 0 and 0 < new_price < retail) else 0
         s30 = int(s30 or 0); s90 = int(s90 or 0)
         s180 = int(s180 or 0); s365 = int(s365 or 0); sall = int(sall or 0)
         total = int(total or 0)
@@ -315,6 +319,7 @@ def main():
                       'tsum_online': tsum + online, 'aruzhan': aruz, 'warehouse': wh},
             'sizes': sizes_by_article.get(art, {}),
             'cost': cost, 'retail': retail,
+            'cur_disc': cur_disc,
             'margin_pct': round((retail - cost) / retail * 100, 1) if retail > 0 else 0,
             'sales': {'s30': s30, 's90': s90, 's180': s180, 's365': s365, 'sall': sall,
                       'rev_30d': s30 * retail,
@@ -436,7 +441,8 @@ function renderItem(item, idx) {
     : `<div class="item-photo-empty"><div class="art">${(item.article||'—').substring(0,8)}</div><div class="nf">нет фото</div></div>`;
 
   const catLabel = CAT_LABELS[item.category] || item.category;
-  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>
+  const curDiscBadge = (item.cur_disc > 0) ? `<span class="curdisc-badge">в МС уже −${item.cur_disc}%</span>` : '';
+  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>${curDiscBadge}
     <div class="cat-reason">${item.reason || ''}</div></div>`;
 
   let unprofitWarn = '';
@@ -757,6 +763,7 @@ async function loadData() {
 .last-sale-info   { font-size:12px; color:var(--text2); margin-top:6px; }
 .last-sale-info b { color:var(--text); }
 .unprofit-warn    { background:#fef2f2; padding:8px 10px; border-radius:6px; border-left:3px solid #dc2626; font-size:12px; font-weight:600; color:#dc2626; margin-bottom:8px; }
+.curdisc-badge    { display:inline-block; margin-left:6px; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
 @media(max-width:600px) {
   .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; }
   .item-photo, .item-photo-empty { width:70px; height:70px; }
@@ -917,7 +924,8 @@ function renderItem(item, idx) {
     : `<div class="item-photo-empty"><div class="art">${(item.article||'—').substring(0,8)}</div><div class="nf">нет фото</div></div>`;
 
   const catLabel = CAT_LABELS[item.category] || item.category;
-  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>
+  const curDiscBadge = (item.cur_disc > 0) ? `<span class="curdisc-badge">в МС уже −${item.cur_disc}%</span>` : '';
+  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>${curDiscBadge}
     <div class="cat-reason">${item.reason || ''}</div></div>`;
 
   // Особое предупреждение для убыточных

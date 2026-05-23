@@ -322,6 +322,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .last-sale-info   { font-size:12px; color:var(--text2); margin-top:6px; }
 .last-sale-info b { color:var(--text); }
 .unprofit-warn    { background:#fef2f2; padding:8px 10px; border-radius:6px; border-left:3px solid #dc2626; font-size:12px; font-weight:600; color:#dc2626; margin-bottom:8px; }
+.curdisc-badge    { display:inline-block; margin-left:6px; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
 @media(max-width:600px) {
   .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; }
   .item-photo, .item-photo-empty { width:70px; height:70px; }
@@ -338,7 +339,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <h1>Кроссовки</h1>
     <span class="badge badge-info">516 моделей</span>
   </div>
-  <div class="header-meta">Остатки: 22.05.2026 | Все 200000-209999</div>
+  <div class="header-meta">Остатки: 23.05.2026 | Все 200000-209999</div>
 </div>
 
 <div class="stats" id="stats">
@@ -347,11 +348,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5624</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">432</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">74</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">82</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
@@ -363,15 +364,15 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">1545</div>
+    <div class="stat-num green" id="stat-sold">1510</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-revenue">37.6М</div>
+    <div class="stat-num green" id="stat-revenue">39.1М</div>
     <div class="stat-label">Выручка</div>
   </div>
   <div class="stat">
-    <div class="stat-num purple" id="stat-retail">191.5М</div>
+    <div class="stat-num purple" id="stat-retail">203.7М</div>
     <div class="stat-label">Стоимость в РЦ</div>
   </div>
 </div>
@@ -404,12 +405,12 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
-<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (56)</button>
-<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (24)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (74)</button>
-<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (21)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (74)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (210)</button>
+<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (4)</button>
+<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (32)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (82)</button>
+<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (16)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (72)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (253)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (57)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (222)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
@@ -661,7 +662,8 @@ function renderItem(item, idx) {
     : `<div class="item-photo-empty"><div class="art">${(item.article||'—').substring(0,8)}</div><div class="nf">нет фото</div></div>`;
 
   const catLabel = CAT_LABELS[item.category] || item.category;
-  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>
+  const curDiscBadge = (item.cur_disc > 0) ? `<span class="curdisc-badge">в МС уже −${item.cur_disc}%</span>` : '';
+  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>${curDiscBadge}
     <div class="cat-reason">${item.reason || ''}</div></div>`;
 
   let unprofitWarn = '';
