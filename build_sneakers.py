@@ -289,8 +289,12 @@ def main():
          last_sale_d, last_supply_d, first_supply_d, first_supply_qty) = r
         cost = float(cost or 0); retail = float(retail or 0)
         new_price = float(new_price or 0)
-        # Текущая скидка в МС: насколько "новая" ниже изначальной "Цена продажи"
-        cur_disc = round(100 * (1 - new_price / retail)) if (retail > 0 and 0 < new_price < retail) else 0
+        # orig = изначальная "Цена продажи" (зачёркнутая на стикере)
+        # cur  = ТЕКУЩАЯ цена продажи (со скидкой если есть) — БАЗА для новой скидки
+        orig_price = retail
+        cur_price = new_price if (orig_price > 0 and 0 < new_price < orig_price) else orig_price
+        cur_disc = round(100 * (1 - cur_price / orig_price)) if orig_price > 0 and cur_price < orig_price else 0
+        retail = cur_price  # дальше retail = текущая цена (от неё считаем новую скидку)
         s30 = int(s30 or 0); s90 = int(s90 or 0)
         s180 = int(s180 or 0); s365 = int(s365 or 0); sall = int(sall or 0)
         total = int(total or 0)
@@ -319,6 +323,7 @@ def main():
                       'tsum_online': tsum + online, 'aruzhan': aruz, 'warehouse': wh},
             'sizes': sizes_by_article.get(art, {}),
             'cost': cost, 'retail': retail,
+            'orig_price': orig_price,
             'cur_disc': cur_disc,
             'margin_pct': round((retail - cost) / retail * 100, 1) if retail > 0 else 0,
             'sales': {'s30': s30, 's90': s90, 's180': s180, 's365': s365, 'sall': sall,
@@ -532,12 +537,15 @@ function renderItem(item, idx) {
       ${renderSizes(item)}
       <div class="price-row">
         <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
-        <div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>
+        ${item.cur_disc > 0
+          ? `<div class="price-item"><span class="label">Изначальная</span> <span class="val" style="text-decoration:line-through;color:var(--text3)">${fmt(Math.round(item.orig_price))}₸</span></div>
+             <div class="price-item"><span class="label">Сейчас (−${item.cur_disc}%)</span> <span class="val" style="color:#f59e0b">${fmt(Math.round(item.retail))}₸</span></div>`
+          : `<div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>`}
         ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
         ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
       </div>
       <div class="discount-row" style="flex-wrap:wrap">
-        <label>Скидка</label>
+        <label>Скидка от текущей</label>
         <div class="disc-btns">
           ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
         </div>
@@ -993,12 +1001,15 @@ function renderItem(item, idx) {
       ${renderSizes(item)}
       <div class="price-row">
         <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
-        <div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>
+        ${item.cur_disc > 0
+          ? `<div class="price-item"><span class="label">Изначальная</span> <span class="val" style="text-decoration:line-through;color:var(--text3)">${fmt(Math.round(item.orig_price))}₸</span></div>
+             <div class="price-item"><span class="label">Сейчас (−${item.cur_disc}%)</span> <span class="val" style="color:#f59e0b">${fmt(Math.round(item.retail))}₸</span></div>`
+          : `<div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>`}
         ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
         ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
       </div>
       <div class="discount-row" style="flex-wrap:wrap">
-        <label>Скидка</label>
+        <label>Скидка от текущей</label>
         <div class="disc-btns">
           ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
         </div>
@@ -1078,7 +1089,8 @@ function exportJSON() {
   const items = ALL_ITEMS.filter(i => discounts[i.article || i.name] > 0).map(i => ({
     article: i.article,
     name: i.name,
-    current_retail: i.retail,
+    current_retail: i.orig_price || i.retail,   // изначальная = зачёркнутая на стикере
+    cur_price: i.retail,                          // текущая цена (база скидки)
     discount: discounts[i.article || i.name],
     new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
     stock: i.stock.total,

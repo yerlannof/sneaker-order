@@ -339,7 +339,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <h1>Кроссовки</h1>
     <span class="badge badge-info">516 моделей</span>
   </div>
-  <div class="header-meta">Остатки: 23.05.2026 | Все 200000-209999</div>
+  <div class="header-meta">Остатки: 24.05.2026 | Все 200000-209999</div>
 </div>
 
 <div class="stats" id="stats">
@@ -348,11 +348,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">432</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5628</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">82</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">75</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
@@ -364,15 +364,15 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">1510</div>
+    <div class="stat-num green" id="stat-sold">1476</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-revenue">39.1М</div>
+    <div class="stat-num green" id="stat-revenue">35.8М</div>
     <div class="stat-label">Выручка</div>
   </div>
   <div class="stat">
-    <div class="stat-num purple" id="stat-retail">203.7М</div>
+    <div class="stat-num purple" id="stat-retail">190.9М</div>
     <div class="stat-label">Стоимость в РЦ</div>
   </div>
 </div>
@@ -405,12 +405,12 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
-<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (4)</button>
-<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (32)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (82)</button>
+<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (56)</button>
+<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (28)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (75)</button>
 <button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (16)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (72)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (253)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (70)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (214)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (57)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (222)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
@@ -599,7 +599,8 @@ function exportJSON() {
   const items = ALL_ITEMS.filter(i => discounts[i.article || i.name] > 0).map(i => ({
     article: i.article,
     name: i.name,
-    current_retail: i.retail,
+    current_retail: i.orig_price || i.retail,   // изначальная = зачёркнутая на стикере
+    cur_price: i.retail,                          // текущая цена (база скидки)
     discount: discounts[i.article || i.name],
     new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
     stock: i.stock.total,
@@ -753,12 +754,15 @@ function renderItem(item, idx) {
       ${renderSizes(item)}
       <div class="price-row">
         <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
-        <div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>
+        ${item.cur_disc > 0
+          ? `<div class="price-item"><span class="label">Изначальная</span> <span class="val" style="text-decoration:line-through;color:var(--text3)">${fmt(Math.round(item.orig_price))}₸</span></div>
+             <div class="price-item"><span class="label">Сейчас (−${item.cur_disc}%)</span> <span class="val" style="color:#f59e0b">${fmt(Math.round(item.retail))}₸</span></div>`
+          : `<div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>`}
         ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
         ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
       </div>
       <div class="discount-row" style="flex-wrap:wrap">
-        <label>Скидка</label>
+        <label>Скидка от текущей</label>
         <div class="disc-btns">
           ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
         </div>
