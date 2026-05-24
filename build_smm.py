@@ -7,7 +7,7 @@ Builder для smm.html — ЧИСТЫЙ лист уценки для СММ.
 Источник: финальные скидки из Supabase (order SNEAKERS-001) + данные/фото из sneakers_*.
 Запуск: python3 sneaker-order/build_smm.py
 """
-import os, json, requests
+import os, re, json, requests, duckdb
 from datetime import date
 from pathlib import Path
 from dotenv import load_dotenv
@@ -15,7 +15,39 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).parent.parent
 load_dotenv(ROOT / '.env')
 SO = ROOT / 'sneaker-order'
+DB = ROOT / 'data' / 'pnlpower.duckdb'
+SNAP = 'inventory_snapshot_stores_20260523'
 KEY = os.getenv('SUPABASE_KEY'); URL = os.getenv('SUPABASE_URL')
+
+
+def sizes_by_store(articles):
+    """Для каждого артикула: {склад: {размер: кол-во}} из снапшота."""
+    con = duckdb.connect(str(DB), read_only=True)
+    ph = "','".join(a.replace("'", "''") for a in articles)
+    rows = con.execute(f"""
+        SELECT article, product_name,
+               SUM(moscow) m, SUM(tsum)+SUM(online) t,
+               SUM(astana_aruzhan) a, SUM(main_warehouse) w
+        FROM {SNAP} WHERE article IN ('{ph}') AND total_stock > 0
+        GROUP BY article, product_name
+    """).fetchall()
+    con.close()
+    res = {}
+    for art, pname, m, t, a, w in rows:
+        mm = re.search(r',\s*([0-9]+(?:\.[0-9]+)?)\s*$', pname or '')
+        sz = mm.group(1) if mm else '?'
+        d = res.setdefault(art, {'m': {}, 't': {}, 'a': {}, 'w': {}})
+        for key, qty in (('m', m), ('t', t), ('a', a), ('w', w)):
+            q = int(qty or 0)
+            if q > 0:
+                d[key][sz] = d[key].get(sz, 0) + q
+
+    def _sort(dd):
+        return {k: dict(sorted(v.items(),
+                key=lambda x: float(x[0]) if x[0].replace('.', '').isdigit() else 99))
+                for k, v in dd.items()}
+    return {art: _sort(d) for art, d in res.items()}
+
 
 def main():
     # 1. финальные скидки
@@ -28,6 +60,8 @@ def main():
     pf = SO / 'sneakers_photos.json'
     if pf.exists():
         photos = json.load(open(pf))
+
+    ss = sizes_by_store(list(disc.keys()))
 
     items = []
     for a, d in disc.items():
@@ -42,6 +76,7 @@ def main():
             'article': a, 'name': it['name'], 'brand': it.get('brand', ''),
             'old': orig, 'new': new, 'off': total_off,
             'stock': {'m': s['moscow'], 't': s['tsum_online'], 'a': s['aruzhan'], 'w': s['warehouse'], 'total': s['total']},
+            'ss': ss.get(a, {'m': {}, 't': {}, 'a': {}, 'w': {}}),
         })
     items.sort(key=lambda x: -x['off'])
 
@@ -85,10 +120,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .old{font-size:15px;color:var(--text3);text-decoration:line-through;}
 .new{font-size:24px;font-weight:900;color:var(--red);}
 .off{background:var(--red);color:#fff;font-size:13px;font-weight:800;padding:3px 9px;border-radius:8px;}
-.stock{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;}
-.chip{background:#f3f4f6;border-radius:8px;padding:4px 9px;font-size:12px;color:var(--text2);}
-.chip b{color:var(--text);font-weight:800;}
-.chip.z{opacity:.4;}
+.stores{display:flex;flex-direction:column;gap:6px;margin-top:2px;border-top:1px solid var(--border);padding-top:8px;}
+.srow{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:12px;}
+.slbl{color:var(--text2);white-space:nowrap;min-width:70px;}
+.slbl b{color:var(--text);font-weight:800;}
+.szs{display:flex;gap:4px;flex-wrap:wrap;}
+.sz{background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 7px;font-size:12px;font-weight:600;}
+.sz i{font-style:normal;color:#6366f1;font-weight:800;}
 #loader{text-align:center;padding:40px;color:var(--text2);}
 </style></head>
 <body>
@@ -119,15 +157,21 @@ function render(){
     if(q&&!i.name.toLowerCase().includes(q)&&!i.article.toLowerCase().includes(q))return false;
     return true;
   });
+  const srow=(lbl,tot,sizes)=>{
+    if(!tot)return '';
+    const sz=Object.entries(sizes||{}).map(([s,q])=>`<span class="sz">${s}<i>×${q}</i></span>`).join('');
+    return `<div class="srow"><span class="slbl">${lbl} <b>${tot}</b></span><span class="szs">${sz}</span></div>`;
+  };
   document.getElementById('grid').innerHTML=list.map(i=>{
     const ph=PH[i.article];
     const photo=ph?`<img class="photo" src="data:image/jpeg;base64,${ph}" loading="lazy">`:`<div class="photo-empty">нет фото</div>`;
-    const ch=(lbl,v)=>`<span class="chip ${v?'':'z'}">${lbl} <b>${v}</b></span>`;
+    const ss=i.ss||{m:{},t:{},a:{},w:{}};
+    const stores=srow('Москва',i.stock.m,ss.m)+srow('ЦУМ+Онл',i.stock.t,ss.t)+srow('Аружан',i.stock.a,ss.a)+srow('Склад',i.stock.w,ss.w);
     return `<div class="card">${photo}<div class="body">
       <div class="name">${i.name}</div>
       <div class="art" onclick="navigator.clipboard&&navigator.clipboard.writeText('${i.article}')"><span class="brand">${i.brand}</span>${i.article} 📋</div>
       <div class="prices"><span class="old">${fmt(i.old)}₸</span><span class="new">${fmt(i.new)}₸</span><span class="off">−${i.off}%</span></div>
-      <div class="stock">${ch('Мск',i.stock.m)}${ch('ЦУМ+Онл',i.stock.t)}${ch('Аружан',i.stock.a)}${ch('Склад',i.stock.w)}</div>
+      <div class="stores">${stores||'<span class="slbl">нет на точках</span>'}</div>
     </div></div>`;
   }).join('')||'<div id="loader">Ничего не найдено</div>';
 }
