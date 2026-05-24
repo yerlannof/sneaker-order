@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🏷 Уценка обувь — для СММ</title>
+<title>🏷 Уценка одежда — для СММ</title>
 <style>
 :root{--bg:#f4f6f9;--card:#fff;--text:#111827;--text2:#6b7280;--text3:#9ca3af;--red:#e11d48;--border:#e5e7eb;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -35,7 +35,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 #loader{text-align:center;padding:40px;color:var(--text2);}
 </style></head>
 <body>
-<div class="header"><h1>🏷 Уценка обувь — для СММ</h1><div class="sub">129 моделей · 1,228 шт · обновлено 24.05.2026</div></div>
+<div class="header"><h1>🏷 Уценка одежда — для СММ</h1><div class="sub">18 моделей · 366 шт · обновлено 24.05.2026</div></div>
 <div class="bar">
   <input id="q" placeholder="Поиск по названию / артикулу…" oninput="render()">
   <button class="fbtn active" data-f="all" onclick="setF(this)">Все</button>
@@ -81,10 +81,10 @@ function render(){
   }).join('')||'<div id="loader">Ничего не найдено</div>';
 }
 async function load(){
-  ITEMS=await (await fetch('smm_lite.json')).json();
+  ITEMS=await (await fetch('smm_clothing_lite.json')).json();
   document.getElementById('loader').style.display='none';
   render();
-  try{PH=await (await fetch('smm_photos.json')).json();render();}catch(e){}
+  try{PH=await (await fetch('smm_clothing_photos.json')).json();render();}catch(e){}
 }
 load();
 </script></body></html>

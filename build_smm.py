@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Builder для smm.html — ЧИСТЫЙ лист уценки для СММ.
-Только: фото, название, артикул, остатки по магазинам, старая цена → новая, % скидки.
+Builder для SMM-листа уценки — ЧИСТЫЙ список для СММ.
+Только: фото, название, артикул, размеры/варианты по магазинам, старая→новая цена, % скидки.
 БЕЗ себеса/маржи/прибыли/рекомендаций.
 
-Источник: финальные скидки из Supabase (order SNEAKERS-001) + данные/фото из sneakers_*.
-Запуск: python3 sneaker-order/build_smm.py
+Обувь:   python3 sneaker-order/build_smm.py
+Одежда:  python3 sneaker-order/build_smm.py --clothing
 """
-import os, re, json, requests, duckdb
+import os, re, sys, json, requests, duckdb
 from datetime import date
 from pathlib import Path
 from dotenv import load_dotenv
@@ -18,10 +18,18 @@ SO = ROOT / 'sneaker-order'
 DB = ROOT / 'data' / 'pnlpower.duckdb'
 SNAP = 'inventory_snapshot_stores_20260523'
 KEY = os.getenv('SUPABASE_KEY'); URL = os.getenv('SUPABASE_URL')
+SIZE_ORD = {'XS': 0, 'S': 1, 'M': 2, 'L': 3, 'XL': 4, 'XXL': 5, '2XL': 5, 'XXXL': 6, '3XL': 6, '4XL': 7}
+
+CONFIGS = {
+    'shoe': dict(order='SNEAKERS-001', data='sneakers_data.json', photos='sneakers_photos.json',
+                 out='smm', title='🏷 Уценка обувь — для СММ', cloth=False),
+    'cloth': dict(order='CLOTHING-CLEAR-001', data='clothing_clearance_data.json', photos='clothing_clearance_photos.json',
+                  out='smm_clothing', title='🏷 Уценка одежда — для СММ', cloth=True),
+}
 
 
-def sizes_by_store(articles):
-    """Для каждого артикула: {склад: {размер: кол-во}} из снапшота."""
+def sizes_by_store(articles, cloth=False):
+    """Для каждого артикула: {склад: {вариант: кол-во}}. cloth → 'Цвет Размер', иначе номер размера."""
     con = duckdb.connect(str(DB), read_only=True)
     ph = "','".join(a.replace("'", "''") for a in articles)
     rows = con.execute(f"""
@@ -32,36 +40,49 @@ def sizes_by_store(articles):
         GROUP BY article, product_name
     """).fetchall()
     con.close()
+
+    def label_and_key(pname):
+        if cloth:
+            m = re.search(r'\(([^()]+),\s*([^()]+)\)\s*$', pname or '')
+            if m:
+                color, size = m.group(1).strip(), m.group(2).strip()
+                return f'{color} {size}', (SIZE_ORD.get(size, 50), color)
+        m = re.search(r',\s*([0-9]+(?:\.[0-9]+)?)\s*$', pname or '')
+        if m:
+            return m.group(1), (float(m.group(1)), '')
+        return '?', (99, '')
+
     res = {}
     for art, pname, m, t, a, w in rows:
-        mm = re.search(r',\s*([0-9]+(?:\.[0-9]+)?)\s*$', pname or '')
-        sz = mm.group(1) if mm else '?'
+        lbl, key = label_and_key(pname)
         d = res.setdefault(art, {'m': {}, 't': {}, 'a': {}, 'w': {}})
-        for key, qty in (('m', m), ('t', t), ('a', a), ('w', w)):
+        d.setdefault('_k', {})[lbl] = key
+        for k2, qty in (('m', m), ('t', t), ('a', a), ('w', w)):
             q = int(qty or 0)
             if q > 0:
-                d[key][sz] = d[key].get(sz, 0) + q
+                d[k2][lbl] = d[k2].get(lbl, 0) + q
+    out = {}
+    for art, d in res.items():
+        keys = d.pop('_k', {})
+        out[art] = {st: dict(sorted(v.items(), key=lambda x: keys.get(x[0], (99, '')))) for st, v in d.items()}
+    return out
 
-    def _sort(dd):
-        return {k: dict(sorted(v.items(),
-                key=lambda x: float(x[0]) if x[0].replace('.', '').isdigit() else 99))
-                for k, v in dd.items()}
-    return {art: _sort(d) for art, d in res.items()}
 
-
-def main():
-    # 1. финальные скидки
+def main(cfg):
     H = {'apikey': KEY, 'Authorization': f'Bearer {KEY}'}
-    saved = requests.get(f"{URL}/rest/v1/orders?id=eq.SNEAKERS-001&select=items", headers=H, timeout=20).json()[0]['items']
+    resp = requests.get(f"{URL}/rest/v1/orders?id=eq.{cfg['order']}&select=items", headers=H, timeout=20).json()
+    if not resp or not resp[0].get('items'):
+        print(f"⚠️ В Supabase нет скидок ({cfg['order']}) — нечего показывать"); return
+    saved = resp[0]['items']
     disc = {str(it['article']): int(it.get('discount', 0)) for it in saved if it.get('discount')}
 
-    data = {it['article']: it for it in json.load(open(SO / 'sneakers_data.json'))}
+    data = {it['article']: it for it in json.load(open(SO / cfg['data']))}
     photos = {}
-    pf = SO / 'sneakers_photos.json'
+    pf = SO / cfg['photos']
     if pf.exists():
         photos = json.load(open(pf))
 
-    ss = sizes_by_store(list(disc.keys()))
+    ss = sizes_by_store(list(disc.keys()), cloth=cfg['cloth'])
 
     items = []
     for a, d in disc.items():
@@ -80,23 +101,25 @@ def main():
         })
     items.sort(key=lambda x: -x['off'])
 
-    # lite + photos (только нужные)
-    lite = SO / 'smm_lite.json'
-    ph = SO / 'smm_photos.json'
+    lite = SO / f"{cfg['out']}_lite.json"
+    ph = SO / f"{cfg['out']}_photos.json"
     lite.write_text(json.dumps(items, ensure_ascii=False))
     ph.write_text(json.dumps({x['article']: photos.get(x['article'], '') for x in items if photos.get(x['article'])}, ensure_ascii=False))
 
     total_pairs = sum(x['stock']['total'] for x in items)
-    html = HTML_TEMPLATE.replace('__COUNT__', str(len(items))).replace('__PAIRS__', f'{total_pairs:,}').replace('__DATE__', date.today().strftime('%d.%m.%Y'))
-    (SO / 'smm.html').write_text(html)
-    print(f"✓ Моделей: {len(items)}, пар: {total_pairs}")
-    print(f"✓ smm.html, smm_lite.json ({lite.stat().st_size//1024} KB), smm_photos.json ({ph.stat().st_size//1024//1024} MB)")
+    html = (HTML_TEMPLATE
+            .replace('__TITLE__', cfg['title'])
+            .replace('__LITE__', lite.name).replace('__PHOTOS__', ph.name)
+            .replace('__COUNT__', str(len(items))).replace('__PAIRS__', f'{total_pairs:,}')
+            .replace('__DATE__', date.today().strftime('%d.%m.%Y')))
+    (SO / f"{cfg['out']}.html").write_text(html)
+    print(f"✓ {cfg['out']}.html — моделей: {len(items)}, штук: {total_pairs}")
 
 
 HTML_TEMPLATE = r'''<!DOCTYPE html>
 <html lang="ru"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Уценка — список для СММ</title>
+<title>__TITLE__</title>
 <style>
 :root{--bg:#f4f6f9;--card:#fff;--text:#111827;--text2:#6b7280;--text3:#9ca3af;--red:#e11d48;--border:#e5e7eb;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -130,7 +153,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 #loader{text-align:center;padding:40px;color:var(--text2);}
 </style></head>
 <body>
-<div class="header"><h1>🏷 Уценка — для СММ</h1><div class="sub">__COUNT__ моделей · __PAIRS__ пар · обновлено __DATE__</div></div>
+<div class="header"><h1>__TITLE__</h1><div class="sub">__COUNT__ моделей · __PAIRS__ шт · обновлено __DATE__</div></div>
 <div class="bar">
   <input id="q" placeholder="Поиск по названию / артикулу…" oninput="render()">
   <button class="fbtn active" data-f="all" onclick="setF(this)">Все</button>
@@ -159,7 +182,7 @@ function render(){
   });
   const srow=(lbl,tot,sizes)=>{
     if(!tot)return '';
-    const sz=Object.entries(sizes||{}).map(([s,q])=>`<span class="sz">${s}<i>×${q}</i></span>`).join('');
+    const sz=Object.entries(sizes||{}).map(([s,qq])=>`<span class="sz">${s}<i>×${qq}</i></span>`).join('');
     return `<div class="srow"><span class="slbl">${lbl} <b>${tot}</b></span><span class="szs">${sz}</span></div>`;
   };
   document.getElementById('grid').innerHTML=list.map(i=>{
@@ -176,13 +199,14 @@ function render(){
   }).join('')||'<div id="loader">Ничего не найдено</div>';
 }
 async function load(){
-  ITEMS=await (await fetch('smm_lite.json')).json();
+  ITEMS=await (await fetch('__LITE__')).json();
   document.getElementById('loader').style.display='none';
   render();
-  try{PH=await (await fetch('smm_photos.json')).json();render();}catch(e){}
+  try{PH=await (await fetch('__PHOTOS__')).json();render();}catch(e){}
 }
 load();
 </script></body></html>'''
 
 if __name__ == '__main__':
-    main()
+    cfg = CONFIGS['cloth'] if '--clothing' in sys.argv else CONFIGS['shoe']
+    main(cfg)
