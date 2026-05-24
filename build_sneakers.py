@@ -576,6 +576,35 @@ CAT_CONFIG = {
 }
 
 
+def get_preset_discounts() -> dict:
+    """Тянет сохранённые скидки из Supabase (order SNEAKERS-001) → {article: discount}.
+    Нужно чтобы восстановить уже выставленные скидки в дашборде, даже если
+    localStorage браузера пуст."""
+    try:
+        import requests
+        from dotenv import load_dotenv
+        load_dotenv(PROJECT_ROOT / '.env')
+        url = os.getenv('SUPABASE_URL'); key = os.getenv('SUPABASE_KEY')
+        if not url or not key:
+            return {}
+        r = requests.get(f"{url}/rest/v1/orders?id=eq.SNEAKERS-001&select=items",
+                         headers={'apikey': key, 'Authorization': f'Bearer {key}'}, timeout=15)
+        rows = r.json()
+        if not rows or not rows[0].get('items'):
+            return {}
+        preset = {}
+        for it in rows[0]['items']:
+            a = str(it.get('article', ''))
+            d = int(it.get('discount', 0) or 0)
+            if a and d > 0:
+                preset[a] = d
+        print(f"   Preset скидок из Supabase: {len(preset)}")
+        return preset
+    except Exception as e:
+        print(f"   ⚠️ Не удалось получить preset: {e}")
+        return {}
+
+
 def render_html(items: list):
     """Собирает sneakers.html на основе clothing.html template (надёжно через маркеры)."""
     if not TEMPLATE_HTML.exists():
@@ -593,6 +622,31 @@ def render_html(items: list):
         adapted_items.append(adapted)
 
     new_html = TEMPLATE_HTML.read_text()
+
+    # Восстановление ранее выставленных скидок: вшиваем preset из Supabase.
+    # При загрузке подставляем для артикулов, которых нет в localStorage.
+    preset = get_preset_discounts()
+    preset_js = json.dumps(preset, ensure_ascii=False)
+    new_html = new_html.replace(
+        """// Load saved discounts from localStorage
+try {
+  const saved = localStorage.getItem('clothing_discounts');
+  if (saved) discounts = JSON.parse(saved);
+} catch(e) {}""",
+        """// Load saved discounts from localStorage
+try {
+  const saved = localStorage.getItem('clothing_discounts');
+  if (saved) discounts = JSON.parse(saved);
+} catch(e) {}
+// Восстановление ранее выставленных скидок (из Supabase, вшито при сборке)
+const PRESET_DISCOUNTS = """ + preset_js + """;
+let _restored = 0;
+for (const a in PRESET_DISCOUNTS) {
+  if (!discounts[a]) { discounts[a] = PRESET_DISCOUNTS[a]; _restored++; }
+}
+if (_restored > 0) {
+  try { localStorage.setItem('clothing_discounts', JSON.stringify(discounts)); } catch(e) {}
+}""")
 
     # Подсчёты для шапки
     total_models = len(items)
