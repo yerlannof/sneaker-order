@@ -26,15 +26,16 @@
         "L": 6
       },
       "matrix": {
+        "Чёрный/M": 6,
         "Чёрный/L": 6,
-        "Чёрный/S": 4,
-        "Чёрный/M": 6
+        "Чёрный/S": 4
       }
     },
     "cost": 4818.0,
-    "retail": 23900.0,
+    "retail": 16730.0,
+    "orig_price": 23900.0,
     "cur_disc": 30,
-    "margin_pct": 79.8,
+    "margin_pct": 71.2,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -56,7 +57,7 @@
       "acceleration": 0
     },
     "frozen_cost": 77088,
-    "frozen_retail": 382400,
+    "frozen_retail": 267680,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
@@ -93,9 +94,10 @@
       }
     },
     "cost": 4818.0,
-    "retail": 23900.0,
+    "retail": 16730.0,
+    "orig_price": 23900.0,
     "cur_disc": 30,
-    "margin_pct": 79.8,
+    "margin_pct": 71.2,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -117,7 +119,7 @@
       "acceleration": 0
     },
     "frozen_cost": 72270,
-    "frozen_retail": 358500,
+    "frozen_retail": 250950,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
@@ -155,14 +157,15 @@
       "matrix": {
         "Синий/L": 2,
         "Синий/S": 4,
-        "Синий/XL": 2,
-        "Синий/M": 3
+        "Синий/M": 3,
+        "Синий/XL": 2
       }
     },
     "cost": 5187.0,
-    "retail": 24900.0,
+    "retail": 17430.0,
+    "orig_price": 24900.0,
     "cur_disc": 30,
-    "margin_pct": 79.2,
+    "margin_pct": 70.2,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -184,7 +187,7 @@
       "acceleration": 0
     },
     "frozen_cost": 57057,
-    "frozen_retail": 273900,
+    "frozen_retail": 191730,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
@@ -221,9 +224,10 @@
       }
     },
     "cost": 4964.0,
-    "retail": 23900.0,
+    "retail": 16730.0,
+    "orig_price": 23900.0,
     "cur_disc": 30,
-    "margin_pct": 79.2,
+    "margin_pct": 70.3,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -245,7 +249,7 @@
       "acceleration": 0
     },
     "frozen_cost": 49640,
-    "frozen_retail": 239000,
+    "frozen_retail": 167300,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
@@ -281,16 +285,17 @@
         "XL": 1
       },
       "matrix": {
-        "Синий/S": 3,
-        "Синий/XL": 1,
         "Синий/L": 2,
-        "Синий/M": 3
+        "Синий/M": 3,
+        "Синий/S": 3,
+        "Синий/XL": 1
       }
     },
     "cost": 5400.0,
-    "retail": 24900.0,
+    "retail": 17430.0,
+    "orig_price": 24900.0,
     "cur_disc": 30,
-    "margin_pct": 78.3,
+    "margin_pct": 69.0,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -312,7 +317,7 @@
       "acceleration": 0
     },
     "frozen_cost": 48600,
-    "frozen_retail": 224100,
+    "frozen_retail": 156870,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
@@ -347,12 +352,13 @@
       },
       "matrix": {
         "Синий/S": 2,
-        "Синий/L": 2,
-        "Синий/M": 3
+        "Синий/M": 3,
+        "Синий/L": 2
       }
     },
     "cost": 5677.0,
     "retail": 22900.0,
+    "orig_price": 22900.0,
     "cur_disc": 0,
     "margin_pct": 75.2,
     "sales": {
@@ -366,7 +372,7 @@
       "rev_90d": 22900.0
     },
     "last_sale": "2026-03-03",
-    "days_no_sale": 81,
+    "days_no_sale": 82,
     "days_since_supply": null,
     "sell_through": 12.5,
     "wos": 999,
@@ -380,7 +386,7 @@
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
-    "reason": "81 дн без продаж, 7 шт лежат — глубокая уценка",
+    "reason": "82 дн без продаж, 7 шт лежат — глубокая уценка",
     "photo": "[61560b]"
   },
   {
@@ -410,13 +416,14 @@
         "L": 2
       },
       "matrix": {
-        "Чёрно-серый/M": 4,
         "Чёрно-серый/L": 2,
-        "Чёрно-серый/S": 2
+        "Чёрно-серый/S": 2,
+        "Чёрно-серый/M": 4
       }
     },
     "cost": 4671.0,
     "retail": 19900.0,
+    "orig_price": 19900.0,
     "cur_disc": 0,
     "margin_pct": 76.5,
     "sales": {
@@ -477,15 +484,16 @@
       },
       "matrix": {
         "Хаки/S": 2,
+        "Хаки/L": 2,
         "Хаки/M": 2,
-        "Хаки/XL": 2,
-        "Хаки/L": 2
+        "Хаки/XL": 2
       }
     },
     "cost": 3869.0,
-    "retail": 18900.0,
+    "retail": 13230.0,
+    "orig_price": 18900.0,
     "cur_disc": 30,
-    "margin_pct": 79.5,
+    "margin_pct": 70.8,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -507,7 +515,7 @@
       "acceleration": 0
     },
     "frozen_cost": 30952,
-    "frozen_retail": 151200,
+    "frozen_retail": 105840,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 50,
@@ -541,13 +549,14 @@
         "L": 1
       },
       "matrix": {
+        "Хаки-зелёный/M": 3,
         "Хаки-зелёный/L": 1,
-        "Хаки-зелёный/S": 1,
-        "Хаки-зелёный/M": 3
+        "Хаки-зелёный/S": 1
       }
     },
     "cost": 4743.0,
     "retail": 22900.0,
+    "orig_price": 22900.0,
     "cur_disc": 0,
     "margin_pct": 79.3,
     "sales": {
@@ -605,13 +614,14 @@
         "XL": 1
       },
       "matrix": {
+        "Чёрный/M": 1,
         "Чёрный/L": 2,
-        "Чёрный/XL": 1,
-        "Чёрный/M": 1
+        "Чёрный/XL": 1
       }
     },
     "cost": 4024.0,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 76.2,
     "sales": {
@@ -670,6 +680,7 @@
     },
     "cost": 1600.0,
     "retail": 6900.0,
+    "orig_price": 6900.0,
     "cur_disc": 0,
     "margin_pct": 76.8,
     "sales": {
@@ -728,6 +739,7 @@
     },
     "cost": 1600.0,
     "retail": 6900.0,
+    "orig_price": 6900.0,
     "cur_disc": 0,
     "margin_pct": 76.8,
     "sales": {
@@ -786,6 +798,7 @@
     },
     "cost": 1500.0,
     "retail": 4900.0,
+    "orig_price": 4900.0,
     "cur_disc": 0,
     "margin_pct": 69.4,
     "sales": {
@@ -842,6 +855,7 @@
     },
     "cost": 1500.0,
     "retail": 4900.0,
+    "orig_price": 4900.0,
     "cur_disc": 0,
     "margin_pct": 69.4,
     "sales": {
@@ -900,6 +914,7 @@
     },
     "cost": 1200.0,
     "retail": 3900.0,
+    "orig_price": 3900.0,
     "cur_disc": 0,
     "margin_pct": 69.2,
     "sales": {
@@ -931,64 +946,6 @@
     "photo": "[36776b]"
   },
   {
-    "article": "300384",
-    "name": "Боди Black, L",
-    "brand": "Верх",
-    "subfolder": "Верх",
-    "stock": {
-      "total": 5,
-      "moscow": 4,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "S": 1,
-      "M": 2,
-      "L": 2
-    },
-    "variants": {
-      "colors": {},
-      "sizes": {
-        "S": 1,
-        "M": 2,
-        "L": 2
-      },
-      "matrix": {}
-    },
-    "cost": 1500.0,
-    "retail": 4900.0,
-    "cur_disc": 0,
-    "margin_pct": 69.4,
-    "sales": {
-      "s30": 0,
-      "s30_60": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 0,
-      "sall": 0,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "last_sale": null,
-    "days_no_sale": 999,
-    "days_since_supply": null,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 7500,
-    "frozen_retail": 24500,
-    "category": "DEAD",
-    "health_v2": "DEAD",
-    "suggested_discount": 50,
-    "reason": "Ни одной продажи, 5 шт лежат — глубокая уценка",
-    "photo": "[47024b]"
-  },
-  {
     "article": "300388",
     "name": "Топ White, L",
     "brand": "Верх",
@@ -1016,6 +973,7 @@
     },
     "cost": 1200.0,
     "retail": 3900.0,
+    "orig_price": 3900.0,
     "cur_disc": 0,
     "margin_pct": 69.2,
     "sales": {
@@ -1076,9 +1034,10 @@
       }
     },
     "cost": 2628.0,
-    "retail": 13900.0,
+    "retail": 9730.0,
+    "orig_price": 13900.0,
     "cur_disc": 30,
-    "margin_pct": 81.1,
+    "margin_pct": 73.0,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -1090,7 +1049,7 @@
       "rev_90d": 0.0
     },
     "last_sale": "2026-02-17",
-    "days_no_sale": 95,
+    "days_no_sale": 96,
     "days_since_supply": null,
     "sell_through": 33.3,
     "wos": 999,
@@ -1100,11 +1059,11 @@
       "acceleration": 0
     },
     "frozen_cost": 5256,
-    "frozen_retail": 27800,
+    "frozen_retail": 19460,
     "category": "DEAD",
     "health_v2": "DEAD",
     "suggested_discount": 40,
-    "reason": "95 дн без продаж, 2 шт лежат — глубокая уценка | сейчас −30%, мало → поднять до −40%",
+    "reason": "96 дн без продаж, 2 шт лежат — глубокая уценка | сейчас −30%, мало → поднять до −40%",
     "photo": "[68292b]"
   },
   {
@@ -1131,14 +1090,14 @@
     "variants": {
       "colors": {
         "Белый": 15,
-        "Розовый": 12,
-        "Тёмно-серый": 23,
-        "Тёмно-синий": 21,
-        "Хаки": 20,
-        "Чёрный": 37,
         "Серый": 25,
         "Серый меланж": 16,
-        "Светло-серый меланж": 17
+        "Тёмно-серый": 23,
+        "Тёмно-синий": 21,
+        "Чёрный": 37,
+        "Розовый": 12,
+        "Светло-серый меланж": 17,
+        "Хаки": 20
       },
       "sizes": {
         "M": 37,
@@ -1150,18 +1109,6 @@
         "OneSize": 34
       },
       "matrix": {
-        "Белый/2XL": 3,
-        "Розовый/M": 3,
-        "Тёмно-серый/2XL": 4,
-        "Тёмно-синий/L": 6,
-        "Хаки/2XL": 4,
-        "Чёрный/2XL": 6,
-        "Розовый/L": 5,
-        "Серый/M": 4,
-        "Серый/XL": 6,
-        "Серый меланж/XL": 4,
-        "Тёмно-синий/2XL": 5,
-        "Чёрный/4XL": 1,
         "Белый/XL": 4,
         "Серый/3XL": 3,
         "Серый/4XL": 2,
@@ -1170,31 +1117,44 @@
         "Тёмно-серый/M": 3,
         "Тёмно-синий/XL": 5,
         "Чёрный/M": 7,
-        "Светло-серый меланж/2XL": 4,
-        "Тёмно-серый/L": 6,
-        "Светло-серый меланж/L": 4,
-        "Светло-серый меланж/M": 3,
-        "Серый меланж/M": 4,
-        "Тёмно-серый/4XL": 1,
-        "Хаки/L": 6,
-        "Белый/L": 4,
-        "Серый/L": 6,
-        "Тёмно-синий/M": 5,
-        "Хаки/XL": 6,
-        "Чёрный/L": 9,
         "Белый/M": 4,
         "Розовый/XL": 4,
         "Светло-серый меланж/XL": 6,
         "Хаки/M": 4,
         "Чёрный/3XL": 4,
         "Чёрный/XL": 10,
+        "Белый/2XL": 3,
+        "Розовый/M": 3,
+        "Тёмно-серый/2XL": 4,
+        "Тёмно-синий/L": 6,
+        "Хаки/2XL": 4,
+        "Чёрный/2XL": 6,
         "Серый/2XL": 4,
         "Серый меланж/2XL": 2,
-        "Тёмно-серый/XL": 6
+        "Тёмно-серый/XL": 6,
+        "Светло-серый меланж/2XL": 4,
+        "Тёмно-серый/L": 6,
+        "Розовый/L": 5,
+        "Серый/M": 4,
+        "Серый/XL": 6,
+        "Серый меланж/XL": 4,
+        "Тёмно-синий/2XL": 5,
+        "Чёрный/4XL": 1,
+        "Белый/L": 4,
+        "Серый/L": 6,
+        "Тёмно-синий/M": 5,
+        "Хаки/XL": 6,
+        "Чёрный/L": 9,
+        "Светло-серый меланж/L": 4,
+        "Светло-серый меланж/M": 3,
+        "Серый меланж/M": 4,
+        "Тёмно-серый/4XL": 1,
+        "Хаки/L": 6
       }
     },
     "cost": 2450.0,
     "retail": 9900.0,
+    "orig_price": 9900.0,
     "cur_disc": 0,
     "margin_pct": 75.3,
     "sales": {
@@ -1208,7 +1168,7 @@
       "rev_90d": 237600.0
     },
     "last_sale": "2026-05-19",
-    "days_no_sale": 4,
+    "days_no_sale": 5,
     "days_since_supply": null,
     "sell_through": 9.8,
     "wos": 41.0,
@@ -1248,9 +1208,9 @@
       "colors": {
         "Бежевый": 28,
         "Коричневый": 46,
-        "Серый": 46,
         "Тёмно-серый": 55,
-        "Хаки": 26
+        "Хаки": 26,
+        "Серый": 46
       },
       "sizes": {
         "L": 23,
@@ -1260,60 +1220,61 @@
         "4XL": 21
       },
       "matrix": {
+        "Бежевый/4XL": 7,
+        "Коричневый/XL": 11,
+        "Тёмно-серый/2XL": 13,
+        "Хаки/2XL": 8,
         "Бежевый/XL": 7,
         "Коричневый/2XL": 12,
         "Серый/4XL": 7,
         "Тёмно-серый/4XL": 7,
         "Хаки/3XL": 7,
-        "Серый/L": 3,
-        "Бежевый/4XL": 7,
-        "Коричневый/XL": 11,
-        "Тёмно-серый/2XL": 13,
+        "Бежевый/2XL": 6,
+        "Тёмно-серый/XL": 13,
         "Хаки/L": 6,
-        "Коричневый/L": 11,
-        "Серый/2XL": 10,
-        "Серый/XL": 12,
-        "Тёмно-серый/L": 3,
-        "Хаки/XL": 5,
+        "Серый/L": 3,
         "Бежевый/3XL": 8,
         "Коричневый/3XL": 12,
         "Серый/3XL": 14,
         "Тёмно-серый/3XL": 19,
-        "Хаки/2XL": 8,
-        "Бежевый/2XL": 6,
-        "Тёмно-серый/XL": 13
+        "Коричневый/L": 11,
+        "Серый/2XL": 10,
+        "Серый/XL": 12,
+        "Тёмно-серый/L": 3,
+        "Хаки/XL": 5
       }
     },
     "cost": 2190.0,
     "retail": 10900.0,
+    "orig_price": 10900.0,
     "cur_disc": 0,
     "margin_pct": 79.9,
     "sales": {
-      "s30": 23,
-      "s30_60": 21,
+      "s30": 22,
+      "s30_60": 22,
       "s90": 52,
       "s180": 55,
       "s365": 55,
       "sall": 55,
-      "rev_30d": 250700.0,
+      "rev_30d": 239800.0,
       "rev_90d": 566800.0
     },
     "last_sale": "2026-05-22",
-    "days_no_sale": 1,
+    "days_no_sale": 2,
     "days_since_supply": null,
     "sell_through": 21.5,
-    "wos": 37.5,
+    "wos": 39.2,
     "velocity": {
-      "recent_30d": 23,
+      "recent_30d": 22,
       "avg_30d": 17.3,
-      "acceleration": 1.33
+      "acceleration": 1.27
     },
     "frozen_cost": 440190,
     "frozen_retail": 2190900,
     "category": "SLOW",
     "health_v2": "SLOW",
     "suggested_discount": 15,
-    "reason": "23/мес × 201 шт = ~9 мес запаса — мягко ускорить",
+    "reason": "22/мес × 201 шт = ~9 мес запаса — мягко ускорить",
     "photo": "[16628b]"
   },
   {
@@ -1335,11 +1296,11 @@
     },
     "variants": {
       "colors": {
-        "Тёмно-серый": 52,
         "Белый": 40,
-        "Жёлтый": 12,
         "Тёмно-зелёный": 16,
         "Чёрный": 56,
+        "Жёлтый": 12,
+        "Тёмно-серый": 52,
         "Коричневый": 35
       },
       "sizes": {
@@ -1348,56 +1309,57 @@
         "4XL": 59
       },
       "matrix": {
-        "Тёмно-серый/3XL": 25,
-        "Белый/4XL": 13,
-        "Жёлтый/3XL": 6,
         "Белый/2XL": 9,
         "Тёмно-зелёный/4XL": 4,
         "Чёрный/4XL": 16,
+        "Жёлтый/2XL": 2,
+        "Чёрный/2XL": 12,
+        "Тёмно-серый/3XL": 25,
+        "Коричневый/2XL": 9,
+        "Коричневый/3XL": 18,
+        "Коричневый/4XL": 8,
+        "Белый/4XL": 13,
+        "Жёлтый/3XL": 6,
+        "Белый/3XL": 18,
+        "Чёрный/3XL": 28,
         "Жёлтый/4XL": 4,
         "Тёмно-зелёный/2XL": 3,
         "Тёмно-зелёный/3XL": 9,
         "Тёмно-серый/2XL": 13,
-        "Тёмно-серый/4XL": 14,
-        "Белый/3XL": 18,
-        "Чёрный/3XL": 28,
-        "Жёлтый/2XL": 2,
-        "Чёрный/2XL": 12,
-        "Коричневый/2XL": 9,
-        "Коричневый/3XL": 18,
-        "Коричневый/4XL": 8
+        "Тёмно-серый/4XL": 14
       }
     },
     "cost": 1909.2307692307693,
     "retail": 8900.0,
+    "orig_price": 8900.0,
     "cur_disc": 0,
     "margin_pct": 78.5,
     "sales": {
-      "s30": 25,
-      "s30_60": 15,
+      "s30": 23,
+      "s30_60": 17,
       "s90": 49,
       "s180": 50,
       "s365": 50,
       "sall": 50,
-      "rev_30d": 222500.0,
+      "rev_30d": 204700.0,
       "rev_90d": 436100.0
     },
     "last_sale": "2026-05-17",
-    "days_no_sale": 6,
+    "days_no_sale": 7,
     "days_since_supply": null,
     "sell_through": 19.2,
-    "wos": 36.2,
+    "wos": 39.3,
     "velocity": {
-      "recent_30d": 25,
+      "recent_30d": 23,
       "avg_30d": 16.3,
-      "acceleration": 1.53
+      "acceleration": 1.41
     },
     "frozen_cost": 402847,
     "frozen_retail": 1877900,
     "category": "SLOW",
     "health_v2": "SLOW",
     "suggested_discount": 15,
-    "reason": "25/мес × 211 шт = ~8 мес запаса — мягко ускорить",
+    "reason": "23/мес × 211 шт = ~9 мес запаса — мягко ускорить",
     "photo": "[17880b]"
   },
   {
@@ -1421,8 +1383,8 @@
     "variants": {
       "colors": {
         "Белый": 6,
-        "Чёрный": 14,
-        "Серый": 5
+        "Серый": 5,
+        "Чёрный": 14
       },
       "sizes": {
         "M": 4,
@@ -1431,42 +1393,43 @@
         "2XL": 6
       },
       "matrix": {
-        "Белый/L": 2,
-        "Белый/2XL": 1,
-        "Чёрный/L": 5,
         "Белый/M": 1,
         "Серый/2XL": 1,
         "Серый/L": 2,
+        "Чёрный/2XL": 4,
+        "Белый/L": 2,
+        "Белый/XL": 2,
         "Чёрный/M": 1,
         "Чёрный/XL": 4,
-        "Серый/M": 2,
-        "Чёрный/2XL": 4,
-        "Белый/XL": 2
+        "Белый/2XL": 1,
+        "Чёрный/L": 5,
+        "Серый/M": 2
       }
     },
     "cost": 5091.75,
     "retail": 19900.0,
+    "orig_price": 19900.0,
     "cur_disc": 0,
     "margin_pct": 74.4,
     "sales": {
       "s30": 4,
-      "s30_60": 9,
-      "s90": 22,
+      "s30_60": 8,
+      "s90": 21,
       "s180": 22,
       "s365": 22,
       "sall": 22,
       "rev_30d": 79600.0,
-      "rev_90d": 437800.0
+      "rev_90d": 417900.0
     },
     "last_sale": "2026-05-09",
-    "days_no_sale": 14,
+    "days_no_sale": 15,
     "days_since_supply": null,
     "sell_through": 46.8,
     "wos": 26.8,
     "velocity": {
       "recent_30d": 4,
-      "avg_30d": 7.3,
-      "acceleration": 0.55
+      "avg_30d": 7.0,
+      "acceleration": 0.57
     },
     "frozen_cost": 127293,
     "frozen_retail": 497500,
@@ -1506,20 +1469,21 @@
         "XL": 5
       },
       "matrix": {
-        "Синий/M": 3,
         "Синий/L": 2,
         "Чёрный/L": 2,
         "Чёрный/XL": 2,
-        "Чёрный/S": 2,
         "Синий/S": 3,
         "Чёрный/M": 2,
-        "Синий/XL": 3
+        "Синий/M": 3,
+        "Синий/XL": 3,
+        "Чёрный/S": 2
       }
     },
     "cost": 5258.0,
-    "retail": 24900.0,
+    "retail": 17430.0,
+    "orig_price": 24900.0,
     "cur_disc": 30,
-    "margin_pct": 78.9,
+    "margin_pct": 69.8,
     "sales": {
       "s30": 1,
       "s30_60": 1,
@@ -1527,11 +1491,11 @@
       "s180": 2,
       "s365": 2,
       "sall": 2,
-      "rev_30d": 24900.0,
-      "rev_90d": 49800.0
+      "rev_30d": 17430.0,
+      "rev_90d": 34860.0
     },
     "last_sale": "2026-05-08",
-    "days_no_sale": 15,
+    "days_no_sale": 16,
     "days_since_supply": null,
     "sell_through": 9.5,
     "wos": 81.4,
@@ -1541,7 +1505,7 @@
       "acceleration": 1.5
     },
     "frozen_cost": 99902,
-    "frozen_retail": 473100,
+    "frozen_retail": 331170,
     "category": "SLOW",
     "health_v2": "SLOW",
     "suggested_discount": 0,
@@ -1578,20 +1542,21 @@
         "XL": 4
       },
       "matrix": {
-        "Голубой/M": 3,
-        "Синий/XL": 2,
-        "Голубой/L": 2,
-        "Голубой/S": 2,
-        "Синий/S": 1,
         "Голубой/XL": 2,
         "Синий/L": 2,
-        "Синий/M": 3
+        "Голубой/M": 3,
+        "Синий/XL": 2,
+        "Синий/M": 3,
+        "Голубой/L": 2,
+        "Синий/S": 1,
+        "Голубой/S": 2
       }
     },
     "cost": 5613.0,
-    "retail": 25900.0,
+    "retail": 18130.0,
+    "orig_price": 25900.0,
     "cur_disc": 30,
-    "margin_pct": 78.3,
+    "margin_pct": 69.0,
     "sales": {
       "s30": 1,
       "s30_60": 0,
@@ -1599,11 +1564,11 @@
       "s180": 2,
       "s365": 2,
       "sall": 2,
-      "rev_30d": 25900.0,
-      "rev_90d": 51800.0
+      "rev_30d": 18130.0,
+      "rev_90d": 36260.0
     },
     "last_sale": "2026-05-20",
-    "days_no_sale": 3,
+    "days_no_sale": 4,
     "days_since_supply": null,
     "sell_through": 10.5,
     "wos": 72.9,
@@ -1613,7 +1578,7 @@
       "acceleration": 1.5
     },
     "frozen_cost": 95421,
-    "frozen_retail": 440300,
+    "frozen_retail": 308210,
     "category": "SLOW",
     "health_v2": "SLOW",
     "suggested_discount": 0,
@@ -1640,8 +1605,8 @@
     },
     "variants": {
       "colors": {
-        "Синий": 8,
-        "Чёрный": 10
+        "Чёрный": 10,
+        "Синий": 8
       },
       "sizes": {
         "S": 6,
@@ -1650,18 +1615,19 @@
         "XL": 4
       },
       "matrix": {
+        "Чёрный/M": 3,
+        "Чёрный/XL": 2,
         "Синий/L": 1,
         "Чёрный/L": 2,
         "Чёрный/S": 3,
-        "Синий/M": 2,
+        "Синий/XL": 2,
         "Синий/S": 3,
-        "Чёрный/M": 3,
-        "Чёрный/XL": 2,
-        "Синий/XL": 2
+        "Синий/M": 2
       }
     },
     "cost": 4832.0,
     "retail": 22900.0,
+    "orig_price": 22900.0,
     "cur_disc": 0,
     "margin_pct": 78.9,
     "sales": {
@@ -1675,7 +1641,7 @@
       "rev_90d": 45800.0
     },
     "last_sale": "2026-05-12",
-    "days_no_sale": 11,
+    "days_no_sale": 12,
     "days_since_supply": null,
     "sell_through": 10.0,
     "wos": 77.1,
@@ -1721,17 +1687,18 @@
       },
       "matrix": {
         "Тёмно-серый/L": 4,
-        "Светло-серый/XL": 4,
-        "Тёмно-серый/2XL": 5,
-        "Светло-серый/2XL": 4,
         "Тёмно-серый/XL": 5,
-        "Светло-серый/L": 3
+        "Светло-серый/L": 3,
+        "Светло-серый/XL": 4,
+        "Светло-серый/2XL": 4,
+        "Тёмно-серый/2XL": 5
       }
     },
     "cost": 2628.0,
-    "retail": 15900.0,
+    "retail": 11130.0,
+    "orig_price": 15900.0,
     "cur_disc": 30,
-    "margin_pct": 83.5,
+    "margin_pct": 76.4,
     "sales": {
       "s30": 4,
       "s30_60": 1,
@@ -1739,11 +1706,11 @@
       "s180": 5,
       "s365": 5,
       "sall": 5,
-      "rev_30d": 63600.0,
-      "rev_90d": 79500.0
+      "rev_30d": 44520.0,
+      "rev_90d": 55650.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 16.7,
     "wos": 26.8,
@@ -1753,7 +1720,7 @@
       "acceleration": 2.4
     },
     "frozen_cost": 65700,
-    "frozen_retail": 397500,
+    "frozen_retail": 278250,
     "category": "SLOW",
     "health_v2": "SLOW",
     "suggested_discount": 0,
@@ -1779,8 +1746,8 @@
     },
     "variants": {
       "colors": {
-        "Светло-серый": 14,
-        "Сине-серый": 11
+        "Сине-серый": 11,
+        "Светло-серый": 14
       },
       "sizes": {
         "L": 9,
@@ -1788,18 +1755,19 @@
         "2XL": 7
       },
       "matrix": {
+        "Сине-серый/XL": 4,
         "Светло-серый/2XL": 5,
         "Светло-серый/XL": 5,
-        "Светло-серый/L": 4,
         "Сине-серый/2XL": 2,
         "Сине-серый/L": 5,
-        "Сине-серый/XL": 4
+        "Светло-серый/L": 4
       }
     },
     "cost": 2555.0,
-    "retail": 15900.0,
+    "retail": 11130.0,
+    "orig_price": 15900.0,
     "cur_disc": 30,
-    "margin_pct": 83.9,
+    "margin_pct": 77.0,
     "sales": {
       "s30": 2,
       "s30_60": 2,
@@ -1807,11 +1775,11 @@
       "s180": 4,
       "s365": 4,
       "sall": 4,
-      "rev_30d": 31800.0,
-      "rev_90d": 63600.0
+      "rev_30d": 22260.0,
+      "rev_90d": 44520.0
     },
     "last_sale": "2026-05-15",
-    "days_no_sale": 8,
+    "days_no_sale": 9,
     "days_since_supply": null,
     "sell_through": 13.8,
     "wos": 53.6,
@@ -1821,7 +1789,7 @@
       "acceleration": 1.5
     },
     "frozen_cost": 63875,
-    "frozen_retail": 397500,
+    "frozen_retail": 278250,
     "category": "SLOW",
     "health_v2": "SLOW",
     "suggested_discount": 0,
@@ -1845,23 +1813,24 @@
     },
     "variants": {
       "colors": {
+        "Чёрная клетка": 3,
         "Хаки клетка": 5,
-        "Синяя клетка": 4,
         "Красная клетка": 5,
-        "Чёрная клетка": 3
+        "Синяя клетка": 4
       },
       "sizes": {
         "OneSize": 17
       },
       "matrix": {
+        "Чёрная клетка/OneSize": 3,
         "Хаки клетка/OneSize": 5,
-        "Синяя клетка/OneSize": 4,
         "Красная клетка/OneSize": 5,
-        "Чёрная клетка/OneSize": 3
+        "Синяя клетка/OneSize": 4
       }
     },
     "cost": 3090.3333333333335,
     "retail": 13900.0,
+    "orig_price": 13900.0,
     "cur_disc": 0,
     "margin_pct": 77.8,
     "sales": {
@@ -1875,7 +1844,7 @@
       "rev_90d": 69500.0
     },
     "last_sale": "2026-05-07",
-    "days_no_sale": 16,
+    "days_no_sale": 17,
     "days_since_supply": null,
     "sell_through": 22.7,
     "wos": 36.4,
@@ -1922,18 +1891,19 @@
         "XL": 3
       },
       "matrix": {
-        "Голубой/L": 1,
-        "Чёрный/M": 2,
         "Голубой/S": 1,
         "Чёрный/XL": 2,
-        "Чёрный/S": 1,
-        "Голубой/M": 1,
         "Голубой/XL": 1,
-        "Чёрный/L": 1
+        "Голубой/L": 1,
+        "Чёрный/M": 2,
+        "Чёрный/L": 1,
+        "Голубой/M": 1,
+        "Чёрный/S": 1
       }
     },
     "cost": 4964.0,
     "retail": 23900.0,
+    "orig_price": 23900.0,
     "cur_disc": 0,
     "margin_pct": 79.2,
     "sales": {
@@ -1947,7 +1917,7 @@
       "rev_90d": 95600.0
     },
     "last_sale": "2026-04-11",
-    "days_no_sale": 42,
+    "days_no_sale": 43,
     "days_since_supply": null,
     "sell_through": 28.6,
     "wos": 999,
@@ -1961,7 +1931,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (42 дн назад), 90д=4 — остыло",
+    "reason": "Продавалось, встало (43 дн назад), 90д=4 — остыло",
     "photo": "[60668b]"
   },
   {
@@ -2000,9 +1970,10 @@
       }
     },
     "cost": 5471.0,
-    "retail": 24900.0,
+    "retail": 17430.0,
+    "orig_price": 24900.0,
     "cur_disc": 30,
-    "margin_pct": 78.0,
+    "margin_pct": 68.6,
     "sales": {
       "s30": 0,
       "s30_60": 1,
@@ -2011,10 +1982,10 @@
       "s365": 1,
       "sall": 1,
       "rev_30d": 0.0,
-      "rev_90d": 24900.0
+      "rev_90d": 17430.0
     },
     "last_sale": "2026-03-25",
-    "days_no_sale": 59,
+    "days_no_sale": 60,
     "days_since_supply": null,
     "sell_through": 10.0,
     "wos": 999,
@@ -2024,11 +1995,11 @@
       "acceleration": 0.0
     },
     "frozen_cost": 49239,
-    "frozen_retail": 224100,
+    "frozen_retail": 156870,
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 0,
-    "reason": "Продавалось, встало (59 дн назад), 90д=1 — остыло | уже −30% в МС",
+    "reason": "Продавалось, встало (60 дн назад), 90д=1 — остыло | уже −30% в МС",
     "photo": "[61836b]"
   },
   {
@@ -2058,13 +2029,14 @@
         "L": 2
       },
       "matrix": {
+        "Чёрно-серый/S": 4,
         "Чёрно-серый/L": 2,
-        "Чёрно-серый/M": 3,
-        "Чёрно-серый/S": 4
+        "Чёрно-серый/M": 3
       }
     },
     "cost": 4743.0,
     "retail": 19900.0,
+    "orig_price": 19900.0,
     "cur_disc": 0,
     "margin_pct": 76.2,
     "sales": {
@@ -2078,7 +2050,7 @@
       "rev_90d": 19900.0
     },
     "last_sale": "2026-04-03",
-    "days_no_sale": 50,
+    "days_no_sale": 51,
     "days_since_supply": null,
     "sell_through": 10.0,
     "wos": 999,
@@ -2092,7 +2064,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (50 дн назад), 90д=1 — остыло",
+    "reason": "Продавалось, встало (51 дн назад), 90д=1 — остыло",
     "photo": "[65380b]"
   },
   {
@@ -2124,14 +2096,15 @@
         "XL": 2
       },
       "matrix": {
-        "Синий/M": 1,
-        "Синий/XL": 2,
         "Синий/L": 2,
-        "Синий/S": 2
+        "Синий/S": 2,
+        "Синий/M": 1,
+        "Синий/XL": 2
       }
     },
     "cost": 6040.0,
     "retail": 27900.0,
+    "orig_price": 27900.0,
     "cur_disc": 0,
     "margin_pct": 78.4,
     "sales": {
@@ -2145,7 +2118,7 @@
       "rev_90d": 83700.0
     },
     "last_sale": "2026-04-04",
-    "days_no_sale": 49,
+    "days_no_sale": 50,
     "days_since_supply": null,
     "sell_through": 30.0,
     "wos": 999,
@@ -2159,7 +2132,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (49 дн назад), 90д=3 — остыло",
+    "reason": "Продавалось, встало (50 дн назад), 90д=3 — остыло",
     "photo": "[64988b]"
   },
   {
@@ -2179,21 +2152,22 @@
     },
     "variants": {
       "colors": {
-        "Коричневый": 3,
-        "Чёрный": 5
+        "Чёрный": 5,
+        "Коричневый": 3
       },
       "sizes": {
         "L": 8
       },
       "matrix": {
-        "Коричневый/L": 3,
-        "Чёрный/L": 5
+        "Чёрный/L": 5,
+        "Коричневый/L": 3
       }
     },
     "cost": 5037.0,
-    "retail": 25900.0,
+    "retail": 18130.0,
+    "orig_price": 25900.0,
     "cur_disc": 30,
-    "margin_pct": 80.6,
+    "margin_pct": 72.2,
     "sales": {
       "s30": 0,
       "s30_60": 1,
@@ -2202,10 +2176,10 @@
       "s365": 1,
       "sall": 1,
       "rev_30d": 0.0,
-      "rev_90d": 25900.0
+      "rev_90d": 18130.0
     },
     "last_sale": "2026-03-26",
-    "days_no_sale": 58,
+    "days_no_sale": 59,
     "days_since_supply": null,
     "sell_through": 11.1,
     "wos": 999,
@@ -2215,11 +2189,11 @@
       "acceleration": 0.0
     },
     "frozen_cost": 40296,
-    "frozen_retail": 207200,
+    "frozen_retail": 145040,
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 0,
-    "reason": "Продавалось, встало (58 дн назад), 90д=1 — остыло | уже −30% в МС",
+    "reason": "Продавалось, встало (59 дн назад), 90д=1 — остыло | уже −30% в МС",
     "photo": "[74380b]"
   },
   {
@@ -2256,6 +2230,7 @@
     },
     "cost": 6396.0,
     "retail": 25900.0,
+    "orig_price": 25900.0,
     "cur_disc": 0,
     "margin_pct": 75.3,
     "sales": {
@@ -2269,7 +2244,7 @@
       "rev_90d": 51800.0
     },
     "last_sale": "2026-04-09",
-    "days_no_sale": 44,
+    "days_no_sale": 45,
     "days_since_supply": null,
     "sell_through": 25.0,
     "wos": 999,
@@ -2283,7 +2258,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (44 дн назад), 90д=2 — остыло",
+    "reason": "Продавалось, встало (45 дн назад), 90д=2 — остыло",
     "photo": "[50076b]"
   },
   {
@@ -2303,26 +2278,27 @@
     },
     "variants": {
       "colors": {
+        "Чёрный": 3,
         "Синий": 2,
-        "Серый меланж": 1,
-        "Чёрный": 3
+        "Серый меланж": 1
       },
       "sizes": {
         "L": 6
       },
       "matrix": {
+        "Чёрный/L": 3,
         "Синий/L": 2,
-        "Серый меланж/L": 1,
-        "Чёрный/L": 3
+        "Серый меланж/L": 1
       }
     },
     "cost": 5767.0,
     "retail": 26900.0,
+    "orig_price": 26900.0,
     "cur_disc": 0,
     "margin_pct": 78.6,
     "sales": {
       "s30": 0,
-      "s30_60": 3,
+      "s30_60": 1,
       "s90": 6,
       "s180": 6,
       "s365": 6,
@@ -2331,7 +2307,7 @@
       "rev_90d": 161400.0
     },
     "last_sale": "2026-04-04",
-    "days_no_sale": 49,
+    "days_no_sale": 50,
     "days_since_supply": null,
     "sell_through": 50.0,
     "wos": 999,
@@ -2345,7 +2321,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (49 дн назад), 90д=6 — остыло",
+    "reason": "Продавалось, встало (50 дн назад), 90д=6 — остыло",
     "photo": "[55080b]"
   },
   {
@@ -2382,6 +2358,7 @@
     },
     "cost": 5677.0,
     "retail": 19900.0,
+    "orig_price": 19900.0,
     "cur_disc": 0,
     "margin_pct": 71.5,
     "sales": {
@@ -2395,7 +2372,7 @@
       "rev_90d": 39800.0
     },
     "last_sale": "2026-04-03",
-    "days_no_sale": 50,
+    "days_no_sale": 51,
     "days_since_supply": null,
     "sell_through": 25.0,
     "wos": 999,
@@ -2409,8 +2386,79 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (50 дн назад), 90д=2 — остыло",
+    "reason": "Продавалось, встало (51 дн назад), 90д=2 — остыло",
     "photo": "[58216b]"
+  },
+  {
+    "article": "SC911",
+    "name": "Брюки-бананы весенние (SC911)",
+    "brand": "Низ",
+    "subfolder": "Низ",
+    "stock": {
+      "total": 11,
+      "moscow": 5,
+      "tsum_online": 6,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "M": 3,
+      "L": 5,
+      "XL": 3
+    },
+    "variants": {
+      "colors": {
+        "Коричневый": 4,
+        "Светло-серый": 1,
+        "Чёрный": 6
+      },
+      "sizes": {
+        "M": 3,
+        "L": 5,
+        "XL": 3
+      },
+      "matrix": {
+        "Коричневый/M": 2,
+        "Коричневый/L": 1,
+        "Светло-серый/L": 1,
+        "Коричневый/XL": 1,
+        "Чёрный/M": 1,
+        "Чёрный/L": 3,
+        "Чёрный/XL": 2
+      }
+    },
+    "cost": 2993.0,
+    "retail": 15900.0,
+    "orig_price": 15900.0,
+    "cur_disc": 0,
+    "margin_pct": 81.2,
+    "sales": {
+      "s30": 2,
+      "s30_60": 6,
+      "s90": 14,
+      "s180": 18,
+      "s365": 18,
+      "sall": 18,
+      "rev_30d": 31800.0,
+      "rev_90d": 222600.0
+    },
+    "last_sale": "2026-05-11",
+    "days_no_sale": 13,
+    "days_since_supply": null,
+    "sell_through": 62.1,
+    "wos": 23.6,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 4.7,
+      "acceleration": 0.43
+    },
+    "frozen_cost": 32923,
+    "frozen_retail": 174900,
+    "category": "SLOW",
+    "health_v2": "COOLING",
+    "suggested_discount": 25,
+    "reason": "Скорость упала (6→2/мес) при остатке 11 — остывает",
+    "photo": "[59760b]"
   },
   {
     "article": "DLJ20211",
@@ -2440,15 +2488,16 @@
         "L": 2
       },
       "matrix": {
-        "Тёмно-синий/L": 1,
-        "Чёрный/S": 1,
         "Тёмно-синий/M": 3,
         "Чёрный/L": 1,
-        "Тёмно-синий/S": 2
+        "Тёмно-синий/S": 2,
+        "Тёмно-синий/L": 1,
+        "Чёрный/S": 1
       }
     },
     "cost": 3881.0,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 77.0,
     "sales": {
@@ -2462,7 +2511,7 @@
       "rev_90d": 50700.0
     },
     "last_sale": "2026-05-08",
-    "days_no_sale": 15,
+    "days_no_sale": 16,
     "days_since_supply": null,
     "sell_through": 27.3,
     "wos": 34.3,
@@ -2509,15 +2558,16 @@
       },
       "matrix": {
         "Синий/XL": 2,
+        "Синий/L": 2,
         "Синий/S": 1,
-        "Синий/M": 2,
-        "Синий/L": 2
+        "Синий/M": 2
       }
     },
     "cost": 4161.0,
-    "retail": 19900.0,
+    "retail": 13930.0,
+    "orig_price": 19900.0,
     "cur_disc": 30,
-    "margin_pct": 79.1,
+    "margin_pct": 70.1,
     "sales": {
       "s30": 0,
       "s30_60": 0,
@@ -2526,10 +2576,10 @@
       "s365": 1,
       "sall": 1,
       "rev_30d": 0.0,
-      "rev_90d": 19900.0
+      "rev_90d": 13930.0
     },
     "last_sale": "2026-03-10",
-    "days_no_sale": 74,
+    "days_no_sale": 75,
     "days_since_supply": null,
     "sell_through": 12.5,
     "wos": 999,
@@ -2539,11 +2589,11 @@
       "acceleration": 0.0
     },
     "frozen_cost": 29127,
-    "frozen_retail": 139300,
+    "frozen_retail": 97510,
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 40,
-    "reason": "Продавалось, встало (74 дн назад), 90д=1 — остыло | сейчас −30%, мало → поднять до −40%",
+    "reason": "Продавалось, встало (75 дн назад), 90д=1 — остыло | сейчас −30%, мало → поднять до −40%",
     "photo": "[68592b]"
   },
   {
@@ -2573,18 +2623,19 @@
         "L": 2
       },
       "matrix": {
-        "Голубой/L": 2,
         "Голубой/M": 1,
+        "Голубой/L": 2,
         "Голубой/S": 1
       }
     },
     "cost": 5475.0,
     "retail": 25900.0,
+    "orig_price": 25900.0,
     "cur_disc": 0,
     "margin_pct": 78.9,
     "sales": {
       "s30": 0,
-      "s30_60": 1,
+      "s30_60": 0,
       "s90": 1,
       "s180": 2,
       "s365": 2,
@@ -2593,7 +2644,7 @@
       "rev_90d": 25900.0
     },
     "last_sale": "2026-03-24",
-    "days_no_sale": 60,
+    "days_no_sale": 61,
     "days_since_supply": null,
     "sell_through": 33.3,
     "wos": 999,
@@ -2607,7 +2658,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (60 дн назад), 90д=1 — остыло",
+    "reason": "Продавалось, встало (61 дн назад), 90д=1 — остыло",
     "photo": "[54368b]"
   },
   {
@@ -2640,14 +2691,15 @@
         "2XL": 1
       },
       "matrix": {
-        "Чёрный/2XL": 1,
         "Чёрный/XL": 2,
+        "Чёрный/2XL": 1,
         "Чёрный/L": 1,
         "Белый/M": 1
       }
     },
     "cost": 3212.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 75.1,
     "sales": {
@@ -2661,7 +2713,7 @@
       "rev_90d": 245100.0
     },
     "last_sale": "2026-05-09",
-    "days_no_sale": 14,
+    "days_no_sale": 15,
     "days_since_supply": null,
     "sell_through": 80.0,
     "wos": 7.1,
@@ -2695,23 +2747,24 @@
     },
     "variants": {
       "colors": {
+        "Серый": 1,
         "Белый": 1,
         "Тёмно-синий": 2,
-        "Чёрный": 4,
-        "Серый": 1
+        "Чёрный": 4
       },
       "sizes": {
         "OneSize": 8
       },
       "matrix": {
+        "Серый/OneSize": 1,
         "Белый/OneSize": 1,
         "Тёмно-синий/OneSize": 2,
-        "Чёрный/OneSize": 4,
-        "Серый/OneSize": 1
+        "Чёрный/OneSize": 4
       }
     },
     "cost": 1971.0,
     "retail": 9900.0,
+    "orig_price": 9900.0,
     "cur_disc": 0,
     "margin_pct": 80.1,
     "sales": {
@@ -2725,7 +2778,7 @@
       "rev_90d": 29700.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 27.3,
     "wos": 34.3,
@@ -2772,6 +2825,7 @@
     },
     "cost": 2628.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 79.6,
     "sales": {
@@ -2785,7 +2839,7 @@
       "rev_90d": 25800.0
     },
     "last_sale": "2026-04-07",
-    "days_no_sale": 46,
+    "days_no_sale": 47,
     "days_since_supply": null,
     "sell_through": 28.6,
     "wos": 999,
@@ -2799,7 +2853,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (46 дн назад), 90д=2 — остыло",
+    "reason": "Продавалось, встало (47 дн назад), 90д=2 — остыло",
     "photo": "[25788b]"
   },
   {
@@ -2830,6 +2884,7 @@
     },
     "cost": 3285.0,
     "retail": 15900.0,
+    "orig_price": 15900.0,
     "cur_disc": 0,
     "margin_pct": 79.3,
     "sales": {
@@ -2843,7 +2898,7 @@
       "rev_90d": 15900.0
     },
     "last_sale": "2026-04-15",
-    "days_no_sale": 38,
+    "days_no_sale": 39,
     "days_since_supply": null,
     "sell_through": 20.0,
     "wos": 999,
@@ -2857,7 +2912,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (38 дн назад), 90д=1 — остыло",
+    "reason": "Продавалось, встало (39 дн назад), 90д=1 — остыло",
     "photo": "[26788b]"
   },
   {
@@ -2890,6 +2945,7 @@
     },
     "cost": 1606.0,
     "retail": 7900.0,
+    "orig_price": 7900.0,
     "cur_disc": 0,
     "margin_pct": 79.7,
     "sales": {
@@ -2903,7 +2959,7 @@
       "rev_90d": 86900.0
     },
     "last_sale": "2026-04-20",
-    "days_no_sale": 33,
+    "days_no_sale": 34,
     "days_since_supply": null,
     "sell_through": 57.9,
     "wos": 999,
@@ -2917,7 +2973,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (33 дн назад), 90д=11 — остыло",
+    "reason": "Продавалось, встало (34 дн назад), 90д=11 — остыло",
     "photo": "[6948b]"
   },
   {
@@ -2937,21 +2993,22 @@
     },
     "variants": {
       "colors": {
+        "Серый": 4,
         "Белый": 3,
-        "Хаки": 5,
-        "Серый": 4
+        "Хаки": 5
       },
       "sizes": {
         "OneSize": 12
       },
       "matrix": {
+        "Серый/OneSize": 4,
         "Белый/OneSize": 3,
-        "Хаки/OneSize": 5,
-        "Серый/OneSize": 4
+        "Хаки/OneSize": 5
       }
     },
     "cost": 1022.0,
     "retail": 4900.0,
+    "orig_price": 4900.0,
     "cur_disc": 0,
     "margin_pct": 79.1,
     "sales": {
@@ -2965,7 +3022,7 @@
       "rev_90d": 19600.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 25.0,
     "wos": 51.4,
@@ -2999,19 +3056,20 @@
     },
     "variants": {
       "colors": {
-        "Серый": 3,
-        "Чёрный": 5
+        "Чёрный": 5,
+        "Серый": 3
       },
       "sizes": {
         "OneSize": 8
       },
       "matrix": {
-        "Серый/OneSize": 3,
-        "Чёрный/OneSize": 5
+        "Чёрный/OneSize": 5,
+        "Серый/OneSize": 3
       }
     },
     "cost": 1460.0,
     "retail": 7900.0,
+    "orig_price": 7900.0,
     "cur_disc": 0,
     "margin_pct": 81.5,
     "sales": {
@@ -3025,7 +3083,7 @@
       "rev_90d": 15800.0
     },
     "last_sale": "2026-04-12",
-    "days_no_sale": 41,
+    "days_no_sale": 42,
     "days_since_supply": null,
     "sell_through": 20.0,
     "wos": 999,
@@ -3039,7 +3097,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (41 дн назад), 90д=2 — остыло",
+    "reason": "Продавалось, встало (42 дн назад), 90д=2 — остыло",
     "photo": "[68532b]"
   },
   {
@@ -3059,19 +3117,20 @@
     },
     "variants": {
       "colors": {
-        "Белый": 1,
-        "Чёрный": 4
+        "Чёрный": 4,
+        "Белый": 1
       },
       "sizes": {
         "OneSize": 5
       },
       "matrix": {
-        "Белый/OneSize": 1,
-        "Чёрный/OneSize": 4
+        "Чёрный/OneSize": 4,
+        "Белый/OneSize": 1
       }
     },
     "cost": 2117.0,
     "retail": 10900.0,
+    "orig_price": 10900.0,
     "cur_disc": 0,
     "margin_pct": 80.6,
     "sales": {
@@ -3085,7 +3144,7 @@
       "rev_90d": 32700.0
     },
     "last_sale": "2026-04-21",
-    "days_no_sale": 32,
+    "days_no_sale": 33,
     "days_since_supply": null,
     "sell_through": 37.5,
     "wos": 999,
@@ -3099,7 +3158,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (32 дн назад), 90д=3 — остыло",
+    "reason": "Продавалось, встало (33 дн назад), 90д=3 — остыло",
     "photo": "[51772b]"
   },
   {
@@ -3130,6 +3189,7 @@
     },
     "cost": 2044.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 84.2,
     "sales": {
@@ -3143,7 +3203,7 @@
       "rev_90d": 51600.0
     },
     "last_sale": "2026-04-21",
-    "days_no_sale": 32,
+    "days_no_sale": 33,
     "days_since_supply": null,
     "sell_through": 80.0,
     "wos": 999,
@@ -3157,7 +3217,7 @@
     "category": "SLOW",
     "health_v2": "COOLING",
     "suggested_discount": 25,
-    "reason": "Продавалось, встало (32 дн назад), 90д=4 — остыло",
+    "reason": "Продавалось, встало (33 дн назад), 90д=4 — остыло",
     "photo": "[49756b]"
   },
   {
@@ -3187,18 +3247,19 @@
         "L": 13
       },
       "matrix": {
-        "Серый/M": 3,
-        "Чёрный/M": 4,
-        "Бежевый/M": 3,
         "Серый/L": 4,
         "Чёрный/L": 5,
-        "Бежевый/L": 4
+        "Бежевый/L": 4,
+        "Бежевый/M": 3,
+        "Серый/M": 3,
+        "Чёрный/M": 4
       }
     },
     "cost": 4964.0,
-    "retail": 23900.0,
+    "retail": 16730.0,
+    "orig_price": 23900.0,
     "cur_disc": 30,
-    "margin_pct": 79.2,
+    "margin_pct": 70.3,
     "sales": {
       "s30": 2,
       "s30_60": 0,
@@ -3206,11 +3267,11 @@
       "s180": 2,
       "s365": 2,
       "sall": 2,
-      "rev_30d": 47800.0,
-      "rev_90d": 47800.0
+      "rev_30d": 33460.0,
+      "rev_90d": 33460.0
     },
     "last_sale": "2026-05-04",
-    "days_no_sale": 19,
+    "days_no_sale": 20,
     "days_since_supply": null,
     "sell_through": 8.0,
     "wos": 49.3,
@@ -3220,11 +3281,11 @@
       "acceleration": 3.0
     },
     "frozen_cost": 114172,
-    "frozen_retail": 549700,
+    "frozen_retail": 384790,
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 24 дн — рано судить",
+    "reason": "В продаже 25 дн — рано судить",
     "photo": "[49420b]"
   },
   {
@@ -3257,18 +3318,19 @@
         "XL": 4
       },
       "matrix": {
-        "Тёмно-серый/L": 2,
+        "Тёмно-серый/M": 1,
+        "Синий/M": 2,
         "Синий/S": 2,
         "Синий/XL": 2,
         "Тёмно-серый/XL": 2,
+        "Тёмно-серый/L": 2,
         "Синий/L": 2,
-        "Тёмно-серый/S": 2,
-        "Тёмно-серый/M": 1,
-        "Синий/M": 2
+        "Тёмно-серый/S": 2
       }
     },
     "cost": 3358.0,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 80.1,
     "sales": {
@@ -3282,7 +3344,7 @@
       "rev_90d": 16900.0
     },
     "last_sale": "2026-05-09",
-    "days_no_sale": 14,
+    "days_no_sale": 15,
     "days_since_supply": null,
     "sell_through": 6.2,
     "wos": 64.3,
@@ -3296,7 +3358,7 @@
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 14 дн — рано судить",
+    "reason": "В продаже 15 дн — рано судить",
     "photo": "[62084b]"
   },
   {
@@ -3328,16 +3390,17 @@
         "XL": 2
       },
       "matrix": {
-        "Синий/XL": 2,
-        "Синий/M": 2,
         "Синий/L": 2,
-        "Синий/S": 3
+        "Синий/S": 3,
+        "Синий/XL": 2,
+        "Синий/M": 2
       }
     },
     "cost": 5258.0,
-    "retail": 24900.0,
+    "retail": 17430.0,
+    "orig_price": 24900.0,
     "cur_disc": 30,
-    "margin_pct": 78.9,
+    "margin_pct": 69.8,
     "sales": {
       "s30": 1,
       "s30_60": 0,
@@ -3345,11 +3408,11 @@
       "s180": 1,
       "s365": 1,
       "sall": 1,
-      "rev_30d": 24900.0,
-      "rev_90d": 24900.0
+      "rev_30d": 17430.0,
+      "rev_90d": 17430.0
     },
     "last_sale": "2026-05-12",
-    "days_no_sale": 11,
+    "days_no_sale": 12,
     "days_since_supply": null,
     "sell_through": 10.0,
     "wos": 38.6,
@@ -3359,11 +3422,11 @@
       "acceleration": 3.0
     },
     "frozen_cost": 47322,
-    "frozen_retail": 224100,
+    "frozen_retail": 156870,
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 11 дн — рано судить",
+    "reason": "В продаже 12 дн — рано судить",
     "photo": "[42404b]"
   },
   {
@@ -3395,16 +3458,17 @@
         "XL": 1
       },
       "matrix": {
-        "Синий/M": 3,
-        "Синий/XL": 1,
+        "Синий/L": 1,
         "Синий/S": 1,
-        "Синий/L": 1
+        "Синий/M": 3,
+        "Синий/XL": 1
       }
     },
     "cost": 5613.0,
-    "retail": 25900.0,
+    "retail": 18130.0,
+    "orig_price": 25900.0,
     "cur_disc": 30,
-    "margin_pct": 78.3,
+    "margin_pct": 69.0,
     "sales": {
       "s30": 3,
       "s30_60": 0,
@@ -3412,11 +3476,11 @@
       "s180": 3,
       "s365": 3,
       "sall": 3,
-      "rev_30d": 77700.0,
-      "rev_90d": 77700.0
+      "rev_30d": 54390.0,
+      "rev_90d": 54390.0
     },
     "last_sale": "2026-05-07",
-    "days_no_sale": 16,
+    "days_no_sale": 17,
     "days_since_supply": null,
     "sell_through": 33.3,
     "wos": 8.6,
@@ -3426,11 +3490,11 @@
       "acceleration": 3.0
     },
     "frozen_cost": 33678,
-    "frozen_retail": 155400,
+    "frozen_retail": 108780,
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 22 дн — рано судить",
+    "reason": "В продаже 23 дн — рано судить",
     "photo": "[56328b]"
   },
   {
@@ -3466,9 +3530,10 @@
       }
     },
     "cost": 4743.0,
-    "retail": 22900.0,
+    "retail": 16030.0,
+    "orig_price": 22900.0,
     "cur_disc": 30,
-    "margin_pct": 79.3,
+    "margin_pct": 70.4,
     "sales": {
       "s30": 1,
       "s30_60": 0,
@@ -3476,11 +3541,11 @@
       "s180": 1,
       "s365": 1,
       "sall": 1,
-      "rev_30d": 22900.0,
-      "rev_90d": 22900.0
+      "rev_30d": 16030.0,
+      "rev_90d": 16030.0
     },
     "last_sale": "2026-05-10",
-    "days_no_sale": 13,
+    "days_no_sale": 14,
     "days_since_supply": null,
     "sell_through": 12.5,
     "wos": 30.0,
@@ -3490,11 +3555,11 @@
       "acceleration": 3.0
     },
     "frozen_cost": 33201,
-    "frozen_retail": 160300,
+    "frozen_retail": 112210,
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 13 дн — рано судить",
+    "reason": "В продаже 14 дн — рано судить",
     "photo": "[55764b]"
   },
   {
@@ -3530,9 +3595,10 @@
       }
     },
     "cost": 4307.0,
-    "retail": 23900.0,
+    "retail": 16730.0,
+    "orig_price": 23900.0,
     "cur_disc": 30,
-    "margin_pct": 82.0,
+    "margin_pct": 74.3,
     "sales": {
       "s30": 3,
       "s30_60": 0,
@@ -3540,11 +3606,11 @@
       "s180": 3,
       "s365": 3,
       "sall": 3,
-      "rev_30d": 71700.0,
-      "rev_90d": 71700.0
+      "rev_30d": 50190.0,
+      "rev_90d": 50190.0
     },
     "last_sale": "2026-05-09",
-    "days_no_sale": 14,
+    "days_no_sale": 15,
     "days_since_supply": null,
     "sell_through": 42.9,
     "wos": 5.7,
@@ -3554,12 +3620,71 @@
       "acceleration": 3.0
     },
     "frozen_cost": 17228,
-    "frozen_retail": 95600,
+    "frozen_retail": 66920,
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 27 дн — рано судить",
+    "reason": "В продаже 28 дн — рано судить",
     "photo": "[64236b]"
+  },
+  {
+    "article": "300384",
+    "name": "Боди Black, L",
+    "brand": "Верх",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 5,
+      "moscow": 4,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "S": 1,
+      "M": 2,
+      "L": 2
+    },
+    "variants": {
+      "colors": {},
+      "sizes": {
+        "S": 1,
+        "M": 2,
+        "L": 2
+      },
+      "matrix": {}
+    },
+    "cost": 1500.0,
+    "retail": 4900.0,
+    "orig_price": 4900.0,
+    "cur_disc": 0,
+    "margin_pct": 69.4,
+    "sales": {
+      "s30": 2,
+      "s30_60": 0,
+      "s90": 2,
+      "s180": 2,
+      "s365": 2,
+      "sall": 2,
+      "rev_30d": 9800.0,
+      "rev_90d": 9800.0
+    },
+    "last_sale": "2026-05-19",
+    "days_no_sale": 5,
+    "days_since_supply": null,
+    "sell_through": 28.6,
+    "wos": 10.7,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 0.7,
+      "acceleration": 3.0
+    },
+    "frozen_cost": 7500,
+    "frozen_retail": 24500,
+    "category": "NEW",
+    "health_v2": "NEW",
+    "suggested_discount": 0,
+    "reason": "В продаже 13 дн — рано судить",
+    "photo": "[47024b]"
   },
   {
     "article": "MILE2813",
@@ -3591,6 +3716,7 @@
     },
     "cost": 1460.0,
     "retail": 6900.0,
+    "orig_price": 6900.0,
     "cur_disc": 0,
     "margin_pct": 78.8,
     "sales": {
@@ -3604,7 +3730,7 @@
       "rev_90d": 13800.0
     },
     "last_sale": "2026-05-21",
-    "days_no_sale": 2,
+    "days_no_sale": 3,
     "days_since_supply": null,
     "sell_through": 28.6,
     "wos": 10.7,
@@ -3618,7 +3744,7 @@
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 7 дн — рано судить",
+    "reason": "В продаже 8 дн — рано судить",
     "photo": "[49464b]"
   },
   {
@@ -3649,6 +3775,7 @@
     },
     "cost": 1200.0,
     "retail": 3900.0,
+    "orig_price": 3900.0,
     "cur_disc": 0,
     "margin_pct": 69.2,
     "sales": {
@@ -3662,7 +3789,7 @@
       "rev_90d": 11700.0
     },
     "last_sale": "2026-05-17",
-    "days_no_sale": 6,
+    "days_no_sale": 7,
     "days_since_supply": null,
     "sell_through": 37.5,
     "wos": 7.1,
@@ -3676,7 +3803,7 @@
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 11 дн — рано судить",
+    "reason": "В продаже 12 дн — рано судить",
     "photo": "[47512b]"
   },
   {
@@ -3707,6 +3834,7 @@
     },
     "cost": 2117.0,
     "retail": 13900.0,
+    "orig_price": 13900.0,
     "cur_disc": 0,
     "margin_pct": 84.8,
     "sales": {
@@ -3720,7 +3848,7 @@
       "rev_90d": 41700.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 60.0,
     "wos": 2.9,
@@ -3734,7 +3862,7 @@
     "category": "NEW",
     "health_v2": "NEW",
     "suggested_discount": 0,
-    "reason": "В продаже 20 дн — рано судить",
+    "reason": "В продаже 21 дн — рано судить",
     "photo": "[32228b]"
   },
   {
@@ -3772,56 +3900,57 @@
         "4XL": 7
       },
       "matrix": {
-        "Серый/2XL": 1,
-        "Чёрный/XL": 5,
         "Серый/XL": 3,
         "Чёрный/M": 4,
+        "Светло-серый/4XL": 3,
+        "Чёрный/2XL": 8,
+        "Серый/2XL": 1,
+        "Светло-серый/3XL": 4,
+        "Светло-серый/L": 2,
+        "Серый/3XL": 2,
+        "Серый/4XL": 1,
         "Светло-серый/M": 2,
         "Серый/L": 4,
         "Чёрный/3XL": 2,
         "Чёрный/L": 11,
-        "Чёрный/4XL": 3,
+        "Чёрный/XL": 5,
         "Светло-серый/2XL": 3,
         "Светло-серый/XL": 2,
         "Серый/M": 2,
-        "Светло-серый/4XL": 3,
-        "Чёрный/2XL": 8,
-        "Светло-серый/3XL": 4,
-        "Светло-серый/L": 2,
-        "Серый/3XL": 2,
-        "Серый/4XL": 1
+        "Чёрный/4XL": 3
       }
     },
     "cost": 3285.0,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 80.6,
     "sales": {
-      "s30": 21,
+      "s30": 20,
       "s30_60": 15,
       "s90": 48,
       "s180": 48,
       "s365": 48,
       "sall": 48,
-      "rev_30d": 354900.0,
+      "rev_30d": 338000.0,
       "rev_90d": 811200.0
     },
     "last_sale": "2026-05-22",
-    "days_no_sale": 1,
+    "days_no_sale": 2,
     "days_since_supply": null,
     "sell_through": 43.6,
-    "wos": 12.7,
+    "wos": 13.3,
     "velocity": {
-      "recent_30d": 21,
+      "recent_30d": 20,
       "avg_30d": 16.0,
-      "acceleration": 1.31
+      "acceleration": 1.25
     },
     "frozen_cost": 203670,
     "frozen_retail": 1047800,
     "category": "HOT",
     "health_v2": "HOT",
     "suggested_discount": 0,
-    "reason": "Хит: 21/мес, ST 44% — не трогать",
+    "reason": "Хит: 20/мес, ST 44% — не трогать",
     "photo": "[19496b]"
   },
   {
@@ -3846,9 +3975,9 @@
     },
     "variants": {
       "colors": {
-        "Серый": 15,
         "Чёрный": 26,
-        "Светло-серый": 16
+        "Светло-серый": 16,
+        "Серый": 15
       },
       "sizes": {
         "M": 6,
@@ -3859,56 +3988,57 @@
         "4XL": 5
       },
       "matrix": {
+        "Чёрный/2XL": 4,
+        "Чёрный/L": 6,
+        "Светло-серый/2XL": 2,
+        "Светло-серый/XL": 2,
+        "Серый/XL": 3,
         "Серый/M": 1,
         "Чёрный/M": 3,
         "Чёрный/XL": 6,
-        "Чёрный/2XL": 4,
-        "Чёрный/L": 6,
+        "Светло-серый/4XL": 1,
+        "Серый/2XL": 3,
         "Светло-серый/3XL": 4,
         "Серый/4XL": 2,
         "Серый/L": 3,
-        "Серый/3XL": 3,
         "Светло-серый/L": 5,
         "Светло-серый/M": 2,
         "Чёрный/3XL": 5,
         "Чёрный/4XL": 2,
-        "Светло-серый/2XL": 2,
-        "Светло-серый/XL": 2,
-        "Серый/XL": 3,
-        "Светло-серый/4XL": 1,
-        "Серый/2XL": 3
+        "Серый/3XL": 3
       }
     },
     "cost": 2190.0,
     "retail": 14900.0,
+    "orig_price": 14900.0,
     "cur_disc": 0,
     "margin_pct": 85.3,
     "sales": {
-      "s30": 20,
-      "s30_60": 17,
+      "s30": 19,
+      "s30_60": 18,
       "s90": 57,
       "s180": 57,
       "s365": 57,
       "sall": 57,
-      "rev_30d": 298000.0,
+      "rev_30d": 283100.0,
       "rev_90d": 849300.0
     },
     "last_sale": "2026-05-20",
-    "days_no_sale": 3,
+    "days_no_sale": 4,
     "days_since_supply": null,
     "sell_through": 50.0,
-    "wos": 12.2,
+    "wos": 12.9,
     "velocity": {
-      "recent_30d": 20,
+      "recent_30d": 19,
       "avg_30d": 19.0,
-      "acceleration": 1.05
+      "acceleration": 1.0
     },
     "frozen_cost": 124830,
     "frozen_retail": 849300,
     "category": "HOT",
     "health_v2": "HOT",
     "suggested_discount": 0,
-    "reason": "Хит: 20/мес, ST 50% — не трогать",
+    "reason": "Хит: 19/мес, ST 50% — не трогать",
     "photo": "[19008b]"
   },
   {
@@ -3930,12 +4060,12 @@
     },
     "variants": {
       "colors": {
-        "Бежевый": 2,
-        "Серый": 1,
         "Розовый": 1,
-        "Коричневый": 7,
+        "Светло-серый": 2,
+        "Бежевый": 2,
         "Чёрный": 3,
-        "Светло-серый": 2
+        "Коричневый": 7,
+        "Серый": 1
       },
       "sizes": {
         "M": 4,
@@ -3943,42 +4073,43 @@
         "XL": 6
       },
       "matrix": {
-        "Бежевый/L": 1,
-        "Серый/XL": 1,
         "Розовый/L": 1,
+        "Светло-серый/M": 1,
+        "Светло-серый/XL": 1,
+        "Бежевый/L": 1,
+        "Бежевый/M": 1,
+        "Чёрный/XL": 2,
         "Коричневый/L": 3,
         "Коричневый/M": 2,
         "Чёрный/L": 1,
-        "Коричневый/XL": 2,
-        "Светло-серый/M": 1,
-        "Светло-серый/XL": 1,
-        "Бежевый/M": 1,
-        "Чёрный/XL": 2
+        "Серый/XL": 1,
+        "Коричневый/XL": 2
       }
     },
     "cost": 3066.0,
     "retail": 15900.0,
+    "orig_price": 15900.0,
     "cur_disc": 0,
     "margin_pct": 80.7,
     "sales": {
       "s30": 8,
       "s30_60": 8,
-      "s90": 26,
+      "s90": 25,
       "s180": 36,
       "s365": 36,
       "sall": 36,
       "rev_30d": 127200.0,
-      "rev_90d": 413400.0
+      "rev_90d": 397500.0
     },
     "last_sale": "2026-05-17",
-    "days_no_sale": 6,
+    "days_no_sale": 7,
     "days_since_supply": null,
     "sell_through": 69.2,
     "wos": 8.6,
     "velocity": {
       "recent_30d": 8,
-      "avg_30d": 8.7,
-      "acceleration": 0.92
+      "avg_30d": 8.3,
+      "acceleration": 0.96
     },
     "frozen_cost": 49056,
     "frozen_retail": 254400,
@@ -4007,9 +4138,9 @@
     },
     "variants": {
       "colors": {
+        "Белый": 4,
         "Хаки": 6,
-        "Чёрный": 6,
-        "Белый": 4
+        "Чёрный": 6
       },
       "sizes": {
         "M": 4,
@@ -4017,19 +4148,20 @@
         "XL": 6
       },
       "matrix": {
+        "Белый/L": 2,
+        "Хаки/M": 1,
+        "Чёрный/XL": 2,
         "Хаки/XL": 3,
         "Чёрный/M": 2,
         "Белый/M": 1,
         "Чёрный/L": 2,
-        "Белый/L": 2,
         "Белый/XL": 1,
-        "Хаки/L": 2,
-        "Хаки/M": 1,
-        "Чёрный/XL": 2
+        "Хаки/L": 2
       }
     },
     "cost": 2993.0,
     "retail": 15900.0,
+    "orig_price": 15900.0,
     "cur_disc": 0,
     "margin_pct": 81.2,
     "sales": {
@@ -4043,7 +4175,7 @@
       "rev_90d": 159000.0
     },
     "last_sale": "2026-05-19",
-    "days_no_sale": 4,
+    "days_no_sale": 5,
     "days_since_supply": null,
     "sell_through": 40.7,
     "wos": 13.7,
@@ -4094,17 +4226,18 @@
       },
       "matrix": {
         "Чёрный/M": 1,
+        "Чёрный/S": 1,
         "Чёрный/2XL": 1,
-        "Чёрный/3XL": 1,
-        "Чёрный/L": 3,
         "Чёрный/XL": 2,
-        "Чёрный/S": 1
+        "Чёрный/3XL": 1,
+        "Чёрный/L": 3
       }
     },
     "cost": 4234.0,
-    "retail": 17900.0,
+    "retail": 12530.0,
+    "orig_price": 17900.0,
     "cur_disc": 30,
-    "margin_pct": 76.3,
+    "margin_pct": 66.2,
     "sales": {
       "s30": 6,
       "s30_60": 0,
@@ -4112,11 +4245,11 @@
       "s180": 8,
       "s365": 8,
       "sall": 8,
-      "rev_30d": 107400.0,
-      "rev_90d": 143200.0
+      "rev_30d": 75180.0,
+      "rev_90d": 100240.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 47.1,
     "wos": 6.4,
@@ -4126,76 +4259,12 @@
       "acceleration": 2.25
     },
     "frozen_cost": 38106,
-    "frozen_retail": 161100,
+    "frozen_retail": 112770,
     "category": "HOT",
     "health_v2": "HOT",
     "suggested_discount": 0,
     "reason": "Хит: 6/мес, ST 47% — не трогать | уже −30% в МС и шевелится",
     "photo": "[44160b]"
-  },
-  {
-    "article": "JY18",
-    "name": "Худи на молнии (JY18)",
-    "brand": "Верх",
-    "subfolder": "Верх",
-    "stock": {
-      "total": 11,
-      "moscow": 5,
-      "tsum_online": 6,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "OneSize": 11
-    },
-    "variants": {
-      "colors": {
-        "Бежевый": 1,
-        "Чёрный": 2,
-        "Синий": 7,
-        "Светло-серый": 1
-      },
-      "sizes": {
-        "OneSize": 11
-      },
-      "matrix": {
-        "Бежевый/OneSize": 1,
-        "Чёрный/OneSize": 2,
-        "Синий/OneSize": 7,
-        "Светло-серый/OneSize": 1
-      }
-    },
-    "cost": 2628.0,
-    "retail": 14900.0,
-    "cur_disc": 0,
-    "margin_pct": 82.4,
-    "sales": {
-      "s30": 7,
-      "s30_60": 7,
-      "s90": 20,
-      "s180": 20,
-      "s365": 20,
-      "sall": 20,
-      "rev_30d": 104300.0,
-      "rev_90d": 298000.0
-    },
-    "last_sale": "2026-05-20",
-    "days_no_sale": 3,
-    "days_since_supply": null,
-    "sell_through": 64.5,
-    "wos": 6.7,
-    "velocity": {
-      "recent_30d": 7,
-      "avg_30d": 6.7,
-      "acceleration": 1.05
-    },
-    "frozen_cost": 28908,
-    "frozen_retail": 163900,
-    "category": "HOT",
-    "health_v2": "HOT",
-    "suggested_discount": 0,
-    "reason": "Хит: 7/мес, ST 65% — не трогать",
-    "photo": "[61904b]"
   },
   {
     "article": "JY621",
@@ -4216,8 +4285,8 @@
       "colors": {
         "Бежевый": 2,
         "Коричневый": 4,
-        "Чёрный": 6,
-        "Светло-серый": 1
+        "Светло-серый": 1,
+        "Чёрный": 6
       },
       "sizes": {
         "OneSize": 13
@@ -4225,12 +4294,13 @@
       "matrix": {
         "Бежевый/OneSize": 2,
         "Коричневый/OneSize": 4,
-        "Чёрный/OneSize": 6,
-        "Светло-серый/OneSize": 1
+        "Светло-серый/OneSize": 1,
+        "Чёрный/OneSize": 6
       }
     },
     "cost": 2044.0,
     "retail": 13900.0,
+    "orig_price": 13900.0,
     "cur_disc": 0,
     "margin_pct": 85.3,
     "sales": {
@@ -4244,7 +4314,7 @@
       "rev_90d": 208500.0
     },
     "last_sale": "2026-05-22",
-    "days_no_sale": 1,
+    "days_no_sale": 2,
     "days_since_supply": null,
     "sell_through": 53.6,
     "wos": 7.0,
@@ -4278,28 +4348,29 @@
     },
     "variants": {
       "colors": {
-        "Синий": 2,
-        "Чёрный": 6,
         "Коричневый": 3,
-        "Светло-серый": 1
+        "Светло-серый": 1,
+        "Синий": 2,
+        "Чёрный": 6
       },
       "sizes": {
         "OneSize": 12
       },
       "matrix": {
-        "Синий/OneSize": 2,
-        "Чёрный/OneSize": 6,
         "Коричневый/OneSize": 3,
-        "Светло-серый/OneSize": 1
+        "Светло-серый/OneSize": 1,
+        "Синий/OneSize": 2,
+        "Чёрный/OneSize": 6
       }
     },
     "cost": 2190.0,
     "retail": 13900.0,
+    "orig_price": 13900.0,
     "cur_disc": 0,
     "margin_pct": 84.2,
     "sales": {
       "s30": 6,
-      "s30_60": 6,
+      "s30_60": 5,
       "s90": 17,
       "s180": 17,
       "s365": 17,
@@ -4308,7 +4379,7 @@
       "rev_90d": 236300.0
     },
     "last_sale": "2026-05-21",
-    "days_no_sale": 2,
+    "days_no_sale": 3,
     "days_since_supply": null,
     "sell_through": 58.6,
     "wos": 8.6,
@@ -4345,8 +4416,8 @@
     },
     "variants": {
       "colors": {
-        "Белый": 4,
-        "Чёрный": 4
+        "Чёрный": 4,
+        "Белый": 4
       },
       "sizes": {
         "M": 1,
@@ -4355,44 +4426,45 @@
         "2XL": 2
       },
       "matrix": {
+        "Чёрный/2XL": 2,
         "Белый/XL": 1,
         "Чёрный/L": 1,
         "Белый/M": 1,
-        "Белый/L": 2,
         "Чёрный/XL": 1,
-        "Чёрный/2XL": 2
+        "Белый/L": 2
       }
     },
     "cost": 2920.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 77.4,
     "sales": {
-      "s30": 10,
+      "s30": 9,
       "s30_60": 7,
       "s90": 18,
       "s180": 18,
       "s365": 18,
       "sall": 18,
-      "rev_30d": 129000.0,
+      "rev_30d": 116100.0,
       "rev_90d": 232200.0
     },
     "last_sale": "2026-05-17",
-    "days_no_sale": 6,
+    "days_no_sale": 7,
     "days_since_supply": null,
     "sell_through": 69.2,
-    "wos": 3.4,
+    "wos": 3.8,
     "velocity": {
-      "recent_30d": 10,
+      "recent_30d": 9,
       "avg_30d": 6.0,
-      "acceleration": 1.67
+      "acceleration": 1.5
     },
     "frozen_cost": 23360,
     "frozen_retail": 103200,
     "category": "HOT",
     "health_v2": "HOT",
     "suggested_discount": 0,
-    "reason": "Хит: 10/мес, ST 69% — не трогать",
+    "reason": "Хит: 9/мес, ST 69% — не трогать",
     "photo": "[40472b]"
   },
   {
@@ -4423,6 +4495,7 @@
     },
     "cost": 2117.0,
     "retail": 13900.0,
+    "orig_price": 13900.0,
     "cur_disc": 0,
     "margin_pct": 84.8,
     "sales": {
@@ -4436,7 +4509,7 @@
       "rev_90d": 152900.0
     },
     "last_sale": "2026-05-18",
-    "days_no_sale": 5,
+    "days_no_sale": 6,
     "days_since_supply": null,
     "sell_through": 61.1,
     "wos": 6.0,
@@ -4483,6 +4556,7 @@
     },
     "cost": 1679.0,
     "retail": 8900.0,
+    "orig_price": 8900.0,
     "cur_disc": 0,
     "margin_pct": 81.1,
     "sales": {
@@ -4496,7 +4570,7 @@
       "rev_90d": 53400.0
     },
     "last_sale": "2026-05-15",
-    "days_no_sale": 8,
+    "days_no_sale": 9,
     "days_since_supply": null,
     "sell_through": 54.5,
     "wos": 7.1,
@@ -4530,21 +4604,22 @@
     },
     "variants": {
       "colors": {
+        "Бежевый": 3,
         "Тёмно-серый": 1,
-        "Чёрный": 2,
-        "Бежевый": 3
+        "Чёрный": 2
       },
       "sizes": {
         "OneSize": 6
       },
       "matrix": {
+        "Бежевый/OneSize": 3,
         "Тёмно-серый/OneSize": 1,
-        "Чёрный/OneSize": 2,
-        "Бежевый/OneSize": 3
+        "Чёрный/OneSize": 2
       }
     },
     "cost": 1314.0,
     "retail": 6900.0,
+    "orig_price": 6900.0,
     "cur_disc": 0,
     "margin_pct": 81.0,
     "sales": {
@@ -4558,7 +4633,7 @@
       "rev_90d": 34500.0
     },
     "last_sale": "2026-05-08",
-    "days_no_sale": 15,
+    "days_no_sale": 16,
     "days_since_supply": null,
     "sell_through": 45.5,
     "wos": 12.9,
@@ -4592,21 +4667,22 @@
     },
     "variants": {
       "colors": {
-        "Белый": 3,
         "Серый": 1,
-        "Хаки": 3
+        "Хаки": 3,
+        "Белый": 3
       },
       "sizes": {
         "OneSize": 7
       },
       "matrix": {
-        "Белый/OneSize": 3,
         "Серый/OneSize": 1,
-        "Хаки/OneSize": 3
+        "Хаки/OneSize": 3,
+        "Белый/OneSize": 3
       }
     },
     "cost": 949.0,
     "retail": 4900.0,
+    "orig_price": 4900.0,
     "cur_disc": 0,
     "margin_pct": 80.6,
     "sales": {
@@ -4620,7 +4696,7 @@
       "rev_90d": 39200.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 58.8,
     "wos": 15.0,
@@ -4667,27 +4743,28 @@
     },
     "cost": 1679.0,
     "retail": 6900.0,
+    "orig_price": 6900.0,
     "cur_disc": 0,
     "margin_pct": 75.7,
     "sales": {
       "s30": 4,
       "s30_60": 3,
-      "s90": 12,
+      "s90": 11,
       "s180": 14,
       "s365": 14,
       "sall": 14,
       "rev_30d": 27600.0,
-      "rev_90d": 82800.0
+      "rev_90d": 75900.0
     },
     "last_sale": "2026-05-20",
-    "days_no_sale": 3,
+    "days_no_sale": 4,
     "days_since_supply": null,
     "sell_through": 82.4,
     "wos": 3.2,
     "velocity": {
       "recent_30d": 4,
-      "avg_30d": 4.0,
-      "acceleration": 1.0
+      "avg_30d": 3.7,
+      "acceleration": 1.09
     },
     "frozen_cost": 5037,
     "frozen_retail": 20700,
@@ -4725,6 +4802,7 @@
     },
     "cost": 2044.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 84.2,
     "sales": {
@@ -4738,7 +4816,7 @@
       "rev_90d": 77400.0
     },
     "last_sale": "2026-05-13",
-    "days_no_sale": 10,
+    "days_no_sale": 11,
     "days_since_supply": null,
     "sell_through": 77.8,
     "wos": 2.9,
@@ -4786,19 +4864,20 @@
       },
       "matrix": {
         "Серый/S": 1,
+        "Серый/M": 1,
+        "Серый/L": 2,
+        "Серый/XL": 1,
         "Голубой/L": 2,
         "Голубой/M": 1,
         "Голубой/S": 2,
-        "Серый/L": 2,
-        "Серый/XL": 1,
-        "Голубой/XL": 2,
-        "Серый/M": 1
+        "Голубой/XL": 2
       }
     },
     "cost": 5256.0,
-    "retail": 24900.0,
+    "retail": 17430.0,
+    "orig_price": 24900.0,
     "cur_disc": 30,
-    "margin_pct": 78.9,
+    "margin_pct": 69.8,
     "sales": {
       "s30": 3,
       "s30_60": 1,
@@ -4806,11 +4885,11 @@
       "s180": 6,
       "s365": 6,
       "sall": 6,
-      "rev_30d": 74700.0,
-      "rev_90d": 149400.0
+      "rev_30d": 52290.0,
+      "rev_90d": 104580.0
     },
     "last_sale": "2026-05-12",
-    "days_no_sale": 11,
+    "days_no_sale": 12,
     "days_since_supply": null,
     "sell_through": 33.3,
     "wos": 17.1,
@@ -4820,7 +4899,7 @@
       "acceleration": 1.5
     },
     "frozen_cost": 63072,
-    "frozen_retail": 298800,
+    "frozen_retail": 209160,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
@@ -4857,13 +4936,14 @@
       },
       "matrix": {
         "Чёрный/L": 1,
-        "Чёрный/XL": 6,
         "Чёрный/2XL": 7,
-        "Чёрный/3XL": 1
+        "Чёрный/3XL": 1,
+        "Чёрный/XL": 6
       }
     },
     "cost": 3869.0,
     "retail": 15900.0,
+    "orig_price": 15900.0,
     "cur_disc": 0,
     "margin_pct": 75.7,
     "sales": {
@@ -4877,7 +4957,7 @@
       "rev_90d": 222600.0
     },
     "last_sale": "2026-05-15",
-    "days_no_sale": 8,
+    "days_no_sale": 9,
     "days_since_supply": null,
     "sell_through": 50.0,
     "wos": 12.9,
@@ -4913,8 +4993,8 @@
     },
     "variants": {
       "colors": {
-        "Серый": 4,
         "Чёрный": 3,
+        "Серый": 4,
         "Белый": 2
       },
       "sizes": {
@@ -4923,23 +5003,24 @@
         "2XL": 3
       },
       "matrix": {
+        "Чёрный/L": 1,
         "Серый/L": 1,
+        "Серый/2XL": 1,
+        "Серый/XL": 2,
         "Чёрный/2XL": 1,
         "Чёрный/XL": 1,
-        "Белый/XL": 1,
         "Белый/2XL": 1,
-        "Чёрный/L": 1,
-        "Серый/2XL": 1,
-        "Серый/XL": 2
+        "Белый/XL": 1
       }
     },
     "cost": 6223.25,
     "retail": 24900.0,
+    "orig_price": 24900.0,
     "cur_disc": 0,
     "margin_pct": 75.0,
     "sales": {
       "s30": 6,
-      "s30_60": 15,
+      "s30_60": 14,
       "s90": 35,
       "s180": 37,
       "s365": 37,
@@ -4948,7 +5029,7 @@
       "rev_90d": 871500.0
     },
     "last_sale": "2026-05-11",
-    "days_no_sale": 12,
+    "days_no_sale": 13,
     "days_since_supply": null,
     "sell_through": 80.4,
     "wos": 6.4,
@@ -4984,10 +5065,10 @@
     },
     "variants": {
       "colors": {
+        "Чёрный": 3,
         "Серый": 2,
         "Тёмно-коричневый": 9,
-        "Светло-серый": 3,
-        "Чёрный": 3
+        "Светло-серый": 3
       },
       "sizes": {
         "M": 4,
@@ -4995,6 +5076,7 @@
         "XL": 6
       },
       "matrix": {
+        "Чёрный/L": 2,
         "Серый/XL": 2,
         "Тёмно-коричневый/XL": 3,
         "Светло-серый/XL": 1,
@@ -5002,12 +5084,12 @@
         "Светло-серый/L": 1,
         "Светло-серый/M": 1,
         "Тёмно-коричневый/L": 4,
-        "Чёрный/M": 1,
-        "Чёрный/L": 2
+        "Чёрный/M": 1
       }
     },
     "cost": 2701.0,
     "retail": 15900.0,
+    "orig_price": 15900.0,
     "cur_disc": 0,
     "margin_pct": 83.0,
     "sales": {
@@ -5021,7 +5103,7 @@
       "rev_90d": 461100.0
     },
     "last_sale": "2026-05-22",
-    "days_no_sale": 1,
+    "days_no_sale": 2,
     "days_since_supply": null,
     "sell_through": 63.8,
     "wos": 9.1,
@@ -5056,8 +5138,8 @@
     },
     "variants": {
       "colors": {
-        "Чёрный": 5,
         "Хаки": 2,
+        "Чёрный": 5,
         "Серый": 3
       },
       "sizes": {
@@ -5065,16 +5147,17 @@
         "L": 6
       },
       "matrix": {
-        "Чёрный/L": 3,
         "Хаки/M": 1,
         "Чёрный/M": 2,
+        "Хаки/L": 1,
+        "Чёрный/L": 3,
         "Серый/L": 2,
-        "Серый/M": 1,
-        "Хаки/L": 1
+        "Серый/M": 1
       }
     },
     "cost": 3869.0,
     "retail": 19900.0,
+    "orig_price": 19900.0,
     "cur_disc": 0,
     "margin_pct": 80.6,
     "sales": {
@@ -5088,7 +5171,7 @@
       "rev_90d": 199000.0
     },
     "last_sale": "2026-05-12",
-    "days_no_sale": 11,
+    "days_no_sale": 12,
     "days_since_supply": null,
     "sell_through": 50.0,
     "wos": 21.4,
@@ -5134,28 +5217,29 @@
         "XL": 2
       },
       "matrix": {
-        "Синий/S": 1,
-        "Синий/L": 1,
         "Синий/M": 3,
-        "Синий/XL": 2
+        "Синий/S": 1,
+        "Синий/XL": 2,
+        "Синий/L": 1
       }
     },
     "cost": 4903.0,
-    "retail": 22900.0,
+    "retail": 16030.0,
+    "orig_price": 22900.0,
     "cur_disc": 30,
-    "margin_pct": 78.6,
+    "margin_pct": 69.4,
     "sales": {
       "s30": 2,
-      "s30_60": 1,
+      "s30_60": 0,
       "s90": 4,
       "s180": 4,
       "s365": 4,
       "sall": 4,
-      "rev_30d": 45800.0,
-      "rev_90d": 91600.0
+      "rev_30d": 32060.0,
+      "rev_90d": 64120.0
     },
     "last_sale": "2026-05-11",
-    "days_no_sale": 12,
+    "days_no_sale": 13,
     "days_since_supply": null,
     "sell_through": 36.4,
     "wos": 15.0,
@@ -5165,82 +5249,12 @@
       "acceleration": 1.5
     },
     "frozen_cost": 34321,
-    "frozen_retail": 160300,
+    "frozen_retail": 112210,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
     "reason": "Норма: 2/мес, 7 шт | уже −30% в МС и шевелится",
     "photo": "[58532b]"
-  },
-  {
-    "article": "SC911",
-    "name": "Брюки-бананы весенние (SC911)",
-    "brand": "Низ",
-    "subfolder": "Низ",
-    "stock": {
-      "total": 11,
-      "moscow": 5,
-      "tsum_online": 6,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "M": 3,
-      "L": 5,
-      "XL": 3
-    },
-    "variants": {
-      "colors": {
-        "Коричневый": 4,
-        "Светло-серый": 1,
-        "Чёрный": 6
-      },
-      "sizes": {
-        "M": 3,
-        "L": 5,
-        "XL": 3
-      },
-      "matrix": {
-        "Коричневый/L": 1,
-        "Светло-серый/L": 1,
-        "Коричневый/XL": 1,
-        "Чёрный/M": 1,
-        "Чёрный/L": 3,
-        "Чёрный/XL": 2,
-        "Коричневый/M": 2
-      }
-    },
-    "cost": 2993.0,
-    "retail": 15900.0,
-    "cur_disc": 0,
-    "margin_pct": 81.2,
-    "sales": {
-      "s30": 3,
-      "s30_60": 5,
-      "s90": 14,
-      "s180": 18,
-      "s365": 18,
-      "sall": 18,
-      "rev_30d": 47700.0,
-      "rev_90d": 222600.0
-    },
-    "last_sale": "2026-05-11",
-    "days_no_sale": 12,
-    "days_since_supply": null,
-    "sell_through": 62.1,
-    "wos": 15.7,
-    "velocity": {
-      "recent_30d": 3,
-      "avg_30d": 4.7,
-      "acceleration": 0.64
-    },
-    "frozen_cost": 32923,
-    "frozen_retail": 174900,
-    "category": "NORMAL",
-    "health_v2": "OK",
-    "suggested_discount": 0,
-    "reason": "Норма: 3/мес, 11 шт",
-    "photo": "[59760b]"
   },
   {
     "article": "SC2661",
@@ -5270,36 +5284,37 @@
         "XL": 5
       },
       "matrix": {
-        "Бежевый/XL": 3,
-        "Чёрный/L": 1,
+        "Бежевый/M": 2,
         "Чёрный/M": 2,
         "Чёрный/XL": 2,
-        "Бежевый/M": 2
+        "Бежевый/XL": 3,
+        "Чёрный/L": 1
       }
     },
     "cost": 3066.0,
     "retail": 15900.0,
+    "orig_price": 15900.0,
     "cur_disc": 0,
     "margin_pct": 80.7,
     "sales": {
       "s30": 3,
       "s30_60": 5,
-      "s90": 11,
+      "s90": 10,
       "s180": 11,
       "s365": 11,
       "sall": 11,
       "rev_30d": 47700.0,
-      "rev_90d": 174900.0
+      "rev_90d": 159000.0
     },
     "last_sale": "2026-05-21",
-    "days_no_sale": 2,
+    "days_no_sale": 3,
     "days_since_supply": null,
     "sell_through": 52.4,
     "wos": 14.3,
     "velocity": {
       "recent_30d": 3,
-      "avg_30d": 3.7,
-      "acceleration": 0.82
+      "avg_30d": 3.3,
+      "acceleration": 0.9
     },
     "frozen_cost": 30660,
     "frozen_retail": 159000,
@@ -5308,6 +5323,71 @@
     "suggested_discount": 0,
     "reason": "Норма: 3/мес, 10 шт",
     "photo": "[33860b]"
+  },
+  {
+    "article": "JY18",
+    "name": "Худи на молнии (JY18)",
+    "brand": "Верх",
+    "subfolder": "Верх",
+    "stock": {
+      "total": 11,
+      "moscow": 5,
+      "tsum_online": 6,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "OneSize": 11
+    },
+    "variants": {
+      "colors": {
+        "Синий": 7,
+        "Светло-серый": 1,
+        "Бежевый": 1,
+        "Чёрный": 2
+      },
+      "sizes": {
+        "OneSize": 11
+      },
+      "matrix": {
+        "Синий/OneSize": 7,
+        "Светло-серый/OneSize": 1,
+        "Бежевый/OneSize": 1,
+        "Чёрный/OneSize": 2
+      }
+    },
+    "cost": 2628.0,
+    "retail": 14900.0,
+    "orig_price": 14900.0,
+    "cur_disc": 0,
+    "margin_pct": 82.4,
+    "sales": {
+      "s30": 6,
+      "s30_60": 8,
+      "s90": 20,
+      "s180": 20,
+      "s365": 20,
+      "sall": 20,
+      "rev_30d": 89400.0,
+      "rev_90d": 298000.0
+    },
+    "last_sale": "2026-05-20",
+    "days_no_sale": 4,
+    "days_since_supply": null,
+    "sell_through": 64.5,
+    "wos": 7.9,
+    "velocity": {
+      "recent_30d": 6,
+      "avg_30d": 6.7,
+      "acceleration": 0.9
+    },
+    "frozen_cost": 28908,
+    "frozen_retail": 163900,
+    "category": "NORMAL",
+    "health_v2": "OK",
+    "suggested_discount": 0,
+    "reason": "Норма: 6/мес, 11 шт",
+    "photo": "[61904b]"
   },
   {
     "article": "YW6920",
@@ -5336,9 +5416,10 @@
       }
     },
     "cost": 5767.0,
-    "retail": 22900.0,
+    "retail": 16030.0,
+    "orig_price": 22900.0,
     "cur_disc": 30,
-    "margin_pct": 74.8,
+    "margin_pct": 64.0,
     "sales": {
       "s30": 1,
       "s30_60": 0,
@@ -5346,11 +5427,11 @@
       "s180": 3,
       "s365": 3,
       "sall": 3,
-      "rev_30d": 22900.0,
-      "rev_90d": 45800.0
+      "rev_30d": 16030.0,
+      "rev_90d": 32060.0
     },
     "last_sale": "2026-05-14",
-    "days_no_sale": 9,
+    "days_no_sale": 10,
     "days_since_supply": null,
     "sell_through": 37.5,
     "wos": 21.4,
@@ -5360,7 +5441,7 @@
       "acceleration": 1.5
     },
     "frozen_cost": 28835,
-    "frozen_retail": 114500,
+    "frozen_retail": 80150,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
@@ -5396,16 +5477,17 @@
         "XL": 2
       },
       "matrix": {
-        "Сине-серый/L": 1,
-        "Сине-серый/S": 1,
         "Сине-серый/M": 1,
-        "Сине-серый/XL": 2
+        "Сине-серый/XL": 2,
+        "Сине-серый/L": 1,
+        "Сине-серый/S": 1
       }
     },
     "cost": 4964.0,
-    "retail": 23900.0,
+    "retail": 16730.0,
+    "orig_price": 23900.0,
     "cur_disc": 30,
-    "margin_pct": 79.2,
+    "margin_pct": 70.3,
     "sales": {
       "s30": 2,
       "s30_60": 0,
@@ -5413,11 +5495,11 @@
       "s180": 3,
       "s365": 3,
       "sall": 3,
-      "rev_30d": 47800.0,
-      "rev_90d": 47800.0
+      "rev_30d": 33460.0,
+      "rev_90d": 33460.0
     },
     "last_sale": "2026-05-11",
-    "days_no_sale": 12,
+    "days_no_sale": 13,
     "days_since_supply": null,
     "sell_through": 37.5,
     "wos": 10.7,
@@ -5427,7 +5509,7 @@
       "acceleration": 3.0
     },
     "frozen_cost": 24820,
-    "frozen_retail": 119500,
+    "frozen_retail": 83650,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
@@ -5463,9 +5545,10 @@
       }
     },
     "cost": 3090.3333333333335,
-    "retail": 15900.0,
+    "retail": 11130.0,
+    "orig_price": 15900.0,
     "cur_disc": 30,
-    "margin_pct": 80.6,
+    "margin_pct": 72.2,
     "sales": {
       "s30": 2,
       "s30_60": 3,
@@ -5473,11 +5556,11 @@
       "s180": 5,
       "s365": 5,
       "sall": 5,
-      "rev_30d": 31800.0,
-      "rev_90d": 79500.0
+      "rev_30d": 22260.0,
+      "rev_90d": 55650.0
     },
     "last_sale": "2026-05-07",
-    "days_no_sale": 16,
+    "days_no_sale": 17,
     "days_since_supply": null,
     "sell_through": 41.7,
     "wos": 15.0,
@@ -5487,7 +5570,7 @@
       "acceleration": 1.2
     },
     "frozen_cost": 21632,
-    "frozen_retail": 111300,
+    "frozen_retail": 77910,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
@@ -5521,41 +5604,42 @@
         "XL": 1
       },
       "matrix": {
-        "Чёрный/S": 2,
         "Чёрный/M": 1,
-        "Чёрный/XL": 1
+        "Чёрный/XL": 1,
+        "Чёрный/S": 2
       }
     },
     "cost": 4571.625,
     "retail": 24900.0,
+    "orig_price": 24900.0,
     "cur_disc": 0,
     "margin_pct": 81.6,
     "sales": {
-      "s30": 6,
-      "s30_60": 12,
+      "s30": 5,
+      "s30_60": 11,
       "s90": 40,
       "s180": 44,
       "s365": 44,
       "sall": 44,
-      "rev_30d": 149400.0,
+      "rev_30d": 124500.0,
       "rev_90d": 996000.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 91.7,
-    "wos": 2.9,
+    "wos": 3.4,
     "velocity": {
-      "recent_30d": 6,
+      "recent_30d": 5,
       "avg_30d": 13.3,
-      "acceleration": 0.45
+      "acceleration": 0.38
     },
     "frozen_cost": 18286,
     "frozen_retail": 99600,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 6/мес, 4 шт",
+    "reason": "Норма: 5/мес, 4 шт",
     "photo": "[41720b]"
   },
   {
@@ -5583,40 +5667,41 @@
         "XL": 1
       },
       "matrix": {
-        "Чёрный/XL": 1,
-        "Чёрный/L": 3
+        "Чёрный/L": 3,
+        "Чёрный/XL": 1
       }
     },
     "cost": 4571.625,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 72.9,
     "sales": {
-      "s30": 6,
-      "s30_60": 12,
+      "s30": 5,
+      "s30_60": 11,
       "s90": 40,
       "s180": 44,
       "s365": 44,
       "sall": 44,
-      "rev_30d": 101400.0,
+      "rev_30d": 84500.0,
       "rev_90d": 676000.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 91.7,
-    "wos": 2.9,
+    "wos": 3.4,
     "velocity": {
-      "recent_30d": 6,
+      "recent_30d": 5,
       "avg_30d": 13.3,
-      "acceleration": 0.45
+      "acceleration": 0.38
     },
     "frozen_cost": 18286,
     "frozen_retail": 67600,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 6/мес, 4 шт",
+    "reason": "Норма: 5/мес, 4 шт",
     "photo": "[43516b]"
   },
   {
@@ -5646,13 +5731,14 @@
         "3XL": 1
       },
       "matrix": {
-        "Чёрный/3XL": 1,
         "Чёрный/2XL": 2,
-        "Чёрный/XL": 1
+        "Чёрный/XL": 1,
+        "Чёрный/3XL": 1
       }
     },
     "cost": 4106.25,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 75.7,
     "sales": {
@@ -5666,7 +5752,7 @@
       "rev_90d": 185900.0
     },
     "last_sale": "2026-05-04",
-    "days_no_sale": 19,
+    "days_no_sale": 20,
     "days_since_supply": null,
     "sell_through": 73.3,
     "wos": 5.7,
@@ -5717,6 +5803,7 @@
     },
     "cost": 1825.0,
     "retail": 8900.0,
+    "orig_price": 8900.0,
     "cur_disc": 0,
     "margin_pct": 79.5,
     "sales": {
@@ -5730,7 +5817,7 @@
       "rev_90d": 26700.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 27.3,
     "wos": 17.1,
@@ -5775,41 +5862,42 @@
         "4XL": 1
       },
       "matrix": {
-        "Белый/4XL": 1,
         "Белый/3XL": 4,
-        "Чёрный/2XL": 1
+        "Чёрный/2XL": 1,
+        "Белый/4XL": 1
       }
     },
     "cost": 2336.0,
     "retail": 9900.0,
+    "orig_price": 9900.0,
     "cur_disc": 0,
     "margin_pct": 76.4,
     "sales": {
-      "s30": 8,
+      "s30": 7,
       "s30_60": 10,
       "s90": 33,
       "s180": 37,
       "s365": 37,
       "sall": 37,
-      "rev_30d": 79200.0,
+      "rev_30d": 69300.0,
       "rev_90d": 326700.0
     },
     "last_sale": "2026-05-10",
-    "days_no_sale": 13,
+    "days_no_sale": 14,
     "days_since_supply": null,
     "sell_through": 86.0,
-    "wos": 3.2,
+    "wos": 3.7,
     "velocity": {
-      "recent_30d": 8,
+      "recent_30d": 7,
       "avg_30d": 11.0,
-      "acceleration": 0.73
+      "acceleration": 0.64
     },
     "frozen_cost": 14016,
     "frozen_retail": 59400,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 8/мес, 6 шт",
+    "reason": "Норма: 7/мес, 6 шт",
     "photo": "[43112b]"
   },
   {
@@ -5839,21 +5927,22 @@
       }
     },
     "cost": 6497.0,
-    "retail": 28900.0,
+    "retail": 20230.0,
+    "orig_price": 28900.0,
     "cur_disc": 30,
-    "margin_pct": 77.5,
+    "margin_pct": 67.9,
     "sales": {
       "s30": 1,
-      "s30_60": 3,
+      "s30_60": 2,
       "s90": 4,
       "s180": 4,
       "s365": 4,
       "sall": 4,
-      "rev_30d": 28900.0,
-      "rev_90d": 115600.0
+      "rev_30d": 20230.0,
+      "rev_90d": 80920.0
     },
     "last_sale": "2026-05-12",
-    "days_no_sale": 11,
+    "days_no_sale": 12,
     "days_since_supply": null,
     "sell_through": 66.7,
     "wos": 8.6,
@@ -5863,7 +5952,7 @@
       "acceleration": 0.75
     },
     "frozen_cost": 12994,
-    "frozen_retail": 57800,
+    "frozen_retail": 40460,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
@@ -5887,49 +5976,50 @@
     },
     "variants": {
       "colors": {
+        "Фиолетовый": 1,
         "Белый": 2,
-        "Чёрный": 3,
-        "Фиолетовый": 1
+        "Чёрный": 3
       },
       "sizes": {
         "OneSize": 6
       },
       "matrix": {
+        "Фиолетовый/OneSize": 1,
         "Белый/OneSize": 2,
-        "Чёрный/OneSize": 3,
-        "Фиолетовый/OneSize": 1
+        "Чёрный/OneSize": 3
       }
     },
     "cost": 2117.0,
     "retail": 8900.0,
+    "orig_price": 8900.0,
     "cur_disc": 0,
     "margin_pct": 76.2,
     "sales": {
-      "s30": 3,
-      "s30_60": 0,
+      "s30": 2,
+      "s30_60": 1,
       "s90": 3,
       "s180": 4,
       "s365": 4,
       "sall": 4,
-      "rev_30d": 26700.0,
+      "rev_30d": 17800.0,
       "rev_90d": 26700.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 40.0,
-    "wos": 8.6,
+    "wos": 12.9,
     "velocity": {
-      "recent_30d": 3,
+      "recent_30d": 2,
       "avg_30d": 1.0,
-      "acceleration": 3.0
+      "acceleration": 2.0
     },
     "frozen_cost": 12702,
     "frozen_retail": 53400,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 3/мес, 6 шт",
+    "reason": "Норма: 2/мес, 6 шт",
     "photo": "[49464b]"
   },
   {
@@ -5960,6 +6050,7 @@
     },
     "cost": 3139.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 75.7,
     "sales": {
@@ -5973,7 +6064,7 @@
       "rev_90d": 77400.0
     },
     "last_sale": "2026-05-15",
-    "days_no_sale": 8,
+    "days_no_sale": 9,
     "days_since_supply": null,
     "sell_through": 60.0,
     "wos": 8.6,
@@ -6021,34 +6112,35 @@
     },
     "cost": 5018.75,
     "retail": 19900.0,
+    "orig_price": 19900.0,
     "cur_disc": 0,
     "margin_pct": 74.8,
     "sales": {
-      "s30": 3,
-      "s30_60": 9,
+      "s30": 2,
+      "s30_60": 10,
       "s90": 14,
       "s180": 14,
       "s365": 14,
       "sall": 14,
-      "rev_30d": 59700.0,
+      "rev_30d": 39800.0,
       "rev_90d": 278600.0
     },
     "last_sale": "2026-05-04",
-    "days_no_sale": 19,
+    "days_no_sale": 20,
     "days_since_supply": null,
     "sell_through": 87.5,
-    "wos": 2.9,
+    "wos": 4.3,
     "velocity": {
-      "recent_30d": 3,
+      "recent_30d": 2,
       "avg_30d": 4.7,
-      "acceleration": 0.64
+      "acceleration": 0.43
     },
     "frozen_cost": 10037,
     "frozen_retail": 39800,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 3/мес, 2 шт",
+    "reason": "Норма: 2/мес, 2 шт",
     "photo": "[42824b]"
   },
   {
@@ -6076,12 +6168,13 @@
         "L": 1
       },
       "matrix": {
-        "Синий/M": 1,
-        "Синий/L": 1
+        "Синий/L": 1,
+        "Синий/M": 1
       }
     },
     "cost": 4959.0,
     "retail": 21900.0,
+    "orig_price": 21900.0,
     "cur_disc": 0,
     "margin_pct": 77.4,
     "sales": {
@@ -6095,7 +6188,7 @@
       "rev_90d": 131400.0
     },
     "last_sale": "2026-05-22",
-    "days_no_sale": 1,
+    "days_no_sale": 2,
     "days_since_supply": null,
     "sell_through": 75.0,
     "wos": 4.3,
@@ -6129,21 +6222,22 @@
     },
     "variants": {
       "colors": {
-        "Белый": 1,
         "Серый": 1,
-        "Чёрный": 3
+        "Чёрный": 3,
+        "Белый": 1
       },
       "sizes": {
         "OneSize": 5
       },
       "matrix": {
-        "Белый/OneSize": 1,
         "Серый/OneSize": 1,
-        "Чёрный/OneSize": 3
+        "Чёрный/OneSize": 3,
+        "Белый/OneSize": 1
       }
     },
     "cost": 1971.0,
     "retail": 9900.0,
+    "orig_price": 9900.0,
     "cur_disc": 0,
     "margin_pct": 80.1,
     "sales": {
@@ -6157,7 +6251,7 @@
       "rev_90d": 99000.0
     },
     "last_sale": "2026-05-17",
-    "days_no_sale": 6,
+    "days_no_sale": 7,
     "days_since_supply": null,
     "sell_through": 70.6,
     "wos": 5.4,
@@ -6205,34 +6299,35 @@
     },
     "cost": 4571.625,
     "retail": 24900.0,
+    "orig_price": 24900.0,
     "cur_disc": 0,
     "margin_pct": 81.6,
     "sales": {
-      "s30": 6,
-      "s30_60": 12,
+      "s30": 5,
+      "s30_60": 11,
       "s90": 40,
       "s180": 44,
       "s365": 44,
       "sall": 44,
-      "rev_30d": 149400.0,
+      "rev_30d": 124500.0,
       "rev_90d": 996000.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 95.7,
-    "wos": 1.4,
+    "wos": 1.7,
     "velocity": {
-      "recent_30d": 6,
+      "recent_30d": 5,
       "avg_30d": 13.3,
-      "acceleration": 0.45
+      "acceleration": 0.38
     },
     "frozen_cost": 9143,
     "frozen_retail": 49800,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 6/мес, 2 шт",
+    "reason": "Норма: 5/мес, 2 шт",
     "photo": "[56204b]"
   },
   {
@@ -6253,48 +6348,49 @@
     },
     "variants": {
       "colors": {
-        "Чёрный": 1,
-        "Бежевый": 1
+        "Бежевый": 1,
+        "Чёрный": 1
       },
       "sizes": {
         "M": 1,
         "2XL": 1
       },
       "matrix": {
-        "Чёрный/M": 1,
-        "Бежевый/2XL": 1
+        "Бежевый/2XL": 1,
+        "Чёрный/M": 1
       }
     },
     "cost": 4571.625,
     "retail": 16900.0,
+    "orig_price": 16900.0,
     "cur_disc": 0,
     "margin_pct": 72.9,
     "sales": {
-      "s30": 6,
-      "s30_60": 12,
+      "s30": 5,
+      "s30_60": 11,
       "s90": 40,
       "s180": 44,
       "s365": 44,
       "sall": 44,
-      "rev_30d": 101400.0,
+      "rev_30d": 84500.0,
       "rev_90d": 676000.0
     },
     "last_sale": "2026-05-16",
-    "days_no_sale": 7,
+    "days_no_sale": 8,
     "days_since_supply": null,
     "sell_through": 95.7,
-    "wos": 1.4,
+    "wos": 1.7,
     "velocity": {
-      "recent_30d": 6,
+      "recent_30d": 5,
       "avg_30d": 13.3,
-      "acceleration": 0.45
+      "acceleration": 0.38
     },
     "frozen_cost": 9143,
     "frozen_retail": 33800,
     "category": "NORMAL",
     "health_v2": "OK",
     "suggested_discount": 0,
-    "reason": "Норма: 6/мес, 2 шт",
+    "reason": "Норма: 5/мес, 2 шт",
     "photo": "[44420b]"
   },
   {
@@ -6325,6 +6421,7 @@
     },
     "cost": 2628.0,
     "retail": 12900.0,
+    "orig_price": 12900.0,
     "cur_disc": 0,
     "margin_pct": 79.6,
     "sales": {
@@ -6338,7 +6435,7 @@
       "rev_90d": 51600.0
     },
     "last_sale": "2026-05-21",
-    "days_no_sale": 2,
+    "days_no_sale": 3,
     "days_since_supply": null,
     "sell_through": 57.1,
     "wos": 12.9,
@@ -6372,19 +6469,20 @@
     },
     "variants": {
       "colors": {
-        "Синяя полоска": 1,
-        "Серая полоска": 1
+        "Серая полоска": 1,
+        "Синяя полоска": 1
       },
       "sizes": {
         "OneSize": 2
       },
       "matrix": {
-        "Синяя полоска/OneSize": 1,
-        "Серая полоска/OneSize": 1
+        "Серая полоска/OneSize": 1,
+        "Синяя полоска/OneSize": 1
       }
     },
     "cost": 2847.0,
     "retail": 13900.0,
+    "orig_price": 13900.0,
     "cur_disc": 0,
     "margin_pct": 79.5,
     "sales": {
@@ -6398,7 +6496,7 @@
       "rev_90d": 97300.0
     },
     "last_sale": "2026-05-08",
-    "days_no_sale": 15,
+    "days_no_sale": 16,
     "days_since_supply": null,
     "sell_through": 77.8,
     "wos": 8.6,
@@ -6443,11 +6541,12 @@
     },
     "cost": 5467.485294117647,
     "retail": 28900.0,
+    "orig_price": 28900.0,
     "cur_disc": 0,
     "margin_pct": 81.1,
     "sales": {
       "s30": 3,
-      "s30_60": 9,
+      "s30_60": 6,
       "s90": 29,
       "s180": 34,
       "s365": 34,
@@ -6456,7 +6555,7 @@
       "rev_90d": 838100.0
     },
     "last_sale": "2026-05-10",
-    "days_no_sale": 13,
+    "days_no_sale": 14,
     "days_since_supply": null,
     "sell_through": 97.1,
     "wos": 1.4,
@@ -6501,6 +6600,7 @@
     },
     "cost": 1606.0,
     "retail": 6900.0,
+    "orig_price": 6900.0,
     "cur_disc": 0,
     "margin_pct": 76.7,
     "sales": {
@@ -6514,7 +6614,7 @@
       "rev_90d": 75900.0
     },
     "last_sale": "2026-05-17",
-    "days_no_sale": 6,
+    "days_no_sale": 7,
     "days_since_supply": null,
     "sell_through": 84.6,
     "wos": 8.6,
@@ -6559,11 +6659,12 @@
     },
     "cost": 2920.0,
     "retail": 11900.0,
+    "orig_price": 11900.0,
     "cur_disc": 0,
     "margin_pct": 75.5,
     "sales": {
       "s30": 3,
-      "s30_60": 5,
+      "s30_60": 4,
       "s90": 9,
       "s180": 9,
       "s365": 9,
@@ -6572,7 +6673,7 @@
       "rev_90d": 107100.0
     },
     "last_sale": "2026-05-21",
-    "days_no_sale": 2,
+    "days_no_sale": 3,
     "days_since_supply": null,
     "sell_through": 90.0,
     "wos": 1.4,
@@ -6617,27 +6718,28 @@
     },
     "cost": 2555.0,
     "retail": 10900.0,
+    "orig_price": 10900.0,
     "cur_disc": 0,
     "margin_pct": 76.6,
     "sales": {
       "s30": 3,
-      "s30_60": 8,
-      "s90": 22,
+      "s30_60": 5,
+      "s90": 21,
       "s180": 25,
       "s365": 25,
       "sall": 25,
       "rev_30d": 32700.0,
-      "rev_90d": 239800.0
+      "rev_90d": 228900.0
     },
     "last_sale": "2026-05-02",
-    "days_no_sale": 21,
+    "days_no_sale": 22,
     "days_since_supply": null,
     "sell_through": 96.2,
     "wos": 1.4,
     "velocity": {
       "recent_30d": 3,
-      "avg_30d": 7.3,
-      "acceleration": 0.41
+      "avg_30d": 7.0,
+      "acceleration": 0.43
     },
     "frozen_cost": 2555,
     "frozen_retail": 10900,

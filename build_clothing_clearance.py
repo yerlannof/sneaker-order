@@ -353,7 +353,10 @@ def main():
         s180 = sl.get('s180', 0); s365 = sl.get('s365', 0); sall = sl.get('sall', 0)
         last_sale = sl.get('last_sale'); first_sale = sl.get('first_sale')
         cost = float(cost_by_base.get(base, 0) or 0)
-        retail = float(ms['reg'] or 0)
+        # orig = изначальная "Цена продажи" (зачёркнутая); cur = текущая (со скидкой если есть) = БАЗА скидки
+        orig_price = float(ms['reg'] or 0)
+        new_ms = float(ms['new'] or 0)
+        retail = new_ms if (orig_price > 0 and 0 < new_ms < orig_price) else orig_price
         cur_disc = ms['cur_disc']
         total = d['total']
 
@@ -379,6 +382,7 @@ def main():
             'sizes': sizes_sorted,
             'variants': {'colors': d['colors'], 'sizes': sizes_sorted, 'matrix': d['matrix']},
             'cost': cost, 'retail': retail,
+            'orig_price': orig_price,
             'cur_disc': cur_disc,
             'margin_pct': round((retail - cost) / retail * 100, 1) if retail > 0 else 0,
             'sales': {'s30': s30, 's30_60': s30_60, 's90': s90, 's180': s180, 's365': s365,
@@ -549,12 +553,15 @@ function renderItem(item, idx) {
       ${renderSizes(item)}
       <div class="price-row">
         <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
-        <div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>
+        ${item.cur_disc > 0
+          ? `<div class="price-item"><span class="label">Изначальная</span> <span class="val" style="text-decoration:line-through;color:var(--text3)">${fmt(Math.round(item.orig_price))}₸</span></div>
+             <div class="price-item"><span class="label">Сейчас (−${item.cur_disc}%)</span> <span class="val" style="color:#f59e0b">${fmt(Math.round(item.retail))}₸</span></div>`
+          : `<div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>`}
         ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
         ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
       </div>
       <div class="discount-row" style="flex-wrap:wrap">
-        <label>Скидка</label>
+        <label>Скидка от текущей</label>
         <div class="disc-btns">
           ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
         </div>
@@ -1053,12 +1060,15 @@ function renderItem(item, idx) {
       ${renderSizes(item)}
       <div class="price-row">
         <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
-        <div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>
+        ${item.cur_disc > 0
+          ? `<div class="price-item"><span class="label">Изначальная</span> <span class="val" style="text-decoration:line-through;color:var(--text3)">${fmt(Math.round(item.orig_price))}₸</span></div>
+             <div class="price-item"><span class="label">Сейчас (−${item.cur_disc}%)</span> <span class="val" style="color:#f59e0b">${fmt(Math.round(item.retail))}₸</span></div>`
+          : `<div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>`}
         ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
         ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
       </div>
       <div class="discount-row" style="flex-wrap:wrap">
-        <label>Скидка</label>
+        <label>Скидка от текущей</label>
         <div class="disc-btns">
           ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
         </div>
@@ -1138,7 +1148,8 @@ function exportJSON() {
   const items = ALL_ITEMS.filter(i => discounts[i.article || i.name] > 0).map(i => ({
     article: i.article,
     name: i.name,
-    current_retail: i.retail,
+    current_retail: i.orig_price || i.retail,   // изначальная = зачёркнутая на стикере
+    cur_price: i.retail,                          // текущая цена (база скидки)
     discount: discounts[i.article || i.name],
     new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
     stock: i.stock.total,
