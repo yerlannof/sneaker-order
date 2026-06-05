@@ -109,14 +109,20 @@ def categorize(item: dict) -> tuple[str, str]:
         sold_sizes = set(item.get('sizes_sold') or [])
         missing = (core & sold_sizes) - (core & in_sizes)
         avg = round(s90 / 3, 1)
-        if missing:
+        # Общий запас в неделях по ИСТОРИЧЕСКОМУ темпу (до остывания).
+        wos_total = total / (s90 / 13) if s90 else 999
+        # ДОЗАКАЗ — только если выбит ходовой И модель НЕ затоварена (запас ≤12 нед).
+        # Иначе (затоварена ИЛИ сетка полная) → скидка: дозаказ к избытку = мёртвый сток.
+        if missing and wos_total <= 12:
             return ('COOLING_REORDER',
-                    f'Сдаёт обороты ({avg}→{s30}/мес). Ходовые {sorted(missing)} ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)')
+                    f'Сдаёт обороты ({avg}→{s30}/мес), запас {wos_total:.0f} нед. Ходовые {sorted(missing)} ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)')
         else:
             months = int(total / max(s30, 0.5))
+            why = (f'выбит {sorted(missing)}, но затоварено ({wos_total:.0f} нед) — дозаказ не нужен'
+                   if missing else 'сетка полная')
             disc = 20 if (s30 < avg * 0.25 and months > 10) else (15 if (s30 < avg * 0.5 or months > 6) else 10)
             return ('COOLING_SALE',
-                    f'Сдаёт обороты ({avg}→{s30}/мес), сетка полная, ~{months} мес запаса → мягкая скидка −{disc}% (лови рано)')
+                    f'Сдаёт обороты ({avg}→{s30}/мес), {why}, ~{months} мес запаса → мягкая скидка −{disc}%')
 
     # Медленные — лежат и слабо продаются
     if days_since_supply > 60 and s30 <= 3 and total >= 5:
