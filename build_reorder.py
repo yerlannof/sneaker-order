@@ -78,15 +78,23 @@ def main():
     print("Собираю данные...")
     base_rows = con.execute(f"""
 WITH s35 AS (
+    -- Отбор: обычные (35д>=5) + ОСТЫВАЮЩИЕ (35д упали, но 90д>=9 — выбит размер,
+    -- продавать нечего). Для остывающих adj_rate считаем по ИСТОРИЧЕСКОМУ темпу
+    -- (90д/12 нед), т.к. падение из-за дефицита размера, а не спроса.
     SELECT article,
         ANY_VALUE(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '')) AS model,
-        SUM(quantity) AS qty_35d,
-        ROUND(SUM(quantity)/5.0 * {season_coef}, 1) AS adj_rate,
+        SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY) AS qty_35d,
+        CASE WHEN SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY) >= 5
+             THEN ROUND(SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY)/5.0 * {season_coef}, 1)
+             ELSE ROUND(SUM(quantity)/12.0 * {season_coef}, 1)
+        END AS adj_rate,
         ROUND(AVG(CASE WHEN price>0 THEN price END)) AS avg_price
     FROM retaildemand_positions
-    WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY AND price > 0
+    WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY AND price > 0
       AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
-    GROUP BY article HAVING SUM(quantity) >= 5
+    GROUP BY article
+    HAVING SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY) >= 5
+        OR SUM(quantity) >= 9
 ),
 sp AS (
     SELECT article,
@@ -256,7 +264,7 @@ ORDER BY s35.adj_rate DESC
 
         items.append({
             'article': str(article), 'model': model or '', 'gender': gender,
-            'qty_35d': int(qty_35d), 'adj_rate': float(adj_rate),
+            'qty_35d': int(qty_35d or 0), 'adj_rate': float(adj_rate or 0),
             'avg_price': int(avg_price or 0), 'buy_price': int(buy_price or 0),
             'stock': {'total': int(total), 'msk': int(msk), 'tsum_online': int(tsum_onl),
                       'aruzhan': int(ar), 'warehouse': int(wh)},
