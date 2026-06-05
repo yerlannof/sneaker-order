@@ -339,7 +339,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <h1>Кроссовки</h1>
     <span class="badge badge-info">516 моделей</span>
   </div>
-  <div class="header-meta">Остатки: 24.05.2026 | Все 200000-209999</div>
+  <div class="header-meta">Остатки: 05.06.2026 | Все 200000-209999</div>
 </div>
 
 <div class="stats" id="stats">
@@ -348,11 +348,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5628</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">5627</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">75</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">99</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
@@ -364,7 +364,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">1476</div>
+    <div class="stat-num green" id="stat-sold">1477</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
@@ -406,11 +406,11 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
 <button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (56)</button>
-<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (28)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (75)</button>
-<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (16)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (70)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (214)</button>
+<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (27)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (99)</button>
+<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (9)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (65)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (203)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (57)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (222)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
@@ -492,7 +492,7 @@ try {
   if (saved) discounts = JSON.parse(saved);
 } catch(e) {}
 // Восстановление ранее выставленных скидок (из Supabase, вшито при сборке)
-const PRESET_DISCOUNTS = {"200855": 50, "201797": 30, "202021": 30, "202067": 30, "202625": 30, "202401": 30, "202375": 30, "200548": 50, "202286": 30, "202590": 30, "201458": 50, "202031": 50, "201057": 30, "201611": 50, "202284": 30, "200356": 50, "202107": 30, "202211": 30, "201855": 50, "201745": 30, "202563": 30, "200333": 50, "201929": 30, "202557": 30, "202102": 30, "202556": 30, "202105": 30, "200150": 50, "202680": 30, "202554": 30, "201055": 30, "202297": 30, "202535": 30, "202549": 30, "202106": 30, "202676": 30, "202082": 30, "201896": 30, "202576": 30, "202601": 30, "202314": 50, "202672": 30, "201520": 50, "202402": 30, "202623": 30, "201495": 50, "201926": 30, "202621": 50, "202715": 30, "202104": 30, "202575": 30, "202547": 30, "202641": 30, "200552": 50, "202640": 30, "202551": 30, "202555": 30, "202117": 30, "202321": 50, "201646": 50, "202381": 30, "202502": 30, "202566": 30, "202593": 30, "202598": 30, "202552": 30, "202599": 30, "202550": 30, "201944": 30, "202594": 30, "200185": 50, "202655": 30, "202597": 30, "202600": 30, "202579": 30, "202595": 30, "202710": 30, "202703": 30, "202705": 30, "202700": 30, "202704": 30, "202698": 30, "202701": 30, "202687": 30, "201914": 30, "202681": 30, "202024": 50, "201635": 50, "201912": 30, "201948": 30, "202020": 50, "201811": 50, "202661": 30, "202322": 50, "201897": 30, "202457": 30, "201902": 50, "202546": 30, "202553": 30, "201809": 50, "200555": 50, "201429": 50, "202585": 30, "200426": 50, "201530": 50, "201779": 50, "202068": 30, "202222": 30, "200968": 50, "202686": 30, "202659": 30, "200554": 50, "201560": 50, "201683": 50, "202749": 30, "202723": 30};
+const PRESET_DISCOUNTS = {};
 let _restored = 0;
 for (const a in PRESET_DISCOUNTS) {
   if (!discounts[a]) { discounts[a] = PRESET_DISCOUNTS[a]; _restored++; }
