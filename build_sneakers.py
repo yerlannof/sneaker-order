@@ -98,6 +98,26 @@ def categorize(item: dict) -> tuple[str, str]:
     if days_no_sale > 90 and total >= 3 and s30 == 0:
         return ('DEAD', f'{days_no_sale} дн без продаж, {total} пар лежат — скидка 40-50% или списание')
 
+    # ОСТЫВАЮТ — был приличный темп за 90д, но последний месяц просел >40%.
+    # ВЫШЕ SLOW/HOT: остывание — про ТРЕНД (падает), а не абсолютный уровень.
+    # Падающий хит надо ловить тут, а не прятать в «Хиты». Развилка (лови РАНО):
+    #   сетка выбита (ходовой размер продавался, но кончился) → ДОЗАКАЗ, не скидка
+    #   сетка полная (ходовые на месте, но не берут)          → мягкая СКИДКА
+    if s90 >= 9 and total >= 3 and s30 < s90 / 3 * 0.6:
+        core = {'37', '38', '39', '41', '42', '43'}
+        in_sizes = {str(k).split('.')[0] for k, v in (item.get('sizes') or {}).items() if v > 0}
+        sold_sizes = set(item.get('sizes_sold') or [])
+        missing = (core & sold_sizes) - (core & in_sizes)
+        avg = round(s90 / 3, 1)
+        if missing:
+            return ('COOLING_REORDER',
+                    f'Сдаёт обороты ({avg}→{s30}/мес). Ходовые {sorted(missing)} ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)')
+        else:
+            months = int(total / max(s30, 0.5))
+            disc = 20 if (s30 < avg * 0.25 and months > 10) else (15 if (s30 < avg * 0.5 or months > 6) else 10)
+            return ('COOLING_SALE',
+                    f'Сдаёт обороты ({avg}→{s30}/мес), сетка полная, ~{months} мес запаса → мягкая скидка −{disc}% (лови рано)')
+
     # Медленные — лежат и слабо продаются
     if days_since_supply > 60 and s30 <= 3 and total >= 5:
         return ('SLOW', f'{s30} шт/мес × {total} пар = >{int(total/max(s30,1))} мес запаса — скидка 20-30%')
@@ -262,6 +282,21 @@ def main():
                 sizes_by_article.setdefault(art, {})
                 sizes_by_article[art][size] = sizes_by_article[art].get(size, 0) + int(qty)
 
+        # Проданные размеры за 90д (для развилки «Остывают»: какой ходовой размер
+        # продавался, но выбит из наличия → дозаказ, а не скидка). Размер из имени.
+        sold_size_rows = con.execute(f"""
+            SELECT article, product_name, SUM(quantity) AS q
+            FROM retaildemand_positions
+            WHERE article IN ({ph}) AND price > 0 AND document_moment >= DATE '2026-03-07'
+            GROUP BY article, product_name
+        """, articles).fetchall()
+        sold_sizes_by_article = {}
+        for art, pname, qty in sold_size_rows:
+            m = re.search(r',\s*(\d+(?:\.\d+)?)\s*$', pname or '')
+            if m and int(qty or 0) > 0:
+                size = m.group(1).split('.')[0]
+                sold_sizes_by_article.setdefault(art, set()).add(size)
+
     # Snapshot ~6 месяцев назад (180 дней) — ищем ближайшую существующую таблицу
     target_180 = (today - timedelta(days=180)).strftime('%Y%m%d')
     snap_tables = con.execute("""
@@ -324,6 +359,7 @@ def main():
             'stock': {'total': total, 'moscow': msk,
                       'tsum_online': tsum + online, 'aruzhan': aruz, 'warehouse': wh},
             'sizes': sizes_by_article.get(art, {}),
+            'sizes_sold': sorted(sold_sizes_by_article.get(art, set())),
             'cost': cost, 'retail': retail,
             'orig_price': orig_price,
             'cur_disc': cur_disc,
@@ -383,7 +419,8 @@ def main():
         it['health_v2'] = health_by_article.get(art, '')
 
     # Сортируем: убыточные → мёртвые → медленные → новые → хиты → норма → намеренные
-    cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'SLOW': 2, 'NEW': 3, 'HOT': 4, 'NORMAL': 5, 'INTENTIONAL': 6}
+    cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'COOLING_REORDER': 2, 'COOLING_SALE': 3,
+                 'SLOW': 4, 'NEW': 5, 'HOT': 6, 'NORMAL': 7, 'INTENTIONAL': 8}
     items.sort(key=lambda x: (cat_order.get(x['category'], 99), -x['frozen_cost']))
 
     print("\n4. Фото из кеша (пропускаем скачивание)...")
@@ -413,12 +450,14 @@ def main():
     print("\n=== СВОДКА ===")
     cat_names = {'UNPROFITABLE': '⚠️ Убыточные (РЦ ≤ себес)',
                  'DEAD': '🔴 Мёртвые (90+ дн без продаж)',
+                 'COOLING_REORDER': '🔵 Остывают → ДОЗАКАЗ (выбит ходовой размер)',
+                 'COOLING_SALE': '🟡 Остывают → СКИДКА (сетка полная, спрос упал)',
                  'SLOW': '🟠 Медленные (60+ дн, мало продаж)',
                  'NEW': '⚪ Новые (рано судить)',
                  'HOT': '🟢 Хиты (быстро продаются)',
                  'NORMAL': '🔵 Норма',
                  'INTENTIONAL': '⚫ Намеренный неликвид (NB/Asics/Puma)'}
-    for c in ['UNPROFITABLE', 'DEAD', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']:
+    for c in ['UNPROFITABLE', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']:
         if c in cat_count:
             print(f"  {cat_names[c]:<48} {cat_count[c]:>4} моделей  {cat_frozen[c]:>14,.0f} ₸")
 
@@ -570,6 +609,8 @@ function renderItem(item, idx) {
 CAT_CONFIG = {
     'UNPROFITABLE': {'label': '⚠️ УБЫТОЧНЫЕ', 'color': '#dc2626', 'bg': '#fef2f2'},
     'DEAD':         {'label': '🔴 МЁРТВЫЕ',    'color': '#ef4444', 'bg': '#fef2f2'},
+    'COOLING_REORDER': {'label': '🔵 ОСТЫВАЮТ → ДОЗАКАЗ', 'color': '#0ea5e9', 'bg': '#f0f9ff'},
+    'COOLING_SALE':    {'label': '🟡 ОСТЫВАЮТ → СКИДКА',  'color': '#eab308', 'bg': '#fefce8'},
     'SLOW':         {'label': '🟠 МЕДЛЕННЫЕ',  'color': '#f59e0b', 'bg': '#fffbeb'},
     'NEW':          {'label': '⚪ НОВЫЕ',       'color': '#6b7280', 'bg': '#f3f4f6'},
     'HOT':          {'label': '🟢 ХИТЫ',        'color': '#10b981', 'bg': '#ecfdf5'},

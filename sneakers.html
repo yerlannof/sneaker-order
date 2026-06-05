@@ -352,7 +352,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">99</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">65</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
@@ -407,10 +407,10 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
 <button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (56)</button>
 <button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (27)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (99)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (65)</button>
 <button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (9)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (65)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (203)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (62)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (183)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (57)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (222)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (95)</button>
@@ -665,7 +665,7 @@ function renderItem(item, idx) {
   const disc = discounts[itemKey] || 0;
   const newPrice = disc > 0 ? Math.round(item.retail * (1 - disc/100)) : 0;
   const stBadge = stClass(item.sell_through);
-  const CAT_LABELS = {"UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "DEAD": "🔴 МЁРТВЫЕ", "SLOW": "🟠 МЕДЛЕННЫЕ", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma"};
+  const CAT_LABELS = {"UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "DEAD": "🔴 МЁРТВЫЕ", "COOLING_REORDER": "🔵 ОСТЫВАЮТ → ДОЗАКАЗ", "COOLING_SALE": "🟡 ОСТЫВАЮТ → СКИДКА", "SLOW": "🟠 МЕДЛЕННЫЕ", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma"};
 
   const photoHtml = item.photo
     ? `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" alt="${item.name}" onclick="openLightbox('${itemKey.replace(/'/g,"")}')">`
