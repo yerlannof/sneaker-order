@@ -718,7 +718,8 @@ if (_restored > 0) {
     # Stats
     cat_count = {}
     for it in items: cat_count[it['category']] = cat_count.get(it['category'], 0) + 1
-    pct = lambda c: f'{cat_count.get(c, 0)}'
+    pct = lambda c: cat_count.get(c, 0)   # ЧИСЛО (не строка — иначе склейка 56+27='5627')
+    cooling_total = pct("COOLING_REORDER") + pct("COOLING_SALE")
 
     stats_replacements = [
         (r'<div class="stat-num" id="stat-items">\d+</div>',
@@ -880,7 +881,7 @@ async function loadData() {
 
     # Filter-bar — заменим на категории
     cat_emoji_count = []
-    cat_order = ['UNPROFITABLE', 'DEAD', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']
+    cat_order = ['UNPROFITABLE', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']
     cat_emoji_count.append('<button class="filter-btn active" onclick="setFilter(\'all\')">Все</button>')
     for c in cat_order:
         if c in cat_count:
