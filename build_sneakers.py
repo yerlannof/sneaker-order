@@ -216,7 +216,9 @@ def main():
                          FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
         sup_cost AS (SELECT product_article AS article, ROUND(AVG(price)) c FROM supply_positions WHERE price > 0 GROUP BY product_article)
         SELECT s.article, s.pname, s.total, s.msk, s.tsum, s.online, s.aruz, s.wh,
-               COALESCE(p.c, sc.c, 0) AS cost,
+               -- NULLIF: у товаров In buy_price в prices = 0 (не NULL), без NULLIF
+               -- COALESCE брал бы 0 вместо цены из поставок → себес занижался на ~27М.
+               COALESCE(NULLIF(p.c, 0), sc.c, 0) AS cost,
                COALESCE(p.r, 0) AS retail,
                COALESCE(p.np, 0) AS new_price,
                COALESCE(s30.q, 0) AS s30, COALESCE(s90.q, 0) AS s90,
