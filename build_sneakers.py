@@ -417,6 +417,17 @@ def main():
         art = it.get('article', '')
         it['suggested_discount'] = suggested_by_article.get(art, 0)
         it['health_v2'] = health_by_article.get(art, '')
+        # Категория решает рекомендацию (иначе противоречие: «ДОЗАКАЗ» + кнопка скидки):
+        cat = it.get('category', '')
+        if cat == 'COOLING_REORDER':
+            # выбит ходовой размер → НЕ скидка, а дозаказ. Убираем рекомендацию скидки.
+            it['suggested_discount'] = 0
+            it['reorder_hint'] = it.get('reason', '')
+        elif cat == 'COOLING_SALE':
+            # мягкая скидка из reason («−N%»)
+            m = re.search(r'−(\d+)%', it.get('reason', ''))
+            if m:
+                it['suggested_discount'] = int(m.group(1))
 
     # Сортируем: убыточные → мёртвые → медленные → новые → хиты → норма → намеренные
     cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'COOLING_REORDER': 2, 'COOLING_SALE': 3,
@@ -594,7 +605,12 @@ function renderItem(item, idx) {
           ? `<span class="new-price">${fmt(newPrice)}₸</span>`
           : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
       </div>
-      ${(item.suggested_discount > 0 && disc === 0) ? `
+      ${item.category === 'COOLING_REORDER' ? `
+      <div class="discount-row" style="background:#f0f9ff;border:1px dashed #0ea5e9;margin-top:6px">
+        <label style="color:#075985">🔵 ДОЗАКАЗ</label>
+        <span style="font-size:12px;color:#075985">${item.reorder_hint || 'Выбит ходовой размер — дозаказать, НЕ сейлить'}</span>
+      </div>` :
+      (item.suggested_discount > 0 && disc === 0) ? `
       <div class="discount-row" style="background:#fef3c7;border:1px dashed #d97706;margin-top:6px">
         <label style="color:#92400e">💡 Реком</label>
         <button type="button" class="disc-btn active" style="background:#d97706;color:#fff;border-color:#d97706" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${item.suggested_discount})">Применить ${item.suggested_discount}%</button>

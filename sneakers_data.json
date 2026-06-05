@@ -350,9 +350,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 5,
       "37": 3,
-      "38": 1
+      "38": 1,
+      "36": 5
     },
     "sizes_sold": [
       "36",
@@ -862,8 +862,8 @@
     },
     "sizes": {
       "45": 1,
-      "37": 1,
-      "36": 1
+      "36": 1,
+      "37": 1
     },
     "sizes_sold": [],
     "cost": 11098.97,
@@ -1464,60 +1464,6 @@
     "photo": "[15832b]"
   },
   {
-    "article": "202068",
-    "name": "Nike Air Jordan 3 Craft «Ivory» K, 38",
-    "brand": "Jordan",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "38": 1
-    },
-    "sizes_sold": [],
-    "cost": 16781.03,
-    "retail": 17900.0,
-    "orig_price": 41900.0,
-    "cur_disc": 57,
-    "margin_pct": 6.3,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 7,
-      "s365": 45,
-      "sall": 110,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2024-02-02",
-      "first_supply_qty": 111,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 9
-    },
-    "last_sale": "2026-02-11",
-    "days_no_sale": 114,
-    "days_since_supply": 546,
-    "days_in_stock": 854,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 16781,
-    "frozen_retail": 17900,
-    "category": "UNPROFITABLE",
-    "reason": "РЦ 17,900 < себес 16,781, НЕ продаётся 114д. Сейлить -30% (→ 12,530₸) и списать остатки",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[13688b]"
-  },
-  {
     "article": "201779",
     "name": "Nike Air Jordan 1 High Washed Heritage K, 36",
     "brand": "Jordan",
@@ -1572,6 +1518,60 @@
     "suggested_discount": 30,
     "health_v2": "SLOW",
     "photo": "[12392b]"
+  },
+  {
+    "article": "202068",
+    "name": "Nike Air Jordan 3 Craft «Ivory» K, 38",
+    "brand": "Jordan",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "38": 1
+    },
+    "sizes_sold": [],
+    "cost": 16781.03,
+    "retail": 17900.0,
+    "orig_price": 41900.0,
+    "cur_disc": 57,
+    "margin_pct": 6.3,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 7,
+      "s365": 45,
+      "sall": 110,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2024-02-02",
+      "first_supply_qty": 111,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 9
+    },
+    "last_sale": "2026-02-11",
+    "days_no_sale": 114,
+    "days_since_supply": 546,
+    "days_in_stock": 854,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 16781,
+    "frozen_retail": 17900,
+    "category": "UNPROFITABLE",
+    "reason": "РЦ 17,900 < себес 16,781, НЕ продаётся 114д. Сейлить -30% (→ 12,530₸) и списать остатки",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[13688b]"
   },
   {
     "article": "201797",
@@ -2230,60 +2230,6 @@
     "photo": "[9396b]"
   },
   {
-    "article": "200986",
-    "name": "Nike Blazer Mid 77 Vintage White Black Blood А, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1
-    },
-    "sizes_sold": [],
-    "cost": 12000.0,
-    "retail": 9900.0,
-    "orig_price": 19900.0,
-    "cur_disc": 50,
-    "margin_pct": -21.2,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 1,
-      "sall": 7,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": null,
-      "first_supply_qty": 0,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 1
-    },
-    "last_sale": "2025-08-03",
-    "days_no_sale": 306,
-    "days_since_supply": 999,
-    "days_in_stock": null,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 12000,
-    "frozen_retail": 9900,
-    "category": "UNPROFITABLE",
-    "reason": "РЦ 9,900 < себес 12,000, НЕ продаётся 306д. Сейлить -30% (→ 6,930₸) и списать остатки",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
     "article": "201727",
     "name": "Adidas Samba Pony Tonal WBC Black Z, 36",
     "brand": "Adidas",
@@ -2338,6 +2284,60 @@
     "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "[29816b]"
+  },
+  {
+    "article": "200986",
+    "name": "Nike Blazer Mid 77 Vintage White Black Blood А, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1
+    },
+    "sizes_sold": [],
+    "cost": 12000.0,
+    "retail": 9900.0,
+    "orig_price": 19900.0,
+    "cur_disc": 50,
+    "margin_pct": -21.2,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 0,
+      "s365": 1,
+      "sall": 7,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": null,
+      "first_supply_qty": 0,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 1
+    },
+    "last_sale": "2025-08-03",
+    "days_no_sale": 306,
+    "days_since_supply": 999,
+    "days_in_stock": null,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 12000,
+    "frozen_retail": 9900,
+    "category": "UNPROFITABLE",
+    "reason": "РЦ 9,900 < себес 12,000, НЕ продаётся 306д. Сейлить -30% (→ 6,930₸) и списать остатки",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
   },
   {
     "article": "202059",
@@ -3109,8 +3109,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 2,
       "37": 1,
+      "36": 2,
       "39": 2,
       "38": 1
     },
@@ -3221,9 +3221,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "40": 4,
       "37": 4,
       "43": 2,
-      "40": 4,
       "36": 4,
       "39": 2
     },
@@ -3679,8 +3679,8 @@
     },
     "sizes": {
       "38": 3,
-      "37": 3,
-      "36": 2
+      "36": 2,
+      "37": 3
     },
     "sizes_sold": [],
     "cost": 7000.0,
@@ -3790,8 +3790,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "44": 1,
       "42": 1,
+      "44": 1,
       "43": 2,
       "41": 1
     },
@@ -3901,9 +3901,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "38": 3,
       "37": 1,
-      "36": 1
+      "36": 1,
+      "38": 3
     },
     "sizes_sold": [],
     "cost": 8500.0,
@@ -4168,6 +4168,62 @@
     "photo": "[21156b]"
   },
   {
+    "article": "202497",
+    "name": "Columbia Outdoor Waterproof Shoes Z, 40",
+    "brand": "Прочее",
+    "stock": {
+      "total": 4,
+      "moscow": 0,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 4
+    },
+    "sizes": {
+      "40": 2,
+      "41": 1,
+      "42": 1
+    },
+    "sizes_sold": [],
+    "cost": 8000.0,
+    "retail": 25900.0,
+    "orig_price": 25900.0,
+    "cur_disc": 0,
+    "margin_pct": 69.1,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 2,
+      "s365": 9,
+      "sall": 9,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2025-09-03",
+      "first_supply_qty": 11,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 6
+    },
+    "last_sale": "2026-01-22",
+    "days_no_sale": 134,
+    "days_since_supply": 275,
+    "days_in_stock": 275,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 32000,
+    "frozen_retail": 103600,
+    "category": "DEAD",
+    "reason": "134 дн без продаж, 4 пар лежат — скидка 40-50% или списание",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
     "article": "202499",
     "name": "Columbia Trail Waterproof Boots Black & Red Z, 40",
     "brand": "Прочее",
@@ -4223,62 +4279,6 @@
     "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "[11584b]"
-  },
-  {
-    "article": "202497",
-    "name": "Columbia Outdoor Waterproof Shoes Z, 40",
-    "brand": "Прочее",
-    "stock": {
-      "total": 4,
-      "moscow": 0,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 4
-    },
-    "sizes": {
-      "40": 2,
-      "41": 1,
-      "42": 1
-    },
-    "sizes_sold": [],
-    "cost": 8000.0,
-    "retail": 25900.0,
-    "orig_price": 25900.0,
-    "cur_disc": 0,
-    "margin_pct": 69.1,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 2,
-      "s365": 9,
-      "sall": 9,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-09-03",
-      "first_supply_qty": 11,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 6
-    },
-    "last_sale": "2026-01-22",
-    "days_no_sale": 134,
-    "days_since_supply": 275,
-    "days_in_stock": 275,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 32000,
-    "frozen_retail": 103600,
-    "category": "DEAD",
-    "reason": "134 дн без продаж, 4 пар лежат — скидка 40-50% или списание",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
   },
   {
     "article": "201057",
@@ -4623,12 +4623,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 1,
       "37": 3,
-      "39": 4,
-      "41": 4,
+      "43": 1,
       "38": 6,
       "40": 8,
+      "39": 4,
+      "41": 4,
       "36": 6
     },
     "sizes_sold": [
@@ -4675,8 +4675,9 @@
     "frozen_retail": 956800,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (8.7→2/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (8.7→2/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[14692b]"
   },
   {
@@ -4693,10 +4694,10 @@
     "sizes": {
       "39": 1,
       "44": 4,
-      "45": 6,
       "36": 5,
       "37": 3,
       "41": 7,
+      "45": 6,
       "40": 8,
       "43": 2
     },
@@ -4746,8 +4747,9 @@
     "frozen_retail": 716400,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (14.7→7/мес). Ходовые ['38', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (14.7→7/мес). Ходовые ['38', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[23020b]"
   },
   {
@@ -4763,10 +4765,10 @@
     },
     "sizes": {
       "41": 2,
-      "36": 5,
       "37": 5,
       "40": 6,
       "44": 1,
+      "36": 5,
       "38": 5,
       "42": 1
     },
@@ -4814,8 +4816,9 @@
     "frozen_retail": 722500,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (5.3→3/мес). Ходовые ['39', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (5.3→3/мес). Ходовые ['39', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[43352b]"
   },
   {
@@ -4832,10 +4835,10 @@
     "sizes": {
       "42": 3,
       "39": 2,
-      "40": 3,
-      "41": 1,
       "37": 2,
       "36": 2,
+      "40": 3,
+      "41": 1,
       "38": 4,
       "44": 1
     },
@@ -4886,6 +4889,7 @@
     "reason": "Сдаёт обороты (4.7→1/мес). Ходовые ['43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "OK",
+    "reorder_hint": "Сдаёт обороты (4.7→1/мес). Ходовые ['43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[14272b]"
   },
   {
@@ -4902,9 +4906,9 @@
     "sizes": {
       "38": 3,
       "36": 3,
-      "37": 4,
       "40": 6,
-      "42": 1
+      "42": 1,
+      "37": 4
     },
     "sizes_sold": [
       "36",
@@ -4952,8 +4956,9 @@
     "frozen_retail": 491300,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (11.3→2/мес). Ходовые ['39', '41', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (11.3→2/мес). Ходовые ['39', '41', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[15496b]"
   },
   {
@@ -5022,8 +5027,9 @@
     "frozen_retail": 433500,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (11.3→3/мес). Ходовые ['39', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (11.3→3/мес). Ходовые ['39', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[18520b]"
   },
   {
@@ -5040,10 +5046,10 @@
     "sizes": {
       "37": 2,
       "43": 3,
+      "41": 5,
       "36": 3,
       "39": 4,
       "44": 4,
-      "41": 5,
       "38": 4,
       "45": 3
     },
@@ -5093,6 +5099,7 @@
     "reason": "Сдаёт обороты (4.0→1/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (4.0→1/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[40240b]"
   },
   {
@@ -5108,8 +5115,8 @@
     },
     "sizes": {
       "39": 4,
-      "38": 3,
       "40": 1,
+      "38": 3,
       "36": 4,
       "37": 2
     },
@@ -5158,8 +5165,9 @@
     "frozen_retail": 418600,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (5.7→0/мес). Ходовые ['41', '42', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (5.7→0/мес). Ходовые ['41', '42', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[17392b]"
   },
   {
@@ -5174,9 +5182,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 5,
       "44": 5,
       "45": 2,
+      "43": 5,
       "46": 2
     },
     "sizes_sold": [
@@ -5224,6 +5232,7 @@
     "reason": "Сдаёт обороты (6.3→3/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (6.3→3/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[16544b]"
   },
   {
@@ -5288,6 +5297,7 @@
     "reason": "Сдаёт обороты (3.0→0/мес). Ходовые ['38', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "OK",
+    "reorder_hint": "Сдаёт обороты (3.0→0/мес). Ходовые ['38', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "(нет)"
   },
   {
@@ -5351,8 +5361,9 @@
     "frozen_retail": 433500,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (5.3→1/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (5.3→1/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[11468b]"
   },
   {
@@ -5368,9 +5379,9 @@
     },
     "sizes": {
       "36": 2,
+      "37": 3,
       "38": 1,
-      "41": 1,
-      "37": 3
+      "41": 1
     },
     "sizes_sold": [
       "37",
@@ -5416,8 +5427,9 @@
     "frozen_retail": 244930,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (4.0→0/мес). Ходовые ['39', '42', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (4.0→0/мес). Ходовые ['39', '42', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[11288b]"
   },
   {
@@ -5483,8 +5495,9 @@
     "frozen_retail": 263200,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (4.3→1/мес). Ходовые ['39', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (4.3→1/мес). Ходовые ['39', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[16144b]"
   },
   {
@@ -5547,6 +5560,7 @@
     "reason": "Сдаёт обороты (3.7→2/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (3.7→2/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[17064b]"
   },
   {
@@ -5561,9 +5575,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "45": 1,
       "41": 1,
       "46": 2,
-      "45": 1,
       "42": 1,
       "44": 2
     },
@@ -5612,6 +5626,7 @@
     "reason": "Сдаёт обороты (9.3→2/мес). Ходовые ['43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (9.3→2/мес). Ходовые ['43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[20820b]"
   },
   {
@@ -5626,8 +5641,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "39": 4,
       "38": 2,
+      "39": 4,
       "41": 1
     },
     "sizes_sold": [
@@ -5672,8 +5687,9 @@
     "frozen_retail": 174300,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (6.7→1/мес). Ходовые ['37'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (6.7→1/мес). Ходовые ['37'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "(нет)"
   },
   {
@@ -5740,6 +5756,7 @@
     "reason": "Сдаёт обороты (5.7→1/мес). Ходовые ['37', '39', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (5.7→1/мес). Ходовые ['37', '39', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[16704b]"
   },
   {
@@ -5755,8 +5772,8 @@
     },
     "sizes": {
       "41": 1,
-      "36": 2,
-      "40": 4
+      "40": 4,
+      "36": 2
     },
     "sizes_sold": [
       "36",
@@ -5801,8 +5818,9 @@
     "frozen_retail": 167300,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (9.7→1/мес). Ходовые ['37', '38', '39'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (9.7→1/мес). Ходовые ['37', '38', '39'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[16356b]"
   },
   {
@@ -5864,8 +5882,9 @@
     "frozen_retail": 119400,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (11.7→0/мес). Ходовые ['41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (11.7→0/мес). Ходовые ['41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[43892b]"
   },
   {
@@ -5880,8 +5899,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 1,
       "38": 2,
+      "40": 1,
       "42": 3,
       "36": 1
     },
@@ -5928,8 +5947,9 @@
     "frozen_retail": 69300,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (8.3→1/мес). Ходовые ['37', '39', '41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (8.3→1/мес). Ходовые ['37', '39', '41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[5320b]"
   },
   {
@@ -5944,9 +5964,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "42": 3,
       "41": 1,
-      "45": 1,
-      "42": 3
+      "45": 1
     },
     "sizes_sold": [
       "40",
@@ -5993,6 +6013,7 @@
     "reason": "Сдаёт обороты (6.7→2/мес). Ходовые ['43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (6.7→2/мес). Ходовые ['43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[16204b]"
   },
   {
@@ -6007,8 +6028,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "37": 2,
       "43": 1,
+      "37": 2,
       "40": 1,
       "41": 1,
       "45": 1
@@ -6059,9 +6080,75 @@
     "frozen_retail": 143400,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (13.7→8/мес). Ходовые ['38', '39', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (13.7→8/мес). Ходовые ['38', '39', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[16200b]"
+  },
+  {
+    "article": "202692",
+    "name": "Nike V2K Run Grey Silver Р, 43",
+    "brand": "Nike",
+    "stock": {
+      "total": 4,
+      "moscow": 3,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "43": 1,
+      "46": 1,
+      "45": 1,
+      "44": 1
+    },
+    "sizes_sold": [
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46"
+    ],
+    "cost": 9300.0,
+    "retail": 24900.0,
+    "orig_price": 24900.0,
+    "cur_disc": 0,
+    "margin_pct": 62.7,
+    "sales": {
+      "s30": 0,
+      "s90": 27,
+      "s180": 27,
+      "s365": 27,
+      "sall": 27,
+      "rev_30d": 0.0,
+      "rev_90d": 672300.0
+    },
+    "history": {
+      "first_supply_date": "2026-03-12",
+      "first_supply_qty": 32,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 0
+    },
+    "last_sale": "2026-05-02",
+    "days_no_sale": 34,
+    "days_since_supply": 85,
+    "days_in_stock": 85,
+    "sell_through": 87.1,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 9.0,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 37200,
+    "frozen_retail": 99600,
+    "category": "COOLING_REORDER",
+    "reason": "Сдаёт обороты (9.0→0/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
+    "suggested_discount": 0,
+    "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (9.0→0/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
+    "photo": "[18252b]"
   },
   {
     "article": "202693",
@@ -6122,8 +6209,9 @@
     "frozen_retail": 99600,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (6.7→2/мес). Ходовые ['41', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (6.7→2/мес). Ходовые ['41', '43'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[17416b]"
   },
   {
@@ -6186,73 +6274,10 @@
     "frozen_retail": 95600,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (4.7→1/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (4.7→1/мес). Ходовые ['42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[41908b]"
-  },
-  {
-    "article": "202692",
-    "name": "Nike V2K Run Grey Silver Р, 43",
-    "brand": "Nike",
-    "stock": {
-      "total": 4,
-      "moscow": 3,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "43": 1,
-      "46": 1,
-      "45": 1,
-      "44": 1
-    },
-    "sizes_sold": [
-      "41",
-      "42",
-      "43",
-      "44",
-      "45",
-      "46"
-    ],
-    "cost": 9300.0,
-    "retail": 24900.0,
-    "orig_price": 24900.0,
-    "cur_disc": 0,
-    "margin_pct": 62.7,
-    "sales": {
-      "s30": 0,
-      "s90": 27,
-      "s180": 27,
-      "s365": 27,
-      "sall": 27,
-      "rev_30d": 0.0,
-      "rev_90d": 672300.0
-    },
-    "history": {
-      "first_supply_date": "2026-03-12",
-      "first_supply_qty": 32,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
-    },
-    "last_sale": "2026-05-02",
-    "days_no_sale": 34,
-    "days_since_supply": 85,
-    "days_in_stock": 85,
-    "sell_through": 87.1,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 9.0,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 37200,
-    "frozen_retail": 99600,
-    "category": "COOLING_REORDER",
-    "reason": "Сдаёт обороты (9.0→0/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
-    "health_v2": "COOLING",
-    "photo": "[18252b]"
   },
   {
     "article": "202702",
@@ -6313,6 +6338,7 @@
     "reason": "Сдаёт обороты (4.7→0/мес). Ходовые ['38', '41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (4.7→0/мес). Ходовые ['38', '41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "(нет)"
   },
   {
@@ -6374,6 +6400,7 @@
     "reason": "Сдаёт обороты (7.3→1/мес). Ходовые ['39'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (7.3→1/мес). Ходовые ['39'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[17408b]"
   },
   {
@@ -6436,6 +6463,7 @@
     "reason": "Сдаёт обороты (6.3→2/мес). Ходовые ['41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "suggested_discount": 0,
     "health_v2": "HOT",
+    "reorder_hint": "Сдаёт обороты (6.3→2/мес). Ходовые ['41'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[15500b]"
   },
   {
@@ -6496,8 +6524,9 @@
     "frozen_retail": 95600,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (4.7→2/мес). Ходовые ['39'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (4.7→2/мес). Ходовые ['39'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "[17672b]"
   },
   {
@@ -6559,8 +6588,9 @@
     "frozen_retail": 74700,
     "category": "COOLING_REORDER",
     "reason": "Сдаёт обороты (7.0→1/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
-    "suggested_discount": 25,
+    "suggested_discount": 0,
     "health_v2": "COOLING",
+    "reorder_hint": "Сдаёт обороты (7.0→1/мес). Ходовые ['41', '42'] ВЫБИТЫ — ДОЗАКАЗАТЬ (товар хотят, нет размера)",
     "photo": "(нет)"
   },
   {
@@ -6633,7 +6663,7 @@
     "frozen_retail": 3824000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (8.7→4/мес), сетка полная, ~40 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[20476b]"
   },
@@ -6650,11 +6680,11 @@
     },
     "sizes": {
       "37": 5,
-      "40": 8,
       "39": 7,
       "42": 8,
       "43": 6,
       "44": 6,
+      "40": 8,
       "38": 10,
       "41": 10,
       "36": 7
@@ -6704,7 +6734,7 @@
     "frozen_retail": 2003300,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (10.0→5/мес), сетка полная, ~13 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "OK",
     "photo": "[14024b]"
   },
@@ -6721,14 +6751,14 @@
     },
     "sizes": {
       "39": 12,
-      "42": 4,
-      "37": 8,
       "40": 8,
       "44": 3,
+      "42": 4,
+      "37": 8,
       "38": 11,
+      "36": 7,
       "46": 1,
       "43": 4,
-      "36": 7,
       "41": 5,
       "45": 2
     },
@@ -6780,7 +6810,7 @@
     "frozen_retail": 1553500,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (35.7→18/мес), сетка полная, ~3 мес запаса → мягкая скидка −10% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 10,
     "health_v2": "COOLING",
     "photo": "[45876b]"
   },
@@ -6803,9 +6833,9 @@
       "44": 6,
       "39": 10,
       "45": 5,
+      "46": 5,
       "37": 3,
       "38": 9,
-      "46": 5,
       "43": 7
     },
     "sizes_sold": [
@@ -6855,7 +6885,7 @@
     "frozen_retail": 1720800,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (12.3→7/мес), сетка полная, ~10 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[47012b]"
   },
@@ -6926,7 +6956,7 @@
     "frozen_retail": 1129800,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (12.0→4/мес), сетка полная, ~10 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "HOT",
     "photo": "[19020b]"
   },
@@ -6997,7 +7027,7 @@
     "frozen_retail": 1076000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (16.3→8/мес), сетка полная, ~5 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "HOT",
     "photo": "[16256b]"
   },
@@ -7016,8 +7046,8 @@
       "39": 6,
       "36": 6,
       "38": 10,
-      "37": 8,
-      "40": 9
+      "40": 9,
+      "37": 8
     },
     "sizes_sold": [
       "36",
@@ -7061,7 +7091,7 @@
     "frozen_retail": 1010100,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (4.0→0/мес), сетка полная, ~78 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 20,
     "health_v2": "COOLING",
     "photo": "[14580b]"
   },
@@ -7077,13 +7107,13 @@
       "warehouse": 0
     },
     "sizes": {
-      "38": 4,
       "42": 3,
       "43": 3,
+      "38": 4,
+      "39": 5,
       "37": 3,
       "41": 6,
       "44": 4,
-      "39": 5,
       "36": 4,
       "40": 8
     },
@@ -7130,7 +7160,7 @@
     "frozen_retail": 1196000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (5.3→3/мес), сетка полная, ~13 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "OK",
     "photo": "[16032b]"
   },
@@ -7148,11 +7178,11 @@
     "sizes": {
       "36": 2,
       "42": 5,
+      "43": 4,
+      "41": 4,
       "38": 6,
       "39": 2,
       "40": 6,
-      "43": 4,
-      "41": 4,
       "45": 1,
       "37": 3,
       "44": 3
@@ -7204,7 +7234,7 @@
     "frozen_retail": 1076400,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (8.3→1/мес), сетка полная, ~36 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 20,
     "health_v2": "HOT",
     "photo": "[16000b]"
   },
@@ -7223,12 +7253,12 @@
       "38": 2,
       "40": 7,
       "43": 3,
-      "44": 4,
       "42": 5,
+      "44": 4,
+      "39": 1,
       "36": 1,
       "37": 4,
-      "41": 3,
-      "39": 1
+      "41": 3
     },
     "sizes_sold": [
       "36",
@@ -7275,7 +7305,7 @@
     "frozen_retail": 957000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (5.7→1/мес), сетка полная, ~30 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 20,
     "health_v2": "HOT",
     "photo": "[18772b]"
   },
@@ -7347,7 +7377,7 @@
     "frozen_retail": 986700,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (7.3→3/мес), сетка полная, ~11 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "OK",
     "photo": "[17208b]"
   },
@@ -7365,11 +7395,11 @@
     "sizes": {
       "38": 4,
       "42": 8,
-      "40": 4,
-      "43": 7,
       "41": 9,
       "36": 4,
       "37": 5,
+      "40": 4,
+      "43": 7,
       "39": 4,
       "45": 5,
       "44": 3
@@ -7419,7 +7449,7 @@
     "frozen_retail": 948700,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (4.0→2/мес), сетка полная, ~26 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "OK",
     "photo": "(нет)"
   },
@@ -7436,8 +7466,8 @@
     },
     "sizes": {
       "38": 7,
-      "37": 4,
       "36": 3,
+      "37": 4,
       "40": 5,
       "39": 7
     },
@@ -7482,7 +7512,7 @@
     "frozen_retail": 777400,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (3.7→0/мес), сетка полная, ~52 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 20,
     "health_v2": "COOLING",
     "photo": "[16332b]"
   },
@@ -7499,9 +7529,9 @@
     },
     "sizes": {
       "43": 1,
+      "38": 1,
       "41": 3,
       "44": 2,
-      "38": 1,
       "36": 6,
       "40": 5,
       "42": 2,
@@ -7554,7 +7584,7 @@
     "frozen_retail": 717600,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (7.7→2/мес), сетка полная, ~12 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[37800b]"
   },
@@ -7617,7 +7647,7 @@
     "frozen_retail": 492100,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (4.3→2/мес), сетка полная, ~9 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[15676b]"
   },
@@ -7681,7 +7711,7 @@
     "frozen_retail": 520200,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (6.3→1/мес), сетка полная, ~18 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 20,
     "health_v2": "COOLING",
     "photo": "[18516b]"
   },
@@ -7698,9 +7728,9 @@
     },
     "sizes": {
       "41": 3,
+      "46": 3,
       "44": 1,
       "45": 1,
-      "46": 3,
       "42": 6,
       "43": 9
     },
@@ -7747,7 +7777,7 @@
     "frozen_retail": 503700,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (6.7→3/мес), сетка полная, ~7 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[48348b]"
   },
@@ -7811,7 +7841,7 @@
     "frozen_retail": 382400,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (4.7→2/мес), сетка полная, ~8 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "HOT",
     "photo": "[21556b]"
   },
@@ -7829,8 +7859,8 @@
     "sizes": {
       "42": 1,
       "46": 1,
-      "41": 1,
       "45": 3,
+      "41": 1,
       "43": 5,
       "44": 1
     },
@@ -7877,7 +7907,7 @@
     "frozen_retail": 274800,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (5.0→2/мес), сетка полная, ~6 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[16048b]"
   },
@@ -7937,7 +7967,7 @@
     "frozen_retail": 273900,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (3.3→0/мес), сетка полная, ~22 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 20,
     "health_v2": "COOLING",
     "photo": "[16548b]"
   },
@@ -7953,10 +7983,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "42": 2,
-      "44": 2,
       "41": 1,
       "46": 2,
+      "42": 2,
+      "44": 2,
       "43": 4
     },
     "sizes_sold": [
@@ -8002,7 +8032,7 @@
     "frozen_retail": 251900,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (5.3→3/мес), сетка полная, ~3 мес запаса → мягкая скидка −10% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 10,
     "health_v2": "COOLING",
     "photo": "(нет)"
   },
@@ -8019,8 +8049,8 @@
     },
     "sizes": {
       "46": 3,
-      "41": 1,
       "45": 1,
+      "41": 1,
       "42": 1,
       "44": 2,
       "43": 2
@@ -8068,7 +8098,7 @@
     "frozen_retail": 249000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (7.7→2/мес), сетка полная, ~5 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[19244b]"
   },
@@ -8133,7 +8163,7 @@
     "frozen_retail": 249000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (5.7→2/мес), сетка полная, ~5 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 25,
+    "suggested_discount": 15,
     "health_v2": "COOLING",
     "photo": "[16876b]"
   },
@@ -8197,7 +8227,7 @@
     "frozen_retail": 199000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (17.0→7/мес), сетка полная, ~1 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "HOT",
     "photo": "[43356b]"
   },
@@ -8260,7 +8290,7 @@
     "frozen_retail": 239000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (6.7→3/мес), сетка полная, ~3 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "HOT",
     "photo": "[17096b]"
   },
@@ -8276,8 +8306,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "45": 1,
       "46": 2,
+      "45": 1,
       "43": 1,
       "44": 2,
       "41": 2,
@@ -8326,7 +8356,7 @@
     "frozen_retail": 199000,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (10.3→3/мес), сетка полная, ~3 мес запаса → мягкая скидка −15% (лови рано)",
-    "suggested_discount": 0,
+    "suggested_discount": 15,
     "health_v2": "HOT",
     "photo": "[19144b]"
   },
@@ -8342,8 +8372,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 3,
       "37": 1,
+      "36": 3,
       "40": 3,
       "44": 1,
       "45": 1
@@ -8390,7 +8420,7 @@
     "frozen_retail": 89100,
     "category": "COOLING_SALE",
     "reason": "Сдаёт обороты (3.0→0/мес), сетка полная, ~18 мес запаса → мягкая скидка −20% (лови рано)",
-    "suggested_discount": 15,
+    "suggested_discount": 20,
     "health_v2": "SLOW",
     "photo": "[10056b]"
   },
@@ -8471,8 +8501,8 @@
       "38": 2,
       "41": 5,
       "43": 3,
-      "40": 8,
       "42": 3,
+      "40": 8,
       "36": 4,
       "37": 2,
       "39": 4
@@ -8534,10 +8564,10 @@
     "sizes": {
       "40": 10,
       "38": 13,
-      "36": 1,
       "39": 4,
-      "41": 6,
+      "36": 1,
       "42": 5,
+      "41": 6,
       "37": 2
     },
     "sizes_sold": [
@@ -8595,14 +8625,14 @@
       "warehouse": 0
     },
     "sizes": {
-      "42": 2,
       "41": 3,
-      "36": 3,
-      "37": 3,
-      "43": 1,
+      "42": 2,
       "40": 5,
       "38": 3,
       "44": 3,
+      "36": 3,
+      "37": 3,
+      "43": 1,
       "39": 3
     },
     "sizes_sold": [
@@ -8660,9 +8690,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 2,
       "38": 14,
       "39": 2,
+      "40": 2,
       "37": 6,
       "36": 2,
       "41": 1
@@ -8725,11 +8755,11 @@
       "warehouse": 0
     },
     "sizes": {
-      "41": 4,
       "44": 5,
+      "41": 4,
+      "46": 5,
       "43": 10,
       "45": 5,
-      "46": 5,
       "42": 10
     },
     "sizes_sold": [
@@ -8789,10 +8819,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "41": 6,
-      "45": 7,
       "43": 12,
       "44": 6,
+      "41": 6,
+      "45": 7,
       "42": 7
     },
     "sizes_sold": [
@@ -8855,9 +8885,9 @@
       "40": 2,
       "38": 3,
       "42": 3,
-      "43": 1,
       "37": 1,
       "44": 3,
+      "43": 1,
       "39": 1,
       "41": 4,
       "36": 3
@@ -8987,8 +9017,8 @@
       "43": 2,
       "38": 2,
       "39": 2,
-      "42": 7,
       "44": 9,
+      "42": 7,
       "37": 1
     },
     "sizes_sold": [
@@ -9052,8 +9082,8 @@
       "41": 4,
       "42": 2,
       "43": 1,
-      "39": 4,
       "38": 1,
+      "39": 4,
       "37": 3,
       "36": 3,
       "40": 2
@@ -9115,8 +9145,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 7,
       "42": 2,
+      "43": 7,
       "44": 8,
       "46": 2,
       "41": 4,
@@ -9181,9 +9211,9 @@
     },
     "sizes": {
       "36": 8,
+      "39": 1,
       "37": 3,
-      "38": 3,
-      "39": 1
+      "38": 3
     },
     "sizes_sold": [
       "37",
@@ -9241,11 +9271,11 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 2,
       "37": 3,
       "40": 4,
       "41": 3,
       "44": 1,
+      "36": 2,
       "38": 2,
       "39": 2,
       "42": 1
@@ -9306,11 +9336,11 @@
       "warehouse": 0
     },
     "sizes": {
+      "44": 5,
+      "46": 3,
       "41": 2,
       "42": 3,
       "43": 7,
-      "44": 5,
-      "46": 3,
       "45": 3
     },
     "sizes_sold": [
@@ -9436,8 +9466,8 @@
     },
     "sizes": {
       "45": 2,
-      "41": 3,
       "39": 2,
+      "41": 3,
       "36": 6,
       "44": 1,
       "37": 3,
@@ -9567,9 +9597,9 @@
     "sizes": {
       "38": 2,
       "39": 2,
-      "42": 1,
       "37": 1,
       "41": 1,
+      "42": 1,
       "36": 2,
       "44": 1,
       "40": 3,
@@ -9694,8 +9724,8 @@
       "42": 1,
       "44": 5,
       "46": 3,
-      "45": 2,
-      "43": 5
+      "43": 5,
+      "45": 2
     },
     "sizes_sold": [
       "41",
@@ -9882,9 +9912,9 @@
     },
     "sizes": {
       "44": 2,
+      "42": 2,
       "40": 3,
       "43": 1,
-      "42": 2,
       "41": 2
     },
     "sizes_sold": [
@@ -10120,6 +10150,67 @@
     "photo": "[18964b]"
   },
   {
+    "article": "202574",
+    "name": "Air Jordan 1 Low \"Shadow Toe\" Z, 36",
+    "brand": "Jordan",
+    "stock": {
+      "total": 10,
+      "moscow": 4,
+      "tsum_online": 6,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 4,
+      "38": 1,
+      "39": 2,
+      "40": 3
+    },
+    "sizes_sold": [
+      "37",
+      "38",
+      "39"
+    ],
+    "cost": 10200.0,
+    "retail": 25900.0,
+    "orig_price": 25900.0,
+    "cur_disc": 0,
+    "margin_pct": 60.6,
+    "sales": {
+      "s30": 0,
+      "s90": 5,
+      "s180": 20,
+      "s365": 43,
+      "sall": 43,
+      "rev_30d": 0.0,
+      "rev_90d": 129500.0
+    },
+    "history": {
+      "first_supply_date": "2025-10-03",
+      "first_supply_qty": 54,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 28
+    },
+    "last_sale": "2026-03-27",
+    "days_no_sale": 70,
+    "days_since_supply": 245,
+    "days_in_stock": 245,
+    "sell_through": 33.3,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 1.7,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 102000,
+    "frozen_retail": 259000,
+    "category": "SLOW",
+    "reason": "0 шт/мес × 10 пар = >10 мес запаса — скидка 20-30%",
+    "suggested_discount": 0,
+    "health_v2": "OK",
+    "photo": "[11720b]"
+  },
+  {
     "article": "202561",
     "name": "Nike Air Jordan 1 Low Panda Z 1, 36",
     "brand": "Jordan",
@@ -10183,67 +10274,6 @@
     "photo": "[10824b]"
   },
   {
-    "article": "202574",
-    "name": "Air Jordan 1 Low \"Shadow Toe\" Z, 36",
-    "brand": "Jordan",
-    "stock": {
-      "total": 10,
-      "moscow": 4,
-      "tsum_online": 6,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 4,
-      "38": 1,
-      "39": 2,
-      "40": 3
-    },
-    "sizes_sold": [
-      "37",
-      "38",
-      "39"
-    ],
-    "cost": 10200.0,
-    "retail": 25900.0,
-    "orig_price": 25900.0,
-    "cur_disc": 0,
-    "margin_pct": 60.6,
-    "sales": {
-      "s30": 0,
-      "s90": 5,
-      "s180": 20,
-      "s365": 43,
-      "sall": 43,
-      "rev_30d": 0.0,
-      "rev_90d": 129500.0
-    },
-    "history": {
-      "first_supply_date": "2025-10-03",
-      "first_supply_qty": 54,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 28
-    },
-    "last_sale": "2026-03-27",
-    "days_no_sale": 70,
-    "days_since_supply": 245,
-    "days_in_stock": 245,
-    "sell_through": 33.3,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 1.7,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 102000,
-    "frozen_retail": 259000,
-    "category": "SLOW",
-    "reason": "0 шт/мес × 10 пар = >10 мес запаса — скидка 20-30%",
-    "suggested_discount": 0,
-    "health_v2": "OK",
-    "photo": "[11720b]"
-  },
-  {
     "article": "202623",
     "name": "Nike SB Dunk Low Pro \"Why So Sad?\" - Winter Z, 36",
     "brand": "Nike",
@@ -10255,8 +10285,8 @@
       "warehouse": 4
     },
     "sizes": {
-      "38": 3,
       "43": 3,
+      "38": 3,
       "41": 1,
       "37": 2,
       "36": 4
@@ -10318,8 +10348,8 @@
     },
     "sizes": {
       "38": 2,
-      "40": 1,
-      "36": 4
+      "36": 4,
+      "40": 1
     },
     "sizes_sold": [
       "37",
@@ -10378,8 +10408,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 1,
       "42": 1,
+      "43": 1,
       "45": 4,
       "46": 2,
       "44": 1
@@ -10558,8 +10588,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 4,
       "37": 2,
+      "36": 4,
       "39": 1
     },
     "sizes_sold": [
@@ -10854,8 +10884,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "37": 3,
       "36": 3,
+      "37": 3,
       "38": 1
     },
     "sizes_sold": [
@@ -11255,68 +11285,6 @@
     "photo": "[11912b]"
   },
   {
-    "article": "202598",
-    "name": "Air Jordan 1 Mid \"Royal Black Toe\" Z, 36",
-    "brand": "Jordan",
-    "stock": {
-      "total": 9,
-      "moscow": 1,
-      "tsum_online": 8,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "40": 1,
-      "36": 3,
-      "45": 1,
-      "37": 4
-    },
-    "sizes_sold": [
-      "36",
-      "40",
-      "44",
-      "45"
-    ],
-    "cost": 6000.0,
-    "retail": 9900.0,
-    "orig_price": 18900.0,
-    "cur_disc": 48,
-    "margin_pct": 39.4,
-    "sales": {
-      "s30": 1,
-      "s90": 7,
-      "s180": 60,
-      "s365": 67,
-      "sall": 67,
-      "rev_30d": 9900.0,
-      "rev_90d": 69300.0
-    },
-    "history": {
-      "first_supply_date": "2025-10-03",
-      "first_supply_qty": 66,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 65
-    },
-    "last_sale": "2026-05-31",
-    "days_no_sale": 5,
-    "days_since_supply": 245,
-    "days_in_stock": 245,
-    "sell_through": 43.8,
-    "wos": 38.6,
-    "velocity": {
-      "recent_30d": 1,
-      "avg_30d": 2.3,
-      "acceleration": 0.43
-    },
-    "frozen_cost": 54000,
-    "frozen_retail": 89100,
-    "category": "SLOW",
-    "reason": "1 шт/мес × 9 пар = >9 мес запаса — скидка 20-30%",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[14264b]"
-  },
-  {
     "article": "202703",
     "name": "Adidas Lightblaze White Navy Р, 41",
     "brand": "Adidas",
@@ -11382,6 +11350,127 @@
     "photo": "(нет)"
   },
   {
+    "article": "202550",
+    "name": "Air Jordan 1 Retro High OG “Dark-Blue/White/Silver – Skyline” Z, 41",
+    "brand": "Jordan",
+    "stock": {
+      "total": 6,
+      "moscow": 0,
+      "tsum_online": 2,
+      "aruzhan": 4,
+      "warehouse": 0
+    },
+    "sizes": {
+      "41": 1,
+      "44": 3,
+      "43": 2
+    },
+    "sizes_sold": [
+      "43",
+      "44"
+    ],
+    "cost": 9000.0,
+    "retail": 24900.0,
+    "orig_price": 24900.0,
+    "cur_disc": 0,
+    "margin_pct": 63.9,
+    "sales": {
+      "s30": 0,
+      "s90": 2,
+      "s180": 14,
+      "s365": 37,
+      "sall": 37,
+      "rev_30d": 0.0,
+      "rev_90d": 49800.0
+    },
+    "history": {
+      "first_supply_date": "2025-09-19",
+      "first_supply_qty": 40,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 17
+    },
+    "last_sale": "2026-03-22",
+    "days_no_sale": 75,
+    "days_since_supply": 259,
+    "days_in_stock": 259,
+    "sell_through": 25.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.7,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 54000,
+    "frozen_retail": 149400,
+    "category": "SLOW",
+    "reason": "0 шт/мес × 6 пар = >6 мес запаса — скидка 20-30%",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[14184b]"
+  },
+  {
+    "article": "202598",
+    "name": "Air Jordan 1 Mid \"Royal Black Toe\" Z, 36",
+    "brand": "Jordan",
+    "stock": {
+      "total": 9,
+      "moscow": 1,
+      "tsum_online": 8,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "40": 1,
+      "45": 1,
+      "36": 3,
+      "37": 4
+    },
+    "sizes_sold": [
+      "36",
+      "40",
+      "44",
+      "45"
+    ],
+    "cost": 6000.0,
+    "retail": 9900.0,
+    "orig_price": 18900.0,
+    "cur_disc": 48,
+    "margin_pct": 39.4,
+    "sales": {
+      "s30": 1,
+      "s90": 7,
+      "s180": 60,
+      "s365": 67,
+      "sall": 67,
+      "rev_30d": 9900.0,
+      "rev_90d": 69300.0
+    },
+    "history": {
+      "first_supply_date": "2025-10-03",
+      "first_supply_qty": 66,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 65
+    },
+    "last_sale": "2026-05-31",
+    "days_no_sale": 5,
+    "days_since_supply": 245,
+    "days_in_stock": 245,
+    "sell_through": 43.8,
+    "wos": 38.6,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 2.3,
+      "acceleration": 0.43
+    },
+    "frozen_cost": 54000,
+    "frozen_retail": 89100,
+    "category": "SLOW",
+    "reason": "1 шт/мес × 9 пар = >9 мес запаса — скидка 20-30%",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[14264b]"
+  },
+  {
     "article": "202552",
     "name": "Air Jordan 1 Mid “Grey/White/Black – Shadowline” Z, 41",
     "brand": "Jordan",
@@ -11441,65 +11530,6 @@
     "suggested_discount": 0,
     "health_v2": "HOT",
     "photo": "[10892b]"
-  },
-  {
-    "article": "202550",
-    "name": "Air Jordan 1 Retro High OG “Dark-Blue/White/Silver – Skyline” Z, 41",
-    "brand": "Jordan",
-    "stock": {
-      "total": 6,
-      "moscow": 0,
-      "tsum_online": 2,
-      "aruzhan": 4,
-      "warehouse": 0
-    },
-    "sizes": {
-      "44": 3,
-      "41": 1,
-      "43": 2
-    },
-    "sizes_sold": [
-      "43",
-      "44"
-    ],
-    "cost": 9000.0,
-    "retail": 24900.0,
-    "orig_price": 24900.0,
-    "cur_disc": 0,
-    "margin_pct": 63.9,
-    "sales": {
-      "s30": 0,
-      "s90": 2,
-      "s180": 14,
-      "s365": 37,
-      "sall": 37,
-      "rev_30d": 0.0,
-      "rev_90d": 49800.0
-    },
-    "history": {
-      "first_supply_date": "2025-09-19",
-      "first_supply_qty": 40,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 17
-    },
-    "last_sale": "2026-03-22",
-    "days_no_sale": 75,
-    "days_since_supply": 259,
-    "days_in_stock": 259,
-    "sell_through": 25.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0.7,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 54000,
-    "frozen_retail": 149400,
-    "category": "SLOW",
-    "reason": "0 шт/мес × 6 пар = >6 мес запаса — скидка 20-30%",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[14184b]"
   },
   {
     "article": "201944",
@@ -11639,8 +11669,8 @@
     "sizes": {
       "40": 1,
       "36": 2,
-      "45": 2,
       "41": 1,
+      "45": 2,
       "44": 2
     },
     "sizes_sold": [
@@ -11760,8 +11790,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "44": 2,
       "45": 1,
+      "44": 2,
       "42": 1,
       "43": 1
     },
@@ -11822,9 +11852,9 @@
     },
     "sizes": {
       "43": 1,
+      "36": 2,
       "44": 1,
-      "45": 2,
-      "36": 2
+      "45": 2
     },
     "sizes_sold": [
       "36"
@@ -12001,10 +12031,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 1,
       "44": 1,
-      "45": 2,
-      "37": 1
+      "36": 1,
+      "37": 1,
+      "45": 2
     },
     "sizes_sold": [
       "43"
@@ -12047,6 +12077,64 @@
     "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "[15984b]"
+  },
+  {
+    "article": "202519",
+    "name": "Nike Dunk High FUR – White/Grey Contrast Z, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 5,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 4,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 2,
+      "44": 1,
+      "45": 2
+    },
+    "sizes_sold": [
+      "44"
+    ],
+    "cost": 7500.0,
+    "retail": 12900.0,
+    "orig_price": 23900.0,
+    "cur_disc": 46,
+    "margin_pct": 41.9,
+    "sales": {
+      "s30": 0,
+      "s90": 1,
+      "s180": 15,
+      "s365": 58,
+      "sall": 58,
+      "rev_30d": 0.0,
+      "rev_90d": 12900.0
+    },
+    "history": {
+      "first_supply_date": "2025-09-03",
+      "first_supply_qty": 60,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 20
+    },
+    "last_sale": "2026-03-21",
+    "days_no_sale": 76,
+    "days_since_supply": 275,
+    "days_in_stock": 275,
+    "sell_through": 16.7,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.3,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 37500,
+    "frozen_retail": 64500,
+    "category": "SLOW",
+    "reason": "0 шт/мес × 5 пар = >5 мес запаса — скидка 20-30%",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[7804b]"
   },
   {
     "article": "202560",
@@ -12106,64 +12194,6 @@
     "suggested_discount": 0,
     "health_v2": "OK",
     "photo": "[8168b]"
-  },
-  {
-    "article": "202519",
-    "name": "Nike Dunk High FUR – White/Grey Contrast Z, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 5,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 4,
-      "warehouse": 0
-    },
-    "sizes": {
-      "44": 1,
-      "36": 2,
-      "45": 2
-    },
-    "sizes_sold": [
-      "44"
-    ],
-    "cost": 7500.0,
-    "retail": 12900.0,
-    "orig_price": 23900.0,
-    "cur_disc": 46,
-    "margin_pct": 41.9,
-    "sales": {
-      "s30": 0,
-      "s90": 1,
-      "s180": 15,
-      "s365": 58,
-      "sall": 58,
-      "rev_30d": 0.0,
-      "rev_90d": 12900.0
-    },
-    "history": {
-      "first_supply_date": "2025-09-03",
-      "first_supply_qty": 60,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 20
-    },
-    "last_sale": "2026-03-21",
-    "days_no_sale": 76,
-    "days_since_supply": 275,
-    "days_in_stock": 275,
-    "sell_through": 16.7,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0.3,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 37500,
-    "frozen_retail": 64500,
-    "category": "SLOW",
-    "reason": "0 шт/мес × 5 пар = >5 мес запаса — скидка 20-30%",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[7804b]"
   },
   {
     "article": "202600",
@@ -12421,11 +12451,11 @@
     "sizes": {
       "40": 8,
       "36": 8,
-      "43": 3,
-      "44": 3,
       "37": 4,
       "38": 2,
       "41": 7,
+      "43": 3,
+      "44": 3,
       "39": 2,
       "42": 5
     },
@@ -12476,64 +12506,6 @@
     "photo": "[11036b]"
   },
   {
-    "article": "202833",
-    "name": "Air Jordan 1 Low Classic Pink Z, 36",
-    "brand": "Jordan",
-    "stock": {
-      "total": 24,
-      "moscow": 14,
-      "tsum_online": 5,
-      "aruzhan": 5,
-      "warehouse": 0
-    },
-    "sizes": {
-      "39": 4,
-      "36": 4,
-      "40": 4,
-      "37": 6,
-      "38": 6
-    },
-    "sizes_sold": [],
-    "cost": 10200.0,
-    "retail": 29900.0,
-    "orig_price": 29900.0,
-    "cur_disc": 0,
-    "margin_pct": 65.9,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 0,
-      "sall": 0,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2026-05-14",
-      "first_supply_qty": 24,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
-    },
-    "last_sale": null,
-    "days_no_sale": 999,
-    "days_since_supply": 22,
-    "days_in_stock": 22,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 244800,
-    "frozen_retail": 717600,
-    "category": "NEW",
-    "reason": "Пришло 22 дн назад, рано судить",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
     "article": "202835",
     "name": "Nike Air Jordan 1 Low Travis Scott Brown Pink Z, 36",
     "brand": "Jordan",
@@ -12545,8 +12517,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 4,
       "37": 6,
+      "40": 4,
       "36": 4,
       "39": 4,
       "38": 6
@@ -12645,6 +12617,64 @@
       "recent_30d": 1,
       "avg_30d": 0.3,
       "acceleration": 3.0
+    },
+    "frozen_cost": 244800,
+    "frozen_retail": 717600,
+    "category": "NEW",
+    "reason": "Пришло 22 дн назад, рано судить",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
+    "article": "202833",
+    "name": "Air Jordan 1 Low Classic Pink Z, 36",
+    "brand": "Jordan",
+    "stock": {
+      "total": 24,
+      "moscow": 14,
+      "tsum_online": 5,
+      "aruzhan": 5,
+      "warehouse": 0
+    },
+    "sizes": {
+      "39": 4,
+      "40": 4,
+      "36": 4,
+      "37": 6,
+      "38": 6
+    },
+    "sizes_sold": [],
+    "cost": 10200.0,
+    "retail": 29900.0,
+    "orig_price": 29900.0,
+    "cur_disc": 0,
+    "margin_pct": 65.9,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 0,
+      "s365": 0,
+      "sall": 0,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2026-05-14",
+      "first_supply_qty": 24,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 0
+    },
+    "last_sale": null,
+    "days_no_sale": 999,
+    "days_since_supply": 22,
+    "days_in_stock": 22,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
     },
     "frozen_cost": 244800,
     "frozen_retail": 717600,
@@ -12786,9 +12816,9 @@
     },
     "sizes": {
       "37": 2,
+      "40": 2,
       "36": 2,
       "39": 4,
-      "40": 2,
       "38": 3
     },
     "sizes_sold": [
@@ -12848,9 +12878,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 3,
       "41": 3,
       "44": 3,
+      "43": 3,
       "40": 3,
       "45": 3,
       "42": 3
@@ -12907,12 +12937,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 3,
-      "43": 2,
       "41": 3,
       "42": 3,
       "44": 3,
-      "45": 3
+      "45": 3,
+      "40": 3,
+      "43": 2
     },
     "sizes_sold": [],
     "cost": 2800.0,
@@ -13040,10 +13070,10 @@
     "sizes": {
       "42": 7,
       "44": 8,
-      "40": 16,
-      "43": 8,
       "37": 7,
       "39": 10,
+      "40": 16,
+      "43": 8,
       "41": 10,
       "36": 6,
       "38": 11
@@ -13109,14 +13139,14 @@
       "warehouse": 0
     },
     "sizes": {
-      "38": 10,
       "42": 12,
-      "40": 11,
+      "38": 10,
       "37": 6,
       "43": 9,
       "39": 8,
       "41": 9,
       "44": 5,
+      "40": 11,
       "36": 6
     },
     "sizes_sold": [
@@ -13255,9 +13285,9 @@
     },
     "sizes": {
       "41": 3,
+      "37": 6,
       "38": 19,
       "43": 7,
-      "37": 6,
       "36": 2,
       "39": 9,
       "42": 6,
@@ -13325,15 +13355,15 @@
       "44": 4,
       "46": 1,
       "50": 2,
-      "40": 6,
-      "42": 5,
       "36": 5,
       "38": 5,
       "47": 1,
       "48": 4,
-      "41": 2,
+      "40": 6,
+      "42": 5,
       "37": 38,
       "43": 4,
+      "41": 2,
       "39": 1,
       "49": 2
     },
@@ -13404,12 +13434,12 @@
     "sizes": {
       "36": 7,
       "43": 3,
+      "41": 2,
       "40": 10,
       "42": 7,
-      "41": 2,
-      "38": 9,
       "39": 3,
       "44": 4,
+      "38": 9,
       "37": 7
     },
     "sizes_sold": [
@@ -13474,13 +13504,13 @@
       "warehouse": 1
     },
     "sizes": {
-      "40": 10,
       "37": 8,
       "42": 4,
-      "39": 4,
-      "41": 8,
+      "40": 10,
       "36": 5,
       "43": 5,
+      "39": 4,
+      "41": 8,
       "38": 8,
       "44": 6
     },
@@ -13545,8 +13575,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 3,
       "43": 9,
+      "36": 3,
       "38": 7,
       "39": 4,
       "40": 6,
@@ -13616,10 +13646,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "44": 2,
-      "46": 5,
       "39": 8,
       "43": 8,
+      "44": 2,
+      "46": 5,
       "37": 2,
       "40": 5,
       "42": 12,
@@ -13695,11 +13725,11 @@
       "36": 11,
       "39": 3,
       "41": 9,
+      "37": 5,
+      "45": 5,
       "42": 5,
       "43": 4,
       "44": 6,
-      "37": 5,
-      "45": 5,
       "40": 12,
       "38": 4
     },
@@ -13766,15 +13796,15 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 7,
-      "44": 7,
       "36": 5,
       "42": 11,
-      "38": 3,
-      "41": 11,
+      "40": 7,
+      "44": 7,
       "37": 5,
       "43": 12,
       "45": 2,
+      "38": 3,
+      "41": 11,
       "39": 4
     },
     "sizes_sold": [
@@ -13841,13 +13871,13 @@
     },
     "sizes": {
       "38": 5,
+      "43": 4,
       "36": 4,
       "41": 6,
-      "43": 4,
+      "44": 2,
       "37": 6,
       "39": 1,
       "42": 6,
-      "44": 2,
       "40": 7
     },
     "sizes_sold": [
@@ -13910,13 +13940,13 @@
     },
     "sizes": {
       "43": 11,
-      "39": 10,
       "42": 11,
-      "46": 4,
+      "39": 10,
       "36": 3,
       "37": 6,
       "38": 12,
       "44": 4,
+      "46": 4,
       "40": 6,
       "41": 12,
       "45": 6
@@ -13972,78 +14002,6 @@
     "suggested_discount": 0,
     "health_v2": "OK",
     "photo": "(нет)"
-  },
-  {
-    "article": "201880",
-    "name": "Nike Air Zoom Pegasus Black White In, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 44,
-      "moscow": 34,
-      "tsum_online": 9,
-      "aruzhan": 1,
-      "warehouse": 0
-    },
-    "sizes": {
-      "39": 6,
-      "37": 11,
-      "36": 5,
-      "44": 2,
-      "38": 6,
-      "40": 9,
-      "42": 3,
-      "41": 2
-    },
-    "sizes_sold": [
-      "36",
-      "37",
-      "38",
-      "39",
-      "40",
-      "41",
-      "42",
-      "43",
-      "44",
-      "45"
-    ],
-    "cost": 10500.0,
-    "retail": 23900.0,
-    "orig_price": 23900.0,
-    "cur_disc": 0,
-    "margin_pct": 56.1,
-    "sales": {
-      "s30": 13,
-      "s90": 65,
-      "s180": 87,
-      "s365": 139,
-      "sall": 184,
-      "rev_30d": 310700.0,
-      "rev_90d": 1553500.0
-    },
-    "history": {
-      "first_supply_date": "2024-08-05",
-      "first_supply_qty": 212,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 13
-    },
-    "last_sale": "2026-06-04",
-    "days_no_sale": 1,
-    "days_since_supply": 93,
-    "days_in_stock": 669,
-    "sell_through": 59.6,
-    "wos": 14.5,
-    "velocity": {
-      "recent_30d": 13,
-      "avg_30d": 21.7,
-      "acceleration": 0.6
-    },
-    "frozen_cost": 462000,
-    "frozen_retail": 1051600,
-    "category": "HOT",
-    "reason": "Скорость 13 шт/мес — пополнить если есть остаток",
-    "suggested_discount": 0,
-    "health_v2": "HOT",
-    "photo": "[16888b]"
   },
   {
     "article": "202817",
@@ -14114,6 +14072,78 @@
     "photo": "(нет)"
   },
   {
+    "article": "201880",
+    "name": "Nike Air Zoom Pegasus Black White In, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 44,
+      "moscow": 34,
+      "tsum_online": 9,
+      "aruzhan": 1,
+      "warehouse": 0
+    },
+    "sizes": {
+      "39": 6,
+      "36": 5,
+      "37": 11,
+      "38": 6,
+      "40": 9,
+      "42": 3,
+      "44": 2,
+      "41": 2
+    },
+    "sizes_sold": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45"
+    ],
+    "cost": 10500.0,
+    "retail": 23900.0,
+    "orig_price": 23900.0,
+    "cur_disc": 0,
+    "margin_pct": 56.1,
+    "sales": {
+      "s30": 13,
+      "s90": 65,
+      "s180": 87,
+      "s365": 139,
+      "sall": 184,
+      "rev_30d": 310700.0,
+      "rev_90d": 1553500.0
+    },
+    "history": {
+      "first_supply_date": "2024-08-05",
+      "first_supply_qty": 212,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 13
+    },
+    "last_sale": "2026-06-04",
+    "days_no_sale": 1,
+    "days_since_supply": 93,
+    "days_in_stock": 669,
+    "sell_through": 59.6,
+    "wos": 14.5,
+    "velocity": {
+      "recent_30d": 13,
+      "avg_30d": 21.7,
+      "acceleration": 0.6
+    },
+    "frozen_cost": 462000,
+    "frozen_retail": 1051600,
+    "category": "HOT",
+    "reason": "Скорость 13 шт/мес — пополнить если есть остаток",
+    "suggested_discount": 0,
+    "health_v2": "HOT",
+    "photo": "[16888b]"
+  },
+  {
     "article": "202764",
     "name": "Nike Calm Mule White In, 36",
     "brand": "Nike",
@@ -14126,11 +14156,11 @@
     },
     "sizes": {
       "42": 5,
+      "36": 4,
+      "40": 7,
       "37": 3,
       "39": 5,
       "41": 5,
-      "36": 4,
-      "40": 7,
       "43": 2,
       "38": 6,
       "44": 5
@@ -14197,14 +14227,14 @@
     },
     "sizes": {
       "38": 9,
-      "43": 2,
       "40": 3,
       "41": 8,
       "42": 5,
+      "43": 2,
+      "45": 1,
       "36": 3,
       "37": 4,
       "44": 3,
-      "45": 1,
       "39": 7,
       "46": 1
     },
@@ -14274,12 +14304,12 @@
     "sizes": {
       "37": 7,
       "38": 9,
-      "36": 6,
       "43": 8,
-      "41": 9,
+      "36": 6,
       "42": 4,
       "46": 4,
       "39": 10,
+      "41": 9,
       "40": 5,
       "45": 4,
       "44": 5
@@ -14417,9 +14447,9 @@
     },
     "sizes": {
       "36": 5,
-      "37": 6,
       "39": 6,
       "41": 3,
+      "37": 6,
       "40": 10,
       "44": 5,
       "38": 6,
@@ -14488,13 +14518,13 @@
     "sizes": {
       "41": 2,
       "39": 2,
-      "37": 5,
-      "42": 1,
       "38": 7,
       "43": 3,
+      "37": 5,
+      "42": 1,
       "40": 7,
-      "44": 4,
-      "36": 6
+      "36": 6,
+      "44": 4
     },
     "sizes_sold": [
       "37",
@@ -14557,14 +14587,14 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 4,
-      "42": 9,
       "38": 10,
       "39": 9,
       "43": 5,
-      "44": 2,
+      "40": 4,
+      "42": 9,
       "37": 5,
       "45": 3,
+      "44": 2,
       "41": 8,
       "46": 4,
       "36": 5
@@ -14632,9 +14662,9 @@
     },
     "sizes": {
       "40": 8,
-      "37": 2,
       "38": 4,
       "44": 2,
+      "37": 2,
       "39": 6,
       "41": 3,
       "36": 4,
@@ -14705,9 +14735,9 @@
     "sizes": {
       "38": 9,
       "40": 8,
-      "44": 2,
       "37": 3,
       "39": 5,
+      "44": 2,
       "43": 2,
       "36": 3,
       "41": 4,
@@ -14840,10 +14870,10 @@
     },
     "sizes": {
       "42": 5,
-      "38": 2,
       "37": 5,
       "40": 10,
       "36": 5,
+      "38": 2,
       "41": 12,
       "44": 3
     },
@@ -15047,11 +15077,11 @@
     "sizes": {
       "40": 6,
       "43": 5,
-      "36": 4,
       "41": 5,
-      "44": 3,
+      "36": 4,
       "39": 5,
       "38": 5,
+      "44": 3,
       "37": 4,
       "42": 3
     },
@@ -15191,10 +15221,10 @@
     "sizes": {
       "37": 2,
       "43": 3,
-      "42": 4,
-      "44": 2,
       "38": 4,
       "39": 3,
+      "42": 4,
+      "44": 2,
       "36": 1,
       "40": 7,
       "41": 4
@@ -15262,8 +15292,8 @@
     },
     "sizes": {
       "43": 2,
-      "42": 1,
       "36": 2,
+      "42": 1,
       "38": 4,
       "37": 5,
       "40": 5,
@@ -15334,9 +15364,9 @@
     },
     "sizes": {
       "40": 3,
-      "38": 7,
       "37": 3,
       "43": 2,
+      "38": 7,
       "36": 3,
       "44": 2,
       "39": 2,
@@ -15469,10 +15499,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "42": 4,
-      "43": 3,
       "36": 3,
       "39": 2,
+      "42": 4,
+      "43": 3,
       "38": 7,
       "44": 1,
       "37": 3,
@@ -15538,12 +15568,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "44": 4,
       "42": 6,
-      "43": 8,
-      "46": 3,
+      "44": 4,
       "41": 2,
-      "45": 4
+      "45": 4,
+      "43": 8,
+      "46": 3
     },
     "sizes_sold": [
       "41",
@@ -15603,9 +15633,9 @@
     },
     "sizes": {
       "36": 2,
+      "43": 2,
       "38": 2,
       "42": 6,
-      "43": 2,
       "37": 2,
       "45": 2,
       "41": 2,
@@ -15674,8 +15704,8 @@
     },
     "sizes": {
       "45": 5,
-      "42": 4,
       "44": 5,
+      "42": 4,
       "41": 4,
       "43": 12
     },
@@ -15724,6 +15754,70 @@
     "suggested_discount": 0,
     "health_v2": "OK",
     "photo": "[46632b]"
+  },
+  {
+    "article": "202793",
+    "name": "Nike Air Jordan 1 Low UNC University Blue Z, 36",
+    "brand": "Jordan",
+    "stock": {
+      "total": 27,
+      "moscow": 8,
+      "tsum_online": 14,
+      "aruzhan": 5,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 6,
+      "40": 8,
+      "38": 3,
+      "39": 4,
+      "37": 6
+    },
+    "sizes_sold": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "cost": 8000.0,
+    "retail": 29900.0,
+    "orig_price": 29900.0,
+    "cur_disc": 0,
+    "margin_pct": 73.2,
+    "sales": {
+      "s30": 10,
+      "s90": 16,
+      "s180": 16,
+      "s365": 16,
+      "sall": 16,
+      "rev_30d": 299000.0,
+      "rev_90d": 478400.0
+    },
+    "history": {
+      "first_supply_date": "2026-04-23",
+      "first_supply_qty": 40,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 0
+    },
+    "last_sale": "2026-06-04",
+    "days_no_sale": 1,
+    "days_since_supply": 43,
+    "days_in_stock": 43,
+    "sell_through": 37.2,
+    "wos": 11.6,
+    "velocity": {
+      "recent_30d": 10,
+      "avg_30d": 5.3,
+      "acceleration": 1.88
+    },
+    "frozen_cost": 216000,
+    "frozen_retail": 807300,
+    "category": "HOT",
+    "reason": "Скорость 10 шт/мес — пополнить если есть остаток",
+    "suggested_discount": 0,
+    "health_v2": "HOT",
+    "photo": "(нет)"
   },
   {
     "article": "202784",
@@ -15790,70 +15884,6 @@
     "suggested_discount": 0,
     "health_v2": "NEW",
     "photo": "[49208b]"
-  },
-  {
-    "article": "202793",
-    "name": "Nike Air Jordan 1 Low UNC University Blue Z, 36",
-    "brand": "Jordan",
-    "stock": {
-      "total": 27,
-      "moscow": 8,
-      "tsum_online": 14,
-      "aruzhan": 5,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 6,
-      "37": 6,
-      "40": 8,
-      "38": 3,
-      "39": 4
-    },
-    "sizes_sold": [
-      "36",
-      "37",
-      "38",
-      "39",
-      "40"
-    ],
-    "cost": 8000.0,
-    "retail": 29900.0,
-    "orig_price": 29900.0,
-    "cur_disc": 0,
-    "margin_pct": 73.2,
-    "sales": {
-      "s30": 10,
-      "s90": 16,
-      "s180": 16,
-      "s365": 16,
-      "sall": 16,
-      "rev_30d": 299000.0,
-      "rev_90d": 478400.0
-    },
-    "history": {
-      "first_supply_date": "2026-04-23",
-      "first_supply_qty": 40,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
-    },
-    "last_sale": "2026-06-04",
-    "days_no_sale": 1,
-    "days_since_supply": 43,
-    "days_in_stock": 43,
-    "sell_through": 37.2,
-    "wos": 11.6,
-    "velocity": {
-      "recent_30d": 10,
-      "avg_30d": 5.3,
-      "acceleration": 1.88
-    },
-    "frozen_cost": 216000,
-    "frozen_retail": 807300,
-    "category": "HOT",
-    "reason": "Скорость 10 шт/мес — пополнить если есть остаток",
-    "suggested_discount": 0,
-    "health_v2": "HOT",
-    "photo": "(нет)"
   },
   {
     "article": "202746",
@@ -16062,10 +16092,10 @@
     "sizes": {
       "37": 2,
       "38": 4,
+      "39": 2,
       "36": 2,
       "40": 2,
       "43": 1,
-      "39": 2,
       "41": 1,
       "42": 3,
       "44": 2
@@ -16132,9 +16162,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "43": 6,
       "44": 3,
       "46": 3,
-      "43": 6,
       "41": 1,
       "45": 2,
       "42": 7
@@ -16270,8 +16300,8 @@
     "sizes": {
       "42": 5,
       "43": 6,
-      "44": 1,
       "45": 4,
+      "44": 1,
       "41": 1,
       "46": 4
     },
@@ -16461,9 +16491,9 @@
     "sizes": {
       "36": 2,
       "39": 1,
-      "41": 3,
       "38": 4,
       "40": 2,
+      "41": 3,
       "44": 3
     },
     "sizes_sold": [
@@ -16592,9 +16622,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "41": 2,
       "40": 2,
       "45": 2,
+      "41": 2,
       "43": 3,
       "44": 2,
       "42": 3
@@ -16658,12 +16688,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "41": 3,
       "40": 4,
-      "38": 2,
+      "41": 3,
       "37": 6,
       "39": 1,
-      "36": 3
+      "36": 3,
+      "38": 2
     },
     "sizes_sold": [
       "36",
@@ -16791,13 +16821,13 @@
     },
     "sizes": {
       "41": 4,
-      "37": 1,
       "43": 9,
       "45": 3,
-      "42": 9,
-      "44": 3,
+      "37": 1,
       "36": 12,
-      "40": 4
+      "40": 4,
+      "42": 9,
+      "44": 3
     },
     "sizes_sold": [
       "36",
@@ -17058,9 +17088,9 @@
     },
     "sizes": {
       "40": 2,
+      "41": 1,
       "43": 2,
       "44": 3,
-      "41": 1,
       "42": 2
     },
     "sizes_sold": [
@@ -17123,8 +17153,8 @@
     },
     "sizes": {
       "45": 2,
-      "42": 1,
       "44": 3,
+      "42": 1,
       "43": 2,
       "46": 2
     },
@@ -17252,10 +17282,10 @@
       "37": 12,
       "36": 14,
       "38": 14,
-      "40": 18,
       "41": 13,
       "42": 11,
       "44": 7,
+      "40": 18,
       "43": 8,
       "39": 10
     },
@@ -17394,12 +17424,12 @@
     "sizes": {
       "36": 7,
       "44": 6,
+      "41": 7,
       "37": 8,
       "38": 10,
-      "41": 7,
-      "40": 11,
       "42": 10,
       "43": 6,
+      "40": 11,
       "39": 8
     },
     "sizes_sold": [
@@ -17465,11 +17495,11 @@
       "43": 3,
       "42": 7,
       "39": 2,
-      "37": 4,
-      "38": 11,
       "40": 8,
       "41": 7,
       "44": 4,
+      "37": 4,
+      "38": 11,
       "45": 3
     },
     "sizes_sold": [
@@ -17539,10 +17569,10 @@
       "39": 4,
       "43": 6,
       "44": 3,
-      "38": 9,
       "37": 5,
       "36": 5,
-      "40": 11
+      "40": 11,
+      "38": 9
     },
     "sizes_sold": [
       "36",
@@ -17676,8 +17706,8 @@
     },
     "sizes": {
       "44": 4,
-      "38": 5,
       "41": 6,
+      "38": 5,
       "36": 6,
       "42": 6,
       "37": 5,
@@ -17749,8 +17779,8 @@
     "sizes": {
       "40": 8,
       "43": 3,
-      "38": 5,
       "36": 3,
+      "38": 5,
       "37": 5,
       "39": 3,
       "45": 1,
@@ -17890,10 +17920,10 @@
       "39": 6,
       "36": 3,
       "41": 9,
-      "42": 3,
       "37": 6,
       "40": 11,
       "44": 4,
+      "42": 3,
       "43": 4
     },
     "sizes_sold": [
@@ -17955,10 +17985,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "45": 4,
       "40": 4,
       "44": 4,
       "41": 6,
+      "45": 4,
       "42": 14,
       "43": 13
     },
@@ -18021,12 +18051,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "42": 3,
       "37": 4,
       "38": 4,
-      "43": 3,
+      "42": 3,
       "40": 6,
       "41": 4,
+      "43": 3,
       "39": 3,
       "44": 1,
       "36": 5
@@ -18094,9 +18124,9 @@
     },
     "sizes": {
       "40": 5,
+      "36": 5,
       "37": 7,
       "39": 6,
-      "36": 5,
       "38": 8
     },
     "sizes_sold": [
@@ -18158,12 +18188,12 @@
     },
     "sizes": {
       "39": 3,
+      "38": 5,
       "36": 3,
       "37": 3,
-      "38": 5,
+      "42": 5,
       "41": 3,
       "43": 3,
-      "42": 5,
       "40": 4,
       "44": 3
     },
@@ -18226,10 +18256,10 @@
       "43": 4,
       "36": 3,
       "38": 6,
+      "39": 5,
       "37": 2,
       "40": 6,
       "41": 6,
-      "39": 5,
       "42": 6,
       "44": 2
     },
@@ -18294,13 +18324,13 @@
     },
     "sizes": {
       "37": 2,
-      "42": 6,
       "36": 3,
       "40": 4,
       "43": 3,
-      "38": 1,
+      "42": 6,
       "39": 3,
       "44": 4,
+      "38": 1,
       "41": 5
     },
     "sizes_sold": [
@@ -18364,10 +18394,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "41": 8,
       "45": 7,
-      "43": 7,
+      "41": 8,
       "42": 7,
+      "43": 7,
       "40": 2,
       "44": 7
     },
@@ -18498,10 +18528,10 @@
     },
     "sizes": {
       "40": 7,
+      "41": 7,
       "38": 3,
       "39": 1,
       "44": 5,
-      "41": 7,
       "42": 3,
       "43": 2
     },
@@ -18564,13 +18594,13 @@
       "warehouse": 0
     },
     "sizes": {
-      "37": 1,
       "38": 4,
       "43": 2,
-      "39": 2,
-      "42": 5,
+      "37": 1,
       "41": 6,
       "44": 1,
+      "39": 2,
+      "42": 5,
       "36": 3,
       "40": 4
     },
@@ -18635,10 +18665,10 @@
     },
     "sizes": {
       "41": 9,
+      "37": 3,
       "38": 2,
       "40": 3,
       "43": 4,
-      "37": 3,
       "39": 5,
       "42": 3,
       "44": 4,
@@ -18767,14 +18797,14 @@
       "warehouse": 0
     },
     "sizes": {
-      "37": 4,
-      "40": 6,
       "39": 1,
       "42": 4,
-      "38": 10,
+      "37": 4,
+      "40": 6,
       "44": 1,
       "41": 2,
       "43": 2,
+      "38": 10,
       "36": 3
     },
     "sizes_sold": [
@@ -18841,9 +18871,9 @@
       "37": 4,
       "38": 11,
       "43": 2,
-      "44": 2,
       "42": 3,
       "40": 4,
+      "44": 2,
       "39": 3,
       "41": 3
     },
@@ -19024,6 +19054,75 @@
     "photo": "[37768b]"
   },
   {
+    "article": "202545",
+    "name": "Nike Air Max 1 “Blue Mist” Z, 37",
+    "brand": "Nike",
+    "stock": {
+      "total": 22,
+      "moscow": 11,
+      "tsum_online": 7,
+      "aruzhan": 4,
+      "warehouse": 0
+    },
+    "sizes": {
+      "38": 2,
+      "40": 3,
+      "43": 2,
+      "44": 2,
+      "39": 3,
+      "41": 4,
+      "42": 5,
+      "37": 1
+    },
+    "sizes_sold": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42"
+    ],
+    "cost": 11500.0,
+    "retail": 27900.0,
+    "orig_price": 27900.0,
+    "cur_disc": 0,
+    "margin_pct": 58.8,
+    "sales": {
+      "s30": 6,
+      "s90": 16,
+      "s180": 32,
+      "s365": 68,
+      "sall": 68,
+      "rev_30d": 167400.0,
+      "rev_90d": 446400.0
+    },
+    "history": {
+      "first_supply_date": "2025-09-15",
+      "first_supply_qty": 84,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 24
+    },
+    "last_sale": "2026-06-02",
+    "days_no_sale": 3,
+    "days_since_supply": 43,
+    "days_in_stock": 263,
+    "sell_through": 42.1,
+    "wos": 15.7,
+    "velocity": {
+      "recent_30d": 6,
+      "avg_30d": 5.3,
+      "acceleration": 1.12
+    },
+    "frozen_cost": 253000,
+    "frozen_retail": 613800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 6 шт/мес, 22 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "HOT",
+    "photo": "[14764b]"
+  },
+  {
     "article": "202807",
     "name": "Nike Mind Black Bright Crimson (B) Z, 36",
     "brand": "Nike",
@@ -19036,10 +19135,10 @@
     },
     "sizes": {
       "45": 4,
-      "37": 3,
-      "40": 8,
       "43": 3,
       "44": 4,
+      "37": 3,
+      "40": 8,
       "41": 7,
       "36": 5,
       "38": 4,
@@ -19092,75 +19191,6 @@
     "photo": "(нет)"
   },
   {
-    "article": "202545",
-    "name": "Nike Air Max 1 “Blue Mist” Z, 37",
-    "brand": "Nike",
-    "stock": {
-      "total": 22,
-      "moscow": 11,
-      "tsum_online": 7,
-      "aruzhan": 4,
-      "warehouse": 0
-    },
-    "sizes": {
-      "38": 2,
-      "40": 3,
-      "41": 4,
-      "42": 5,
-      "43": 2,
-      "44": 2,
-      "39": 3,
-      "37": 1
-    },
-    "sizes_sold": [
-      "36",
-      "37",
-      "38",
-      "39",
-      "40",
-      "41",
-      "42"
-    ],
-    "cost": 11500.0,
-    "retail": 27900.0,
-    "orig_price": 27900.0,
-    "cur_disc": 0,
-    "margin_pct": 58.8,
-    "sales": {
-      "s30": 6,
-      "s90": 16,
-      "s180": 32,
-      "s365": 68,
-      "sall": 68,
-      "rev_30d": 167400.0,
-      "rev_90d": 446400.0
-    },
-    "history": {
-      "first_supply_date": "2025-09-15",
-      "first_supply_qty": 84,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 24
-    },
-    "last_sale": "2026-06-02",
-    "days_no_sale": 3,
-    "days_since_supply": 43,
-    "days_in_stock": 263,
-    "sell_through": 42.1,
-    "wos": 15.7,
-    "velocity": {
-      "recent_30d": 6,
-      "avg_30d": 5.3,
-      "acceleration": 1.12
-    },
-    "frozen_cost": 253000,
-    "frozen_retail": 613800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 6 шт/мес, 22 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "HOT",
-    "photo": "[14764b]"
-  },
-  {
     "article": "201472",
     "name": "Nike Air Force 1 Low White Grey Swoosh K, 36",
     "brand": "Nike",
@@ -19173,9 +19203,9 @@
     },
     "sizes": {
       "42": 3,
+      "36": 2,
       "39": 2,
       "40": 4,
-      "36": 2,
       "38": 6,
       "41": 4,
       "37": 3,
@@ -19434,13 +19464,13 @@
       "warehouse": 0
     },
     "sizes": {
+      "39": 2,
       "40": 3,
       "41": 2,
       "44": 3,
-      "39": 2,
+      "42": 3,
       "37": 3,
       "43": 3,
-      "42": 3,
       "38": 3
     },
     "sizes_sold": [
@@ -19504,8 +19534,8 @@
     "sizes": {
       "41": 5,
       "43": 11,
-      "45": 6,
       "42": 5,
+      "45": 6,
       "44": 6
     },
     "sizes_sold": [
@@ -19564,9 +19594,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "43": 7,
       "44": 4,
       "45": 4,
-      "43": 7,
       "46": 3,
       "41": 1,
       "42": 7
@@ -19629,10 +19659,10 @@
     },
     "sizes": {
       "45": 4,
-      "43": 8,
       "44": 3,
       "46": 3,
       "42": 6,
+      "43": 8,
       "41": 2
     },
     "sizes_sold": [
@@ -19693,11 +19723,11 @@
       "warehouse": 6
     },
     "sizes": {
-      "39": 4,
       "36": 3,
-      "38": 5,
+      "39": 4,
       "37": 7,
-      "40": 3
+      "40": 3,
+      "38": 5
     },
     "sizes_sold": [
       "36",
@@ -19755,13 +19785,13 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 2,
       "42": 2,
-      "37": 2,
-      "39": 2,
+      "43": 2,
       "41": 2,
       "44": 3,
       "40": 2,
+      "37": 2,
+      "39": 2,
       "36": 3,
       "38": 4
     },
@@ -19827,10 +19857,10 @@
     },
     "sizes": {
       "42": 2,
+      "37": 3,
       "38": 2,
       "39": 2,
       "41": 2,
-      "37": 3,
       "36": 4,
       "40": 1
     },
@@ -19893,9 +19923,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "44": 3,
       "41": 1,
       "45": 4,
-      "44": 3,
       "43": 7,
       "46": 4,
       "42": 6
@@ -20026,8 +20056,8 @@
       "38": 7,
       "39": 2,
       "41": 1,
-      "40": 5,
-      "36": 2
+      "36": 2,
+      "40": 5
     },
     "sizes_sold": [
       "36",
@@ -20089,9 +20119,9 @@
     "sizes": {
       "45": 4,
       "43": 3,
-      "46": 3,
       "42": 6,
       "44": 4,
+      "46": 3,
       "41": 3
     },
     "sizes_sold": [
@@ -20263,12 +20293,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "38": 13,
       "36": 1,
-      "41": 1,
+      "38": 13,
       "39": 3,
       "37": 1,
-      "40": 4
+      "40": 4,
+      "41": 1
     },
     "sizes_sold": [
       "38",
@@ -20330,8 +20360,8 @@
       "44": 8,
       "46": 5,
       "41": 3,
-      "42": 2,
       "43": 8,
+      "42": 2,
       "45": 1
     },
     "sizes_sold": [
@@ -20511,69 +20541,6 @@
     "photo": "(нет)"
   },
   {
-    "article": "202779",
-    "name": "Nike ZoomX Vaporfly NEXT% 3 Black Р, 41",
-    "brand": "Nike",
-    "stock": {
-      "total": 20,
-      "moscow": 5,
-      "tsum_online": 7,
-      "aruzhan": 8,
-      "warehouse": 0
-    },
-    "sizes": {
-      "44": 3,
-      "43": 5,
-      "41": 2,
-      "42": 4,
-      "45": 3,
-      "46": 3
-    },
-    "sizes_sold": [
-      "41",
-      "42",
-      "43"
-    ],
-    "cost": 9000.0,
-    "retail": 23900.0,
-    "orig_price": 23900.0,
-    "cur_disc": 0,
-    "margin_pct": 62.3,
-    "sales": {
-      "s30": 4,
-      "s90": 4,
-      "s180": 4,
-      "s365": 4,
-      "sall": 4,
-      "rev_30d": 95600.0,
-      "rev_90d": 95600.0
-    },
-    "history": {
-      "first_supply_date": "2026-04-17",
-      "first_supply_qty": 24,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
-    },
-    "last_sale": "2026-06-01",
-    "days_no_sale": 4,
-    "days_since_supply": 49,
-    "days_in_stock": 49,
-    "sell_through": 16.7,
-    "wos": 21.4,
-    "velocity": {
-      "recent_30d": 4,
-      "avg_30d": 1.3,
-      "acceleration": 3.0
-    },
-    "frozen_cost": 180000,
-    "frozen_retail": 478000,
-    "category": "NORMAL",
-    "reason": "Стабильно: 4 шт/мес, 20 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "NEW",
-    "photo": "[37976b]"
-  },
-  {
     "article": "202675",
     "name": "Nike P-6000 White Elemental Pink In, 36",
     "brand": "Nike",
@@ -20638,6 +20605,69 @@
     "photo": "[19092b]"
   },
   {
+    "article": "202779",
+    "name": "Nike ZoomX Vaporfly NEXT% 3 Black Р, 41",
+    "brand": "Nike",
+    "stock": {
+      "total": 20,
+      "moscow": 5,
+      "tsum_online": 7,
+      "aruzhan": 8,
+      "warehouse": 0
+    },
+    "sizes": {
+      "44": 3,
+      "43": 5,
+      "41": 2,
+      "42": 4,
+      "45": 3,
+      "46": 3
+    },
+    "sizes_sold": [
+      "41",
+      "42",
+      "43"
+    ],
+    "cost": 9000.0,
+    "retail": 23900.0,
+    "orig_price": 23900.0,
+    "cur_disc": 0,
+    "margin_pct": 62.3,
+    "sales": {
+      "s30": 4,
+      "s90": 4,
+      "s180": 4,
+      "s365": 4,
+      "sall": 4,
+      "rev_30d": 95600.0,
+      "rev_90d": 95600.0
+    },
+    "history": {
+      "first_supply_date": "2026-04-17",
+      "first_supply_qty": 24,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 0
+    },
+    "last_sale": "2026-06-01",
+    "days_no_sale": 4,
+    "days_since_supply": 49,
+    "days_in_stock": 49,
+    "sell_through": 16.7,
+    "wos": 21.4,
+    "velocity": {
+      "recent_30d": 4,
+      "avg_30d": 1.3,
+      "acceleration": 3.0
+    },
+    "frozen_cost": 180000,
+    "frozen_retail": 478000,
+    "category": "NORMAL",
+    "reason": "Стабильно: 4 шт/мес, 20 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "NEW",
+    "photo": "[37976b]"
+  },
+  {
     "article": "202636",
     "name": "NIKE AIR MAX 90 ESSENTIAL - COOL GREY/WHITE In, 40",
     "brand": "Nike",
@@ -20649,12 +20679,12 @@
       "warehouse": 0
     },
     "sizes": {
-      "41": 2,
       "43": 4,
-      "44": 3,
+      "41": 2,
       "42": 5,
       "45": 3,
-      "40": 4
+      "40": 4,
+      "44": 3
     },
     "sizes_sold": [
       "41",
@@ -20716,11 +20746,11 @@
       "37": 3,
       "38": 1,
       "44": 1,
-      "41": 1,
       "36": 6,
       "42": 1,
       "39": 1,
-      "40": 2
+      "40": 2,
+      "41": 1
     },
     "sizes_sold": [
       "36",
@@ -20784,9 +20814,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "39": 4,
       "38": 4,
       "36": 4,
+      "39": 4,
       "40": 4,
       "37": 4,
       "41": 4
@@ -20910,9 +20940,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 4,
       "36": 4,
       "39": 3,
+      "40": 4,
       "37": 3,
       "38": 3,
       "41": 2
@@ -20979,8 +21009,8 @@
       "41": 2,
       "43": 5,
       "46": 2,
-      "45": 2,
       "44": 2,
+      "45": 2,
       "42": 3
     },
     "sizes_sold": [
@@ -21170,8 +21200,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "46": 3,
       "43": 2,
+      "46": 3,
       "45": 1,
       "41": 3,
       "44": 5
@@ -21550,8 +21580,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "44": 2,
       "43": 2,
+      "44": 2,
       "40": 1,
       "42": 3,
       "41": 3
@@ -21611,9 +21641,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "36": 4,
       "37": 4,
       "39": 3,
-      "36": 4,
       "41": 3,
       "38": 2,
       "40": 4
@@ -21677,8 +21707,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "39": 3,
       "41": 3,
+      "39": 3,
       "38": 3,
       "40": 3,
       "36": 4,
@@ -21928,8 +21958,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 2,
       "37": 3,
+      "36": 2,
       "38": 4,
       "40": 2
     },
@@ -21991,8 +22021,8 @@
     "sizes": {
       "39": 2,
       "41": 2,
-      "38": 2,
       "40": 3,
+      "38": 2,
       "36": 2,
       "37": 3
     },
@@ -22053,11 +22083,11 @@
       "warehouse": 0
     },
     "sizes": {
+      "37": 3,
       "40": 3,
       "41": 3,
-      "37": 3,
-      "36": 3,
       "39": 1,
+      "36": 3,
       "38": 1
     },
     "sizes_sold": [
@@ -22118,10 +22148,10 @@
     },
     "sizes": {
       "40": 2,
-      "38": 2,
-      "41": 1,
       "36": 2,
       "39": 1,
+      "38": 2,
+      "41": 1,
       "37": 1
     },
     "sizes_sold": [
@@ -22181,8 +22211,8 @@
     },
     "sizes": {
       "45": 2,
-      "41": 1,
       "42": 1,
+      "41": 1,
       "44": 2,
       "40": 3
     },
@@ -22305,8 +22335,8 @@
       "warehouse": 1
     },
     "sizes": {
-      "45": 1,
       "46": 1,
+      "45": 1,
       "42": 2,
       "44": 3
     },
@@ -22369,9 +22399,9 @@
       "warehouse": 0
     },
     "sizes": {
+      "37": 2,
       "38": 1,
-      "40": 1,
-      "37": 2
+      "40": 1
     },
     "sizes_sold": [
       "39"
@@ -22710,67 +22740,6 @@
     "photo": "[11000b]"
   },
   {
-    "article": "202726",
-    "name": "On Cloudsurfer Grey White In, 40",
-    "brand": "On",
-    "stock": {
-      "total": 4,
-      "moscow": 2,
-      "tsum_online": 2,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "44": 1,
-      "40": 3
-    },
-    "sizes_sold": [
-      "40",
-      "41",
-      "42",
-      "43",
-      "44"
-    ],
-    "cost": 7500.0,
-    "retail": 21900.0,
-    "orig_price": 21900.0,
-    "cur_disc": 0,
-    "margin_pct": 65.8,
-    "sales": {
-      "s30": 3,
-      "s90": 15,
-      "s180": 15,
-      "s365": 15,
-      "sall": 15,
-      "rev_30d": 65700.0,
-      "rev_90d": 328500.0
-    },
-    "history": {
-      "first_supply_date": "2026-03-25",
-      "first_supply_qty": 18,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
-    },
-    "last_sale": "2026-05-22",
-    "days_no_sale": 14,
-    "days_since_supply": 72,
-    "days_in_stock": 72,
-    "sell_through": 78.9,
-    "wos": 5.7,
-    "velocity": {
-      "recent_30d": 3,
-      "avg_30d": 5.0,
-      "acceleration": 0.6
-    },
-    "frozen_cost": 30000,
-    "frozen_retail": 87600,
-    "category": "NORMAL",
-    "reason": "Стабильно: 3 шт/мес, 4 пар на складе",
-    "suggested_discount": 25,
-    "health_v2": "COOLING",
-    "photo": "[17236b]"
-  },
-  {
     "article": "202689",
     "name": "Nike x Travis Scott Air Jordan 1 Low Reverse Mocha In, 42",
     "brand": "Jordan",
@@ -22833,6 +22802,67 @@
     "photo": "[16912b]"
   },
   {
+    "article": "202726",
+    "name": "On Cloudsurfer Grey White In, 40",
+    "brand": "On",
+    "stock": {
+      "total": 4,
+      "moscow": 2,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "44": 1,
+      "40": 3
+    },
+    "sizes_sold": [
+      "40",
+      "41",
+      "42",
+      "43",
+      "44"
+    ],
+    "cost": 7500.0,
+    "retail": 21900.0,
+    "orig_price": 21900.0,
+    "cur_disc": 0,
+    "margin_pct": 65.8,
+    "sales": {
+      "s30": 3,
+      "s90": 15,
+      "s180": 15,
+      "s365": 15,
+      "sall": 15,
+      "rev_30d": 65700.0,
+      "rev_90d": 328500.0
+    },
+    "history": {
+      "first_supply_date": "2026-03-25",
+      "first_supply_qty": 18,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 0
+    },
+    "last_sale": "2026-05-22",
+    "days_no_sale": 14,
+    "days_since_supply": 72,
+    "days_in_stock": 72,
+    "sell_through": 78.9,
+    "wos": 5.7,
+    "velocity": {
+      "recent_30d": 3,
+      "avg_30d": 5.0,
+      "acceleration": 0.6
+    },
+    "frozen_cost": 30000,
+    "frozen_retail": 87600,
+    "category": "NORMAL",
+    "reason": "Стабильно: 3 шт/мес, 4 пар на складе",
+    "suggested_discount": 25,
+    "health_v2": "COOLING",
+    "photo": "[17236b]"
+  },
+  {
     "article": "202607",
     "name": "Saucony MID “Shadow 5000” Z, 41",
     "brand": "Saucony",
@@ -22844,8 +22874,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "43": 1,
       "41": 1,
+      "43": 1,
       "45": 1
     },
     "sizes_sold": [
@@ -22959,8 +22989,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "39": 2,
-      "38": 1
+      "38": 1,
+      "39": 2
     },
     "sizes_sold": [
       "36",
@@ -23021,8 +23051,8 @@
     "sizes": {
       "37": 1,
       "41": 1,
-      "38": 1,
-      "36": 1
+      "36": 1,
+      "38": 1
     },
     "sizes_sold": [
       "39",
@@ -23080,8 +23110,8 @@
     },
     "sizes": {
       "40": 1,
-      "39": 1,
-      "36": 1
+      "36": 1,
+      "39": 1
     },
     "sizes_sold": [
       "36"
@@ -23195,8 +23225,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "46": 1,
-      "44": 1
+      "44": 1,
+      "46": 1
     },
     "sizes_sold": [
       "42",
@@ -23298,62 +23328,6 @@
     "photo": "[10296b]"
   },
   {
-    "article": "202431",
-    "name": "Nike Air Force All Black Z, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 3,
-      "moscow": 3,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 3
-    },
-    "sizes_sold": [
-      "36"
-    ],
-    "cost": 8000.0,
-    "retail": 9900.0,
-    "orig_price": 19900.0,
-    "cur_disc": 50,
-    "margin_pct": 19.2,
-    "sales": {
-      "s30": 0,
-      "s90": 3,
-      "s180": 5,
-      "s365": 76,
-      "sall": 76,
-      "rev_30d": 0.0,
-      "rev_90d": 29700.0
-    },
-    "history": {
-      "first_supply_date": "2025-07-23",
-      "first_supply_qty": 72,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 7
-    },
-    "last_sale": "2026-04-05",
-    "days_no_sale": 61,
-    "days_since_supply": 317,
-    "days_in_stock": 317,
-    "sell_through": 50.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 1.0,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 24000,
-    "frozen_retail": 29700,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 3 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "OK",
-    "photo": "[7596b]"
-  },
-  {
     "article": "202457",
     "name": "Nike Air Force 1 Low Black White Swoosh Z, 37",
     "brand": "Nike",
@@ -23410,6 +23384,62 @@
     "suggested_discount": 15,
     "health_v2": "SLOW",
     "photo": "[7768b]"
+  },
+  {
+    "article": "202431",
+    "name": "Nike Air Force All Black Z, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 3,
+      "moscow": 3,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 3
+    },
+    "sizes_sold": [
+      "36"
+    ],
+    "cost": 8000.0,
+    "retail": 9900.0,
+    "orig_price": 19900.0,
+    "cur_disc": 50,
+    "margin_pct": 19.2,
+    "sales": {
+      "s30": 0,
+      "s90": 3,
+      "s180": 5,
+      "s365": 76,
+      "sall": 76,
+      "rev_30d": 0.0,
+      "rev_90d": 29700.0
+    },
+    "history": {
+      "first_supply_date": "2025-07-23",
+      "first_supply_qty": 72,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 7
+    },
+    "last_sale": "2026-04-05",
+    "days_no_sale": 61,
+    "days_since_supply": 317,
+    "days_in_stock": 317,
+    "sell_through": 50.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 1.0,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 24000,
+    "frozen_retail": 29700,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 3 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "OK",
+    "photo": "[7596b]"
   },
   {
     "article": "202085",
@@ -23697,6 +23727,67 @@
     "photo": "[16212b]"
   },
   {
+    "article": "202800",
+    "name": "Adidas Samba OG Burgundy White Z, 36",
+    "brand": "Adidas",
+    "stock": {
+      "total": 4,
+      "moscow": 4,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "37": 1,
+      "38": 1,
+      "36": 1,
+      "40": 1
+    },
+    "sizes_sold": [
+      "38",
+      "39",
+      "40"
+    ],
+    "cost": 5500.0,
+    "retail": 19900.0,
+    "orig_price": 19900.0,
+    "cur_disc": 0,
+    "margin_pct": 72.4,
+    "sales": {
+      "s30": 1,
+      "s90": 3,
+      "s180": 3,
+      "s365": 3,
+      "sall": 3,
+      "rev_30d": 19900.0,
+      "rev_90d": 59700.0
+    },
+    "history": {
+      "first_supply_date": "2026-04-23",
+      "first_supply_qty": 6,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 0
+    },
+    "last_sale": "2026-05-31",
+    "days_no_sale": 5,
+    "days_since_supply": 43,
+    "days_in_stock": 43,
+    "sell_through": 42.9,
+    "wos": 17.1,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 1.0,
+      "acceleration": 1.0
+    },
+    "frozen_cost": 22000,
+    "frozen_retail": 79600,
+    "category": "NORMAL",
+    "reason": "Стабильно: 1 шт/мес, 4 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "OK",
+    "photo": "(нет)"
+  },
+  {
     "article": "202511",
     "name": "The North Face Hiking Shoes – Black Vibram Sole Z, 44",
     "brand": "Прочее",
@@ -23752,126 +23843,6 @@
     "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "[9196b]"
-  },
-  {
-    "article": "202800",
-    "name": "Adidas Samba OG Burgundy White Z, 36",
-    "brand": "Adidas",
-    "stock": {
-      "total": 4,
-      "moscow": 4,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1,
-      "37": 1,
-      "38": 1,
-      "40": 1
-    },
-    "sizes_sold": [
-      "38",
-      "39",
-      "40"
-    ],
-    "cost": 5500.0,
-    "retail": 19900.0,
-    "orig_price": 19900.0,
-    "cur_disc": 0,
-    "margin_pct": 72.4,
-    "sales": {
-      "s30": 1,
-      "s90": 3,
-      "s180": 3,
-      "s365": 3,
-      "sall": 3,
-      "rev_30d": 19900.0,
-      "rev_90d": 59700.0
-    },
-    "history": {
-      "first_supply_date": "2026-04-23",
-      "first_supply_qty": 6,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
-    },
-    "last_sale": "2026-05-31",
-    "days_no_sale": 5,
-    "days_since_supply": 43,
-    "days_in_stock": 43,
-    "sell_through": 42.9,
-    "wos": 17.1,
-    "velocity": {
-      "recent_30d": 1,
-      "avg_30d": 1.0,
-      "acceleration": 1.0
-    },
-    "frozen_cost": 22000,
-    "frozen_retail": 79600,
-    "category": "NORMAL",
-    "reason": "Стабильно: 1 шт/мес, 4 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "OK",
-    "photo": "(нет)"
-  },
-  {
-    "article": "201953",
-    "name": "Nike Air Jordan 1 Low Sky Blue In, 40",
-    "brand": "Jordan",
-    "stock": {
-      "total": 2,
-      "moscow": 2,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1,
-      "40": 1
-    },
-    "sizes_sold": [
-      "36",
-      "38",
-      "39"
-    ],
-    "cost": 10500.0,
-    "retail": 25900.0,
-    "orig_price": 25900.0,
-    "cur_disc": 0,
-    "margin_pct": 59.5,
-    "sales": {
-      "s30": 1,
-      "s90": 4,
-      "s180": 9,
-      "s365": 26,
-      "sall": 53,
-      "rev_30d": 25900.0,
-      "rev_90d": 103600.0
-    },
-    "history": {
-      "first_supply_date": "2024-10-02",
-      "first_supply_qty": 54,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 10
-    },
-    "last_sale": "2026-05-11",
-    "days_no_sale": 25,
-    "days_since_supply": 266,
-    "days_in_stock": 611,
-    "sell_through": 66.7,
-    "wos": 8.6,
-    "velocity": {
-      "recent_30d": 1,
-      "avg_30d": 1.3,
-      "acceleration": 0.75
-    },
-    "frozen_cost": 21000,
-    "frozen_retail": 51800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 1 шт/мес, 2 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "OK",
-    "photo": "[14692b]"
   },
   {
     "article": "202586",
@@ -23933,6 +23904,65 @@
     "photo": "[11520b]"
   },
   {
+    "article": "201953",
+    "name": "Nike Air Jordan 1 Low Sky Blue In, 40",
+    "brand": "Jordan",
+    "stock": {
+      "total": 2,
+      "moscow": 2,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1,
+      "40": 1
+    },
+    "sizes_sold": [
+      "36",
+      "38",
+      "39"
+    ],
+    "cost": 10500.0,
+    "retail": 25900.0,
+    "orig_price": 25900.0,
+    "cur_disc": 0,
+    "margin_pct": 59.5,
+    "sales": {
+      "s30": 1,
+      "s90": 4,
+      "s180": 9,
+      "s365": 26,
+      "sall": 53,
+      "rev_30d": 25900.0,
+      "rev_90d": 103600.0
+    },
+    "history": {
+      "first_supply_date": "2024-10-02",
+      "first_supply_qty": 54,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 10
+    },
+    "last_sale": "2026-05-11",
+    "days_no_sale": 25,
+    "days_since_supply": 266,
+    "days_in_stock": 611,
+    "sell_through": 66.7,
+    "wos": 8.6,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 1.3,
+      "acceleration": 0.75
+    },
+    "frozen_cost": 21000,
+    "frozen_retail": 51800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 1 шт/мес, 2 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "OK",
+    "photo": "[14692b]"
+  },
+  {
     "article": "202377",
     "name": "Nike Dunk Low Beige Brown In, 36",
     "brand": "Nike",
@@ -23944,8 +23974,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 1,
-      "37": 1
+      "37": 1,
+      "36": 1
     },
     "sizes_sold": [],
     "cost": 10303.0,
@@ -23999,8 +24029,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "37": 1,
-      "36": 1
+      "36": 1,
+      "37": 1
     },
     "sizes_sold": [
       "36"
@@ -24219,61 +24249,6 @@
     "photo": "(нет)"
   },
   {
-    "article": "202071",
-    "name": "Nike Air Force 1 Low Winter Black White Z, 39",
-    "brand": "Nike",
-    "stock": {
-      "total": 2,
-      "moscow": 0,
-      "tsum_online": 2,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "40": 1,
-      "39": 1
-    },
-    "sizes_sold": [],
-    "cost": 9000.0,
-    "retail": 9900.0,
-    "orig_price": 25900.0,
-    "cur_disc": 62,
-    "margin_pct": 9.1,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 1,
-      "sall": 21,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2024-12-19",
-      "first_supply_qty": 24,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 2
-    },
-    "last_sale": "2025-09-07",
-    "days_no_sale": 271,
-    "days_since_supply": 533,
-    "days_in_stock": 533,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 18000,
-    "frozen_retail": 19800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
     "article": "202585",
     "name": "Nike ACG Mountain Fly Low \"Black\\Brown\" Z, 42",
     "brand": "Nike",
@@ -24331,6 +24306,61 @@
     "photo": "[11484b]"
   },
   {
+    "article": "202071",
+    "name": "Nike Air Force 1 Low Winter Black White Z, 39",
+    "brand": "Nike",
+    "stock": {
+      "total": 2,
+      "moscow": 0,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "40": 1,
+      "39": 1
+    },
+    "sizes_sold": [],
+    "cost": 9000.0,
+    "retail": 9900.0,
+    "orig_price": 25900.0,
+    "cur_disc": 62,
+    "margin_pct": 9.1,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 0,
+      "s365": 1,
+      "sall": 21,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2024-12-19",
+      "first_supply_qty": 24,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 2
+    },
+    "last_sale": "2025-09-07",
+    "days_no_sale": 271,
+    "days_since_supply": 533,
+    "days_in_stock": 533,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 18000,
+    "frozen_retail": 19800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
     "article": "202617",
     "name": "Columbia Black Trail Runner Z, 45",
     "brand": "Прочее",
@@ -24384,6 +24414,65 @@
     "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "(нет)"
+  },
+  {
+    "article": "202222",
+    "name": "Nike SB Dunk High Pro QS Red White Z, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 2,
+      "moscow": 1,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1,
+      "37": 1
+    },
+    "sizes_sold": [
+      "37",
+      "39",
+      "44"
+    ],
+    "cost": 8000.0,
+    "retail": 21900.0,
+    "orig_price": 21900.0,
+    "cur_disc": 0,
+    "margin_pct": 63.5,
+    "sales": {
+      "s30": 1,
+      "s90": 4,
+      "s180": 12,
+      "s365": 24,
+      "sall": 45,
+      "rev_30d": 21900.0,
+      "rev_90d": 87600.0
+    },
+    "history": {
+      "first_supply_date": "2025-02-19",
+      "first_supply_qty": 48,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 14
+    },
+    "last_sale": "2026-05-16",
+    "days_no_sale": 20,
+    "days_since_supply": 456,
+    "days_in_stock": 471,
+    "sell_through": 66.7,
+    "wos": 8.6,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 1.3,
+      "acceleration": 0.75
+    },
+    "frozen_cost": 16000,
+    "frozen_retail": 43800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 1 шт/мес, 2 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "OK",
+    "photo": "[17008b]"
   },
   {
     "article": "202352",
@@ -24500,65 +24589,6 @@
     "photo": "[18080b]"
   },
   {
-    "article": "202222",
-    "name": "Nike SB Dunk High Pro QS Red White Z, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 2,
-      "moscow": 1,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1,
-      "37": 1
-    },
-    "sizes_sold": [
-      "37",
-      "39",
-      "44"
-    ],
-    "cost": 8000.0,
-    "retail": 21900.0,
-    "orig_price": 21900.0,
-    "cur_disc": 0,
-    "margin_pct": 63.5,
-    "sales": {
-      "s30": 1,
-      "s90": 4,
-      "s180": 12,
-      "s365": 24,
-      "sall": 45,
-      "rev_30d": 21900.0,
-      "rev_90d": 87600.0
-    },
-    "history": {
-      "first_supply_date": "2025-02-19",
-      "first_supply_qty": 48,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 14
-    },
-    "last_sale": "2026-05-16",
-    "days_no_sale": 20,
-    "days_since_supply": 456,
-    "days_in_stock": 471,
-    "sell_through": 66.7,
-    "wos": 8.6,
-    "velocity": {
-      "recent_30d": 1,
-      "avg_30d": 1.3,
-      "acceleration": 0.75
-    },
-    "frozen_cost": 16000,
-    "frozen_retail": 43800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 1 шт/мес, 2 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "OK",
-    "photo": "[17008b]"
-  },
-  {
     "article": "202263",
     "name": "Adidas Spezial Black White Z, 36",
     "brand": "Adidas",
@@ -24614,6 +24644,62 @@
     "photo": "[26732b]"
   },
   {
+    "article": "202522",
+    "name": "Nike Air Force 1 High White Black Swoosh FUR Z, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 2,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 1,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 2
+    },
+    "sizes_sold": [
+      "36"
+    ],
+    "cost": 7500.0,
+    "retail": 12900.0,
+    "orig_price": 23900.0,
+    "cur_disc": 46,
+    "margin_pct": 41.9,
+    "sales": {
+      "s30": 0,
+      "s90": 1,
+      "s180": 12,
+      "s365": 72,
+      "sall": 72,
+      "rev_30d": 0.0,
+      "rev_90d": 12900.0
+    },
+    "history": {
+      "first_supply_date": "2025-09-03",
+      "first_supply_qty": 72,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 14
+    },
+    "last_sale": "2026-03-12",
+    "days_no_sale": 85,
+    "days_since_supply": 275,
+    "days_in_stock": 275,
+    "sell_through": 33.3,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.3,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 15000,
+    "frozen_retail": 25800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[7584b]"
+  },
+  {
     "article": "202523",
     "name": "Nike Air Force 1 Mid FUR – All Black Edition with White Accent Z, 36",
     "brand": "Nike",
@@ -24653,60 +24739,6 @@
     "days_no_sale": 159,
     "days_since_supply": 275,
     "days_in_stock": 275,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 15000,
-    "frozen_retail": 47800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
-    "article": "202627",
-    "name": "Nike Dunk Low Grey Black - Winter Z, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 2,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 1
-    },
-    "sizes": {
-      "36": 2
-    },
-    "sizes_sold": [],
-    "cost": 7500.0,
-    "retail": 23900.0,
-    "orig_price": 23900.0,
-    "cur_disc": 0,
-    "margin_pct": 68.6,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 28,
-      "s365": 52,
-      "sall": 52,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-11-12",
-      "first_supply_qty": 48,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 26
-    },
-    "last_sale": "2026-01-27",
-    "days_no_sale": 129,
-    "days_since_supply": 205,
-    "days_in_stock": 205,
     "sell_through": 0.0,
     "wos": 999,
     "velocity": {
@@ -24784,60 +24816,58 @@
     "photo": "[16852b]"
   },
   {
-    "article": "202522",
-    "name": "Nike Air Force 1 High White Black Swoosh FUR Z, 36",
+    "article": "202627",
+    "name": "Nike Dunk Low Grey Black - Winter Z, 36",
     "brand": "Nike",
     "stock": {
       "total": 2,
       "moscow": 0,
       "tsum_online": 1,
-      "aruzhan": 1,
-      "warehouse": 0
+      "aruzhan": 0,
+      "warehouse": 1
     },
     "sizes": {
       "36": 2
     },
-    "sizes_sold": [
-      "36"
-    ],
+    "sizes_sold": [],
     "cost": 7500.0,
-    "retail": 12900.0,
+    "retail": 23900.0,
     "orig_price": 23900.0,
-    "cur_disc": 46,
-    "margin_pct": 41.9,
+    "cur_disc": 0,
+    "margin_pct": 68.6,
     "sales": {
       "s30": 0,
-      "s90": 1,
-      "s180": 12,
-      "s365": 72,
-      "sall": 72,
+      "s90": 0,
+      "s180": 28,
+      "s365": 52,
+      "sall": 52,
       "rev_30d": 0.0,
-      "rev_90d": 12900.0
+      "rev_90d": 0.0
     },
     "history": {
-      "first_supply_date": "2025-09-03",
-      "first_supply_qty": 72,
+      "first_supply_date": "2025-11-12",
+      "first_supply_qty": 48,
       "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 14
+      "stock_6mo": 26
     },
-    "last_sale": "2026-03-12",
-    "days_no_sale": 85,
-    "days_since_supply": 275,
-    "days_in_stock": 275,
-    "sell_through": 33.3,
+    "last_sale": "2026-01-27",
+    "days_no_sale": 129,
+    "days_since_supply": 205,
+    "days_in_stock": 205,
+    "sell_through": 0.0,
     "wos": 999,
     "velocity": {
       "recent_30d": 0,
-      "avg_30d": 0.3,
-      "acceleration": 0.0
+      "avg_30d": 0,
+      "acceleration": 0
     },
     "frozen_cost": 15000,
-    "frozen_retail": 25800,
+    "frozen_retail": 47800,
     "category": "NORMAL",
     "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
     "suggested_discount": 0,
     "health_v2": "SLOW",
-    "photo": "[7584b]"
+    "photo": "(нет)"
   },
   {
     "article": "202101",
@@ -25241,6 +25271,60 @@
     "photo": "[9108b]"
   },
   {
+    "article": "202615",
+    "name": "Adidas Puff-Boot Stone/Black Z, 41",
+    "brand": "Adidas",
+    "stock": {
+      "total": 1,
+      "moscow": 1,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "41": 1
+    },
+    "sizes_sold": [],
+    "cost": 12500.0,
+    "retail": 19900.0,
+    "orig_price": 39900.0,
+    "cur_disc": 50,
+    "margin_pct": 37.2,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 15,
+      "s365": 19,
+      "sall": 19,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2025-11-05",
+      "first_supply_qty": 15,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 11
+    },
+    "last_sale": "2026-01-19",
+    "days_no_sale": 137,
+    "days_since_supply": 212,
+    "days_in_stock": 212,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 12500,
+    "frozen_retail": 19900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[12656b]"
+  },
+  {
     "article": "202659",
     "name": "Nike Zoom Vomero 5 beige In, 36",
     "brand": "Nike",
@@ -25354,60 +25438,6 @@
     "photo": "[16528b]"
   },
   {
-    "article": "202615",
-    "name": "Adidas Puff-Boot Stone/Black Z, 41",
-    "brand": "Adidas",
-    "stock": {
-      "total": 1,
-      "moscow": 1,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "41": 1
-    },
-    "sizes_sold": [],
-    "cost": 12500.0,
-    "retail": 19900.0,
-    "orig_price": 39900.0,
-    "cur_disc": 50,
-    "margin_pct": 37.2,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 15,
-      "s365": 19,
-      "sall": 19,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-11-05",
-      "first_supply_qty": 15,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 11
-    },
-    "last_sale": "2026-01-19",
-    "days_no_sale": 137,
-    "days_since_supply": 212,
-    "days_in_stock": 212,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 12500,
-    "frozen_retail": 19900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[12656b]"
-  },
-  {
     "article": "201778",
     "name": "Nike Air Jordan 1 Low OG Reverse Mocha In, 39",
     "brand": "Jordan",
@@ -25455,60 +25485,6 @@
     },
     "frozen_cost": 11500,
     "frozen_retail": 29900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
-    "article": "201922",
-    "name": "Nike Blazer Low '77 Vintage White Black K, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1
-    },
-    "sizes_sold": [],
-    "cost": 11104.0,
-    "retail": 12900.0,
-    "orig_price": 26900.0,
-    "cur_disc": 52,
-    "margin_pct": 13.9,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 1,
-      "s365": 8,
-      "sall": 68,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2024-09-04",
-      "first_supply_qty": 74,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 2
-    },
-    "last_sale": "2026-01-06",
-    "days_no_sale": 150,
-    "days_since_supply": 639,
-    "days_in_stock": 639,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 11104,
-    "frozen_retail": 12900,
     "category": "NORMAL",
     "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
     "suggested_discount": 0,
@@ -25568,6 +25544,60 @@
     "category": "NORMAL",
     "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
     "suggested_discount": 15,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
+    "article": "201922",
+    "name": "Nike Blazer Low '77 Vintage White Black K, 36",
+    "brand": "Nike",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1
+    },
+    "sizes_sold": [],
+    "cost": 11104.0,
+    "retail": 12900.0,
+    "orig_price": 26900.0,
+    "cur_disc": 52,
+    "margin_pct": 13.9,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 1,
+      "s365": 8,
+      "sall": 68,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2024-09-04",
+      "first_supply_qty": 74,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 2
+    },
+    "last_sale": "2026-01-06",
+    "days_no_sale": 150,
+    "days_since_supply": 639,
+    "days_in_stock": 639,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 11104,
+    "frozen_retail": 12900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "(нет)"
   },
@@ -25792,6 +25822,63 @@
     "photo": "[12116b]"
   },
   {
+    "article": "202426",
+    "name": "Nike Dunk Low Venice In, 40",
+    "brand": "Nike",
+    "stock": {
+      "total": 1,
+      "moscow": 1,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "40": 1
+    },
+    "sizes_sold": [
+      "36",
+      "40"
+    ],
+    "cost": 10500.0,
+    "retail": 25900.0,
+    "orig_price": 25900.0,
+    "cur_disc": 0,
+    "margin_pct": 59.5,
+    "sales": {
+      "s30": 0,
+      "s90": 3,
+      "s180": 6,
+      "s365": 36,
+      "sall": 36,
+      "rev_30d": 0.0,
+      "rev_90d": 77700.0
+    },
+    "history": {
+      "first_supply_date": "2025-07-23",
+      "first_supply_qty": 36,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 6
+    },
+    "last_sale": "2026-03-29",
+    "days_no_sale": 68,
+    "days_since_supply": 266,
+    "days_in_stock": 317,
+    "sell_through": 75.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 1.0,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 10500,
+    "frozen_retail": 25900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 15,
+    "health_v2": "SLOW",
+    "photo": "[9748b]"
+  },
+  {
     "article": "201045",
     "name": "Nike SB Dunk Dog Walker Г, 38",
     "brand": "Nike",
@@ -25904,63 +25991,6 @@
     "suggested_discount": 0,
     "health_v2": "OK",
     "photo": "[46344b]"
-  },
-  {
-    "article": "202426",
-    "name": "Nike Dunk Low Venice In, 40",
-    "brand": "Nike",
-    "stock": {
-      "total": 1,
-      "moscow": 1,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "40": 1
-    },
-    "sizes_sold": [
-      "36",
-      "40"
-    ],
-    "cost": 10500.0,
-    "retail": 25900.0,
-    "orig_price": 25900.0,
-    "cur_disc": 0,
-    "margin_pct": 59.5,
-    "sales": {
-      "s30": 0,
-      "s90": 3,
-      "s180": 6,
-      "s365": 36,
-      "sall": 36,
-      "rev_30d": 0.0,
-      "rev_90d": 77700.0
-    },
-    "history": {
-      "first_supply_date": "2025-07-23",
-      "first_supply_qty": 36,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 6
-    },
-    "last_sale": "2026-03-29",
-    "days_no_sale": 68,
-    "days_since_supply": 266,
-    "days_in_stock": 317,
-    "sell_through": 75.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 1.0,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 10500,
-    "frozen_retail": 25900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 15,
-    "health_v2": "SLOW",
-    "photo": "[9748b]"
   },
   {
     "article": "201803",
@@ -26291,6 +26321,62 @@
     "photo": "[11196b]"
   },
   {
+    "article": "202567",
+    "name": "Salomon XT-Wings 2 Silver Metallic-X Z, 44",
+    "brand": "Salomon",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 1
+    },
+    "sizes": {
+      "44": 1
+    },
+    "sizes_sold": [
+      "43"
+    ],
+    "cost": 9000.0,
+    "retail": 12900.0,
+    "orig_price": 24900.0,
+    "cur_disc": 48,
+    "margin_pct": 30.2,
+    "sales": {
+      "s30": 0,
+      "s90": 1,
+      "s180": 22,
+      "s365": 52,
+      "sall": 52,
+      "rev_30d": 0.0,
+      "rev_90d": 12900.0
+    },
+    "history": {
+      "first_supply_date": "2025-10-03",
+      "first_supply_qty": 48,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 20
+    },
+    "last_sale": "2026-03-26",
+    "days_no_sale": 71,
+    "days_since_supply": 245,
+    "days_in_stock": 245,
+    "sell_through": 50.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.3,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 9000,
+    "frozen_retail": 12900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 15,
+    "health_v2": "SLOW",
+    "photo": "[8564b]"
+  },
+  {
     "article": "202688",
     "name": "Nike Air Max Plus Triple White In, 46",
     "brand": "Nike",
@@ -26468,62 +26554,6 @@
     "suggested_discount": 25,
     "health_v2": "COOLING",
     "photo": "(нет)"
-  },
-  {
-    "article": "202567",
-    "name": "Salomon XT-Wings 2 Silver Metallic-X Z, 44",
-    "brand": "Salomon",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 1
-    },
-    "sizes": {
-      "44": 1
-    },
-    "sizes_sold": [
-      "43"
-    ],
-    "cost": 9000.0,
-    "retail": 12900.0,
-    "orig_price": 24900.0,
-    "cur_disc": 48,
-    "margin_pct": 30.2,
-    "sales": {
-      "s30": 0,
-      "s90": 1,
-      "s180": 22,
-      "s365": 52,
-      "sall": 52,
-      "rev_30d": 0.0,
-      "rev_90d": 12900.0
-    },
-    "history": {
-      "first_supply_date": "2025-10-03",
-      "first_supply_qty": 48,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 20
-    },
-    "last_sale": "2026-03-26",
-    "days_no_sale": 71,
-    "days_since_supply": 245,
-    "days_in_stock": 245,
-    "sell_through": 50.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0.3,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 9000,
-    "frozen_retail": 12900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 15,
-    "health_v2": "SLOW",
-    "photo": "[8564b]"
   },
   {
     "article": "201534",
@@ -26742,60 +26772,6 @@
     "photo": "[26180b]"
   },
   {
-    "article": "201952",
-    "name": "Nike Dunk Low Sail Light Bone Fur Z, 46",
-    "brand": "Nike",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 0,
-      "aruzhan": 1,
-      "warehouse": 0
-    },
-    "sizes": {
-      "46": 1
-    },
-    "sizes_sold": [],
-    "cost": 8500.0,
-    "retail": 12900.0,
-    "orig_price": 24900.0,
-    "cur_disc": 48,
-    "margin_pct": 34.1,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 4,
-      "sall": 45,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2024-09-23",
-      "first_supply_qty": 40,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 1
-    },
-    "last_sale": "2025-11-15",
-    "days_no_sale": 202,
-    "days_since_supply": 620,
-    "days_in_stock": 620,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 8500,
-    "frozen_retail": 12900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
     "article": "202637",
     "name": "Air Max TL 2.5 all black In, 43",
     "brand": "Nike",
@@ -26851,6 +26827,60 @@
     "suggested_discount": 15,
     "health_v2": "SLOW",
     "photo": "[60796b]"
+  },
+  {
+    "article": "201952",
+    "name": "Nike Dunk Low Sail Light Bone Fur Z, 46",
+    "brand": "Nike",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 0,
+      "aruzhan": 1,
+      "warehouse": 0
+    },
+    "sizes": {
+      "46": 1
+    },
+    "sizes_sold": [],
+    "cost": 8500.0,
+    "retail": 12900.0,
+    "orig_price": 24900.0,
+    "cur_disc": 48,
+    "margin_pct": 34.1,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 0,
+      "s365": 4,
+      "sall": 45,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2024-09-23",
+      "first_supply_qty": 40,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 1
+    },
+    "last_sale": "2025-11-15",
+    "days_no_sale": 202,
+    "days_since_supply": 620,
+    "days_in_stock": 620,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 8500,
+    "frozen_retail": 12900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
   },
   {
     "article": "202755",
@@ -26913,63 +26943,6 @@
     "photo": "[46584b]"
   },
   {
-    "article": "202223",
-    "name": "Nike SB Dunk Low PRM QS Black Parachute Beige Z, 36",
-    "brand": "Nike",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1
-    },
-    "sizes_sold": [
-      "36",
-      "38"
-    ],
-    "cost": 8000.0,
-    "retail": 12900.0,
-    "orig_price": 21900.0,
-    "cur_disc": 41,
-    "margin_pct": 38.0,
-    "sales": {
-      "s30": 0,
-      "s90": 2,
-      "s180": 11,
-      "s365": 60,
-      "sall": 89,
-      "rev_30d": 0.0,
-      "rev_90d": 25800.0
-    },
-    "history": {
-      "first_supply_date": "2025-02-19",
-      "first_supply_qty": 88,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 12
-    },
-    "last_sale": "2026-04-10",
-    "days_no_sale": 56,
-    "days_since_supply": 309,
-    "days_in_stock": 471,
-    "sell_through": 66.7,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0.7,
-      "acceleration": 0.0
-    },
-    "frozen_cost": 8000,
-    "frozen_retail": 12900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 15,
-    "health_v2": "SLOW",
-    "photo": "[16756b]"
-  },
-  {
     "article": "202371",
     "name": "Nike Jordan 1 low panda Z, 36",
     "brand": "Jordan",
@@ -27007,114 +26980,6 @@
     "last_sale": "2025-12-25",
     "days_no_sale": 162,
     "days_since_supply": 296,
-    "days_in_stock": 365,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 8000,
-    "frozen_retail": 9900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
-    "article": "202461",
-    "name": "Nike Air Force 1 Low White Red Z, 39",
-    "brand": "Nike",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "39": 1
-    },
-    "sizes_sold": [],
-    "cost": 8000.0,
-    "retail": 9900.0,
-    "orig_price": 19900.0,
-    "cur_disc": 50,
-    "margin_pct": 19.2,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 1,
-      "s365": 30,
-      "sall": 30,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-07-31",
-      "first_supply_qty": 31,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 2
-    },
-    "last_sale": "2026-01-02",
-    "days_no_sale": 154,
-    "days_since_supply": 309,
-    "days_in_stock": 309,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 8000,
-    "frozen_retail": 9900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[8100b]"
-  },
-  {
-    "article": "202366",
-    "name": "Nike Jordan 1 low total white Z, 36",
-    "brand": "Jordan",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1
-    },
-    "sizes_sold": [],
-    "cost": 8000.0,
-    "retail": 9900.0,
-    "orig_price": 19900.0,
-    "cur_disc": 50,
-    "margin_pct": 19.2,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 15,
-      "sall": 15,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-06-05",
-      "first_supply_qty": 15,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 1
-    },
-    "last_sale": "2025-08-11",
-    "days_no_sale": 298,
-    "days_since_supply": 365,
     "days_in_stock": 365,
     "sell_through": 0.0,
     "wos": 999,
@@ -27186,8 +27051,8 @@
     "photo": "[13036b]"
   },
   {
-    "article": "202514",
-    "name": "Nike SB Dunk High \"Pigeon\" – Grey/Orange FUR Z, 36",
+    "article": "202223",
+    "name": "Nike SB Dunk Low PRM QS Black Parachute Beige Z, 36",
     "brand": "Nike",
     "stock": {
       "total": 1,
@@ -27199,31 +27064,88 @@
     "sizes": {
       "36": 1
     },
-    "sizes_sold": [],
-    "cost": 7500.0,
+    "sizes_sold": [
+      "36",
+      "38"
+    ],
+    "cost": 8000.0,
     "retail": 12900.0,
-    "orig_price": 23900.0,
-    "cur_disc": 46,
-    "margin_pct": 41.9,
+    "orig_price": 21900.0,
+    "cur_disc": 41,
+    "margin_pct": 38.0,
+    "sales": {
+      "s30": 0,
+      "s90": 2,
+      "s180": 11,
+      "s365": 60,
+      "sall": 89,
+      "rev_30d": 0.0,
+      "rev_90d": 25800.0
+    },
+    "history": {
+      "first_supply_date": "2025-02-19",
+      "first_supply_qty": 88,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 12
+    },
+    "last_sale": "2026-04-10",
+    "days_no_sale": 56,
+    "days_since_supply": 309,
+    "days_in_stock": 471,
+    "sell_through": 66.7,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0.7,
+      "acceleration": 0.0
+    },
+    "frozen_cost": 8000,
+    "frozen_retail": 12900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 15,
+    "health_v2": "SLOW",
+    "photo": "[16756b]"
+  },
+  {
+    "article": "202366",
+    "name": "Nike Jordan 1 low total white Z, 36",
+    "brand": "Jordan",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1
+    },
+    "sizes_sold": [],
+    "cost": 8000.0,
+    "retail": 9900.0,
+    "orig_price": 19900.0,
+    "cur_disc": 50,
+    "margin_pct": 19.2,
     "sales": {
       "s30": 0,
       "s90": 0,
-      "s180": 10,
-      "s365": 58,
-      "sall": 58,
+      "s180": 0,
+      "s365": 15,
+      "sall": 15,
       "rev_30d": 0.0,
       "rev_90d": 0.0
     },
     "history": {
-      "first_supply_date": "2025-09-03",
-      "first_supply_qty": 54,
+      "first_supply_date": "2025-06-05",
+      "first_supply_qty": 15,
       "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 10
+      "stock_6mo": 1
     },
-    "last_sale": "2026-01-28",
-    "days_no_sale": 128,
-    "days_since_supply": 205,
-    "days_in_stock": 275,
+    "last_sale": "2025-08-11",
+    "days_no_sale": 298,
+    "days_since_supply": 365,
+    "days_in_stock": 365,
     "sell_through": 0.0,
     "wos": 999,
     "velocity": {
@@ -27231,13 +27153,67 @@
       "avg_30d": 0,
       "acceleration": 0
     },
-    "frozen_cost": 7500,
-    "frozen_retail": 12900,
+    "frozen_cost": 8000,
+    "frozen_retail": 9900,
     "category": "NORMAL",
     "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
     "suggested_discount": 0,
     "health_v2": "SLOW",
-    "photo": "[12452b]"
+    "photo": "(нет)"
+  },
+  {
+    "article": "202461",
+    "name": "Nike Air Force 1 Low White Red Z, 39",
+    "brand": "Nike",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "39": 1
+    },
+    "sizes_sold": [],
+    "cost": 8000.0,
+    "retail": 9900.0,
+    "orig_price": 19900.0,
+    "cur_disc": 50,
+    "margin_pct": 19.2,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 1,
+      "s365": 30,
+      "sall": 30,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2025-07-31",
+      "first_supply_qty": 31,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 2
+    },
+    "last_sale": "2026-01-02",
+    "days_no_sale": 154,
+    "days_since_supply": 309,
+    "days_in_stock": 309,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 8000,
+    "frozen_retail": 9900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[8100b]"
   },
   {
     "article": "201848",
@@ -27350,63 +27326,9 @@
     "photo": "[11152b]"
   },
   {
-    "article": "202420",
-    "name": "Crocs Black Z, 36",
-    "brand": "Crocs",
-    "stock": {
-      "total": 2,
-      "moscow": 2,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 2
-    },
-    "sizes_sold": [],
-    "cost": 3500.0,
-    "retail": 7900.0,
-    "orig_price": 9900.0,
-    "cur_disc": 20,
-    "margin_pct": 55.7,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 7,
-      "s365": 17,
-      "sall": 17,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-07-11",
-      "first_supply_qty": 18,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 8
-    },
-    "last_sale": "2026-02-26",
-    "days_no_sale": 99,
-    "days_since_supply": 329,
-    "days_in_stock": 329,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 7000,
-    "frozen_retail": 15800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
-    "article": "202648",
-    "name": "On Cloudpulse White Pink In, 36",
-    "brand": "On",
+    "article": "202514",
+    "name": "Nike SB Dunk High \"Pigeon\" – Grey/Orange FUR Z, 36",
+    "brand": "Nike",
     "stock": {
       "total": 1,
       "moscow": 0,
@@ -27417,108 +27339,45 @@
     "sizes": {
       "36": 1
     },
-    "sizes_sold": [
-      "36",
-      "37",
-      "38",
-      "39",
-      "40"
-    ],
-    "cost": 7000.0,
-    "retail": 23900.0,
+    "sizes_sold": [],
+    "cost": 7500.0,
+    "retail": 12900.0,
     "orig_price": 23900.0,
-    "cur_disc": 0,
-    "margin_pct": 70.7,
+    "cur_disc": 46,
+    "margin_pct": 41.9,
     "sales": {
-      "s30": 2,
-      "s90": 8,
-      "s180": 15,
-      "s365": 15,
-      "sall": 15,
-      "rev_30d": 47800.0,
-      "rev_90d": 191200.0
+      "s30": 0,
+      "s90": 0,
+      "s180": 10,
+      "s365": 58,
+      "sall": 58,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
     },
     "history": {
-      "first_supply_date": "2026-01-20",
-      "first_supply_qty": 14,
+      "first_supply_date": "2025-09-03",
+      "first_supply_qty": 54,
       "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 0
+      "stock_6mo": 10
     },
-    "last_sale": "2026-05-30",
-    "days_no_sale": 6,
-    "days_since_supply": 136,
-    "days_in_stock": 136,
-    "sell_through": 88.9,
-    "wos": 2.1,
+    "last_sale": "2026-01-28",
+    "days_no_sale": 128,
+    "days_since_supply": 205,
+    "days_in_stock": 275,
+    "sell_through": 0.0,
+    "wos": 999,
     "velocity": {
-      "recent_30d": 2,
-      "avg_30d": 2.7,
-      "acceleration": 0.75
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
     },
-    "frozen_cost": 7000,
-    "frozen_retail": 23900,
+    "frozen_cost": 7500,
+    "frozen_retail": 12900,
     "category": "NORMAL",
-    "reason": "Стабильно: 2 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "HOT",
-    "photo": "[19264b]"
-  },
-  {
-    "article": "202403",
-    "name": "Slaps White Olive Z, 43",
-    "brand": "Прочее",
-    "stock": {
-      "total": 2,
-      "moscow": 0,
-      "tsum_online": 2,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "45": 1,
-      "43": 1
-    },
-    "sizes_sold": [
-      "43"
-    ],
-    "cost": 3500.0,
-    "retail": 4900.0,
-    "orig_price": 9900.0,
-    "cur_disc": 51,
-    "margin_pct": 28.6,
-    "sales": {
-      "s30": 1,
-      "s90": 1,
-      "s180": 5,
-      "s365": 11,
-      "sall": 11,
-      "rev_30d": 4900.0,
-      "rev_90d": 4900.0
-    },
-    "history": {
-      "first_supply_date": "2025-06-25",
-      "first_supply_qty": 12,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 6
-    },
-    "last_sale": "2026-05-30",
-    "days_no_sale": 6,
-    "days_since_supply": 345,
-    "days_in_stock": 345,
-    "sell_through": 33.3,
-    "wos": 8.6,
-    "velocity": {
-      "recent_30d": 1,
-      "avg_30d": 0.3,
-      "acceleration": 3.0
-    },
-    "frozen_cost": 7000,
-    "frozen_retail": 9800,
-    "category": "NORMAL",
-    "reason": "Стабильно: 1 шт/мес, 2 пар на складе",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
     "suggested_discount": 0,
     "health_v2": "SLOW",
-    "photo": "[8248b]"
+    "photo": "[12452b]"
   },
   {
     "article": "202408",
@@ -27579,9 +27438,120 @@
     "photo": "[11388b]"
   },
   {
-    "article": "202237",
-    "name": "Adidas Gazelle Blue White, 36",
-    "brand": "Adidas",
+    "article": "202420",
+    "name": "Crocs Black Z, 36",
+    "brand": "Crocs",
+    "stock": {
+      "total": 2,
+      "moscow": 2,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 2
+    },
+    "sizes_sold": [],
+    "cost": 3500.0,
+    "retail": 7900.0,
+    "orig_price": 9900.0,
+    "cur_disc": 20,
+    "margin_pct": 55.7,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 7,
+      "s365": 17,
+      "sall": 17,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2025-07-11",
+      "first_supply_qty": 18,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 8
+    },
+    "last_sale": "2026-02-26",
+    "days_no_sale": 99,
+    "days_since_supply": 329,
+    "days_in_stock": 329,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 7000,
+    "frozen_retail": 15800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 2 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
+    "article": "202403",
+    "name": "Slaps White Olive Z, 43",
+    "brand": "Прочее",
+    "stock": {
+      "total": 2,
+      "moscow": 0,
+      "tsum_online": 2,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "45": 1,
+      "43": 1
+    },
+    "sizes_sold": [
+      "43"
+    ],
+    "cost": 3500.0,
+    "retail": 4900.0,
+    "orig_price": 9900.0,
+    "cur_disc": 51,
+    "margin_pct": 28.6,
+    "sales": {
+      "s30": 1,
+      "s90": 1,
+      "s180": 5,
+      "s365": 11,
+      "sall": 11,
+      "rev_30d": 4900.0,
+      "rev_90d": 4900.0
+    },
+    "history": {
+      "first_supply_date": "2025-06-25",
+      "first_supply_qty": 12,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 6
+    },
+    "last_sale": "2026-05-30",
+    "days_no_sale": 6,
+    "days_since_supply": 345,
+    "days_in_stock": 345,
+    "sell_through": 33.3,
+    "wos": 8.6,
+    "velocity": {
+      "recent_30d": 1,
+      "avg_30d": 0.3,
+      "acceleration": 3.0
+    },
+    "frozen_cost": 7000,
+    "frozen_retail": 9800,
+    "category": "NORMAL",
+    "reason": "Стабильно: 1 шт/мес, 2 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "[8248b]"
+  },
+  {
+    "article": "202648",
+    "name": "On Cloudpulse White Pink In, 36",
+    "brand": "On",
     "stock": {
       "total": 1,
       "moscow": 0,
@@ -27592,45 +27562,51 @@
     "sizes": {
       "36": 1
     },
-    "sizes_sold": [],
-    "cost": 6500.0,
-    "retail": 19900.0,
-    "orig_price": 19900.0,
+    "sizes_sold": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+    ],
+    "cost": 7000.0,
+    "retail": 23900.0,
+    "orig_price": 23900.0,
     "cur_disc": 0,
-    "margin_pct": 67.3,
+    "margin_pct": 70.7,
     "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 4,
-      "s365": 22,
-      "sall": 47,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
+      "s30": 2,
+      "s90": 8,
+      "s180": 15,
+      "s365": 15,
+      "sall": 15,
+      "rev_30d": 47800.0,
+      "rev_90d": 191200.0
     },
     "history": {
-      "first_supply_date": "2025-03-06",
-      "first_supply_qty": 40,
+      "first_supply_date": "2026-01-20",
+      "first_supply_qty": 14,
       "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 5
+      "stock_6mo": 0
     },
-    "last_sale": "2026-02-07",
-    "days_no_sale": 118,
-    "days_since_supply": 456,
-    "days_in_stock": 456,
-    "sell_through": 0.0,
-    "wos": 999,
+    "last_sale": "2026-05-30",
+    "days_no_sale": 6,
+    "days_since_supply": 136,
+    "days_in_stock": 136,
+    "sell_through": 88.9,
+    "wos": 2.1,
     "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
+      "recent_30d": 2,
+      "avg_30d": 2.7,
+      "acceleration": 0.75
     },
-    "frozen_cost": 6500,
-    "frozen_retail": 19900,
+    "frozen_cost": 7000,
+    "frozen_retail": 23900,
     "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "reason": "Стабильно: 2 шт/мес, 1 пар на складе",
     "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "[14992b]"
+    "health_v2": "HOT",
+    "photo": "[19264b]"
   },
   {
     "article": "202290",
@@ -27741,60 +27717,58 @@
     "photo": "[16068b]"
   },
   {
-    "article": "201262",
-    "name": "Adidas Yeezy Boost 500 Supermoon Yellow Z, 36",
-    "brand": "Yeezy",
+    "article": "202237",
+    "name": "Adidas Gazelle Blue White, 36",
+    "brand": "Adidas",
     "stock": {
       "total": 1,
-      "moscow": 1,
-      "tsum_online": 0,
+      "moscow": 0,
+      "tsum_online": 1,
       "aruzhan": 0,
       "warehouse": 0
     },
     "sizes": {
       "36": 1
     },
-    "sizes_sold": [
-      "36"
-    ],
-    "cost": 6000.0,
-    "retail": 7900.0,
-    "orig_price": 18900.0,
-    "cur_disc": 58,
-    "margin_pct": 24.1,
+    "sizes_sold": [],
+    "cost": 6500.0,
+    "retail": 19900.0,
+    "orig_price": 19900.0,
+    "cur_disc": 0,
+    "margin_pct": 67.3,
     "sales": {
-      "s30": 2,
-      "s90": 5,
-      "s180": 11,
-      "s365": 14,
-      "sall": 54,
-      "rev_30d": 15800.0,
-      "rev_90d": 39500.0
+      "s30": 0,
+      "s90": 0,
+      "s180": 4,
+      "s365": 22,
+      "sall": 47,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
     },
     "history": {
-      "first_supply_date": "2024-06-26",
+      "first_supply_date": "2025-03-06",
       "first_supply_qty": 40,
       "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 8
+      "stock_6mo": 5
     },
-    "last_sale": "2026-06-02",
-    "days_no_sale": 3,
-    "days_since_supply": 709,
-    "days_in_stock": 709,
-    "sell_through": 83.3,
-    "wos": 2.1,
+    "last_sale": "2026-02-07",
+    "days_no_sale": 118,
+    "days_since_supply": 456,
+    "days_in_stock": 456,
+    "sell_through": 0.0,
+    "wos": 999,
     "velocity": {
-      "recent_30d": 2,
-      "avg_30d": 1.7,
-      "acceleration": 1.2
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
     },
-    "frozen_cost": 6000,
-    "frozen_retail": 7900,
+    "frozen_cost": 6500,
+    "frozen_retail": 19900,
     "category": "NORMAL",
-    "reason": "Стабильно: 2 шт/мес, 1 пар на складе",
-    "suggested_discount": 15,
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
     "health_v2": "SLOW",
-    "photo": "[14340b]"
+    "photo": "[14992b]"
   },
   {
     "article": "202355",
@@ -27852,6 +27826,170 @@
     "suggested_discount": 0,
     "health_v2": "SLOW",
     "photo": "[26760b]"
+  },
+  {
+    "article": "201262",
+    "name": "Adidas Yeezy Boost 500 Supermoon Yellow Z, 36",
+    "brand": "Yeezy",
+    "stock": {
+      "total": 1,
+      "moscow": 1,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1
+    },
+    "sizes_sold": [
+      "36"
+    ],
+    "cost": 6000.0,
+    "retail": 7900.0,
+    "orig_price": 18900.0,
+    "cur_disc": 58,
+    "margin_pct": 24.1,
+    "sales": {
+      "s30": 2,
+      "s90": 5,
+      "s180": 11,
+      "s365": 14,
+      "sall": 54,
+      "rev_30d": 15800.0,
+      "rev_90d": 39500.0
+    },
+    "history": {
+      "first_supply_date": "2024-06-26",
+      "first_supply_qty": 40,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 8
+    },
+    "last_sale": "2026-06-02",
+    "days_no_sale": 3,
+    "days_since_supply": 709,
+    "days_in_stock": 709,
+    "sell_through": 83.3,
+    "wos": 2.1,
+    "velocity": {
+      "recent_30d": 2,
+      "avg_30d": 1.7,
+      "acceleration": 1.2
+    },
+    "frozen_cost": 6000,
+    "frozen_retail": 7900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 2 шт/мес, 1 пар на складе",
+    "suggested_discount": 15,
+    "health_v2": "SLOW",
+    "photo": "[14340b]"
+  },
+  {
+    "article": "202039",
+    "name": "Nike Air Jordan 11 Retro BP Space Jam Kids A, 33",
+    "brand": "Jordan",
+    "stock": {
+      "total": 1,
+      "moscow": 1,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "33": 1
+    },
+    "sizes_sold": [],
+    "cost": 5000.0,
+    "retail": 7900.0,
+    "orig_price": 17900.0,
+    "cur_disc": 56,
+    "margin_pct": 36.7,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 1,
+      "s365": 2,
+      "sall": 7,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2024-11-19",
+      "first_supply_qty": 9,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 2
+    },
+    "last_sale": "2025-12-16",
+    "days_no_sale": 171,
+    "days_since_supply": 563,
+    "days_in_stock": 563,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 5000,
+    "frozen_retail": 7900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
+    "article": "202036",
+    "name": "Nike Air Jordan 11 Retro 72-10 Kids A, 34",
+    "brand": "Jordan",
+    "stock": {
+      "total": 1,
+      "moscow": 1,
+      "tsum_online": 0,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "34": 1
+    },
+    "sizes_sold": [],
+    "cost": 5000.0,
+    "retail": 7900.0,
+    "orig_price": 15900.0,
+    "cur_disc": 50,
+    "margin_pct": 36.7,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 2,
+      "s365": 12,
+      "sall": 14,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2024-11-19",
+      "first_supply_qty": 17,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 3
+    },
+    "last_sale": "2026-01-20",
+    "days_no_sale": 136,
+    "days_since_supply": 563,
+    "days_in_stock": 563,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 5000,
+    "frozen_retail": 7900,
+    "category": "NORMAL",
+    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
   },
   {
     "article": "202187",
@@ -28124,114 +28262,6 @@
     "photo": "(нет)"
   },
   {
-    "article": "202036",
-    "name": "Nike Air Jordan 11 Retro 72-10 Kids A, 34",
-    "brand": "Jordan",
-    "stock": {
-      "total": 1,
-      "moscow": 1,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "34": 1
-    },
-    "sizes_sold": [],
-    "cost": 5000.0,
-    "retail": 7900.0,
-    "orig_price": 15900.0,
-    "cur_disc": 50,
-    "margin_pct": 36.7,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 2,
-      "s365": 12,
-      "sall": 14,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2024-11-19",
-      "first_supply_qty": 17,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 3
-    },
-    "last_sale": "2026-01-20",
-    "days_no_sale": 136,
-    "days_since_supply": 563,
-    "days_in_stock": 563,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 5000,
-    "frozen_retail": 7900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
-    "article": "202039",
-    "name": "Nike Air Jordan 11 Retro BP Space Jam Kids A, 33",
-    "brand": "Jordan",
-    "stock": {
-      "total": 1,
-      "moscow": 1,
-      "tsum_online": 0,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "33": 1
-    },
-    "sizes_sold": [],
-    "cost": 5000.0,
-    "retail": 7900.0,
-    "orig_price": 17900.0,
-    "cur_disc": 56,
-    "margin_pct": 36.7,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 1,
-      "s365": 2,
-      "sall": 7,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2024-11-19",
-      "first_supply_qty": 9,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 2
-    },
-    "last_sale": "2025-12-16",
-    "days_no_sale": 171,
-    "days_since_supply": 563,
-    "days_in_stock": 563,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 5000,
-    "frozen_retail": 7900,
-    "category": "NORMAL",
-    "reason": "Стабильно: 0 шт/мес, 1 пар на складе",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
     "article": "202414",
     "name": "Nike Travis Scott Air Jordan Khaki Black White Z, 41",
     "brand": "Jordan",
@@ -28364,9 +28394,9 @@
       "42": 5,
       "44": 1,
       "43": 3,
+      "39": 2,
       "36": 4,
       "37": 1,
-      "39": 2,
       "38": 5,
       "40": 5
     },
@@ -28425,8 +28455,8 @@
       "42": 1,
       "38": 9,
       "41": 2,
-      "36": 3,
       "37": 4,
+      "36": 3,
       "40": 7
     },
     "sizes_sold": [],
@@ -28481,11 +28511,11 @@
       "warehouse": 0
     },
     "sizes": {
-      "36": 2,
-      "42": 3,
       "38": 7,
       "37": 3,
       "40": 6,
+      "36": 2,
+      "42": 3,
       "43": 1
     },
     "sizes_sold": [],
@@ -28542,8 +28572,8 @@
     "sizes": {
       "36": 9,
       "40": 2,
-      "38": 2,
-      "37": 6
+      "37": 6,
+      "38": 2
     },
     "sizes_sold": [],
     "cost": 14421.0,
@@ -28597,9 +28627,9 @@
       "warehouse": 0
     },
     "sizes": {
-      "40": 2,
       "36": 3,
       "38": 7,
+      "40": 2,
       "37": 3,
       "39": 2
     },
@@ -28828,10 +28858,10 @@
     },
     "sizes": {
       "36": 3,
-      "39": 2,
       "42": 2,
       "44": 1,
       "41": 1,
+      "39": 2,
       "37": 1,
       "40": 3,
       "38": 1
@@ -28888,13 +28918,13 @@
       "warehouse": 0
     },
     "sizes": {
-      "44": 4,
       "37": 1,
       "40": 1,
       "45": 3,
+      "44": 4,
+      "38": 1,
       "36": 3,
-      "43": 1,
-      "38": 1
+      "43": 1
     },
     "sizes_sold": [],
     "cost": 10699.0,
@@ -29120,8 +29150,8 @@
       "warehouse": 0
     },
     "sizes": {
-      "37": 3,
       "36": 3,
+      "37": 3,
       "39": 1
     },
     "sizes_sold": [],
@@ -29178,8 +29208,8 @@
     "sizes": {
       "36": 2,
       "37": 2,
-      "38": 1,
       "43": 1,
+      "38": 1,
       "39": 1,
       "41": 1
     },
@@ -30013,10 +30043,10 @@
       "warehouse": 0
     },
     "sizes": {
-      "38": 2,
       "37": 2,
       "39": 3,
-      "41": 1
+      "41": 1,
+      "38": 2
     },
     "sizes_sold": [],
     "cost": 5000.0,
@@ -30549,62 +30579,6 @@
     "photo": "(нет)"
   },
   {
-    "article": "202140",
-    "name": "Asics Beige Red 9900 Z, 37",
-    "brand": "Asics",
-    "stock": {
-      "total": 3,
-      "moscow": 0,
-      "tsum_online": 3,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "37": 1,
-      "40": 1,
-      "39": 1
-    },
-    "sizes_sold": [],
-    "cost": 5000.0,
-    "retail": 9900.0,
-    "orig_price": 9900.0,
-    "cur_disc": 0,
-    "margin_pct": 49.5,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 0,
-      "sall": 16,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": "2025-02-12",
-      "first_supply_qty": 16,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 3
-    },
-    "last_sale": "2025-05-14",
-    "days_no_sale": 387,
-    "days_since_supply": 478,
-    "days_in_stock": 478,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 15000,
-    "frozen_retail": 29700,
-    "category": "INTENTIONAL",
-    "reason": "NB/Asics/Puma — намеренный неликвид, не трогать",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
     "article": "202133",
     "name": "Asics Beige Green 15900 Z, 38",
     "brand": "Asics",
@@ -30643,6 +30617,62 @@
     },
     "last_sale": "2025-06-23",
     "days_no_sale": 347,
+    "days_since_supply": 478,
+    "days_in_stock": 478,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 15000,
+    "frozen_retail": 29700,
+    "category": "INTENTIONAL",
+    "reason": "NB/Asics/Puma — намеренный неликвид, не трогать",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
+    "article": "202140",
+    "name": "Asics Beige Red 9900 Z, 37",
+    "brand": "Asics",
+    "stock": {
+      "total": 3,
+      "moscow": 0,
+      "tsum_online": 3,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "37": 1,
+      "40": 1,
+      "39": 1
+    },
+    "sizes_sold": [],
+    "cost": 5000.0,
+    "retail": 9900.0,
+    "orig_price": 9900.0,
+    "cur_disc": 0,
+    "margin_pct": 49.5,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 0,
+      "s365": 0,
+      "sall": 16,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2025-02-12",
+      "first_supply_qty": 16,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 3
+    },
+    "last_sale": "2025-05-14",
+    "days_no_sale": 387,
     "days_since_supply": 478,
     "days_in_stock": 478,
     "sell_through": 0.0,
@@ -30879,6 +30909,60 @@
     "photo": "(нет)"
   },
   {
+    "article": "202309",
+    "name": "Puma Speedcat OG Sparco Black Pink Z, 36",
+    "brand": "Puma",
+    "stock": {
+      "total": 1,
+      "moscow": 0,
+      "tsum_online": 1,
+      "aruzhan": 0,
+      "warehouse": 0
+    },
+    "sizes": {
+      "36": 1
+    },
+    "sizes_sold": [],
+    "cost": 11000.0,
+    "retail": 26900.0,
+    "orig_price": 26900.0,
+    "cur_disc": 0,
+    "margin_pct": 59.1,
+    "sales": {
+      "s30": 0,
+      "s90": 0,
+      "s180": 0,
+      "s365": 15,
+      "sall": 22,
+      "rev_30d": 0.0,
+      "rev_90d": 0.0
+    },
+    "history": {
+      "first_supply_date": "2025-04-11",
+      "first_supply_qty": 24,
+      "snap_6mo_date": "2025-12-07",
+      "stock_6mo": 1
+    },
+    "last_sale": "2025-09-25",
+    "days_no_sale": 253,
+    "days_since_supply": 420,
+    "days_in_stock": 420,
+    "sell_through": 0.0,
+    "wos": 999,
+    "velocity": {
+      "recent_30d": 0,
+      "avg_30d": 0,
+      "acceleration": 0
+    },
+    "frozen_cost": 11000,
+    "frozen_retail": 26900,
+    "category": "INTENTIONAL",
+    "reason": "NB/Asics/Puma — намеренный неликвид, не трогать",
+    "suggested_discount": 0,
+    "health_v2": "SLOW",
+    "photo": "(нет)"
+  },
+  {
     "article": "202306",
     "name": "Puma Speedcat OG Sparco Pink White Z, 40",
     "brand": "Puma",
@@ -30933,9 +31017,9 @@
     "photo": "(нет)"
   },
   {
-    "article": "202309",
-    "name": "Puma Speedcat OG Sparco Black Pink Z, 36",
-    "brand": "Puma",
+    "article": "201255",
+    "name": "New Balance 2002R Grey A, 36",
+    "brand": "New Balance",
     "stock": {
       "total": 1,
       "moscow": 0,
@@ -30947,30 +31031,30 @@
       "36": 1
     },
     "sizes_sold": [],
-    "cost": 11000.0,
-    "retail": 26900.0,
-    "orig_price": 26900.0,
+    "cost": 10000.0,
+    "retail": 21900.0,
+    "orig_price": 21900.0,
     "cur_disc": 0,
-    "margin_pct": 59.1,
+    "margin_pct": 54.3,
     "sales": {
       "s30": 0,
       "s90": 0,
       "s180": 0,
-      "s365": 15,
-      "sall": 22,
+      "s365": 1,
+      "sall": 1,
       "rev_30d": 0.0,
       "rev_90d": 0.0
     },
     "history": {
-      "first_supply_date": "2025-04-11",
-      "first_supply_qty": 24,
+      "first_supply_date": null,
+      "first_supply_qty": 0,
       "snap_6mo_date": "2025-12-07",
       "stock_6mo": 1
     },
-    "last_sale": "2025-09-25",
-    "days_no_sale": 253,
-    "days_since_supply": 420,
-    "days_in_stock": 420,
+    "last_sale": "2025-08-19",
+    "days_no_sale": 290,
+    "days_since_supply": 999,
+    "days_in_stock": null,
     "sell_through": 0.0,
     "wos": 999,
     "velocity": {
@@ -30978,8 +31062,8 @@
       "avg_30d": 0,
       "acceleration": 0
     },
-    "frozen_cost": 11000,
-    "frozen_retail": 26900,
+    "frozen_cost": 10000,
+    "frozen_retail": 21900,
     "category": "INTENTIONAL",
     "reason": "NB/Asics/Puma — намеренный неликвид, не трогать",
     "suggested_discount": 0,
@@ -31077,60 +31161,6 @@
     },
     "last_sale": null,
     "days_no_sale": 999,
-    "days_since_supply": 999,
-    "days_in_stock": null,
-    "sell_through": 0.0,
-    "wos": 999,
-    "velocity": {
-      "recent_30d": 0,
-      "avg_30d": 0,
-      "acceleration": 0
-    },
-    "frozen_cost": 10000,
-    "frozen_retail": 21900,
-    "category": "INTENTIONAL",
-    "reason": "NB/Asics/Puma — намеренный неликвид, не трогать",
-    "suggested_discount": 0,
-    "health_v2": "SLOW",
-    "photo": "(нет)"
-  },
-  {
-    "article": "201255",
-    "name": "New Balance 2002R Grey A, 36",
-    "brand": "New Balance",
-    "stock": {
-      "total": 1,
-      "moscow": 0,
-      "tsum_online": 1,
-      "aruzhan": 0,
-      "warehouse": 0
-    },
-    "sizes": {
-      "36": 1
-    },
-    "sizes_sold": [],
-    "cost": 10000.0,
-    "retail": 21900.0,
-    "orig_price": 21900.0,
-    "cur_disc": 0,
-    "margin_pct": 54.3,
-    "sales": {
-      "s30": 0,
-      "s90": 0,
-      "s180": 0,
-      "s365": 1,
-      "sall": 1,
-      "rev_30d": 0.0,
-      "rev_90d": 0.0
-    },
-    "history": {
-      "first_supply_date": null,
-      "first_supply_qty": 0,
-      "snap_6mo_date": "2025-12-07",
-      "stock_6mo": 1
-    },
-    "last_sale": "2025-08-19",
-    "days_no_sale": 290,
     "days_since_supply": 999,
     "days_in_stock": null,
     "sell_through": 0.0,
