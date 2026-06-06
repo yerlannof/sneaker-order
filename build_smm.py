@@ -84,6 +84,24 @@ def main(cfg):
 
     ss = sizes_by_store(list(disc.keys()), cloth=cfg['cloth'])
 
+    # НОВАЯ скидка = ещё НЕ применена в МС (в свежем снапшоте цен new_price=0/=sale).
+    # Это эквивалент «сегодняшних» скидок Алуы (в данных нет даты каждой скидки,
+    # только время сохранения всего файла — поэтому отличаем новые от уже стоящих в МС).
+    applied_in_ms = set()
+    try:
+        import duckdb
+        con = duckdb.connect(str(SO.parent / 'data' / 'pnlpower.duckdb'), read_only=True)
+        snap = con.execute("SELECT MAX(table_name) FROM information_schema.tables WHERE table_name LIKE 'prices_snapshot_2026%'").fetchone()[0]
+        for art, sale, np in con.execute(f"SELECT article, sale_price, new_price FROM {snap}").fetchall():
+            try:
+                if np and float(np) > 0 and float(np) < float(sale or 0):
+                    applied_in_ms.add(str(art))
+            except Exception:
+                pass
+        con.close()
+    except Exception as e:
+        print(f"  (не смог определить новые скидки: {e})")
+
     items = []
     for a, d in disc.items():
         it = data.get(a)
@@ -95,11 +113,15 @@ def main(cfg):
         s = it['stock']
         items.append({
             'article': a, 'name': it['name'], 'brand': it.get('brand', ''),
-            'old': orig, 'new': new, 'off': total_off,
+            'old': orig, 'new': new, 'off': total_off, 'disc': d,
+            'is_new': a not in applied_in_ms,   # ещё не в МС = свежая
             'stock': {'m': s['moscow'], 't': s['tsum_online'], 'a': s['aruzhan'], 'w': s['warehouse'], 'total': s['total']},
             'ss': ss.get(a, {'m': {}, 't': {}, 'a': {}, 'w': {}}),
         })
-    items.sort(key=lambda x: -x['off'])
+    # Новые — наверх, потом по % скидки
+    items.sort(key=lambda x: (not x['is_new'], -x['off']))
+    n_new = sum(1 for x in items if x['is_new'])
+    print(f"  новых (ещё не в МС): {n_new} | уже в МС: {len(items)-n_new}")
 
     lite = SO / f"{cfg['out']}_lite.json"
     ph = SO / f"{cfg['out']}_photos.json"
@@ -131,6 +153,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .bar input{flex:1;min-width:140px;padding:9px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;}
 .fbtn{padding:7px 12px;border:1px solid var(--border);background:#fff;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
 .fbtn.active{background:#111827;color:#fff;border-color:#111827;}
+.newbadge{display:inline-block;background:#f59e0b;color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;margin-right:5px;vertical-align:middle;}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;padding:12px;}
 .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);display:flex;flex-direction:column;}
 .photo{width:100%;aspect-ratio:1/1;object-fit:cover;background:#f3f4f6;}
@@ -157,6 +180,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="bar">
   <input id="q" placeholder="Поиск по названию / артикулу…" oninput="render()">
   <button class="fbtn active" data-f="all" onclick="setF(this)">Все</button>
+  <button class="fbtn" data-f="new" onclick="setF(this)" style="background:#fef3c7;border-color:#f59e0b;color:#92400e">🆕 Свежие</button>
   <button class="fbtn" data-f="50" onclick="setF(this)">−50%+</button>
   <button class="fbtn" data-f="30" onclick="setF(this)">−30%+</button>
   <button class="fbtn" data-f="m" onclick="setF(this)">Москва</button>
@@ -172,6 +196,7 @@ function setF(b){document.querySelectorAll('.fbtn').forEach(x=>x.classList.remov
 function render(){
   const q=(document.getElementById('q').value||'').toLowerCase();
   let list=ITEMS.filter(i=>{
+    if(F==='new'&&!i.is_new)return false;
     if(F==='50'&&i.off<50)return false;
     if(F==='30'&&i.off<30)return false;
     if(F==='m'&&!i.stock.m)return false;
@@ -190,8 +215,9 @@ function render(){
     const photo=ph?`<img class="photo" src="data:image/jpeg;base64,${ph}" loading="lazy">`:`<div class="photo-empty">нет фото</div>`;
     const ss=i.ss||{m:{},t:{},a:{},w:{}};
     const stores=srow('Москва',i.stock.m,ss.m)+srow('ЦУМ+Онл',i.stock.t,ss.t)+srow('Аружан',i.stock.a,ss.a)+srow('Склад',i.stock.w,ss.w);
+    const newBadge=i.is_new?`<span class="newbadge">🆕 СВЕЖАЯ</span>`:'';
     return `<div class="card">${photo}<div class="body">
-      <div class="name">${i.name}</div>
+      <div class="name">${newBadge}${i.name}</div>
       <div class="art" onclick="navigator.clipboard&&navigator.clipboard.writeText('${i.article}')"><span class="brand">${i.brand}</span>${i.article} 📋</div>
       <div class="prices"><span class="old">${fmt(i.old)}₸</span><span class="new">${fmt(i.new)}₸</span><span class="off">−${i.off}%</span></div>
       <div class="stores">${stores||'<span class="slbl">нет на точках</span>'}</div>
