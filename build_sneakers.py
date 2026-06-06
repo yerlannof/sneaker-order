@@ -808,6 +808,23 @@ async function loadData() {
   applyFilters();
   if (loader) loader.style.display = 'none';
 
+  // СИНХРОНИЗАЦИЯ между устройствами: подтянуть актуальные скидки из Supabase.
+  // Без этого правки Алуа с телефона не видны на компе (localStorage у каждого свой).
+  try {
+    const sr = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.SNEAKERS-001&select=items', {headers: SB_HEADERS});
+    if (sr.ok) {
+      const rows = await sr.json();
+      const cloud = (rows[0] && rows[0].items) || [];
+      let synced = 0;
+      cloud.forEach(it => { if (it.article && it.discount > 0) { discounts[it.article] = it.discount; synced++; } });
+      if (synced > 0) {
+        try { localStorage.setItem('clothing_discounts', JSON.stringify(discounts)); } catch(e) {}
+        applyFilters();
+        if (typeof toast === 'function') toast('☁️ Подгружено из облака: ' + synced + ' скидок');
+      }
+    }
+  } catch(e) {}
+
   // Фото догружаем в фоне (не блокирует UI)
   setTimeout(async () => {
     try {
