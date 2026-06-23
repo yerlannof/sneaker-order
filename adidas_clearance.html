@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Adidas — уценка (Аружан)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f9fb;
+  --card: #fff;
+  --border: #e8ecf1;
+  --text: #1a1d23;
+  --text2: #6b7280;
+  --text3: #9ca3af;
+  --blue: #3b82f6;
+  --blue-light: #eff6ff;
+  --green: #10b981;
+  --green-light: #ecfdf5;
+  --red: #ef4444;
+  --red-light: #fef2f2;
+  --orange: #f59e0b;
+  --orange-light: #fffbeb;
+  --purple: #8b5cf6;
+  --purple-light: #f5f3ff;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { overflow-x:hidden; overscroll-behavior-x:none; }
+body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; touch-action:pan-y; padding-bottom:80px; }
+
+.header { background:var(--card); border-bottom:1px solid var(--border); padding:16px 20px; position:sticky; top:0; z-index:100; }
+.header-top { display:flex; justify-content:space-between; align-items:center; }
+.header h1 { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
+.header .badge { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+.badge-info { background:var(--blue-light); color:var(--blue); }
+.header-meta { font-size:12px; color:var(--text3); margin-top:4px; }
+
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:12px 16px; position:sticky; top:62px; z-index:98; background:var(--bg); }
+.stat { background:var(--card); border-radius:var(--radius-sm); padding:10px; text-align:center; border:1px solid var(--border); }
+.stat-num { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+.stat-label { font-size:9px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+.stat-num.green { color:var(--green); }
+.stat-num.blue { color:var(--blue); }
+.stat-num.purple { color:var(--purple); }
+
+.controls { padding:8px 16px; display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:170px; z-index:97; background:var(--bg); }
+.search-input { flex:1; min-width:140px; padding:10px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; font-family:inherit; background:var(--card); }
+.search-input:focus { border-color:var(--blue); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
+
+.filter-bar { padding:4px 16px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; position:sticky; top:220px; z-index:96; background:var(--bg); }
+.filter-bar::-webkit-scrollbar { display:none; }
+.filter-btn { padding:6px 12px; border-radius:20px; border:1px solid var(--border); background:var(--card); font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:inherit; transition:all 0.15s; -webkit-tap-highlight-color:transparent; }
+.filter-btn:active { transform:scale(0.96); }
+.filter-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+
+.sort-bar { padding:0 16px 8px; display:flex; gap:6px; }
+.sort-btn { padding:4px 10px; border-radius:6px; border:1px solid var(--border); background:var(--card); font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; color:var(--text2); transition:all 0.15s; }
+.sort-btn.active { background:var(--text); color:#fff; border-color:var(--text); }
+
+.items { padding:0 16px; }
+.item { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:8px; overflow:hidden; }
+.item-main { display:flex; gap:12px; padding:12px; }
+.item-photo { width:80px; height:80px; border-radius:var(--radius-sm); object-fit:cover; background:var(--bg); flex-shrink:0; cursor:pointer; }
+.item-photo-empty { width:80px; height:80px; border-radius:var(--radius-sm); background:var(--bg); flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+.item-photo-empty .art { font-size:10px; font-weight:700; color:var(--text2); }
+.item-photo-empty .nf { font-size:9px; color:var(--text3); }
+
+.item-body { flex:1; min-width:0; }
+.item-name { font-weight:600; font-size:13px; line-height:1.3; margin-bottom:2px; }
+.item-article { font-size:11px; color:var(--text3); margin-bottom:4px; }
+.item-subfolder { display:inline-block; padding:1px 6px; border-radius:4px; font-size:10px; font-weight:600; margin-bottom:4px; }
+.sf-low { background:var(--blue-light); color:var(--blue); }
+.sf-top { background:var(--purple-light); color:var(--purple); }
+.sf-outer { background:var(--orange-light); color:var(--orange); }
+.sf-costume { background:var(--green-light); color:var(--green); }
+
+.item-right { display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
+.st-badge { padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; }
+.st-good { background:var(--green-light); color:var(--green); }
+.st-medium { background:var(--orange-light); color:var(--orange); }
+.st-bad { background:var(--red-light); color:var(--red); }
+.st-none { background:var(--bg); color:var(--text3); }
+.stock-total { font-size:16px; font-weight:800; }
+
+.item-details { padding:0 12px 10px; }
+.stock-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-bottom:8px; }
+.stock-cell { text-align:center; padding:4px; background:var(--bg); border-radius:6px; }
+.stock-cell-label { font-size:9px; font-weight:600; color:var(--text3); text-transform:uppercase; }
+.stock-cell-val { font-size:14px; font-weight:700; }
+.stock-cell-val.zero { color:var(--text3); }
+
+.sales-row { display:flex; gap:8px; margin-bottom:8px; align-items:center; flex-wrap:wrap; }
+.sales-tag { padding:3px 8px; border-radius:6px; background:var(--bg); font-size:11px; font-weight:600; }
+.month-tag { font-size:10px; color:var(--text2); }
+.month-tag b { color:var(--text); }
+
+.price-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+.price-item { font-size:12px; }
+.price-item .label { color:var(--text3); font-size:10px; }
+.price-item .val { font-weight:700; }
+
+.discount-row { display:flex; gap:8px; align-items:center; padding:8px 12px; background:var(--bg); border-radius:var(--radius-sm); margin-top:4px; }
+.discount-row label { font-size:12px; font-weight:600; color:var(--text2); white-space:nowrap; }
+.discount-input { width:60px; padding:6px 8px; border:1px solid var(--border); border-radius:6px; font-size:14px; font-weight:700; text-align:center; font-family:inherit; }
+.discount-input:focus { border-color:var(--blue); outline:none; box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
+.new-price { font-size:14px; font-weight:800; color:var(--green); margin-left:4px; }
+.new-price.red { color:var(--red); }
+.disc-btns { display:flex; gap:3px; flex-wrap:wrap; margin-top:4px; }
+.disc-btn { padding:4px 8px; border-radius:5px; border:1px solid var(--border); background:var(--card); font-size:11px; font-weight:700; color:var(--text2); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.disc-btn:active { transform:scale(0.95); }
+.disc-btn.active { background:var(--red); color:#fff; border-color:var(--red); }
+.disc-btn { -webkit-appearance:none; appearance:none; }
+.disc-btn:focus { outline:none; }
+
+.bottom { position:fixed; bottom:0; left:0; right:0; background:var(--card); border-top:1px solid var(--border); padding:12px 16px; display:flex; justify-content:space-between; align-items:center; gap:8px; z-index:100; box-shadow:0 -4px 12px rgba(0,0,0,0.08); }
+.bottom-info { font-size:13px; line-height:1.5; }
+.bottom-info b { font-size:16px; font-weight:800; }
+.btn { padding:10px 16px; border-radius:var(--radius-sm); border:none; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; transition:all 0.15s; -webkit-tap-highlight-color:transparent; }
+.btn:active { transform:scale(0.97); }
+.btn:disabled { opacity:0.5; pointer-events:none; }
+.btn-primary { background:var(--blue); color:#fff; }
+.btn-green { background:var(--green); color:#fff; }
+.btn-outline { background:var(--card); color:var(--text2); border:1px solid var(--border); }
+
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:300; align-items:center; justify-content:center; flex-direction:column; padding:20px; }
+.lightbox.open { display:flex; }
+.lightbox img { max-width:90vw; max-height:70vh; border-radius:var(--radius); object-fit:contain; }
+.lightbox .lb-info { color:#fff; text-align:center; margin-top:12px; }
+.lightbox .lb-model { font-size:16px; font-weight:600; }
+.lightbox .lb-art { font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px; }
+.lb-close { position:absolute; top:16px; right:20px; color:#fff; font-size:28px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+
+.toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--text); color:#fff; padding:10px 20px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; }
+.toast.show { opacity:1; }
+
+.expand-toggle { font-size:11px; color:var(--blue); cursor:pointer; font-weight:600; padding:4px 0; -webkit-tap-highlight-color:transparent; }
+
+@media(min-width:600px) {
+  .stats { grid-template-columns:repeat(6,1fr); }
+  .item-main { gap:14px; }
+  .item-photo, .item-photo-empty { width:96px; height:96px; }
+  .stock-grid { grid-template-columns:repeat(5,1fr); }
+}
+
+/* === Мобильная адаптация (основной use case) === */
+@media(max-width:600px) {
+  .header { padding:12px 16px; }
+  .header h1 { font-size:17px; }
+  .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; top:58px; }
+  .stat { padding:8px 6px; }
+  .stat-num { font-size:15px; }
+  .stat-label { font-size:8px; }
+  .controls { top:150px; }
+  .filter-bar { top:200px; }
+  .item { margin-bottom:10px; }
+  .item-main { padding:10px; gap:10px; }
+  .item-photo, .item-photo-empty { width:70px; height:70px; }
+  .item-name { font-size:13px; }
+  .disc-btn { padding:7px 11px; font-size:12px; min-width:42px; }
+  .bottom { padding:10px 14px; }
+  .stock-grid { gap:3px; }
+  .stock-cell-val { font-size:13px; }
+  .stock-cell-label { font-size:8px; }
+  .chip { padding:4px 9px; font-size:12px; }
+  .disc-btn:active { background:#eff6ff; }
+  .flow-val { font-size:16px; }
+  .flow-label { font-size:9px; }
+}
+
+.rec-badge { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.3px; display:inline-block; margin-bottom:6px; }
+.rec-REORDER     { background:#ecfdf5; color:#10b981; }
+.rec-SOLD_OUT    { background:#f5f3ff; color:#8b5cf6; }
+.rec-GROWING     { background:#ecfdf5; color:#10b981; }
+.rec-HOLD        { background:#eff6ff; color:#3b82f6; }
+.rec-WAIT        { background:#f3f4f6; color:#6b7280; }
+.rec-DISCOUNT_20 { background:#fffbeb; color:#f59e0b; }
+.rec-DISCOUNT_30 { background:#fef2f2; color:#ef4444; }
+.rec-DEAD        { background:#fef2f2; color:#ef4444; }
+.rec-reason      { font-size:12px; color:var(--text2); margin-bottom:8px; line-height:1.4; }
+.flow-box        { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:8px; padding:8px; background:#fafbfc; border-radius:8px; border:1px solid var(--border); }
+.flow-cell       { text-align:center; position:relative; }
+.flow-label      { font-size:10px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px; }
+.flow-val        { font-size:17px; font-weight:800; color:var(--text); }
+.flow-sub        { font-size:10px; color:var(--text3); margin-top:2px; }
+.velocity-box    { display:flex; gap:10px; padding:8px 10px; background:var(--bg); border-radius:6px; margin-bottom:8px; font-size:12px; align-items:center; flex-wrap:wrap; }
+.vel-num         { font-weight:800; color:var(--text); }
+.vel-up          { color:#10b981; font-weight:700; }
+.vel-down        { color:#ef4444; font-weight:700; }
+.vel-flat        { color:var(--text2); font-weight:700; }
+.wos-ok          { color:#10b981; font-weight:700; }
+.wos-warn        { color:#f59e0b; font-weight:700; }
+.wos-bad         { color:#ef4444; font-weight:700; }
+.item-photo-empty svg { opacity:0.3; }
+.item-photo-empty.wait { background:linear-gradient(135deg,#f0f9ff,#e0f2fe); }
+.distribution-hint { font-size:12px; color:var(--orange); margin-top:6px; font-weight:600; padding:6px 10px; background:#fffbeb; border-radius:6px; border-left:3px solid var(--orange); }
+.last-sale-info  { font-size:12px; color:var(--text2); margin-top:6px; }
+.last-sale-info b { color:var(--text); }
+
+/* Tooltips убраны — вместо них inline-пояснения. Атрибут data-tip остаётся
+   в HTML для доступности, но визуально не показываем глючный tooltip. */
+
+/* Легенда "как читать" в начале страницы */
+.legend-toggle { padding:8px 14px; background:var(--blue-light); color:var(--blue); border:none; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; margin:4px 16px 0; font-family:inherit; width:calc(100% - 32px); text-align:left; -webkit-tap-highlight-color:transparent; }
+.legend-toggle:active { transform:scale(0.99); }
+.legend-body { margin:6px 16px 8px; padding:12px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; line-height:1.6; color:var(--text2); display:none; }
+.legend-body.open { display:block; }
+.legend-body b { color:var(--text); font-weight:700; }
+.legend-body .legend-row { margin-bottom:6px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+.legend-body .legend-row:last-child { margin-bottom:0; border-bottom:none; padding-bottom:0; }
+
+/* Разбивка по цветам и размерам */
+.variants-box { margin:8px 0; padding:8px 10px; background:#fafbfc; border-radius:6px; border:1px solid var(--border); }
+.variants-title { font-size:10px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+.variants-chips { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:6px; }
+.chip { padding:3px 8px; border-radius:12px; font-size:11px; font-weight:600; background:#fff; border:1px solid var(--border); }
+.chip b { font-weight:800; margin-left:3px; }
+.chip.zero { background:#fef2f2; color:#ef4444; border-color:#fecaca; }
+.chip.low  { background:#fffbeb; color:#f59e0b; border-color:#fde68a; }
+.chip.ok   { background:#ecfdf5; color:#10b981; border-color:#a7f3d0; }
+
+/* === Мобильная адаптация (основной use case) === */
+@media(max-width:600px) {
+  .header { padding:12px 16px; }
+  .header h1 { font-size:17px; }
+  .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; top:58px; }
+  .stat { padding:8px 6px; }
+  .stat-num { font-size:15px; }
+  .stat-label { font-size:8px; }
+  .controls { top:150px; }
+  .filter-bar { top:200px; }
+  .item { margin-bottom:10px; }
+  .item-main { padding:10px; gap:10px; }
+  .item-photo, .item-photo-empty { width:70px; height:70px; }
+  .item-name { font-size:13px; }
+  .disc-btn { padding:10px 14px; font-size:14px; min-width:50px; min-height:38px; }
+  .disc-btns { gap:5px; }
+  .bottom { padding:10px 14px; }
+  .stock-grid { gap:3px; }
+  .stock-cell-val { font-size:13px; }
+  .stock-cell-label { font-size:8px; }
+  .chip { padding:4px 9px; font-size:12px; }
+  .disc-btn:active { background:#eff6ff; }
+  .flow-val { font-size:16px; }
+  .flow-label { font-size:9px; }
+}
+
+.rec-badge { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.3px; display:inline-block; margin-bottom:6px; }
+.rec-REORDER     { background:#ecfdf5; color:#10b981; }
+.rec-SOLD_OUT    { background:#f5f3ff; color:#8b5cf6; }
+.rec-GROWING     { background:#ecfdf5; color:#10b981; }
+.rec-HOLD        { background:#eff6ff; color:#3b82f6; }
+.rec-WAIT        { background:#f3f4f6; color:#6b7280; }
+.rec-DISCOUNT_20 { background:#fffbeb; color:#f59e0b; }
+.rec-DISCOUNT_30 { background:#fef2f2; color:#ef4444; }
+.rec-DEAD        { background:#fef2f2; color:#ef4444; }
+.rec-reason      { font-size:12px; color:var(--text2); margin-bottom:8px; line-height:1.4; }
+.flow-box        { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:8px; padding:8px; background:#fafbfc; border-radius:8px; border:1px solid var(--border); }
+.flow-cell       { text-align:center; position:relative; }
+.flow-label      { font-size:10px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px; }
+.flow-val        { font-size:17px; font-weight:800; color:var(--text); }
+.flow-sub        { font-size:10px; color:var(--text3); margin-top:2px; }
+.velocity-box    { display:flex; gap:10px; padding:8px 10px; background:var(--bg); border-radius:6px; margin-bottom:8px; font-size:12px; align-items:center; flex-wrap:wrap; }
+.vel-num         { font-weight:800; color:var(--text); }
+.vel-up          { color:#10b981; font-weight:700; }
+.vel-down        { color:#ef4444; font-weight:700; }
+.vel-flat        { color:var(--text2); font-weight:700; }
+.wos-ok          { color:#10b981; font-weight:700; }
+.wos-warn        { color:#f59e0b; font-weight:700; }
+.wos-bad         { color:#ef4444; font-weight:700; }
+.item-photo-empty svg { opacity:0.3; }
+.item-photo-empty.wait { background:linear-gradient(135deg,#f0f9ff,#e0f2fe); }
+.distribution-hint { font-size:12px; color:var(--orange); margin-top:6px; font-weight:600; padding:6px 10px; background:#fffbeb; border-radius:6px; border-left:3px solid var(--orange); }
+.last-sale-info  { font-size:12px; color:var(--text2); margin-top:6px; }
+.last-sale-info b { color:var(--text); }
+
+/* Tooltips убраны — вместо них inline-пояснения. Атрибут data-tip остаётся
+   в HTML для доступности, но визуально не показываем глючный tooltip. */
+
+/* Легенда "как читать" в начале страницы */
+.legend-toggle { padding:8px 14px; background:var(--blue-light); color:var(--blue); border:none; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; margin:4px 16px 0; font-family:inherit; width:calc(100% - 32px); text-align:left; -webkit-tap-highlight-color:transparent; }
+.legend-toggle:active { transform:scale(0.99); }
+.legend-body { margin:6px 16px 8px; padding:12px 14px; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; line-height:1.6; color:var(--text2); display:none; }
+.legend-body.open { display:block; }
+.legend-body b { color:var(--text); font-weight:700; }
+.legend-body .legend-row { margin-bottom:6px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+.legend-body .legend-row:last-child { margin-bottom:0; border-bottom:none; padding-bottom:0; }
+
+/* Разбивка по цветам и размерам */
+.variants-box { margin:8px 0; padding:8px 10px; background:#fafbfc; border-radius:6px; border:1px solid var(--border); }
+.variants-title { font-size:10px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+.variants-chips { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:6px; }
+.chip { padding:3px 8px; border-radius:12px; font-size:11px; font-weight:600; background:#fff; border:1px solid var(--border); }
+.chip b { font-weight:800; margin-left:3px; }
+.chip.zero { background:#fef2f2; color:#ef4444; border-color:#fecaca; }
+.chip.low  { background:#fffbeb; color:#f59e0b; border-color:#fde68a; }
+.chip.ok   { background:#ecfdf5; color:#10b981; border-color:#a7f3d0; }
+
+.cat-badge { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.3px; display:inline-block; margin-bottom:6px; }
+.cat-UNPROFITABLE { background:#fef2f2; color:#dc2626; }
+.cat-DEAD         { background:#fef2f2; color:#ef4444; }
+.cat-SLOW         { background:#fffbeb; color:#f59e0b; }
+.cat-NEW          { background:#f3f4f6; color:#6b7280; }
+.cat-HOT          { background:#ecfdf5; color:#10b981; }
+.cat-NORMAL       { background:#eff6ff; color:#3b82f6; }
+.cat-INTENTIONAL  { background:#f5f5f4; color:#525252; }
+.cat-reason       { font-size:12px; color:var(--text2); margin-bottom:8px; line-height:1.4; }
+.brand-badge      { padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; background:#1a1d23; color:#fff; display:inline-block; margin-right:4px; }
+.flow-box         { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:8px; padding:8px; background:#fafbfc; border-radius:8px; border:1px solid var(--border); }
+.flow-cell        { text-align:center; }
+.flow-label       { font-size:10px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px; }
+.flow-val         { font-size:17px; font-weight:800; color:var(--text); }
+.flow-sub         { font-size:10px; color:var(--text3); margin-top:2px; }
+.size-chips       { display:flex; gap:5px; flex-wrap:wrap; padding:8px 10px; background:#fafbfc; border-radius:6px; border:1px solid var(--border); margin-bottom:8px; }
+.chip             { padding:4px 10px; border-radius:12px; font-size:12px; font-weight:600; background:#fff; border:1px solid var(--border); }
+.chip b           { font-weight:800; margin-left:3px; }
+.chip.zero        { background:#fef2f2; color:#ef4444; border-color:#fecaca; }
+.chip.low         { background:#fffbeb; color:#f59e0b; border-color:#fde68a; }
+.chip.ok          { background:#ecfdf5; color:#10b981; border-color:#a7f3d0; }
+.last-sale-info   { font-size:12px; color:var(--text2); margin-top:6px; }
+.last-sale-info b { color:var(--text); }
+.unprofit-warn    { background:#fef2f2; padding:8px 10px; border-radius:6px; border-left:3px solid #dc2626; font-size:12px; font-weight:600; color:#dc2626; margin-bottom:8px; }
+.curdisc-badge    { display:inline-block; margin-left:6px; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+@media(max-width:600px) {
+  .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; }
+  .item-photo, .item-photo-empty { width:70px; height:70px; }
+  .disc-btn { padding:10px 14px; min-width:50px; min-height:38px; font-size:14px; }
+  .flow-val { font-size:16px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <h1>Adidas — уценка</h1>
+    <span class="badge badge-info">32 моделей в Аружане</span>
+  </div>
+  <div class="header-meta">Остатки: 23.06.2026 | Adidas, что лежит в Аружане | скидка в МС = на все склады</div>
+</div>
+
+<div class="stats" id="stats">
+  <div class="stat">
+    <div class="stat-num" id="stat-items">32</div>
+    <div class="stat-label">Моделей</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">0</div>
+    <div class="stat-label">Убыт+Мёртв</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">6</div>
+    <div class="stat-label">Медленные</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num blue" id="stat-stock">615</div>
+    <div class="stat-label">Остаток шт</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" id="stat-cost">5.0М</div>
+    <div class="stat-label">Остат. себес</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num green" id="stat-sold">232</div>
+    <div class="stat-label">Продано 30д</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num green" id="stat-revenue">5.1М</div>
+    <div class="stat-label">Выручка</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num purple" id="stat-retail">13.6М</div>
+    <div class="stat-label">Стоимость в РЦ</div>
+  </div>
+</div>
+
+<button class="legend-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.textContent = this.nextElementSibling.classList.contains('open') ? '❓ Как читать — скрыть' : '❓ Как читать эти цифры'">❓ Как читать эти цифры</button>
+<div class="legend-body">
+  <div class="legend-row"><b>% справа вверху</b> — sell-through: сколько % от завоза уже продано. 60%+ = хит.</div>
+  <div class="legend-row"><b>Большая цифра справа</b> — текущий остаток в штуках по всем складам.</div>
+  <div class="legend-row"><b>⚡ Скорость</b> — сколько штук продано за последние 30 дней. <b>Ускорение ×N</b> — сравнение с средней скоростью: ×1.2+ значит весна/сезон разогнали продажи.</div>
+  <div class="legend-row"><b>📦 Запас на X нед</b> — сколько недель хватит текущего остатка при нынешней скорости. <4 нед = срочно дозаказать, >10 = много.</div>
+  <div class="legend-row"><b>🎨 Цвета и 📏 Размеры</b> — разбивка остатка. <span style="color:#ef4444">красный</span> = 0 (дыра в сетке), <span style="color:#f59e0b">жёлтый</span> = 1-2 шт (мало), <span style="color:#10b981">зелёный</span> = норма.</div>
+  <div class="legend-row"><b>Рекомендация</b>: 🟢 ДОЗАКАЗАТЬ = хит, 📈 РАСТЁТ = продажи ускоряются (скидку не давать), 🔵 ДЕРЖИМ = норма, 🟠 СКИДКА = плохо идёт, 🔴 СИЛЬНАЯ СКИДКА = мёртвый товар.</div>
+  <div class="legend-row"><b>🚛 Подсказка</b> появляется когда в магазине дисбаланс — например, в Москве 0 шт, но на складе лежит.</div>
+</div>
+
+<div class="controls">
+  <input type="text" class="search-input" id="search" placeholder="Поиск по названию или артикулу..." oninput="applyFilters()">
+  <select class="search-input" id="sortSelect" onchange="applyFilters()" style="flex:0 0 auto; width:140px; padding:10px 8px;">
+    <option value="stock_value">По заморож. (РЦ)</option>
+    <option value="sell_through">По продажам %</option>
+    <option value="stock">По остатку</option>
+    <option value="name">По имени</option>
+    <option value="cost">По заморож. себес</option>
+    <option value="frozen_retail">По стоимости в РЦ</option>
+    <option value="velocity">По скорости 30д</option>
+    <option value="velocity">По скорости (30д)</option>
+    <option value="wos_asc">По WOS (срочно)</option>
+  </select>
+</div>
+
+<div class="filter-bar" id="filterBar">
+<button class="filter-btn active" onclick="setFilter('all')">Все</button>
+<button class="filter-btn" onclick="setFilter('cat:COOLING_REORDER')">🔵 ОСТЫВАЮТ → ДОЗАКАЗ (2)</button>
+<button class="filter-btn" onclick="setFilter('cat:COOLING_SALE')">🟡 ОСТЫВАЮТ → СКИДКА (6)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (6)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (9)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (9)</button>
+<button class="filter-btn" onclick="setFilter('brand:Adidas')">Adidas (32)</button>
+</div>
+
+<div id="loader" style="text-align:center; padding:20px; color:#3b82f6; font-weight:600;">⏳ Загружаю…</div>
+<div class="items" id="itemsList"></div>
+
+<div class="bottom">
+  <div class="bottom-info">
+    <span id="bottom-count">1883 шт</span> |
+    <b id="bottom-value">28,693,700 ₸</b>
+    <span id="discount-progress" style="margin-left:8px;color:#d97706;font-weight:700;display:none">📝 <span id="dp-count">0</span> со скидкой</span>
+  </div>
+  <div style="display:flex; gap:6px;">
+    <button class="btn btn-outline" onclick="resetAllDiscounts()" title="Сбросить все скидки">🔄</button>
+    <button class="btn btn-outline" onclick="exportJSON()" title="Экспорт JSON для применения цен в МойСкладе">JSON</button>
+    <button class="btn btn-outline" onclick="exportCSV()">CSV</button>
+    <button class="btn btn-green" id="saveBtn" onclick="saveDiscounts()" disabled>Сохранить</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lb-close" onclick="closeLightbox()">&times;</div>
+  <img id="lb-img" src="">
+  <div class="lb-info">
+    <div class="lb-model" id="lb-model"></div>
+    <div class="lb-art" id="lb-art"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// === CONFIG ===
+const SUPABASE_URL = 'https://pfnmrjbnvczymflvuvsc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmbm1yamJudmN6eW1mbHZ1dnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjIwNTIsImV4cCI6MjA4ODQ5ODA1Mn0.g91-jKE6_pmi8eI_f_IwMe1hs0DPMk1icafqqOYiKdY';
+const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' };
+
+// === DATA ===
+let ALL_ITEMS = [];
+
+async function loadData() {
+  const loader = document.getElementById('loader');
+  if (loader) loader.textContent = '⏳ Загружаю данные…';
+  const r = await fetch('adidas_clearance_lite.json');
+  ALL_ITEMS = await r.json();
+  if (loader) loader.textContent = '⏳ Рендерим карточки…';
+  applyFilters();
+  if (loader) loader.style.display = 'none';
+
+  // СИНХРОНИЗАЦИЯ между устройствами: подтянуть актуальные скидки из Supabase.
+  // Без этого правки Алуа с телефона не видны на компе (localStorage у каждого свой).
+  try {
+    const sr = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.ADIDAS-CLEAR-001&select=items', {headers: SB_HEADERS});
+    if (sr.ok) {
+      const rows = await sr.json();
+      const cloud = (rows[0] && rows[0].items) || [];
+      let synced = 0;
+      cloud.forEach(it => { if (it.article && it.discount > 0) { discounts[it.article] = it.discount; synced++; } });
+      if (synced > 0) {
+        try { localStorage.setItem('adidas_clearance_discounts', JSON.stringify(discounts)); } catch(e) {}
+        applyFilters();
+        if (typeof toast === 'function') toast('☁️ Подгружено из облака: ' + synced + ' скидок');
+      }
+    }
+  } catch(e) {}
+
+  // Фото догружаем в фоне (не блокирует UI)
+  setTimeout(async () => {
+    try {
+      const r2 = await fetch('adidas_clearance_photos.json');
+      const photos = await r2.json();
+      ALL_ITEMS.forEach(it => {
+        const k = it.article || it.name;
+        if (photos[k]) it.photo = photos[k];
+      });
+      applyFilters();
+    } catch(e) { console.error('Photos load failed:', e); }
+  }, 100);
+}
+
+// === STATE ===
+let currentFilter = 'all';
+let discounts = {};
+let hasChanges = false;
+
+// Load saved discounts from localStorage
+try {
+  const saved = localStorage.getItem('adidas_clearance_discounts');
+  if (saved) discounts = JSON.parse(saved);
+} catch(e) {}
+// Восстановление ранее выставленных скидок (из Supabase, вшито при сборке)
+const PRESET_DISCOUNTS = {};
+let _restored = 0;
+for (const a in PRESET_DISCOUNTS) {
+  if (!discounts[a]) { discounts[a] = PRESET_DISCOUNTS[a]; _restored++; }
+}
+if (_restored > 0) {
+  try { localStorage.setItem('adidas_clearance_discounts', JSON.stringify(discounts)); } catch(e) {}
+}
+
+// === HELPERS ===
+function fmt(n) { return n ? n.toLocaleString('ru-RU') : '0'; }
+function fmtK(n) { return n >= 1000000 ? (n/1000000).toFixed(1) + 'M' : n >= 1000 ? Math.round(n/1000) + 'K' : Math.round(n); }
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function stClass(st) {
+  if (st >= 30) return 'st-good';
+  if (st >= 10) return 'st-medium';
+  if (st > 0) return 'st-bad';
+  return 'st-none';
+}
+
+function sfClass(sf) {
+  const m = { 'Низ': 'sf-low', 'Верх': 'sf-top', 'Верхняя одежда': 'sf-outer', 'Костюмы': 'sf-costume' };
+  return m[sf] || 'sf-low';
+}
+
+// === FILTERS & SORT ===
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    const onclick = b.getAttribute('onclick') || '';
+    const m = onclick.match(/setFilter\('([^']+)'\)/);
+    b.classList.toggle('active', m && m[1] === f);
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const sort = document.getElementById('sortSelect').value;
+
+  let filtered = ALL_ITEMS.filter(item => {
+    if (currentFilter !== 'all') {
+      if (currentFilter.startsWith('cat:')) {
+        if (item.category !== currentFilter.slice(4)) return false;
+      } else if (currentFilter.startsWith('brand:')) {
+        if (item.brand !== currentFilter.slice(6)) return false;
+      } else if (item.subfolder !== currentFilter) return false;
+    }
+    if (q && !item.name.toLowerCase().includes(q) && !(item.article || '').toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    switch(sort) {
+      case 'stock_value': return (b.frozen_retail || 0) - (a.frozen_retail || 0);
+      case 'sell_through': return (b.sell_through || 0) - (a.sell_through || 0);
+      case 'stock': return (b.stock.total || 0) - (a.stock.total || 0);
+      case 'name': return a.name.localeCompare(b.name);
+      case 'cost': return (b.frozen_cost || 0) - (a.frozen_cost || 0);
+      case 'frozen_retail': return (b.frozen_retail || 0) - (a.frozen_retail || 0);
+      case 'velocity': return ((b.sales && b.sales.s30) || 0) - ((a.sales && a.sales.s30) || 0);
+      default: return 0;
+    }
+  });
+
+  renderItems(filtered);
+  updateStats(filtered);
+}
+
+function updateStats(items) {
+  const totalStock = items.reduce((s,i) => s + i.stock.total, 0);
+  const totalS30 = items.reduce((s,i) => s + ((i.sales && i.sales.s30) || 0), 0);
+  const totalCost = items.reduce((s,i) => s + (i.frozen_cost || 0), 0);
+  const totalRetail = items.reduce((s,i) => {
+    const disc = discounts[i.article || i.name] || 0;
+    const price = disc > 0 ? i.retail * (1 - disc/100) : i.retail;
+    return s + i.stock.total * price;
+  }, 0);
+  const avgPrice = totalStock ? totalRetail / totalStock : 0;
+  const totalRev = totalS30 * avgPrice;
+
+  document.getElementById('stat-items').textContent = items.length;
+  document.getElementById('stat-stock').textContent = fmt(totalStock);
+  document.getElementById('stat-sold').textContent = fmt(totalS30);
+  document.getElementById('stat-cost').textContent = fmt(Math.round(totalCost));
+  document.getElementById('stat-retail').textContent = fmt(Math.round(totalRetail));
+  document.getElementById('stat-revenue').textContent = fmt(Math.round(totalRev));
+  document.getElementById('bottom-count').textContent = totalStock + ' шт';
+  document.getElementById('bottom-value').textContent = fmt(Math.round(totalRetail)) + ' ₸';
+
+  // Прогресс — сколько товаров со скидкой
+  const discCount = Object.keys(discounts).filter(k => discounts[k] > 0).length;
+  const dpEl = document.getElementById('discount-progress');
+  const dpCount = document.getElementById('dp-count');
+  if (dpEl && dpCount) {
+    if (discCount > 0) {
+      dpEl.style.display = 'inline';
+      dpCount.textContent = discCount;
+    } else {
+      dpEl.style.display = 'none';
+    }
+  }
+}
+
+// === EXPORT JSON для update_ms_prices.py ===
+function exportJSON() {
+  const items = ALL_ITEMS.filter(i => discounts[i.article || i.name] > 0).map(i => ({
+    article: i.article,
+    name: i.name,
+    current_retail: i.orig_price || i.retail,   // изначальная = зачёркнутая на стикере
+    cur_price: i.retail,                          // текущая цена (база скидки)
+    discount: discounts[i.article || i.name],
+    new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
+    stock: i.stock.total,
+    cost: i.cost,
+    health: i.health_v2 || i.category,
+  }));
+  if (items.length === 0) { toast('Нет скидок для экспорта'); return; }
+  const payload = { generated_at: new Date().toISOString(), total_items: items.length, items: items };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'clearance_decisions_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Экспорт: ' + items.length + ' позиций');
+}
+
+// === RESET ALL DISCOUNTS ===
+function resetAllDiscounts() {
+  const n = Object.keys(discounts).filter(k => discounts[k] > 0).length;
+  if (n === 0) { toast('Нет скидок для сброса'); return; }
+  if (!confirm('Сбросить ВСЕ скидки (' + n + ' позиций)? Это нельзя отменить.')) return;
+  discounts = {};
+  try { localStorage.setItem('adidas_clearance_discounts', JSON.stringify(discounts)); } catch(e) {}
+  hasChanges = true;
+  applyFilters();
+  toast('Сброшено: ' + n + ' скидок');
+}
+
+// === RENDER ===
+function renderItems(items) {
+  const container = document.getElementById('itemsList');
+  container.innerHTML = items.map((item, idx) => renderItem(item, idx)).join('');
+}
+
+function renderSizes(item) {
+  const s = (item.variants && item.variants.sizes) || item.sizes || {};
+  const keys = Object.keys(s);
+  if (!keys.length) return '';
+  const sorted = keys.slice().sort((a,b) => parseFloat(a) - parseFloat(b));
+  const chips = sorted.map(sz => {
+    const q = s[sz];
+    const cls = q === 0 ? 'zero' : q <= 1 ? 'low' : 'ok';
+    return `<span class="chip ${cls}">${sz}<b>${q}</b></span>`;
+  }).join('');
+  return `<div class="size-chips">${chips}</div>`;
+}
+
+
+function renderItem(item, idx) {
+  const itemKey = item.article || item.name;
+  const disc = discounts[itemKey] || 0;
+  const newPrice = disc > 0 ? Math.round(item.retail * (1 - disc/100)) : 0;
+  const stBadge = stClass(item.sell_through);
+  const CAT_LABELS = {"UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "DEAD": "🔴 МЁРТВЫЕ", "COOLING_REORDER": "🔵 ОСТЫВАЮТ → ДОЗАКАЗ", "COOLING_SALE": "🟡 ОСТЫВАЮТ → СКИДКА", "SLOW": "🟠 МЕДЛЕННЫЕ", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma"};
+
+  const photoHtml = item.photo
+    ? `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" alt="${item.name}" onclick="openLightbox('${itemKey.replace(/'/g,"")}')">`
+    : `<div class="item-photo-empty"><div class="art">${(item.article||'—').substring(0,8)}</div><div class="nf">нет фото</div></div>`;
+
+  const catLabel = CAT_LABELS[item.category] || item.category;
+  const curDiscBadge = (item.cur_disc > 0) ? `<span class="curdisc-badge">в МС уже −${item.cur_disc}%</span>` : '';
+  const catHtml = `<div><span class="cat-badge cat-${item.category}">${catLabel}</span>${curDiscBadge}
+    <div class="cat-reason">${item.reason || ''}</div></div>`;
+
+  let unprofitWarn = '';
+  if (item.category === 'UNPROFITABLE' && item.cost > item.retail) {
+    const loss = Math.round(item.cost - item.retail);
+    unprofitWarn = `<div class="unprofit-warn">⚠️ Каждая продажа = убыток ${fmt(loss)}₸/пара. Поднять цену хотя бы до ${fmt(Math.round(item.cost * 1.3))}₸</div>`;
+  }
+
+  const s30 = (item.sales && item.sales.s30) || 0;
+  const s90 = (item.sales && item.sales.s90) || 0;
+  const s180 = (item.sales && item.sales.s180) || 0;
+  const s365 = (item.sales && item.sales.s365) || 0;
+  const sall = (item.sales && item.sales.sall) || 0;
+  const wos = item.wos || 999;
+  const wosClass = wos < 4 ? 'wos-bad' : wos < 12 ? 'wos-warn' : wos >= 99 ? '' : 'wos-ok';
+  const wosLabel = wos >= 99 ? 'не продаётся' : wos < 4 ? `${wos.toFixed(0)} нед (мало)` : wos < 12 ? `${wos.toFixed(0)} нед` : `${wos.toFixed(0)} нед (много)`;
+  const velHtml = `<div class="velocity-box">
+    <span>⚡ Продано:</span>
+    <span><b>${s30}</b> <span style="color:var(--text3);font-size:11px">30д</span></span>
+    <span><b>${s90}</b> <span style="color:var(--text3);font-size:11px">90д</span></span>
+    <span><b>${s180}</b> <span style="color:var(--text3);font-size:11px">180д</span></span>
+    <span><b>${s365}</b> <span style="color:var(--text3);font-size:11px">365д</span></span>
+    <span><b>${sall}</b> <span style="color:var(--text3);font-size:11px">всё</span></span>
+    <span style="margin-left:auto" class="${wosClass}">📦 ${wosLabel}</span>
+  </div>`;
+
+  // История прихода: первая поставка → 6 мес назад → сейчас
+  const h = item.history || {};
+  let historyHtml = '';
+  if (h.first_supply_date || h.stock_6mo > 0) {
+    const parts = [];
+    if (h.first_supply_date) {
+      const fd = h.first_supply_date.slice(0, 7);  // YYYY-MM
+      parts.push(`<span>📅 <b>${fd}</b>: поставка ${h.first_supply_qty || '?'} пар</span>`);
+    }
+    if (h.snap_6mo_date) {
+      const snapDate = h.snap_6mo_date.slice(0, 7);
+      parts.push(`<span style="color:var(--text3)">→ ${snapDate}: <b>${h.stock_6mo}</b></span>`);
+    }
+    parts.push(`<span style="color:var(--blue)">→ сейчас: <b>${item.stock.total}</b></span>`);
+    historyHtml = `<div class="velocity-box" style="background:#f1f5f9">${parts.join(' ')}</div>`;
+  }
+
+  const flowHtml = `<div class="flow-box">
+    <div class="flow-cell">
+      <div class="flow-label">Остаток</div>
+      <div class="flow-val" style="color:#3b82f6">${item.stock.total}</div>
+      <div class="flow-sub">${item.frozen_cost > 0 ? fmtK(item.frozen_cost) + '₸ себес' : ''}</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">Продано 90д</div>
+      <div class="flow-val" style="color:#10b981">${s90}</div>
+      <div class="flow-sub">из них 30д: ${s30}</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">Посл. продажа</div>
+      <div class="flow-val" style="font-size:14px">${item.last_sale ? item.last_sale.slice(5) : '—'}</div>
+      <div class="flow-sub">${item.days_no_sale != null ? item.days_no_sale + ' дн назад' : 'не было'}</div>
+    </div>
+  </div>`;
+
+  return `
+  <div class="item" data-article="${itemKey}">
+    <div class="item-main">
+      ${photoHtml}
+      <div class="item-body">
+        <div class="item-name">${item.name}</div>
+        <div class="item-article"><span class="brand-badge">${item.brand}</span><span style="color:var(--blue);cursor:pointer" onclick="navigator.clipboard.writeText('${itemKey}').then(()=>toast('${itemKey} скопирован'))">${item.article} 📋</span></div>
+      </div>
+      <div class="item-right">
+        <span class="st-badge ${stBadge}">${item.sell_through > 0 ? item.sell_through.toFixed(0) + '%' : '—'}</span>
+        <div class="stock-total">${item.stock.total}</div>
+      </div>
+    </div>
+    <div class="item-details">
+      ${catHtml}
+      ${unprofitWarn}
+      ${flowHtml}
+      ${historyHtml}
+      ${velHtml}
+      <div class="stock-grid">
+        <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
+        <div class="stock-cell"><div class="stock-cell-label">ЦУМ+Онл</div><div class="stock-cell-val ${item.stock.tsum_online === 0 ? 'zero' : ''}">${item.stock.tsum_online}</div></div>
+        <div class="stock-cell"><div class="stock-cell-label">Аружан</div><div class="stock-cell-val ${item.stock.aruzhan === 0 ? 'zero' : ''}">${item.stock.aruzhan}</div></div>
+        <div class="stock-cell"><div class="stock-cell-label">Склад</div><div class="stock-cell-val ${item.stock.warehouse === 0 ? 'zero' : ''}">${item.stock.warehouse}</div></div>
+      </div>
+      ${renderSizes(item)}
+      <div class="price-row">
+        <div class="price-item"><span class="label">Себестоимость</span> <span class="val">${item.cost > 0 ? fmt(Math.round(item.cost)) + '₸' : '—'}</span></div>
+        ${item.cur_disc > 0
+          ? `<div class="price-item"><span class="label">Изначальная</span> <span class="val" style="text-decoration:line-through;color:var(--text3)">${fmt(Math.round(item.orig_price))}₸</span></div>
+             <div class="price-item"><span class="label">Сейчас (−${item.cur_disc}%)</span> <span class="val" style="color:#f59e0b">${fmt(Math.round(item.retail))}₸</span></div>`
+          : `<div class="price-item"><span class="label">Цена в магазине</span> <span class="val">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span></div>`}
+        ${item.margin_pct > 0 ? `<div class="price-item"><span class="label">Маржа</span> <span class="val">${item.margin_pct}%</span></div>` : ''}
+        ${item.frozen_retail > 0 ? `<div class="price-item"><span class="label">Заморожено в РЦ</span> <span class="val">${fmtK(item.frozen_retail)}₸</span></div>` : ''}
+      </div>
+      <div class="discount-row" style="flex-wrap:wrap">
+        <label>Скидка от текущей</label>
+        <div class="disc-btns">
+          ${[0,5,10,15,20,25,30,40,50].map(d => `<button type="button" class="disc-btn ${disc==d && d>0?'active':''}" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${d})">${d?d+'%':'✕'}</button>`).join('')}
+        </div>
+        ${newPrice > 0
+          ? `<span class="new-price">${fmt(newPrice)}₸</span>`
+          : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
+      </div>
+      ${item.category === 'COOLING_REORDER' ? `
+      <div class="discount-row" style="background:#f0f9ff;border:1px dashed #0ea5e9;margin-top:6px">
+        <label style="color:#075985">🔵 ДОЗАКАЗ</label>
+        <span style="font-size:12px;color:#075985">${item.reorder_hint || 'Выбит ходовой размер — дозаказать, НЕ сейлить'}</span>
+      </div>` :
+      (item.suggested_discount > 0 && disc === 0) ? `
+      <div class="discount-row" style="background:#fef3c7;border:1px dashed #d97706;margin-top:6px">
+        <label style="color:#92400e">💡 Реком</label>
+        <button type="button" class="disc-btn active" style="background:#d97706;color:#fff;border-color:#d97706" onclick="onDiscount('${itemKey.replace(/'/g,"").replace(/"/g,"")}',${item.suggested_discount})">Применить ${item.suggested_discount}%</button>
+        <span style="font-size:11px;color:#92400e">→ ${fmt(Math.round(item.retail * (1 - item.suggested_discount/100)))}₸ (${item.health_v2 || ''})</span>
+      </div>` : ''}
+    </div>
+  </div>`;
+}
+
+
+// === DISCOUNT ===
+function onDiscount(article, value) {
+  const v = parseInt(value) || 0;
+  if (v > 0 && v <= 90) {
+    discounts[article] = v;
+  } else {
+    delete discounts[article];
+  }
+  hasChanges = true;
+
+  // Save to localStorage
+  try { localStorage.setItem('adidas_clearance_discounts', JSON.stringify(discounts)); } catch(e) {}
+
+  // Re-render only the affected card (not full page — avoids scroll reset)
+  const item = ALL_ITEMS.find(i => (i.article || i.name) === article);
+  if (item) {
+    const card = document.querySelector(`[data-article="${article}"]`);
+    if (card) {
+      // Update buttons
+      card.querySelectorAll('.disc-btn').forEach(btn => {
+        const btnVal = parseInt(btn.textContent) || 0;
+        btn.classList.toggle('active', btnVal === v && v > 0);
+      });
+      // Update price
+      const priceSpan = card.querySelector('.new-price');
+      if (priceSpan) {
+        if (v > 0) {
+          const newP = Math.round(item.retail * (1 - v/100));
+          priceSpan.textContent = fmt(newP) + '₸';
+          priceSpan.className = 'new-price';
+          priceSpan.style.color = '';
+        } else {
+          priceSpan.textContent = item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—';
+          priceSpan.className = 'new-price';
+          priceSpan.style.color = 'var(--text3)';
+        }
+      }
+    }
+  }
+
+  document.getElementById('saveBtn').disabled = false;
+  document.getElementById('saveBtn').textContent = 'Сохранить *';
+}
+
+// === SAVE TO SUPABASE ===
+async function saveDiscounts() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Сохраняю...';
+
+  const discountItems = ALL_ITEMS.filter(i => discounts[i.article || i.name]).map(i => ({
+    article: i.article,
+    name: i.name,
+    subfolder: i.subfolder,
+    stock: i.stock.total,
+    retail: i.retail,
+    cost: i.cost,
+    discount: discounts[i.article || i.name],
+    new_price: Math.round(i.retail * (1 - discounts[i.article || i.name]/100)),
+    sell_through: i.sell_through,
+  }));
+
+  const payload = {
+    id: 'ADIDAS-CLEAR-001',
+    status: 'draft',
+    items: discountItems,
+    updated_at: new Date().toISOString(),
+  };
+
+  try {
+    // Upsert to orders table
+    const r = await fetch(SUPABASE_URL + '/rest/v1/orders', {
+      method: 'POST',
+      headers: {...SB_HEADERS, 'Prefer': 'resolution=merge-duplicates'},
+      body: JSON.stringify(payload)
+    });
+
+    if (!r.ok) {
+      const text = await r.text();
+      throw new Error(text);
+    }
+
+    hasChanges = false;
+    btn.textContent = 'Сохранено!';
+    btn.className = 'btn btn-green';
+    toast('Скидки сохранены (' + discountItems.length + ' позиций)');
+    setTimeout(() => {
+      btn.textContent = 'Сохранить';
+      btn.disabled = true;
+      btn.className = 'btn btn-green';
+    }, 2000);
+  } catch(e) {
+    console.error('Save error:', e);
+    btn.textContent = 'Ошибка!';
+    btn.disabled = false;
+    toast('Ошибка сохранения: ' + e.message.substring(0, 80));
+    setTimeout(() => { btn.textContent = 'Сохранить *'; }, 2000);
+  }
+}
+
+// === EXPORT CSV ===
+function exportCSV() {
+  const rows = [['Артикул','Название','Категория','Остаток','Мск','ЦУМ+Онл','Аружан','Склад','Продано','Выручка','Себест','РЦ','Маржа%','ST%','Скидка%','Новая цена']];
+  ALL_ITEMS.forEach(i => {
+    const disc = discounts[i.article || i.name] || 0;
+    const newP = disc > 0 ? Math.round(i.retail * (1 - disc/100)) : i.retail;
+    const margin = i.retail > 0 && i.cost > 0 ? Math.round((1 - i.cost/i.retail) * 100) : '';
+    rows.push([
+      i.article, i.name, i.subfolder, i.stock.total, i.stock.moscow, i.stock.tsum_online,
+      i.stock.aruzhan, i.stock.warehouse, i.sales.total_qty, Math.round(i.sales.total_rev),
+      Math.round(i.cost), Math.round(i.retail), margin, i.sell_through, disc || '', Math.round(newP)
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'womens_clothing_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('CSV скачан');
+}
+
+// === LIGHTBOX ===
+function openLightbox(article) {
+  const item = ALL_ITEMS.find(i => (i.article || i.name) === article);
+  if (!item || !item.photo) return;
+  document.getElementById('lb-img').src = 'data:image/png;base64,' + item.photo;
+  document.getElementById('lb-model').textContent = item.name;
+  document.getElementById('lb-art').textContent = item.article;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+// === INIT ===
+loadData();
+</script>
+</body>
+</html>
