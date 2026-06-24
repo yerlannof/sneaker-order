@@ -169,14 +169,32 @@ def main():
         s['ms'] += int(ms or 0); s['tsum_online'] += int((ts or 0) + (on_ or 0))
         s['aruzhan'] += int(ar or 0); s['wh'] += int(wh or 0); s['total'] += int(tot or 0)
 
+    # 2b. РЕАЛЬНЫЙ закуп из supply_positions по имени модели.
+    # КРИТИЧНО: v_sales_canonical.cogs join'ит себес по article, а у одежды/аксессуаров
+    # артикул ПУСТОЙ → не находит и подставляет заглушку ~1000₸ → маржа завышена (87-95%).
+    # Реальный закуп есть в поставках по названию (куртка ~5449, не 1000). См. clothing_clearance_dashboard.
+    sup = con.execute("SELECT product_name, price FROM supply_positions WHERE price > 0 AND product_name IS NOT NULL").fetchall()
+    cost_acc = defaultdict(list)
+    for nm, pr in sup:
+        cost_acc[base_name(nm)].append(float(pr))
+    cost_by_base = {b: sum(v) / len(v) for b, v in cost_acc.items()}
+
     # 3. Сборка кандидатов на дозаказ
     items = []
+    no_cost = 0
     for b, a in agg.items():
         if a['rev'] <= 0:
             continue
-        margin = a['prof'] / a['rev'] * 100
         unit_price = a['rev'] / a['sold'] if a['sold'] else 0
-        unit_cost = a['cogs_sum'] / a['sold'] if a['sold'] else 0
+        # себес: реальный закуп из поставок (по имени); fallback — cogs из продаж
+        real_cost = cost_by_base.get(b)
+        if real_cost is None:
+            real_cost = a['cogs_sum'] / a['sold'] if a['sold'] else 0
+            no_cost += 1
+        unit_cost = real_cost
+        real_profit = a['rev'] - unit_cost * a['sold']
+        margin = real_profit / a['rev'] * 100 if a['rev'] else 0
+        a = {**a, 'prof': real_profit}  # дальше profit = реальный
         st = stock.get(b, {'total': 0, 'ms': 0, 'tsum_online': 0, 'aruzhan': 0, 'wh': 0})
         total_stock = st['total']
         # недельная скорость — устойчивая (макс из окон), c сезонной поправкой
