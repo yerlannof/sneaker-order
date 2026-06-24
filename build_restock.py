@@ -173,10 +173,15 @@ def main():
     # КРИТИЧНО: v_sales_canonical.cogs join'ит себес по article, а у одежды/аксессуаров
     # артикул ПУСТОЙ → не находит и подставляет заглушку ~1000₸ → маржа завышена (87-95%).
     # Реальный закуп есть в поставках по названию (куртка ~5449, не 1000). См. clothing_clearance_dashboard.
-    sup = con.execute("SELECT product_name, price FROM supply_positions WHERE price > 0 AND product_name IS NOT NULL").fetchall()
+    sup = con.execute("""SELECT product_name, price, quantity FROM supply_positions
+                         WHERE product_name IS NOT NULL""").fetchall()
     cost_acc = defaultdict(list)
-    for nm, pr in sup:
-        cost_acc[base_name(nm)].append(float(pr))
+    supplied_qty = defaultdict(int)   # сколько ВСЕГО закуплено (справочно — с возвратами/списаниями не бьётся идеально)
+    for nm, pr, qty in sup:
+        b = base_name(nm)
+        if pr and pr > 0:
+            cost_acc[b].append(float(pr))
+        supplied_qty[b] += int(qty or 0)
     cost_by_base = {b: sum(v) / len(v) for b, v in cost_acc.items()}
 
     # 3. Сборка кандидатов на дозаказ
@@ -232,6 +237,7 @@ def main():
                       'tsum_online': st['tsum_online'], 'aruzhan': st['aruzhan'], 'wh': st['wh']},
             'weekly': round(weekly, 1), 'wos': round(wos, 1) if wos < 999 else 999,
             'reorder_qty': need, 'urgency': urgency,
+            'supplied': supplied_qty.get(b, 0),   # закуплено всего (справочно ≈)
             'colors': len(a['variants']),
             'first_sale': a['first'].isoformat() if a['first'] else None,
             'last_sale': a['last'].isoformat() if a['last'] else None,
@@ -334,6 +340,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .reorder.zero{background:#f9fafb;border-color:var(--border);color:var(--text3)}
 .storeline{font-size:11px;color:var(--text2);margin-bottom:6px}
 .storeline b{color:var(--text)}
+.flowline,.priceline{font-size:12px;color:var(--text2);margin-bottom:6px;background:#fafbfc;border:1px solid var(--border);border-radius:7px;padding:5px 8px}
+.flowline b,.priceline b{color:var(--text)}
+.flowline .st{color:var(--text3);font-size:11px}
 .wos-bad{color:#dc2626}.wos-warn{color:#d97706}.wos-ok{color:#059669}
 .empty{text-align:center;padding:40px;color:var(--text3)}
 @media(max-width:600px){.stats{grid-template-columns:repeat(3,1fr)}.photo,.photo-empty{width:66px;height:66px}.m-val{font-size:14px}}
@@ -392,17 +401,22 @@ function card(it,i){
   if(st.aruzhan)storeParts.push(`Аружан <b>${st.aruzhan}</b>`);
   if(st.wh)storeParts.push(`склад <b>${st.wh}</b>`);
   const storeLine=storeParts.length?`<div class="storeline">📍 ${storeParts.join(' · ')}</div>`:`<div class="storeline" style="color:#dc2626">📍 нет на складах</div>`;
+  const sellThrough=it.supplied>0?Math.min(100,Math.round(it.sold_ytd/it.supplied*100)):0;
+  const flowLine=`<div class="flowline">📦 Закуплено <b>≈${it.supplied}</b> → продано <b>${it.sold_ytd}</b> → осталось <b style="${it.stock.total===0?'color:#dc2626':''}">${it.stock.total}</b>${it.supplied>0?` <span class="st">(продано ${sellThrough}%)</span>`:''}</div>`;
+  const priceLine=`<div class="priceline">💰 Себес <b>${fmt(it.unit_cost)}₸</b> → РЦ <b>${fmt(it.unit_price)}₸</b> → маржа <b style="color:#059669">${it.margin}%</b> = <b>${fmt(it.unit_price-it.unit_cost)}₸</b>/шт</div>`;
   return `<div style="position:relative"><span class="rank">${i+1}</span>
   <div class="card">${ph}
     <div class="body">
       <div class="name">${it.name}</div>
       <div class="badges"><span class="badge ${uc}">${ul}</span><span class="badge b-cat">${it.cat}</span>${it.colors>1?`<span style="font-size:11px;color:#9aa1ad">${it.colors} цв/вар</span>`:''}</div>
       ${storeLine}
+      ${flowLine}
+      ${priceLine}
       <div class="metrics">
-        <div class="m"><div class="m-lab">Продано</div><div class="m-val">${it.sold_ytd}</div><div class="m-sub">30д: ${it.s30}</div></div>
+        <div class="m"><div class="m-lab">Продано год</div><div class="m-val">${it.sold_ytd}</div><div class="m-sub">30д: ${it.s30}</div></div>
         <div class="m"><div class="m-lab">Остаток</div><div class="m-val" style="${it.stock.total===0?'color:#dc2626':''}">${it.stock.total}</div><div class="m-sub ${wosCls}">${wosTxt}</div></div>
-        <div class="m"><div class="m-lab">Маржа</div><div class="m-val" style="color:#059669">${it.margin}%</div><div class="m-sub">${fmt(it.unit_price)}₸</div></div>
-        <div class="m"><div class="m-lab">Прибыль</div><div class="m-val">${fmtK(it.profit)}</div><div class="m-sub">YTD ₸</div></div>
+        <div class="m"><div class="m-lab">Маржа</div><div class="m-val" style="color:#059669">${it.margin}%</div><div class="m-sub">${fmt(it.unit_cost)}→${fmt(it.unit_price)}₸</div></div>
+        <div class="m"><div class="m-lab">Поймали маржи</div><div class="m-val">${fmtK(it.profit)}</div><div class="m-sub">за год ₸</div></div>
       </div>
       ${ro}
     </div></div></div>`;
