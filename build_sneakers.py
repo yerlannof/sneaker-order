@@ -29,8 +29,45 @@ OUT_HTML = PROJECT_ROOT / 'sneaker-order' / 'sneakers.html'
 OUT_JSON = PROJECT_ROOT / 'sneaker-order' / 'sneakers_data.json'
 PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 
-SNAPSHOT_DATE = '20260522'
-PRICES_DATE = '20260523'  # исправленный снапшот: sale_price = изначальная "Цена продажи"
+SNAPSHOT_DATE = None  # None = взять свежайший (динамически в main)
+PRICES_DATE = None    # None = взять свежайший
+
+
+def latest_table_date(con, prefix):
+    row = con.execute(f"""SELECT table_name FROM information_schema.tables
+        WHERE table_name LIKE '{prefix}%' ORDER BY table_name DESC LIMIT 1""").fetchone()
+    return row[0][-8:]
+
+
+def is_summer_item(name: str) -> bool:
+    """Летний товар — сейлить агрессивнее к концу сезона."""
+    nm = (name or '').lower()
+    return any(w in nm for w in ('crocs', 'слайд', 'slide', 'adilette', 'сланц',
+                                 'сандал', 'sandal', 'mule', 'клоги', 'clog'))
+
+
+def fetch_reorder_articles() -> set:
+    """Артикулы из последнего заказа ЗК-xxx (draft/sent) в Supabase —
+    их НЕ уценивать: мы их только что дозаказали."""
+    try:
+        import requests
+        from dotenv import load_dotenv
+        load_dotenv(PROJECT_ROOT / '.env')
+        url = os.getenv('SUPABASE_URL'); key = os.getenv('SUPABASE_KEY')
+        if not url or not key:
+            return set()
+        r = requests.get(
+            f"{url}/rest/v1/orders?select=id,items&id=like.ЗК-*"
+            f"&status=in.(draft,sent,supplier_done)&order=id.desc&limit=2",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=15)
+        arts = set()
+        for o in (r.json() if r.ok else []):
+            for it in (o.get('items') or []):
+                if it.get('article'):
+                    arts.add(str(it['article']))
+        return arts
+    except Exception:
+        return set()
 
 
 def detect_brand(name: str) -> str:
@@ -64,6 +101,35 @@ def is_intentional_dead(name: str) -> bool:
 
 
 def categorize(item: dict) -> tuple[str, str]:
+    """Базовая категория + сезонные/заказные оверрайды (июль 2026):
+    1. 📦 REORDERED — артикул в свежем заказе ЗК-xxx: мы его дозаказали, уценять нельзя
+       (кроме UNPROFITABLE — утечку денег показываем всегда).
+    2. 🍂 HOLD_AUTUMN — осенью 2025 продавался сильно, сейчас затих: сезонная модель,
+       через 6-8 недель начнёт продаваться сама — НЕ уценять летом.
+    3. ☀️ SUMMER_CLEAR — летний товар (Crocs/слайды/сандалии) в сейл-категории:
+       сезон уходит, уценять СЕЙЧАС и агрессивнее, к сентябрю станет мёртвым грузом.
+    """
+    cat, reason = _base_categorize(item)
+
+    if cat != 'UNPROFITABLE' and item.get('in_reorder'):
+        return ('REORDERED', f'📦 В свежем заказе ЗК — дозаказан, НЕ уценять. (Было бы: {reason})')
+
+    if cat in ('DEAD', 'SLOW', 'COOLING_SALE'):
+        autumn_q = item.get('autumn_q', 0)
+        s30 = item['sales']['s30']
+        # осенью продавался заметно (>=12 за 3 мес) и заметно бодрее чем сейчас
+        if autumn_q >= 12 and s30 < (autumn_q / 3) * 0.6:
+            return ('HOLD_AUTUMN',
+                    f'🍂 Осень-2025: {autumn_q} шт (~{autumn_q/3:.0f}/мес), сейчас {s30}/мес — '
+                    f'сезонная, ЖДАТЬ сентября, не уценять. (Было бы: {reason})')
+        if is_summer_item(item['name']):
+            return ('SUMMER_CLEAR',
+                    f'☀️ ЛЕТНИЙ товар, сезон уходит — уценять сейчас, +10-15% к обычной скидке. {reason}')
+
+    return (cat, reason)
+
+
+def _base_categorize(item: dict) -> tuple[str, str]:
     """Возвращает (код, причина по-русски)."""
     cost = item['cost']; retail = item['retail']
     s30 = item['sales']['s30']; s90 = item['sales']['s90']; total = item['stock']['total']
@@ -219,8 +285,13 @@ def main():
     print(f"Дата: {today}, окно скорости: {d30} → {today}")
 
     con = duckdb.connect(str(DB_PATH), read_only=True)
-    snap = f'inventory_snapshot_stores_{SNAPSHOT_DATE}'
-    prices = f'prices_snapshot_{PRICES_DATE}'
+    snap_date = SNAPSHOT_DATE or latest_table_date(con, 'inventory_snapshot_stores_')
+    prices_date = PRICES_DATE or latest_table_date(con, 'prices_snapshot_')
+    snap = f'inventory_snapshot_stores_{snap_date}'
+    prices = f'prices_snapshot_{prices_date}'
+    print(f"Снапшот: {snap} | Цены: {prices}")
+    reorder_arts = fetch_reorder_articles()
+    print(f"В свежем заказе (не уценять): {len(reorder_arts)} артикулов")
 
     print("\n1. Запрос кроссовок (200000-209999) с остатком...")
     rows = con.execute(f"""
@@ -241,6 +312,10 @@ def main():
         s180 AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE document_moment >= ?::DATE AND price > 0 GROUP BY article),
         s365 AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE document_moment >= ?::DATE AND price > 0 GROUP BY article),
         sall AS (SELECT article, SUM(quantity) q FROM retaildemand_positions WHERE price > 0 GROUP BY article),
+        -- Осень прошлого года (сен-ноя 2025): сезонные модели, которые нельзя уценять летом
+        autumn AS (SELECT article, SUM(quantity) q FROM retaildemand_positions
+                   WHERE document_moment >= DATE '2025-09-01' AND document_moment < DATE '2025-12-01'
+                     AND price > 0 GROUP BY article),
         last_sale AS (SELECT article, MAX(DATE(document_moment)) d FROM retaildemand_positions WHERE price > 0 GROUP BY article),
         last_supply AS (SELECT product_article AS article, MAX(DATE(supply_moment)) d FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
         first_supply AS (SELECT product_article AS article, MIN(DATE(supply_moment)) d, SUM(quantity) qty
@@ -255,9 +330,11 @@ def main():
                COALESCE(s30.q, 0) AS s30, COALESCE(s90.q, 0) AS s90,
                COALESCE(s180.q, 0) AS s180, COALESCE(s365.q, 0) AS s365, COALESCE(sall.q, 0) AS sall,
                last_sale.d AS last_sale_d, last_supply.d AS last_supply_d,
-               first_supply.d AS first_supply_d, first_supply.qty AS first_supply_qty
+               first_supply.d AS first_supply_d, first_supply.qty AS first_supply_qty,
+               COALESCE(autumn.q, 0) AS autumn_q
         FROM stock s
         LEFT JOIN prices p USING(article)
+        LEFT JOIN autumn USING(article)
         LEFT JOIN sup_cost sc USING(article)
         LEFT JOIN s30 USING(article)
         LEFT JOIN s90 USING(article)
@@ -334,7 +411,7 @@ def main():
     for r in rows:
         (art, pname, total, msk, tsum, online, aruz, wh,
          cost, retail, new_price, s30, s90, s180, s365, sall,
-         last_sale_d, last_supply_d, first_supply_d, first_supply_qty) = r
+         last_sale_d, last_supply_d, first_supply_d, first_supply_qty, autumn_q) = r
         cost = float(cost or 0); retail = float(retail or 0)
         new_price = float(new_price or 0)
         # orig = изначальная "Цена продажи" (зачёркнутая на стикере)
@@ -398,6 +475,8 @@ def main():
         # categorize нужны calc'd поля
         item['days_no_sale'] = days_no_sale
         item['days_since_supply'] = days_since_supply
+        item['autumn_q'] = int(autumn_q or 0)
+        item['in_reorder'] = item['article'] in reorder_arts
         cat, reason = categorize(item)
         item['category'] = cat
         item['reason'] = reason
@@ -405,7 +484,7 @@ def main():
 
     # Подмешиваем suggested_discount из стратегического аналитического слоя (если есть)
     # Это даёт пользователю стартовое значение скидки которое он может скорректировать
-    layer_csv = PROJECT_ROOT / 'reports' / 'strategic' / f'assortment_layer_{SNAPSHOT_DATE}.csv'
+    layer_csv = PROJECT_ROOT / 'reports' / 'strategic' / f'assortment_layer_{snap_date}.csv'
     suggested_by_article = {}
     health_by_article = {}
     if layer_csv.exists():
@@ -439,10 +518,17 @@ def main():
             m = re.search(r'−(\d+)%', it.get('reason', ''))
             if m:
                 it['suggested_discount'] = int(m.group(1))
+        elif cat in ('REORDERED', 'HOLD_AUTUMN'):
+            # дозаказан / ждёт осени → скидку не предлагать
+            it['suggested_discount'] = 0
+        elif cat == 'SUMMER_CLEAR':
+            # летний уходящий — агрессивнее обычного
+            it['suggested_discount'] = max(it.get('suggested_discount', 0) or 0, 30)
 
     # Сортируем: убыточные → мёртвые → медленные → новые → хиты → норма → намеренные
-    cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'COOLING_REORDER': 2, 'COOLING_SALE': 3,
-                 'SLOW': 4, 'NEW': 5, 'HOT': 6, 'NORMAL': 7, 'INTENTIONAL': 8}
+    cat_order = {'UNPROFITABLE': 0, 'SUMMER_CLEAR': 1, 'DEAD': 2, 'COOLING_REORDER': 3,
+                 'COOLING_SALE': 4, 'SLOW': 5, 'HOLD_AUTUMN': 6, 'REORDERED': 7,
+                 'NEW': 8, 'HOT': 9, 'NORMAL': 10, 'INTENTIONAL': 11}
     items.sort(key=lambda x: (cat_order.get(x['category'], 99), -x['frozen_cost']))
 
     print("\n4. Фото из кеша (пропускаем скачивание)...")
@@ -471,15 +557,18 @@ def main():
 
     print("\n=== СВОДКА ===")
     cat_names = {'UNPROFITABLE': '⚠️ Убыточные (РЦ ≤ себес)',
+                 'SUMMER_CLEAR': '☀️ Летние — сейлить СЕЙЧАС (сезон уходит)',
                  'DEAD': '🔴 Мёртвые (90+ дн без продаж)',
                  'COOLING_REORDER': '🔵 Остывают → ДОЗАКАЗ (выбит ходовой размер)',
                  'COOLING_SALE': '🟡 Остывают → СКИДКА (сетка полная, спрос упал)',
                  'SLOW': '🟠 Медленные (60+ дн, мало продаж)',
+                 'HOLD_AUTUMN': '🍂 Ждут осени (сезонные — НЕ уценять)',
+                 'REORDERED': '📦 В заказе ЗК (дозаказаны — НЕ уценять)',
                  'NEW': '⚪ Новые (рано судить)',
                  'HOT': '🟢 Хиты (быстро продаются)',
                  'NORMAL': '🔵 Норма',
                  'INTENTIONAL': '⚫ Намеренный неликвид (NB/Asics/Puma)'}
-    for c in ['UNPROFITABLE', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']:
+    for c in ['UNPROFITABLE', 'SUMMER_CLEAR', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']:
         if c in cat_count:
             print(f"  {cat_names[c]:<48} {cat_count[c]:>4} моделей  {cat_frozen[c]:>14,.0f} ₸")
 
@@ -635,10 +724,13 @@ function renderItem(item, idx) {
 
 CAT_CONFIG = {
     'UNPROFITABLE': {'label': '⚠️ УБЫТОЧНЫЕ', 'color': '#dc2626', 'bg': '#fef2f2'},
+    'SUMMER_CLEAR': {'label': '☀️ ЛЕТНИЕ — СЕЙЛИТЬ', 'color': '#ea580c', 'bg': '#fff7ed'},
     'DEAD':         {'label': '🔴 МЁРТВЫЕ',    'color': '#ef4444', 'bg': '#fef2f2'},
     'COOLING_REORDER': {'label': '🔵 ОСТЫВАЮТ → ДОЗАКАЗ', 'color': '#0ea5e9', 'bg': '#f0f9ff'},
     'COOLING_SALE':    {'label': '🟡 ОСТЫВАЮТ → СКИДКА',  'color': '#eab308', 'bg': '#fefce8'},
     'SLOW':         {'label': '🟠 МЕДЛЕННЫЕ',  'color': '#f59e0b', 'bg': '#fffbeb'},
+    'HOLD_AUTUMN':  {'label': '🍂 ЖДЁТ ОСЕНИ', 'color': '#92400e', 'bg': '#fef3c7'},
+    'REORDERED':    {'label': '📦 В ЗАКАЗЕ ЗК', 'color': '#7c3aed', 'bg': '#f5f3ff'},
     'NEW':          {'label': '⚪ НОВЫЕ',       'color': '#6b7280', 'bg': '#f3f4f6'},
     'HOT':          {'label': '🟢 ХИТЫ',        'color': '#10b981', 'bg': '#ecfdf5'},
     'NORMAL':       {'label': '🔵 НОРМА',       'color': '#3b82f6', 'bg': '#eff6ff'},
@@ -891,8 +983,11 @@ async function loadData() {
     extra_css = '''
 .cat-badge { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.3px; display:inline-block; margin-bottom:6px; }
 .cat-UNPROFITABLE { background:#fef2f2; color:#dc2626; }
+.cat-SUMMER_CLEAR { background:#fff7ed; color:#ea580c; }
 .cat-DEAD         { background:#fef2f2; color:#ef4444; }
 .cat-SLOW         { background:#fffbeb; color:#f59e0b; }
+.cat-HOLD_AUTUMN  { background:#fef3c7; color:#92400e; }
+.cat-REORDERED    { background:#f5f3ff; color:#7c3aed; }
 .cat-NEW          { background:#f3f4f6; color:#6b7280; }
 .cat-HOT          { background:#ecfdf5; color:#10b981; }
 .cat-NORMAL       { background:#eff6ff; color:#3b82f6; }
@@ -925,7 +1020,8 @@ async function loadData() {
 
     # Filter-bar — заменим на категории
     cat_emoji_count = []
-    cat_order = ['UNPROFITABLE', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']
+    cat_order = ['UNPROFITABLE', 'SUMMER_CLEAR', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE',
+                 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']
     cat_emoji_count.append('<button class="filter-btn active" onclick="setFilter(\'all\')">Все</button>')
     for c in cat_order:
         if c in cat_count:
