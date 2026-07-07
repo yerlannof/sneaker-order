@@ -46,6 +46,14 @@ def is_summer_item(name: str) -> bool:
                                  'сандал', 'sandal', 'mule', 'клоги', 'clog'))
 
 
+def is_slide_item(name: str) -> bool:
+    """Сланцы/шлёпанцы/Birkenstock — отдельная сейл-группа (решение Ерлана 07.07.2026:
+    ВСЕ сланцы на скидку −20% заранее, сгруппировать вместе)."""
+    nm = (name or '').lower()
+    return any(w in nm for w in ('сланц', 'слайд', 'slide', 'шлёпанц', 'шлепанц',
+                                 'adilette', 'birkenstock', 'вьетнам', 'flip flop'))
+
+
 def fetch_reorder_articles() -> set:
     """Артикулы из последнего заказа ЗК-xxx (draft/sent) в Supabase —
     их НЕ уценивать: мы их только что дозаказали."""
@@ -110,11 +118,36 @@ def categorize(item: dict) -> tuple[str, str]:
        сезон уходит, уценять СЕЙЧАС и агрессивнее, к сентябрю станет мёртвым грузом.
     """
     cat, reason = _base_categorize(item)
+    tag = item.get('season_tag') or ''   # ручной тег из model_tags (Supabase) — ГЛАВНЕЕ эвристик
+
+    def zk_warn():
+        w = ''
+        if item.get('in_reorder'):
+            w = ' ⚠️ ЕСТЬ В ЗАКАЗЕ ЗК-016 — если сейлим, убери её из заказа крестиком!'
+        if item['cost'] > 0 and item['retail'] > 0 and item['retail'] < item['cost'] * 1.1:
+            w += ' ⚠️ РЦ уже у себеса — скидка уведёт в минус.'
+        return w
+
+    # Сланцы — тег или имя. ВСЕ в одну сейл-группу с −20%
+    if tag == 'slides' or (not tag and is_slide_item(item['name'])):
+        return ('SLIDES', f'🩴 Сланцы — сейл −20%, лето уходит.{zk_warn()}')
+
+    # Тег ЛЕТО — сейлить сейчас (сезон уходит), даже если модель ещё продаётся
+    if tag == 'summer' and cat != 'UNPROFITABLE':
+        return ('SUMMER_CLEAR', f'☀️ ЛЕТНЯЯ (тег) — сезон уходит, уценять сейчас.{zk_warn()} (Было бы: {reason})')
 
     if cat != 'UNPROFITABLE' and item.get('in_reorder'):
         return ('REORDERED', f'📦 В свежем заказе ЗК — дозаказан, НЕ уценять. (Было бы: {reason})')
 
+    # Тег ВСЕСЕЗОН — сезонные оверрайды не применяются (AF1 White и т.п.)
+    if tag == 'allseason':
+        return (cat, f'💎 Всесезонная (тег). {reason}')
+
     if cat in ('DEAD', 'SLOW', 'COOLING_SALE'):
+        # Тег осень/зима/деми — сезон впереди, не уценять летом
+        if tag in ('autumn', 'winter', 'demi'):
+            tl = {'autumn': '🍂 Осень-Зима', 'winter': '❄️ Зима', 'demi': '🌗 Демисезон'}[tag]
+            return ('HOLD_AUTUMN', f'{tl} (тег) — сезон впереди, ЖДАТЬ, не уценять. (Было бы: {reason})')
         autumn_q = item.get('autumn_q', 0)
         s30 = item['sales']['s30']
         # осенью продавался заметно (>=12 за 3 мес) и заметно бодрее чем сейчас
@@ -237,7 +270,7 @@ def fetch_photos_from_ms(article_to_name: dict, cached: dict) -> dict:
         try:
             # Поиск товара (короткий timeout)
             r = requests.get(f"{base_url}/entity/product", headers=headers,
-                             params={'filter': f'article={art}', 'limit': 1}, timeout=4)
+                             params={'filter': f'article={art}', 'limit': 1}, timeout=10)
             if r.status_code != 200:
                 cached[art] = ''
                 continue
@@ -249,7 +282,7 @@ def fetch_photos_from_ms(article_to_name: dict, cached: dict) -> dict:
             if not img_meta.get('href'):
                 cached[art] = ''
                 continue
-            r2 = requests.get(img_meta['href'], headers=headers, timeout=4)
+            r2 = requests.get(img_meta['href'], headers=headers, timeout=10)
             if r2.status_code != 200:
                 cached[art] = ''
                 continue
@@ -261,7 +294,7 @@ def fetch_photos_from_ms(article_to_name: dict, cached: dict) -> dict:
             if not mini:
                 cached[art] = ''
                 continue
-            r3 = requests.get(mini, headers=headers, timeout=4)
+            r3 = requests.get(mini, headers=headers, timeout=10)
             if r3.status_code != 200:
                 cached[art] = ''
                 skip_count += 1
@@ -292,6 +325,7 @@ def main():
     print(f"Снапшот: {snap} | Цены: {prices}")
     reorder_arts = fetch_reorder_articles()
     print(f"В свежем заказе (не уценять): {len(reorder_arts)} артикулов")
+    season_tags = get_model_tags()
 
     print("\n1. Запрос кроссовок (200000-209999) с остатком...")
     rows = con.execute(f"""
@@ -477,6 +511,7 @@ def main():
         item['days_since_supply'] = days_since_supply
         item['autumn_q'] = int(autumn_q or 0)
         item['in_reorder'] = item['article'] in reorder_arts
+        item['season_tag'] = season_tags.get(item['article'], '')
         cat, reason = categorize(item)
         item['category'] = cat
         item['reason'] = reason
@@ -524,24 +559,29 @@ def main():
         elif cat == 'SUMMER_CLEAR':
             # летний уходящий — агрессивнее обычного
             it['suggested_discount'] = max(it.get('suggested_discount', 0) or 0, 30)
+        elif cat == 'SLIDES':
+            # решение Ерлана: все сланцы −20% заранее
+            it['suggested_discount'] = 20
 
     # Сортируем: убыточные → мёртвые → медленные → новые → хиты → норма → намеренные
-    cat_order = {'UNPROFITABLE': 0, 'SUMMER_CLEAR': 1, 'DEAD': 2, 'COOLING_REORDER': 3,
-                 'COOLING_SALE': 4, 'SLOW': 5, 'HOLD_AUTUMN': 6, 'REORDERED': 7,
-                 'NEW': 8, 'HOT': 9, 'NORMAL': 10, 'INTENTIONAL': 11}
+    cat_order = {'SLIDES': 0, 'UNPROFITABLE': 1, 'SUMMER_CLEAR': 2, 'DEAD': 3,
+                 'COOLING_REORDER': 4, 'COOLING_SALE': 5, 'SLOW': 6, 'HOLD_AUTUMN': 7,
+                 'REORDERED': 8, 'NEW': 9, 'HOT': 10, 'NORMAL': 11, 'INTENTIONAL': 12}
     items.sort(key=lambda x: (cat_order.get(x['category'], 99), -x['frozen_cost']))
 
-    print("\n4. Фото из кеша (пропускаем скачивание)...")
+    print("\n4. Фото...")
     cache = load_photo_cache()
     skip_download = '--skip-photos' in sys.argv or os.environ.get('SKIP_PHOTOS')
     article_to_name = {it['article']: it['name'] for it in items if it['article']}
     if not skip_download:
-        # Помечаем непрошедшие как пустые — больше не пытаемся
-        missing = [a for a in article_to_name if a not in cache]
-        print(f"   Без фото в кеше: {len(missing)} (пометим пустыми, заполнить позже)")
-        for a in missing:
-            cache[a] = ''
-        save_photo_cache(cache)
+        # Пустые записи кеша ('') = прошлые неудачи (timeout/404) — ПРОБУЕМ СНОВА.
+        # Раньше они помечались пустыми навсегда → 172 модели остались без фото.
+        retry = [a for a in article_to_name if cache.get(a, None) == '']
+        if retry:
+            print(f"   Повторная попытка для {len(retry)} пустых записей кеша")
+            for a in retry:
+                del cache[a]
+        cache = fetch_photos_from_ms(article_to_name, cache)
     for it in items:
         it['photo'] = cache.get(it['article'], '')
     has_photo = sum(1 for it in items if it['photo'])
@@ -556,7 +596,8 @@ def main():
         cat_frozen[c] = cat_frozen.get(c, 0) + it['frozen_cost']
 
     print("\n=== СВОДКА ===")
-    cat_names = {'UNPROFITABLE': '⚠️ Убыточные (РЦ ≤ себес)',
+    cat_names = {'SLIDES': '🩴 Сланцы/Birkenstock — сейл −20% (решение 07.07)',
+                 'UNPROFITABLE': '⚠️ Убыточные (РЦ ≤ себес)',
                  'SUMMER_CLEAR': '☀️ Летние — сейлить СЕЙЧАС (сезон уходит)',
                  'DEAD': '🔴 Мёртвые (90+ дн без продаж)',
                  'COOLING_REORDER': '🔵 Остывают → ДОЗАКАЗ (выбит ходовой размер)',
@@ -568,7 +609,7 @@ def main():
                  'HOT': '🟢 Хиты (быстро продаются)',
                  'NORMAL': '🔵 Норма',
                  'INTENTIONAL': '⚫ Намеренный неликвид (NB/Asics/Puma)'}
-    for c in ['UNPROFITABLE', 'SUMMER_CLEAR', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']:
+    for c in ['SLIDES', 'UNPROFITABLE', 'SUMMER_CLEAR', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE', 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']:
         if c in cat_count:
             print(f"  {cat_names[c]:<48} {cat_count[c]:>4} моделей  {cat_frozen[c]:>14,.0f} ₸")
 
@@ -705,6 +746,12 @@ function renderItem(item, idx) {
           ? `<span class="new-price">${fmt(newPrice)}₸</span>`
           : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
       </div>
+      <div class="discount-row season-row" style="margin-top:6px;background:#f8fafc">
+        <label>Сезон</label>
+        <div class="disc-btns">
+          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setSeasonTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','${v}')">${l}</button>`).join('')}
+        </div>
+      </div>
       ${item.category === 'COOLING_REORDER' ? `
       <div class="discount-row" style="background:#f0f9ff;border:1px dashed #0ea5e9;margin-top:6px">
         <label style="color:#075985">🔵 ДОЗАКАЗ</label>
@@ -723,6 +770,7 @@ function renderItem(item, idx) {
 
 
 CAT_CONFIG = {
+    'SLIDES':       {'label': '🩴 СЛАНЦЫ −20%', 'color': '#0891b2', 'bg': '#ecfeff'},
     'UNPROFITABLE': {'label': '⚠️ УБЫТОЧНЫЕ', 'color': '#dc2626', 'bg': '#fef2f2'},
     'SUMMER_CLEAR': {'label': '☀️ ЛЕТНИЕ — СЕЙЛИТЬ', 'color': '#ea580c', 'bg': '#fff7ed'},
     'DEAD':         {'label': '🔴 МЁРТВЫЕ',    'color': '#ef4444', 'bg': '#fef2f2'},
@@ -736,6 +784,26 @@ CAT_CONFIG = {
     'NORMAL':       {'label': '🔵 НОРМА',       'color': '#3b82f6', 'bg': '#eff6ff'},
     'INTENTIONAL':  {'label': '⚫ NB/Asics/Puma','color': '#525252', 'bg': '#f5f5f4'},
 }
+
+
+def get_model_tags() -> dict:
+    """Теги сезонности из Supabase model_tags → {article: season}.
+    Compound-система: Алуа/Ерлан проставляют теги в дашборде, они копятся."""
+    try:
+        import requests
+        from dotenv import load_dotenv
+        load_dotenv(PROJECT_ROOT / '.env')
+        url = os.getenv('SUPABASE_URL'); key = os.getenv('SUPABASE_KEY')
+        if not url or not key:
+            return {}
+        r = requests.get(f"{url}/rest/v1/model_tags?select=article,season&limit=10000",
+                         headers={'apikey': key, 'Authorization': f'Bearer {key}'}, timeout=15)
+        tags = {str(t['article']): t['season'] for t in (r.json() if r.ok else [])}
+        print(f"   Тегов сезонности из Supabase: {len(tags)}")
+        return tags
+    except Exception as e:
+        print(f"   ⚠️ Теги не загружены: {e}")
+        return {}
 
 
 def get_preset_discounts() -> dict:
@@ -891,6 +959,48 @@ if (_restored > 0) {
     new_data_block = '''// === DATA ===
 let ALL_ITEMS = [];
 
+// Теги сезонности (compound-система): {article: season}. Хранятся в Supabase model_tags.
+let seasonTags = {};
+const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Лето'],['demi','🌗 Деми'],
+                     ['autumn','🍂 Осень'],['winter','❄️ Мех'],['allseason','💎 Всесез']];
+
+async function setSeasonTag(art, season) {
+  const cur = seasonTags[art] || '';
+  try {
+    if (cur === season) {
+      // повторный тап = снять тег
+      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art),
+        {method: 'DELETE', headers: SB_HEADERS});
+      if (!r.ok) throw new Error(r.status);
+      delete seasonTags[art];
+      toast('Тег снят: ' + art);
+    } else {
+      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags', {
+        method: 'POST',
+        headers: {...SB_HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal'},
+        body: JSON.stringify({article: art, season: season, updated_at: new Date().toISOString()})
+      });
+      if (!r.ok) throw new Error(r.status);
+      seasonTags[art] = season;
+      toast('✓ ' + art + ': тег сохранён');
+    }
+    applyFilters();
+  } catch(e) {
+    toast('⚠️ Не сохранилось (' + e.message + ') — проверь интернет');
+  }
+}
+
+async function loadSeasonTags() {
+  try {
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season&limit=10000',
+      {headers: SB_HEADERS});
+    if (r.ok) {
+      (await r.json()).forEach(t => seasonTags[t.article] = t.season);
+      applyFilters();
+    }
+  } catch(e) {}
+}
+
 async function loadData() {
   const loader = document.getElementById('loader');
   if (loader) loader.textContent = '⏳ Загружаю данные…';
@@ -899,6 +1009,7 @@ async function loadData() {
   if (loader) loader.textContent = '⏳ Рендерим карточки…';
   applyFilters();
   if (loader) loader.style.display = 'none';
+  loadSeasonTags();  // теги сезонности из облака (не блокирует)
 
   // СИНХРОНИЗАЦИЯ между устройствами: подтянуть актуальные скидки из Supabase.
   // Без этого правки Алуа с телефона не видны на компе (localStorage у каждого свой).
@@ -982,6 +1093,7 @@ async function loadData() {
     # CSS — добавим badges для категорий + лёгкая адаптация
     extra_css = '''
 .cat-badge { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.3px; display:inline-block; margin-bottom:6px; }
+.cat-SLIDES       { background:#ecfeff; color:#0891b2; }
 .cat-UNPROFITABLE { background:#fef2f2; color:#dc2626; }
 .cat-SUMMER_CLEAR { background:#fff7ed; color:#ea580c; }
 .cat-DEAD         { background:#fef2f2; color:#ef4444; }
@@ -1009,6 +1121,9 @@ async function loadData() {
 .last-sale-info b { color:var(--text); }
 .unprofit-warn    { background:#fef2f2; padding:8px 10px; border-radius:6px; border-left:3px solid #dc2626; font-size:12px; font-weight:600; color:#dc2626; margin-bottom:8px; }
 .curdisc-badge    { display:inline-block; margin-left:6px; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+.season-btn       { font-size:11px; padding:6px 8px; }
+.season-btn.active { background:#0891b2; border-color:#0891b2; color:#fff; }
+.season-row label { color:#0891b2; font-weight:700; }
 @media(max-width:600px) {
   .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; }
   .item-photo, .item-photo-empty { width:70px; height:70px; }
@@ -1020,8 +1135,9 @@ async function loadData() {
 
     # Filter-bar — заменим на категории
     cat_emoji_count = []
-    cat_order = ['UNPROFITABLE', 'SUMMER_CLEAR', 'DEAD', 'COOLING_REORDER', 'COOLING_SALE',
-                 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']
+    cat_order = ['SLIDES', 'UNPROFITABLE', 'SUMMER_CLEAR', 'DEAD', 'COOLING_REORDER',
+                 'COOLING_SALE', 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT',
+                 'NORMAL', 'INTENTIONAL']
     cat_emoji_count.append('<button class="filter-btn active" onclick="setFilter(\'all\')">Все</button>')
     for c in cat_order:
         if c in cat_count:

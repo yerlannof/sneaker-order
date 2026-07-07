@@ -299,6 +299,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .chip.ok   { background:#ecfdf5; color:#10b981; border-color:#a7f3d0; }
 
 .cat-badge { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.3px; display:inline-block; margin-bottom:6px; }
+.cat-SLIDES       { background:#ecfeff; color:#0891b2; }
 .cat-UNPROFITABLE { background:#fef2f2; color:#dc2626; }
 .cat-SUMMER_CLEAR { background:#fff7ed; color:#ea580c; }
 .cat-DEAD         { background:#fef2f2; color:#ef4444; }
@@ -326,6 +327,9 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 .last-sale-info b { color:var(--text); }
 .unprofit-warn    { background:#fef2f2; padding:8px 10px; border-radius:6px; border-left:3px solid #dc2626; font-size:12px; font-weight:600; color:#dc2626; margin-bottom:8px; }
 .curdisc-badge    { display:inline-block; margin-left:6px; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+.season-btn       { font-size:11px; padding:6px 8px; }
+.season-btn.active { background:#0891b2; border-color:#0891b2; color:#fff; }
+.season-row label { color:#0891b2; font-weight:700; }
 @media(max-width:600px) {
   .stats { grid-template-columns:repeat(3,1fr); gap:6px; padding:10px 12px; }
   .item-photo, .item-photo-empty { width:70px; height:70px; }
@@ -351,7 +355,7 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">79</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">78</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
@@ -408,16 +412,17 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
-<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (54)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLIDES')">🩴 СЛАНЦЫ −20% (14)</button>
+<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (53)</button>
 <button class="filter-btn" onclick="setFilter('cat:SUMMER_CLEAR')">☀️ ЛЕТНИЕ — СЕЙЛИТЬ (1)</button>
 <button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (25)</button>
 <button class="filter-btn" onclick="setFilter('cat:COOLING_REORDER')">🔵 ОСТЫВАЮТ → ДОЗАКАЗ (9)</button>
 <button class="filter-btn" onclick="setFilter('cat:COOLING_SALE')">🟡 ОСТЫВАЮТ → СКИДКА (26)</button>
 <button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (44)</button>
 <button class="filter-btn" onclick="setFilter('cat:HOLD_AUTUMN')">🍂 ЖДЁТ ОСЕНИ (46)</button>
-<button class="filter-btn" onclick="setFilter('cat:REORDERED')">📦 В ЗАКАЗЕ ЗК (74)</button>
+<button class="filter-btn" onclick="setFilter('cat:REORDERED')">📦 В ЗАКАЗЕ ЗК (68)</button>
 <button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (20)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (159)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (152)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (56)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (235)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (89)</button>
@@ -465,6 +470,48 @@ const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABA
 // === DATA ===
 let ALL_ITEMS = [];
 
+// Теги сезонности (compound-система): {article: season}. Хранятся в Supabase model_tags.
+let seasonTags = {};
+const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Лето'],['demi','🌗 Деми'],
+                     ['autumn','🍂 Осень'],['winter','❄️ Мех'],['allseason','💎 Всесез']];
+
+async function setSeasonTag(art, season) {
+  const cur = seasonTags[art] || '';
+  try {
+    if (cur === season) {
+      // повторный тап = снять тег
+      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art),
+        {method: 'DELETE', headers: SB_HEADERS});
+      if (!r.ok) throw new Error(r.status);
+      delete seasonTags[art];
+      toast('Тег снят: ' + art);
+    } else {
+      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags', {
+        method: 'POST',
+        headers: {...SB_HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal'},
+        body: JSON.stringify({article: art, season: season, updated_at: new Date().toISOString()})
+      });
+      if (!r.ok) throw new Error(r.status);
+      seasonTags[art] = season;
+      toast('✓ ' + art + ': тег сохранён');
+    }
+    applyFilters();
+  } catch(e) {
+    toast('⚠️ Не сохранилось (' + e.message + ') — проверь интернет');
+  }
+}
+
+async function loadSeasonTags() {
+  try {
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season&limit=10000',
+      {headers: SB_HEADERS});
+    if (r.ok) {
+      (await r.json()).forEach(t => seasonTags[t.article] = t.season);
+      applyFilters();
+    }
+  } catch(e) {}
+}
+
 async function loadData() {
   const loader = document.getElementById('loader');
   if (loader) loader.textContent = '⏳ Загружаю данные…';
@@ -473,6 +520,7 @@ async function loadData() {
   if (loader) loader.textContent = '⏳ Рендерим карточки…';
   applyFilters();
   if (loader) loader.style.display = 'none';
+  loadSeasonTags();  // теги сезонности из облака (не блокирует)
 
   // СИНХРОНИЗАЦИЯ между устройствами: подтянуть актуальные скидки из Supabase.
   // Без этого правки Алуа с телефона не видны на компе (localStorage у каждого свой).
@@ -516,7 +564,7 @@ try {
   if (saved) discounts = JSON.parse(saved);
 } catch(e) {}
 // Восстановление ранее выставленных скидок (из Supabase, вшито при сборке)
-const PRESET_DISCOUNTS = {"200333": 50, "200150": 50, "201520": 50, "201495": 50, "200552": 50, "202321": 50, "201646": 50, "202024": 30, "201635": 50, "200185": 50, "200548": 50, "200855": 50, "202020": 30, "201811": 50, "202031": 30, "202322": 50, "201611": 30, "200356": 50, "201902": 50, "201855": 50, "200555": 50, "201429": 50, "200426": 50, "201530": 50, "201779": 50, "202068": 30, "201797": 30, "201565": 30, "201741": 30, "201523": 30, "202032": 30, "201727": 30, "202059": 30, "201824": 30, "200554": 50, "201560": 50, "201683": 50, "202021": 30, "202067": 20, "202625": 30, "202401": 30, "201912": 30, "202286": 30, "202590": 30, "201458": 50, "201057": 30, "202107": 20, "202211": 30, "201745": 30, "202563": 30, "202681": 30, "202706": 20, "202117": 20, "202695": 20, "202657": 20, "202700": 20, "202643": 20, "202707": 20, "202084": 30, "202734": 20, "202649": 20, "202693": 20, "202743": 20, "202692": 20, "202702": 20, "202673": 20, "202661": 30, "202724": 20, "201702": 20, "202013": 20, "202717": 20, "202276": 20, "202652": 20, "202651": 20, "202656": 20, "202650": 20, "202634": 20, "202710": 20, "202645": 20, "202663": 20, "202245": 20, "202537": 20, "202653": 20, "202721": 20, "202708": 20, "202679": 20, "201812": 20, "202704": 20, "202090": 20, "202402": 20, "202698": 20, "202696": 20, "202641": 20, "202658": 20, "202712": 20, "202639": 20, "202599": 30, "201929": 20, "202557": 30, "202102": 20, "202556": 30, "202105": 20, "202723": 30, "202680": 20, "202554": 30, "201055": 30, "202297": 20, "202535": 20, "202549": 20, "202624": 25, "202676": 20, "202082": 20, "201896": 20, "202738": 20, "202576": 20, "202601": 30, "202672": 20, "202745": 20, "202701": 20, "202574": 20, "202623": 30, "201926": 30, "202621": 50, "202715": 20, "202104": 20, "202575": 20, "202547": 20, "202640": 20, "202551": 30, "202555": 20, "202381": 30, "202502": 30, "202593": 30, "202566": 20, "202552": 30, "202550": 30, "202598": 30, "202703": 20, "201944": 30, "202594": 30, "202655": 20, "202597": 30, "202600": 30, "202579": 30, "202595": 30, "202687": 30, "201914": 30, "202314": 40, "202106": 20, "202795": 30, "202705": 30, "202749": 30, "202697": 20, "202375": 30, "201948": 30, "201897": 30, "202284": 30, "202457": 30, "202553": 30, "202546": 30, "201809": 50, "202585": 30, "200968": 50, "202222": 30, "202686": 30, "202659": 30};
+const PRESET_DISCOUNTS = {"200333": 50, "200150": 50, "201520": 50, "201495": 50, "200552": 50, "202321": 50, "201646": 50, "202024": 30, "201635": 50, "200185": 50, "200548": 50, "200855": 50, "202020": 30, "201811": 50, "202031": 30, "202322": 50, "201611": 30, "200356": 50, "201902": 50, "201855": 50, "200555": 50, "201429": 50, "200426": 50, "201530": 50, "201779": 50, "202068": 30, "201797": 30, "201565": 30, "201741": 30, "201523": 30, "202032": 30, "201727": 30, "202059": 30, "201824": 30, "200554": 50, "201560": 50, "201683": 50, "202021": 30, "202067": 20, "202625": 30, "202401": 30, "201912": 30, "202286": 30, "202590": 30, "201458": 50, "201057": 30, "202107": 20, "202211": 30, "201745": 30, "202563": 30, "202681": 30, "202706": 20, "202117": 20, "202695": 20, "202657": 20, "202700": 20, "202643": 20, "202707": 20, "202084": 30, "202734": 20, "202649": 20, "202693": 20, "202743": 20, "202692": 20, "202702": 20, "202673": 20, "202661": 30, "202724": 20, "201702": 20, "202013": 20, "202717": 20, "202276": 20, "202652": 20, "202651": 20, "202656": 20, "202650": 20, "202634": 20, "202710": 20, "202645": 20, "202663": 20, "202245": 20, "202537": 20, "202653": 20, "202721": 20, "202708": 20, "202679": 20, "201812": 20, "202704": 20, "202090": 20, "202402": 20, "202698": 20, "202696": 20, "202641": 20, "202658": 20, "202712": 20, "202639": 20, "202599": 30, "201929": 20, "202557": 30, "202102": 20, "202556": 30, "202105": 20, "202723": 30, "202680": 20, "202554": 30, "201055": 30, "202297": 20, "202535": 20, "202549": 20, "202624": 25, "202676": 20, "202082": 20, "201896": 20, "202738": 20, "202576": 20, "202601": 30, "202672": 20, "202745": 20, "202701": 20, "202574": 20, "202623": 30, "201926": 30, "202621": 50, "202715": 20, "202104": 20, "202575": 20, "202547": 20, "202640": 20, "202551": 30, "202555": 20, "202381": 30, "202502": 30, "202593": 30, "202566": 20, "202552": 30, "202550": 30, "202598": 30, "202703": 20, "201944": 30, "202594": 30, "202655": 20, "202597": 30, "202600": 30, "202579": 30, "202595": 30, "202687": 30, "201914": 30, "202314": 40, "202106": 20, "202795": 30, "202705": 30, "202749": 30, "202697": 20, "202375": 30, "201948": 30, "201897": 30, "202284": 30, "202457": 30, "202553": 30, "202546": 30, "201809": 50, "202585": 30, "200968": 50, "202222": 30, "202686": 30, "202659": 30, "202857": 20, "202853": 20, "202851": 20, "202862": 20, "202856": 20, "202855": 20, "202858": 20, "202861": 20, "202859": 20, "202860": 20, "202854": 20, "202852": 20};
 let _restored = 0;
 for (const a in PRESET_DISCOUNTS) {
   if (!discounts[a]) { discounts[a] = PRESET_DISCOUNTS[a]; _restored++; }
@@ -689,7 +737,7 @@ function renderItem(item, idx) {
   const disc = discounts[itemKey] || 0;
   const newPrice = disc > 0 ? Math.round(item.retail * (1 - disc/100)) : 0;
   const stBadge = stClass(item.sell_through);
-  const CAT_LABELS = {"UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "SUMMER_CLEAR": "☀️ ЛЕТНИЕ — СЕЙЛИТЬ", "DEAD": "🔴 МЁРТВЫЕ", "COOLING_REORDER": "🔵 ОСТЫВАЮТ → ДОЗАКАЗ", "COOLING_SALE": "🟡 ОСТЫВАЮТ → СКИДКА", "SLOW": "🟠 МЕДЛЕННЫЕ", "HOLD_AUTUMN": "🍂 ЖДЁТ ОСЕНИ", "REORDERED": "📦 В ЗАКАЗЕ ЗК", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma"};
+  const CAT_LABELS = {"SLIDES": "🩴 СЛАНЦЫ −20%", "UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "SUMMER_CLEAR": "☀️ ЛЕТНИЕ — СЕЙЛИТЬ", "DEAD": "🔴 МЁРТВЫЕ", "COOLING_REORDER": "🔵 ОСТЫВАЮТ → ДОЗАКАЗ", "COOLING_SALE": "🟡 ОСТЫВАЮТ → СКИДКА", "SLOW": "🟠 МЕДЛЕННЫЕ", "HOLD_AUTUMN": "🍂 ЖДЁТ ОСЕНИ", "REORDERED": "📦 В ЗАКАЗЕ ЗК", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma"};
 
   const photoHtml = item.photo
     ? `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" alt="${item.name}" onclick="openLightbox('${itemKey.replace(/'/g,"")}')">`
@@ -802,6 +850,12 @@ function renderItem(item, idx) {
         ${newPrice > 0
           ? `<span class="new-price">${fmt(newPrice)}₸</span>`
           : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
+      </div>
+      <div class="discount-row season-row" style="margin-top:6px;background:#f8fafc">
+        <label>Сезон</label>
+        <div class="disc-btns">
+          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setSeasonTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','${v}')">${l}</button>`).join('')}
+        </div>
       </div>
       ${item.category === 'COOLING_REORDER' ? `
       <div class="discount-row" style="background:#f0f9ff;border:1px dashed #0ea5e9;margin-top:6px">
