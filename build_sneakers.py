@@ -32,6 +32,56 @@ PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 SNAPSHOT_DATE = None  # None = взять свежайший (динамически в main)
 PRICES_DATE = None    # None = взять свежайший
 
+SEASON = {1: 0.59, 2: 0.79, 3: 1.35, 4: 1.26, 5: 1.00, 6: 0.99,
+          7: 0.79, 8: 1.33, 9: 1.08, 10: 1.06, 11: 0.91, 12: 0.86}
+
+
+def future_coef(today, weeks=8):
+    """Средний сезонный коэффициент ближайших N недель — для честного прогноза."""
+    days = weeks * 7
+    return sum(SEASON[(today + timedelta(days=i)).month] for i in range(days)) / days
+
+
+def model_score(item) -> tuple[int, str]:
+    """⭐ Скор модели 0-100: пять прозрачных компонентов по 20 баллов.
+    Темп (WOS буд.) + Тренд (30д vs 90д) + Маржа + Свежесть стока + Чистота продаж."""
+    s30 = item['sales']['s30']; s90 = item['sales']['s90']
+
+    wos_f = item.get('wos_future', 999)
+    if s30 > 0 and wos_f <= 4: pace = 20
+    elif wos_f <= 8: pace = 15
+    elif wos_f <= 12: pace = 10
+    elif wos_f <= 20: pace = 5
+    else: pace = 0
+
+    accel = (s30 / (s90 / 3)) if s90 > 0 else 0
+    if accel >= 1.2: trend = 20
+    elif accel >= 0.9: trend = 14
+    elif accel >= 0.6: trend = 8
+    else: trend = 0
+
+    m = item.get('margin_pct', 0)
+    if m >= 60: marg = 20
+    elif m >= 45: marg = 14
+    elif m >= 30: marg = 8
+    else: marg = 0
+
+    age = item.get('days_in_stock') or 999
+    if age <= 60: fresh = 20
+    elif age <= 120: fresh = 14
+    elif age <= 240: fresh = 8
+    else: fresh = 2
+
+    d = item.get('cur_disc', 0)
+    if d == 0: clean = 20
+    elif d <= 20: clean = 12
+    elif d <= 40: clean = 6
+    else: clean = 0
+
+    total = pace + trend + marg + fresh + clean
+    parts = f"темп {pace} · тренд {trend} · маржа {marg} · свежесть {fresh} · без скидок {clean}"
+    return total, parts
+
 
 def latest_table_date(con, prefix):
     row = con.execute(f"""SELECT table_name FROM information_schema.tables
@@ -352,6 +402,14 @@ def main():
                    WHERE document_moment >= DATE '2025-09-01' AND document_moment < DATE '2025-12-01'
                      AND price > 0 GROUP BY article),
         last_sale AS (SELECT article, MAX(DATE(document_moment)) d FROM retaildemand_positions WHERE price > 0 GROUP BY article),
+        first_sale AS (SELECT article, MIN(DATE(document_moment)) d FROM retaildemand_positions WHERE price > 0 GROUP BY article),
+        -- W1: продажи в первую неделю жизни модели (сетка была полная = честный спрос)
+        w1 AS (
+          SELECT p.article, SUM(p.quantity) AS q
+          FROM retaildemand_positions p JOIN first_sale f USING (article)
+          WHERE p.price > 0 AND DATE(p.document_moment) < f.d + INTERVAL 7 DAY
+          GROUP BY p.article
+        ),
         last_supply AS (SELECT product_article AS article, MAX(DATE(supply_moment)) d FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
         first_supply AS (SELECT product_article AS article, MIN(DATE(supply_moment)) d, SUM(quantity) qty
                          FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article),
@@ -366,10 +424,13 @@ def main():
                COALESCE(s180.q, 0) AS s180, COALESCE(s365.q, 0) AS s365, COALESCE(sall.q, 0) AS sall,
                last_sale.d AS last_sale_d, last_supply.d AS last_supply_d,
                first_supply.d AS first_supply_d, first_supply.qty AS first_supply_qty,
-               COALESCE(autumn.q, 0) AS autumn_q
+               COALESCE(autumn.q, 0) AS autumn_q,
+               first_sale.d AS first_sale_d, COALESCE(w1.q, 0) AS w1_q
         FROM stock s
         LEFT JOIN prices p USING(article)
         LEFT JOIN autumn USING(article)
+        LEFT JOIN first_sale USING(article)
+        LEFT JOIN w1 USING(article)
         LEFT JOIN sup_cost sc USING(article)
         LEFT JOIN s30 USING(article)
         LEFT JOIN s90 USING(article)
@@ -446,7 +507,8 @@ def main():
     for r in rows:
         (art, pname, total, msk, tsum, online, aruz, wh,
          cost, retail, new_price, s30, s90, s180, s365, sall,
-         last_sale_d, last_supply_d, first_supply_d, first_supply_qty, autumn_q) = r
+         last_sale_d, last_supply_d, first_supply_d, first_supply_qty, autumn_q,
+         first_sale_d, w1_q) = r
         cost = float(cost or 0); retail = float(retail or 0)
         new_price = float(new_price or 0)
         # orig = изначальная "Цена продажи" (зачёркнутая на стикере)
@@ -514,6 +576,38 @@ def main():
         item['in_reorder'] = item['article'] in reorder_arts
         item['season_tag'] = season_tags.get(item['article'], '')
         item['gender_tag'] = gender_tags.get(item['article'], '')
+
+        # === Метрики решений (07.07.2026) ===
+        # Будущий темп: текущий 30д-темп, очищенный от сезона и спроецированный
+        # на средний коэффициент ближайших 8 недель (июль-август-сентябрь)
+        fcoef = future_coef(today)
+        base_rate = (s30 / (30 / 7.0)) / SEASON[today.month] if s30 > 0 else 0
+        rate_future = base_rate * fcoef
+        item['wos_future'] = round(total / rate_future, 1) if rate_future > 0 else 999
+
+        # 📅 Дата распродажи при будущем темпе
+        if rate_future > 0 and total > 0:
+            item['sellout_date'] = (today + timedelta(weeks=total / rate_future)).isoformat()
+        else:
+            item['sellout_date'] = None
+
+        # 💰 GMROI: прибыли в месяц на 1₸, замороженный в стоке
+        if cost > 0 and total > 0:
+            item['gmroi'] = round((s90 * (retail - cost)) / 3.0 / (total * cost), 2)
+        else:
+            item['gmroi'] = 0
+
+        # 🔍 Ожидание vs факт: стартовый темп W1 vs текущий
+        item['w1'] = int(w1_q or 0)
+        item['first_sale'] = first_sale_d.isoformat() if first_sale_d else None
+        w1_rate = float(w1_q or 0)
+        cur_rate = s30 / (30 / 7.0)
+        item['vs_start_pct'] = round(100 * cur_rate / w1_rate) if w1_rate > 0 else None
+
+        score, score_parts = model_score(item)
+        item['score'] = score
+        item['score_parts'] = score_parts
+
         cat, reason = categorize(item)
         item['category'] = cat
         item['reason'] = reason
@@ -686,6 +780,44 @@ function renderItem(item, idx) {
     historyHtml = `<div class="velocity-box" style="background:#f1f5f9">${parts.join(' ')}</div>`;
   }
 
+  // === Метрики решений: скор / тенге на тенге / распродажа ===
+  const sc = item.score || 0;
+  const scColor = sc >= 70 ? '#10b981' : sc >= 45 ? '#f59e0b' : '#ef4444';
+  const gm = item.gmroi || 0;
+  const gmColor = gm >= 0.3 ? '#10b981' : gm >= 0.1 ? '#f59e0b' : '#ef4444';
+  let selloutStr = '—', selloutColor = 'var(--text3)';
+  if (item.sellout_date) {
+    const sd = new Date(item.sellout_date);
+    const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    selloutStr = sd.getDate() + ' ' + months[sd.getMonth()] + (sd.getFullYear() > 2026 ? ' ' + sd.getFullYear() : '');
+    const daysAway = (sd - new Date()) / 86400000;
+    selloutColor = daysAway < 45 ? '#10b981' : daysAway < 120 ? '#f59e0b' : '#ef4444';
+  }
+  const metricsHtml = `<div class="flow-box" style="background:#fbfcfe">
+    <div class="flow-cell" onclick="toast('${(item.score_parts||'').replace(/'/g,"")}')" style="cursor:pointer">
+      <div class="flow-label">⭐ Скор</div>
+      <div class="flow-val" style="color:${scColor}">${sc}</div>
+      <div class="flow-sub">из 100 · тап</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">💰 ₸ на ₸/мес</div>
+      <div class="flow-val" style="color:${gmColor}">${gm.toFixed(2)}</div>
+      <div class="flow-sub">прибыль на 1₸ стока</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">📅 Распродажа</div>
+      <div class="flow-val" style="color:${selloutColor};font-size:14px">${selloutStr}</div>
+      <div class="flow-sub">при сезонном темпе</div>
+    </div>
+  </div>`;
+
+  const w1Html = (item.w1 > 0) ? `<div class="velocity-box" style="background:#fdf4ff">
+    <span>🔍 Старт W1: <b>${item.w1}/нед</b></span>
+    <span>→ сейчас: <b>${(item.sales.s30/4.3).toFixed(1)}/нед</b></span>
+    ${item.vs_start_pct != null ? `<span style="margin-left:auto;font-weight:700;color:${item.vs_start_pct >= 60 ? '#10b981' : item.vs_start_pct >= 30 ? '#f59e0b' : '#ef4444'}">${item.vs_start_pct}% от старта</span>` : ''}
+  </div>` : '';
+
+
   const flowHtml = `<div class="flow-box">
     <div class="flow-cell">
       <div class="flow-label">Остаток</div>
@@ -720,8 +852,10 @@ function renderItem(item, idx) {
     <div class="item-details">
       ${catHtml}
       ${unprofitWarn}
+      ${metricsHtml}
       ${flowHtml}
       ${historyHtml}
+      ${w1Html}
       ${velHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>

@@ -796,6 +796,44 @@ function renderItem(item, idx) {
     historyHtml = `<div class="velocity-box" style="background:#f1f5f9">${parts.join(' ')}</div>`;
   }
 
+  // === Метрики решений: скор / тенге на тенге / распродажа ===
+  const sc = item.score || 0;
+  const scColor = sc >= 70 ? '#10b981' : sc >= 45 ? '#f59e0b' : '#ef4444';
+  const gm = item.gmroi || 0;
+  const gmColor = gm >= 0.3 ? '#10b981' : gm >= 0.1 ? '#f59e0b' : '#ef4444';
+  let selloutStr = '—', selloutColor = 'var(--text3)';
+  if (item.sellout_date) {
+    const sd = new Date(item.sellout_date);
+    const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    selloutStr = sd.getDate() + ' ' + months[sd.getMonth()] + (sd.getFullYear() > 2026 ? ' ' + sd.getFullYear() : '');
+    const daysAway = (sd - new Date()) / 86400000;
+    selloutColor = daysAway < 45 ? '#10b981' : daysAway < 120 ? '#f59e0b' : '#ef4444';
+  }
+  const metricsHtml = `<div class="flow-box" style="background:#fbfcfe">
+    <div class="flow-cell" onclick="toast('${(item.score_parts||'').replace(/'/g,"")}')" style="cursor:pointer">
+      <div class="flow-label">⭐ Скор</div>
+      <div class="flow-val" style="color:${scColor}">${sc}</div>
+      <div class="flow-sub">из 100 · тап</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">💰 ₸ на ₸/мес</div>
+      <div class="flow-val" style="color:${gmColor}">${gm.toFixed(2)}</div>
+      <div class="flow-sub">прибыль на 1₸ стока</div>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">📅 Распродажа</div>
+      <div class="flow-val" style="color:${selloutColor};font-size:14px">${selloutStr}</div>
+      <div class="flow-sub">при сезонном темпе</div>
+    </div>
+  </div>`;
+
+  const w1Html = (item.w1 > 0) ? `<div class="velocity-box" style="background:#fdf4ff">
+    <span>🔍 Старт W1: <b>${item.w1}/нед</b></span>
+    <span>→ сейчас: <b>${(item.sales.s30/4.3).toFixed(1)}/нед</b></span>
+    ${item.vs_start_pct != null ? `<span style="margin-left:auto;font-weight:700;color:${item.vs_start_pct >= 60 ? '#10b981' : item.vs_start_pct >= 30 ? '#f59e0b' : '#ef4444'}">${item.vs_start_pct}% от старта</span>` : ''}
+  </div>` : '';
+
+
   const flowHtml = `<div class="flow-box">
     <div class="flow-cell">
       <div class="flow-label">Остаток</div>
@@ -830,8 +868,10 @@ function renderItem(item, idx) {
     <div class="item-details">
       ${catHtml}
       ${unprofitWarn}
+      ${metricsHtml}
       ${flowHtml}
       ${historyHtml}
+      ${w1Html}
       ${velHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
