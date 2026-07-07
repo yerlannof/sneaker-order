@@ -590,10 +590,10 @@ def next_order_id():
     return "ЗК-016"
 
 
-def upload(items, meta_out):
+def upload(items, meta_out, oid=None):
     url = env('SUPABASE_URL')
     key = env('SUPABASE_SERVICE_KEY') or env('SUPABASE_KEY')
-    oid = next_order_id()
+    oid = oid or next_order_id()
     r = requests.post(
         f"{url}/rest/v1/orders",
         headers={"apikey": key, "Authorization": f"Bearer {key}",
@@ -606,6 +606,234 @@ def upload(items, meta_out):
     return oid
 
 
+# ---------------------------------------------------------------- осень
+
+def fetch_zk_incoming(max_age_weeks=8):
+    """Пары из свежих ЗК (включая ЧЕРНОВИКИ — они будут отправлены): {article: pairs}.
+    Для осеннего плана вычитаем всё, что уже едет или вот-вот поедет."""
+    url, key = env('SUPABASE_URL'), env('SUPABASE_KEY')
+    if not url or not key:
+        return {}
+    cutoff = (date.today() - timedelta(weeks=max_age_weeks)).isoformat()
+    try:
+        r = requests.get(
+            f"{url}/rest/v1/orders?select=id,items,confirmed_items&id=like.ЗК-*"
+            f"&status=in.(draft,sent,supplier_done)&created_at=gte.{cutoff}",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=20)
+        incoming = {}
+        for o in (r.json() if r.ok else []):
+            for it in (o.get('confirmed_items') or o.get('items') or []):
+                art = str(it.get('article', ''))
+                pairs = sum(v or 0 for v in (it.get('size_qty') or {}).values()) or it.get('pairs', 0)
+                if art and pairs > 0:
+                    incoming[art] = incoming.get(art, 0) + pairs
+        return incoming
+    except Exception as e:
+        print(f"⚠️  ЗК из Supabase не загружены: {e}")
+        return {}
+
+
+def generate_autumn(con, args):
+    """ОСЕННИЙ план-заказ: модели с сильной осенью-2025, тихие сейчас,
+    НЕ покрытые свежим ЗК. Товар должен приехать к ~1 сентября
+    (отправлять поставщику в начале августа). Живые модели сюда не входят —
+    они пополняются обычным циклом generate_order."""
+    today = date.today()
+    arrival = date(2026, 9, 1)
+    autumn_weeks = 13                      # сен-ноя
+    yoy = args.yoy                          # поправка на моду год-к-году
+    aut_coef_25 = mean_coef(date(2025, 9, 1), 91)
+    cover_cw = coef_weeks(arrival, autumn_weeks)
+    obs90 = mean_coef(today - timedelta(days=90), 90)
+
+    snap = con.execute("""SELECT table_name FROM information_schema.tables
+        WHERE table_name LIKE 'inventory_snapshot_stores_%'
+        ORDER BY table_name DESC LIMIT 1""").fetchone()[0]
+    price_snap = con.execute("""SELECT table_name FROM information_schema.tables
+        WHERE table_name LIKE 'prices_snapshot_%'
+        ORDER BY table_name DESC LIMIT 1""").fetchone()[0]
+    r = con.execute("""
+        SELECT SUM(net_revenue)/NULLIF(SUM(sales_sum),0) FROM sales_by_employee_correct
+        WHERE (year, month) IN (
+            SELECT DISTINCT year, month FROM sales_by_employee_correct
+            ORDER BY year DESC, month DESC LIMIT 3 OFFSET 1)""").fetchone()[0]
+    returns_coef = round(float(r), 3) if r else 0.95
+
+    incoming = fetch_zk_incoming()
+    print(f"Снапшот: {snap} | Цены: {price_snap} | Прибытие к: {arrival}")
+    print(f"Коэфф. окна сен-ноя: {cover_cw/autumn_weeks:.2f} | YoY-поправка: {yoy} | "
+          f"возвраты: {returns_coef} | едет из ЗК: {len(incoming)} артикулов")
+
+    rows = con.execute(f"""
+    WITH aut AS (
+        SELECT article,
+            ANY_VALUE(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '')) AS model,
+            SUM(quantity) AS q_aut,
+            SUM(revenue)/NULLIF(SUM(quantity),0) AS realized_aut
+        FROM retaildemand_positions
+        WHERE price > 0 AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
+          AND product_name NOT LIKE '%АКЦИЯ 1=2%'
+          AND document_moment >= DATE '2025-09-01' AND document_moment < DATE '2025-12-01'
+        GROUP BY article HAVING SUM(quantity) >= {args.min_autumn}
+    ),
+    cur AS (
+        SELECT article,
+            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY) AS q35,
+            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY) AS q90
+        FROM retaildemand_positions
+        WHERE price > 0 GROUP BY article
+    ),
+    stk AS (
+        SELECT article,
+            SUM(moscow) AS msk, SUM(tsum + online) AS tsum_onl,
+            SUM(astana_aruzhan) AS aru, SUM(main_warehouse) AS wh,
+            SUM(moscow + tsum + online + astana_aruzhan + main_warehouse) AS active
+        FROM {snap} GROUP BY article
+    ),
+    buy_in AS (
+        SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
+        FROM supply_positions
+        WHERE agent_name = 'Поставщик In' AND applicable AND supply_moment >= '2025-01-01'
+        GROUP BY 1
+    ),
+    buy_any AS (
+        SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
+        FROM supply_positions WHERE applicable AND price > 0 AND supply_moment >= '2025-01-01'
+        GROUP BY 1
+    ),
+    pn AS (SELECT article, MAX(sale_price) sp, MAX(new_price) np FROM {price_snap} GROUP BY article)
+    SELECT a.article, a.model, a.q_aut, a.realized_aut,
+        COALESCE(cur.q35,0), COALESCE(cur.q90,0),
+        COALESCE(stk.msk,0), COALESCE(stk.tsum_onl,0), COALESCE(stk.aru,0),
+        COALESCE(stk.wh,0), COALESCE(stk.active,0),
+        COALESCE(buy_in.bp, buy_any.bp, 0), pn.sp, pn.np
+    FROM aut a
+    LEFT JOIN cur USING (article)
+    LEFT JOIN stk USING (article)
+    LEFT JOIN buy_in USING (article)
+    LEFT JOIN buy_any USING (article)
+    LEFT JOIN pn USING (article)
+    """).fetchall()
+
+    items, excluded = [], []
+    for row in rows:
+        (article, model, q_aut, realized_aut, q35, q90,
+         msk, tsum_onl, aru, wh, active, buy_price, sale_price, new_price) = row
+        article = str(article)
+        q_aut, q35, q90, active = int(q_aut), int(q35), int(q90), int(active)
+
+        # живые модели покрываются обычным циклом (и ЗК-016)
+        if q35 >= 5:
+            continue
+
+        # осенняя цена: не считаем спросом то, что слили на ликвидации осенью
+        aut_disc = 0
+        if sale_price and realized_aut and float(sale_price) > 0:
+            aut_disc = max(0, round(100 * (float(sale_price) - float(realized_aut)) / float(sale_price)))
+        cur_disc = 0
+        if sale_price and new_price and 0 < new_price < sale_price:
+            cur_disc = round(100 * (float(sale_price) - float(new_price)) / float(sale_price))
+        if max(aut_disc, cur_disc) >= DISCOUNT_EXCLUDE:
+            excluded.append(dict(article=article, model=model, q_aut=q_aut,
+                                 discount=max(aut_disc, cur_disc)))
+            continue
+
+        # темп осени-2025, очищенный от сезона, возвратов, с поправкой на моду
+        base_aut = q_aut / autumn_weeks / aut_coef_25 * returns_coef * yoy
+        target_inventory = base_aut * cover_cw
+
+        # сколько стока доживёт до сентября (текущий темп съест часть за июл-авг)
+        cur_base = (q90 / (90 / 7.0)) / obs90 * returns_coef if q90 else 0
+        depletion = cur_base * coef_weeks(today, (arrival - today).days / 7)
+        stock_sep = max(0, active - round(depletion))
+        coming = incoming.get(article, 0)
+
+        order_raw = target_inventory - stock_sep - coming
+        if order_raw < 6:
+            continue
+
+        cap = 36 if q_aut >= 40 else 24
+        if aut_disc >= DISCOUNT_FLAG:
+            cap = min(cap, 12)
+        order_total = round6(min(order_raw, cap))
+        if order_total == 0:
+            continue
+
+        size_stock, size_sold, size_msk, size_tsum, size_aru, size_wh, known = \
+            size_details(con, snap, article)
+        gender = detect_gender(known)
+        size_qty = distribute_sizes(target_inventory, order_total, size_stock, coming, gender,
+                                    known_sizes=known)
+        if not size_qty:
+            continue
+        pairs = sum(size_qty.values())
+
+        buy_price = float(buy_price or 0)
+        shelf = float(new_price) if (new_price and float(new_price) > 0) else float(sale_price or 0)
+        realized = float(realized_aut) if realized_aut else shelf
+        margin = round((realized - buy_price) / realized * 100, 1) if realized > 0 and buy_price > 0 else 0
+
+        display = f"🍂 {model or article} — ОСЕНЬЮ-25: {q_aut} шт"
+        if aut_disc >= DISCOUNT_FLAG:
+            display += f" (⚠️ продавался со скидкой ~−{aut_disc}%)"
+
+        items.append({
+            'article': article, 'model': display, 'photo_url': '',
+            'order_mode': 'sizes', 'size_qty': size_qty, 'size_sold': size_sold,
+            'size_stock': size_stock, 'size_msk': size_msk, 'size_tsum': size_tsum,
+            'size_aru': size_aru, 'size_wh': size_wh,
+            'pairs': pairs, 'zone': 'critical' if active == 0 else 'soon',
+            'sold': q_aut, 'sold_period': 'осень25',
+            'weekly_rate': round(q_aut / autumn_weeks, 1),
+            'adj_rate': round(base_aut * cover_cw / autumn_weeks, 1),
+            'stock': active, 'in_transit': coming, 'transit_detail': [],
+            'wos': round(stock_sep / (base_aut * cover_cw / autumn_weeks), 1) if base_aut > 0 else 0,
+            'w1': 0, 'discount_pct': cur_disc, 'hist_discount_pct': aut_disc,
+            'margin': margin, 'price': round(shelf), 'realized_price': round(realized),
+            'cogs': round(buy_price), 'buy_price': round(buy_price),
+            'moscow': int(msk), 'tsum_online': int(tsum_onl),
+            'aruzhan': int(aru), 'warehouse': int(wh),
+        })
+
+    items.sort(key=lambda x: -x['sold'])
+    total_pairs = sum(i['pairs'] for i in items)
+    total_sum = sum(i['pairs'] * i['buy_price'] for i in items)
+    print(f"\n{'='*64}")
+    print(f"🍂 ОСЕННИЙ ПЛАН: {len(items)} моделей, {total_pairs} пар, {total_sum:,.0f} ₸ закуп")
+    print(f"Исключено (осенью продавались на ликвидации ≥{DISCOUNT_EXCLUDE}%): {len(excluded)}")
+    for e in excluded[:10]:
+        print(f"   {e['article']} {e['model'][:45]:45} −{e['discount']}%, осень {e['q_aut']} шт")
+
+    meta_out = {
+        "date": today.strftime("%d.%m.%Y"),
+        "generator": "generate_order.py --autumn v1",
+        "snap": snap, "order_mode": "sizes",
+        "arrival_target": arrival.isoformat(),
+        "send_to_supplier": "~начало августа 2026 (лид-тайм 3 нед)",
+        "season_note": f"окно сен-ноя 2026, коэфф {cover_cw/autumn_weeks:.2f}, YoY {yoy}",
+        "returns_coef": returns_coef,
+        "excluded_liquidation": excluded,
+        "transit_orders": [], "transit_pairs": sum(incoming.values()),
+    }
+
+    if args.dry_run:
+        out = Path(__file__).parent / f"autumn_dryrun_{today.isoformat()}.json"
+        out.write_text(json.dumps({"items": items, "meta": meta_out}, ensure_ascii=False, indent=1))
+        print(f"\n[dry-run] JSON: {out}\n\nТоп-20 осенних:")
+        for it in items[:20]:
+            print(f"  осень25={it['sold']:3} {it['article']} {it['model'][:52]:52} "
+                  f"заказ {it['pairs']:3} пар (сток {it['stock']}, едет {it['in_transit']})")
+        return
+
+    if not args.no_photos:
+        print("\nФото...")
+        attach_photos(items)
+    oid = upload(items, meta_out, oid="ОСЕНЬ-2026")
+    print(f"\n{'='*64}\nОсенний план создан: {oid}")
+    print(f"Просмотр/правки:  {SITE_URL}/?id={oid}&role=buyer")
+    print(f"Поставщику (в августе): {SITE_URL}/?id={oid}&role=supplier")
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -615,10 +843,21 @@ def main():
     ap.add_argument("--min-sold35", type=int, default=5)
     ap.add_argument("--dry-run", action="store_true", help="не создавать заказ, JSON в файл")
     ap.add_argument("--no-photos", action="store_true")
+    ap.add_argument("--autumn", action="store_true",
+                    help="осенний план-заказ (сен-ноя): хиты осени-2025, тихие сейчас")
+    ap.add_argument("--yoy", type=float, default=0.7,
+                    help="поправка год-к-году для осеннего темпа (мода выдыхается)")
+    ap.add_argument("--min-autumn", type=int, default=12,
+                    help="мин. продаж за осень-2025 для осеннего плана")
     args = ap.parse_args()
 
     import duckdb
     con = duckdb.connect(str(DB_PATH), read_only=True)
+
+    if args.autumn:
+        generate_autumn(con, args)
+        con.close()
+        return
 
     rows, meta = load_data(con, args.weeks, args.lead_weeks, args.min_sold35)
     print(f"Снапшот: {meta['snap']} | Цены: {meta['price_snap']}")
