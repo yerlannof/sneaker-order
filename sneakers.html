@@ -470,31 +470,35 @@ const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABA
 // === DATA ===
 let ALL_ITEMS = [];
 
-// Теги сезонности (compound-система): {article: season}. Хранятся в Supabase model_tags.
-let seasonTags = {};
-const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Лето'],['demi','🌗 Деми'],
-                     ['autumn','🍂 Осень'],['winter','❄️ Мех'],['allseason','💎 Всесез']];
+// Теги моделей (compound-система, Supabase model_tags): сезон + пол.
+// Знание копится: сколько бы раз дашборд ни пересобирался, теги живут в облаке.
+let seasonTags = {};   // {article: season}
+let genderTags = {};   // {article: gender}
+const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Сетка'],['demi','🌗 Деми'],
+                     ['trek','🥾 Трек/GTX'],['autumn','🍂 Осень'],['winter','❄️ Мех'],
+                     ['allseason','💎 Всесез']];
+const GENDER_TAGS = [['men','👨 Муж'],['women','👩 Жен'],['unisex','🚻 Уни']];
 
-async function setSeasonTag(art, season) {
-  const cur = seasonTags[art] || '';
+async function setModelTag(art, field, value) {
+  const store = field === 'season' ? seasonTags : genderTags;
+  const newVal = (store[art] === value) ? null : value;  // повторный тап = снять
   try {
-    if (cur === season) {
-      // повторный тап = снять тег
-      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art),
-        {method: 'DELETE', headers: SB_HEADERS});
-      if (!r.ok) throw new Error(r.status);
-      delete seasonTags[art];
-      toast('Тег снят: ' + art);
-    } else {
-      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags', {
-        method: 'POST',
-        headers: {...SB_HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal'},
-        body: JSON.stringify({article: art, season: season, updated_at: new Date().toISOString()})
+    let r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art), {
+      method: 'PATCH',
+      headers: {...SB_HEADERS, 'Prefer': 'return=representation'},
+      body: JSON.stringify({[field]: newVal, updated_at: new Date().toISOString()})
+    });
+    if (!r.ok) throw new Error(r.status);
+    const rows = await r.json();
+    if (rows.length === 0 && newVal !== null) {
+      r = await fetch(SUPABASE_URL + '/rest/v1/model_tags', {
+        method: 'POST', headers: {...SB_HEADERS, 'Prefer': 'return=minimal'},
+        body: JSON.stringify({article: art, [field]: newVal})
       });
       if (!r.ok) throw new Error(r.status);
-      seasonTags[art] = season;
-      toast('✓ ' + art + ': тег сохранён');
     }
+    if (newVal === null) delete store[art]; else store[art] = newVal;
+    toast(newVal === null ? 'Тег снят' : '✓ сохранено');
     applyFilters();
   } catch(e) {
     toast('⚠️ Не сохранилось (' + e.message + ') — проверь интернет');
@@ -503,10 +507,13 @@ async function setSeasonTag(art, season) {
 
 async function loadSeasonTags() {
   try {
-    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season&limit=10000',
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender&limit=10000',
       {headers: SB_HEADERS});
     if (r.ok) {
-      (await r.json()).forEach(t => seasonTags[t.article] = t.season);
+      (await r.json()).forEach(t => {
+        if (t.season) seasonTags[t.article] = t.season;
+        if (t.gender) genderTags[t.article] = t.gender;
+      });
       applyFilters();
     }
   } catch(e) {}
@@ -854,7 +861,13 @@ function renderItem(item, idx) {
       <div class="discount-row season-row" style="margin-top:6px;background:#f8fafc">
         <label>Сезон</label>
         <div class="disc-btns">
-          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setSeasonTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','${v}')">${l}</button>`).join('')}
+          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','season','${v}')">${l}</button>`).join('')}
+        </div>
+      </div>
+      <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
+        <label>Пол</label>
+        <div class="disc-btns">
+          ${GENDER_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(genderTags[itemKey]||item.gender_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','gender','${v}')">${l}</button>`).join('')}
         </div>
       </div>
       ${item.category === 'COOLING_REORDER' ? `

@@ -144,9 +144,10 @@ def categorize(item: dict) -> tuple[str, str]:
         return (cat, f'💎 Всесезонная (тег). {reason}')
 
     if cat in ('DEAD', 'SLOW', 'COOLING_SALE'):
-        # Тег осень/зима/деми — сезон впереди, не уценять летом
-        if tag in ('autumn', 'winter', 'demi'):
-            tl = {'autumn': '🍂 Осень-Зима', 'winter': '❄️ Зима', 'demi': '🌗 Демисезон'}[tag]
+        # Тег осень/зима/деми/трек — сезон впереди, не уценять летом
+        if tag in ('autumn', 'winter', 'demi', 'trek'):
+            tl = {'autumn': '🍂 Осень-Зима', 'winter': '❄️ Зима', 'demi': '🌗 Демисезон',
+                  'trek': '🥾 Треккинг/GTX'}[tag]
             return ('HOLD_AUTUMN', f'{tl} (тег) — сезон впереди, ЖДАТЬ, не уценять. (Было бы: {reason})')
         autumn_q = item.get('autumn_q', 0)
         s30 = item['sales']['s30']
@@ -325,7 +326,7 @@ def main():
     print(f"Снапшот: {snap} | Цены: {prices}")
     reorder_arts = fetch_reorder_articles()
     print(f"В свежем заказе (не уценять): {len(reorder_arts)} артикулов")
-    season_tags = get_model_tags()
+    season_tags, gender_tags = get_model_tags()
 
     print("\n1. Запрос кроссовок (200000-209999) с остатком...")
     rows = con.execute(f"""
@@ -512,6 +513,7 @@ def main():
         item['autumn_q'] = int(autumn_q or 0)
         item['in_reorder'] = item['article'] in reorder_arts
         item['season_tag'] = season_tags.get(item['article'], '')
+        item['gender_tag'] = gender_tags.get(item['article'], '')
         cat, reason = categorize(item)
         item['category'] = cat
         item['reason'] = reason
@@ -749,7 +751,13 @@ function renderItem(item, idx) {
       <div class="discount-row season-row" style="margin-top:6px;background:#f8fafc">
         <label>Сезон</label>
         <div class="disc-btns">
-          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setSeasonTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','${v}')">${l}</button>`).join('')}
+          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','season','${v}')">${l}</button>`).join('')}
+        </div>
+      </div>
+      <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
+        <label>Пол</label>
+        <div class="disc-btns">
+          ${GENDER_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(genderTags[itemKey]||item.gender_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','gender','${v}')">${l}</button>`).join('')}
         </div>
       </div>
       ${item.category === 'COOLING_REORDER' ? `
@@ -786,8 +794,8 @@ CAT_CONFIG = {
 }
 
 
-def get_model_tags() -> dict:
-    """Теги сезонности из Supabase model_tags → {article: season}.
+def get_model_tags() -> tuple[dict, dict]:
+    """Теги из Supabase model_tags → ({article: season}, {article: gender}).
     Compound-система: Алуа/Ерлан проставляют теги в дашборде, они копятся."""
     try:
         import requests
@@ -795,15 +803,17 @@ def get_model_tags() -> dict:
         load_dotenv(PROJECT_ROOT / '.env')
         url = os.getenv('SUPABASE_URL'); key = os.getenv('SUPABASE_KEY')
         if not url or not key:
-            return {}
-        r = requests.get(f"{url}/rest/v1/model_tags?select=article,season&limit=10000",
+            return {}, {}
+        r = requests.get(f"{url}/rest/v1/model_tags?select=article,season,gender&limit=10000",
                          headers={'apikey': key, 'Authorization': f'Bearer {key}'}, timeout=15)
-        tags = {str(t['article']): t['season'] for t in (r.json() if r.ok else [])}
-        print(f"   Тегов сезонности из Supabase: {len(tags)}")
-        return tags
+        rows = r.json() if r.ok else []
+        seasons = {str(t['article']): t['season'] for t in rows if t.get('season')}
+        genders = {str(t['article']): t['gender'] for t in rows if t.get('gender')}
+        print(f"   Тегов из Supabase: сезон {len(seasons)}, пол {len(genders)}")
+        return seasons, genders
     except Exception as e:
         print(f"   ⚠️ Теги не загружены: {e}")
-        return {}
+        return {}, {}
 
 
 def get_preset_discounts() -> dict:
@@ -959,31 +969,35 @@ if (_restored > 0) {
     new_data_block = '''// === DATA ===
 let ALL_ITEMS = [];
 
-// Теги сезонности (compound-система): {article: season}. Хранятся в Supabase model_tags.
-let seasonTags = {};
-const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Лето'],['demi','🌗 Деми'],
-                     ['autumn','🍂 Осень'],['winter','❄️ Мех'],['allseason','💎 Всесез']];
+// Теги моделей (compound-система, Supabase model_tags): сезон + пол.
+// Знание копится: сколько бы раз дашборд ни пересобирался, теги живут в облаке.
+let seasonTags = {};   // {article: season}
+let genderTags = {};   // {article: gender}
+const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Сетка'],['demi','🌗 Деми'],
+                     ['trek','🥾 Трек/GTX'],['autumn','🍂 Осень'],['winter','❄️ Мех'],
+                     ['allseason','💎 Всесез']];
+const GENDER_TAGS = [['men','👨 Муж'],['women','👩 Жен'],['unisex','🚻 Уни']];
 
-async function setSeasonTag(art, season) {
-  const cur = seasonTags[art] || '';
+async function setModelTag(art, field, value) {
+  const store = field === 'season' ? seasonTags : genderTags;
+  const newVal = (store[art] === value) ? null : value;  // повторный тап = снять
   try {
-    if (cur === season) {
-      // повторный тап = снять тег
-      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art),
-        {method: 'DELETE', headers: SB_HEADERS});
-      if (!r.ok) throw new Error(r.status);
-      delete seasonTags[art];
-      toast('Тег снят: ' + art);
-    } else {
-      const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags', {
-        method: 'POST',
-        headers: {...SB_HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal'},
-        body: JSON.stringify({article: art, season: season, updated_at: new Date().toISOString()})
+    let r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art), {
+      method: 'PATCH',
+      headers: {...SB_HEADERS, 'Prefer': 'return=representation'},
+      body: JSON.stringify({[field]: newVal, updated_at: new Date().toISOString()})
+    });
+    if (!r.ok) throw new Error(r.status);
+    const rows = await r.json();
+    if (rows.length === 0 && newVal !== null) {
+      r = await fetch(SUPABASE_URL + '/rest/v1/model_tags', {
+        method: 'POST', headers: {...SB_HEADERS, 'Prefer': 'return=minimal'},
+        body: JSON.stringify({article: art, [field]: newVal})
       });
       if (!r.ok) throw new Error(r.status);
-      seasonTags[art] = season;
-      toast('✓ ' + art + ': тег сохранён');
     }
+    if (newVal === null) delete store[art]; else store[art] = newVal;
+    toast(newVal === null ? 'Тег снят' : '✓ сохранено');
     applyFilters();
   } catch(e) {
     toast('⚠️ Не сохранилось (' + e.message + ') — проверь интернет');
@@ -992,10 +1006,13 @@ async function setSeasonTag(art, season) {
 
 async function loadSeasonTags() {
   try {
-    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season&limit=10000',
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender&limit=10000',
       {headers: SB_HEADERS});
     if (r.ok) {
-      (await r.json()).forEach(t => seasonTags[t.article] = t.season);
+      (await r.json()).forEach(t => {
+        if (t.season) seasonTags[t.article] = t.season;
+        if (t.gender) genderTags[t.article] = t.gender;
+      });
       applyFilters();
     }
   } catch(e) {}
