@@ -475,13 +475,16 @@ let ALL_ITEMS = [];
 // Знание копится: сколько бы раз дашборд ни пересобирался, теги живут в облаке.
 let seasonTags = {};   // {article: season}
 let genderTags = {};   // {article: gender}
+let purposeTags = {};  // {article: purpose}
 const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Сетка'],['demi','🌗 Деми'],
                      ['trek','🥾 Трек/GTX'],['autumn','🍂 Осень'],['winter','❄️ Мех'],
                      ['allseason','💎 Всесез']];
 const GENDER_TAGS = [['men','👨 Муж'],['women','👩 Жен'],['unisex','🚻 Уни']];
+const PURPOSE_TAGS = [['sport','🏃 Спорт'],['casual','👟 Кэжуал'],['outdoor','🥾 Аутдор']];
+const TAG_STORES = () => ({season: seasonTags, gender: genderTags, purpose: purposeTags});
 
 async function setModelTag(art, field, value) {
-  const store = field === 'season' ? seasonTags : genderTags;
+  const store = TAG_STORES()[field];
   const newVal = (store[art] === value) ? null : value;  // повторный тап = снять
   try {
     let r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art), {
@@ -508,12 +511,13 @@ async function setModelTag(art, field, value) {
 
 async function loadSeasonTags() {
   try {
-    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender&limit=10000',
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender,purpose&limit=10000',
       {headers: SB_HEADERS});
     if (r.ok) {
       (await r.json()).forEach(t => {
         if (t.season) seasonTags[t.article] = t.season;
         if (t.gender) genderTags[t.article] = t.gender;
+        if (t.purpose) purposeTags[t.article] = t.purpose;
       });
       applyFilters();
     }
@@ -916,6 +920,12 @@ function renderItem(item, idx) {
         <label>Пол</label>
         <div class="disc-btns">
           ${GENDER_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(genderTags[itemKey]||item.gender_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','gender','${v}')">${l}</button>`).join('')}
+        </div>
+      </div>
+      <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
+        <label>Тип</label>
+        <div class="disc-btns">
+          ${PURPOSE_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(purposeTags[itemKey]||item.purpose_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','purpose','${v}')">${l}</button>`).join('')}
         </div>
       </div>
       ${item.category === 'COOLING_REORDER' ? `

@@ -89,6 +89,32 @@ def coef_weeks(start, weeks):
     return sum(SEASON[(start + timedelta(days=i)).month] for i in range(days)) / 7.0
 
 
+# ---------------------------------------------------------------- теги моделей
+
+# Конец сезона для летних тегов (Алматы): лёгкая сетка умирает к середине сентября,
+# сланцы — к концу августа. Окно продаж заказа обрезается этой датой.
+SUMMER_END = date(2026, 9, 15)
+SLIDES_END = date(2026, 8, 31)
+
+
+def fetch_model_tags():
+    """Теги из Supabase model_tags → (сезон, пол, назначение) по артикулам.
+    Ручное знание Алуа/Ерлана — ГЛАВНЕЕ эвристик генератора."""
+    url, key = env('SUPABASE_URL'), env('SUPABASE_KEY')
+    if not url or not key:
+        return {}, {}
+    try:
+        r = requests.get(f"{url}/rest/v1/model_tags?select=article,season,gender,purpose&limit=10000",
+                         headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=15)
+        rows = r.json() if r.ok else []
+        return ({str(t['article']): t['season'] for t in rows if t.get('season')},
+                {str(t['article']): t['gender'] for t in rows if t.get('gender')},
+                {str(t['article']): t['purpose'] for t in rows if t.get('purpose')})
+    except Exception as e:
+        print(f"⚠️  Теги не загружены: {e}")
+        return {}, {}, {}
+
+
 # ---------------------------------------------------------------- транзит
 
 def fetch_transit(max_age_weeks=TRANSIT_MAX_AGE_WEEKS):
@@ -369,8 +395,12 @@ def round6(n):
 
 # ---------------------------------------------------------------- сборка
 
-def build_items(con, rows, meta, transit, transit_detail):
+def build_items(con, rows, meta, transit, transit_detail,
+                tag_seasons=None, tag_genders=None, tag_purposes=None):
     today = meta['today']
+    tag_seasons = tag_seasons or {}
+    tag_genders = tag_genders or {}
+    tag_purposes = tag_purposes or {}
     items, liquidation, skipped_ok = [], [], 0
 
     for r in rows:
@@ -414,8 +444,27 @@ def build_items(con, rows, meta, transit, transit_detail):
         base_rate = obs_rate / obs_coef * meta['returns_coef']  # чистый «майский» темп
         adj_rate = base_rate * meta['cover_avg']                # ожидаемый темп в окне продаж
 
+        # --- ТЕГ СЕЗОННОСТИ (ручное знание): летним обрезаем окно продаж.
+        # Лето+Спорт: после сезона спрос НЕ умирает (зал зимой) — хвост окна ×0.4.
+        season_tag = tag_seasons.get(article, '')
+        purpose_tag = tag_purposes.get(article, '')
+        cover_cw_item = meta['cover_cw']
+        season_note = ''
+        if season_tag in ('summer', 'slides'):
+            end = SLIDES_END if season_tag == 'slides' else SUMMER_END
+            weeks_in = max(0.0, min(meta['weeks'], (end - meta['arrival']).days / 7))
+            weeks_after = meta['weeks'] - weeks_in
+            in_season_cw = coef_weeks(meta['arrival'], weeks_in)
+            if purpose_tag == 'sport' and weeks_after > 0:
+                after_cw = coef_weeks(end, weeks_after) * 0.4
+                cover_cw_item = in_season_cw + after_cw
+                season_note = f" ☀️🏃 сезон до {end.strftime('%d.%m')}, но спорт — зимой зал (хвост ×0.4)"
+            else:
+                cover_cw_item = in_season_cw
+                season_note = f" ☀️ сезон до {end.strftime('%d.%m')} — заказ урезан"
+
         # --- потребность с лид-таймом и сезонностью окна продаж
-        target_inventory = base_rate * (meta['lead_cw'] + meta['cover_cw'])
+        target_inventory = base_rate * (meta['lead_cw'] + cover_cw_item)
         order_raw = target_inventory - active - in_transit
         if order_raw < 4:
             skipped_ok += 1
@@ -434,6 +483,10 @@ def build_items(con, rows, meta, transit, transit_detail):
             cap = min(cap, 24)          # риск: модель могла «умереть» — пробуем скромно
         if eff_discount >= DISCOUNT_FLAG:
             cap = min(cap, 18)          # спрос по полной цене не доказан — скромнее
+        if season_tag == 'slides':
+            cap = min(cap, 18)          # сланцам сезон вот-вот конец
+        elif season_tag == 'summer':
+            cap = min(cap, 24)          # летним хвост после сезона не нужен
         if int(w1) <= 2 and q180 < 15:
             cap = min(cap, 12)          # непроверенная слабая модель — пробник
         order_total = round6(min(order_raw, cap))
@@ -441,10 +494,11 @@ def build_items(con, rows, meta, transit, transit_detail):
             skipped_ok += 1
             continue
 
-        # --- размеры
+        # --- размеры (пол из ТЕГА главнее эвристики по сетке)
         size_stock, size_sold, size_msk, size_tsum, size_aru, size_wh, known = \
             size_details(con, meta['snap'], article)
-        gender = detect_gender(known)
+        gender = {'men': 'М', 'women': 'Ж', 'unisex': 'У'}.get(
+            tag_genders.get(article, ''), None) or detect_gender(known)
         size_qty = distribute_sizes(target_inventory, order_total, size_stock,
                                     in_transit, gender, known_sizes=known)
         if not size_qty:
@@ -469,6 +523,8 @@ def build_items(con, rows, meta, transit, transit_detail):
             display = f"⚠️ {display} — СКИДКА −{discount_pct}% (скорость искусственная!)"
         elif hist_discount_pct >= DISCOUNT_FLAG:
             display = f"⚠️ {display} — ПРОДАВАЛСЯ со скидкой ~−{hist_discount_pct}%"
+        if season_note:
+            display = f"{display}{season_note}"
 
         items.append({
             'article': article,
@@ -871,7 +927,13 @@ def main():
     print(f"Транзит (заказы < {TRANSIT_MAX_AGE_WEEKS} нед): "
           f"{transit_ids or 'нет'} — {sum(transit.values())} пар")
 
-    items, liquidation, skipped = build_items(con, rows, meta, transit, transit_detail)
+    tag_seasons, tag_genders, tag_purposes = fetch_model_tags()
+    print(f"Теги моделей: сезон {len(tag_seasons)}, пол {len(tag_genders)}, "
+          f"назначение {len(tag_purposes)} (лето/сланцы → окно урезано, "
+          f"лето+спорт → хвост ×0.4, пол → размерная сетка)")
+
+    items, liquidation, skipped = build_items(con, rows, meta, transit, transit_detail,
+                                              tag_seasons, tag_genders, tag_purposes)
     con.close()
 
     total_pairs = sum(i['pairs'] for i in items)

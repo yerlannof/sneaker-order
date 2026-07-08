@@ -182,8 +182,12 @@ def categorize(item: dict) -> tuple[str, str]:
     if tag == 'slides' or (not tag and is_slide_item(item['name'])):
         return ('SLIDES', f'🩴 Сланцы — сейл −20%, лето уходит.{zk_warn()}')
 
-    # Тег ЛЕТО — сейлить сейчас (сезон уходит), даже если модель ещё продаётся
+    # Тег ЛЕТО — сейлить сейчас (сезон уходит), даже если модель ещё продаётся.
+    # НО Лето+Спорт: зимой берут в зал — спрос не умирает, скидка мягче.
     if tag == 'summer' and cat != 'UNPROFITABLE':
+        if item.get('purpose_tag') == 'sport':
+            return ('SUMMER_CLEAR', f'☀️🏃 ЛЕТНЯЯ+СПОРТ — сезон уходит, но зимой берут в зал: '
+                                    f'скидка МЯГЧЕ (−10-15%), не сливать.{zk_warn()} (Было бы: {reason})')
         return ('SUMMER_CLEAR', f'☀️ ЛЕТНЯЯ (тег) — сезон уходит, уценять сейчас.{zk_warn()} (Было бы: {reason})')
 
     if cat != 'UNPROFITABLE' and item.get('in_reorder'):
@@ -376,7 +380,7 @@ def main():
     print(f"Снапшот: {snap} | Цены: {prices}")
     reorder_arts = fetch_reorder_articles()
     print(f"В свежем заказе (не уценять): {len(reorder_arts)} артикулов")
-    season_tags, gender_tags = get_model_tags()
+    season_tags, gender_tags, purpose_tags = get_model_tags()
 
     print("\n1. Запрос кроссовок (200000-209999) с остатком...")
     rows = con.execute(f"""
@@ -576,6 +580,7 @@ def main():
         item['in_reorder'] = item['article'] in reorder_arts
         item['season_tag'] = season_tags.get(item['article'], '')
         item['gender_tag'] = gender_tags.get(item['article'], '')
+        item['purpose_tag'] = purpose_tags.get(item['article'], '')
 
         # === Метрики решений (07.07.2026) ===
         # Будущий темп: текущий 30д-темп, очищенный от сезона и спроецированный
@@ -653,8 +658,11 @@ def main():
             # дозаказан / ждёт осени → скидку не предлагать
             it['suggested_discount'] = 0
         elif cat == 'SUMMER_CLEAR':
-            # летний уходящий — агрессивнее обычного
-            it['suggested_discount'] = max(it.get('suggested_discount', 0) or 0, 30)
+            # летний уходящий — агрессивнее обычного; Лето+Спорт — мягче (зал зимой)
+            if it.get('purpose_tag') == 'sport':
+                it['suggested_discount'] = 15
+            else:
+                it['suggested_discount'] = max(it.get('suggested_discount', 0) or 0, 30)
         elif cat == 'SLIDES':
             # решение Ерлана: все сланцы −20% заранее
             it['suggested_discount'] = 20
@@ -894,6 +902,12 @@ function renderItem(item, idx) {
           ${GENDER_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(genderTags[itemKey]||item.gender_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','gender','${v}')">${l}</button>`).join('')}
         </div>
       </div>
+      <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
+        <label>Тип</label>
+        <div class="disc-btns">
+          ${PURPOSE_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(purposeTags[itemKey]||item.purpose_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','purpose','${v}')">${l}</button>`).join('')}
+        </div>
+      </div>
       ${item.category === 'COOLING_REORDER' ? `
       <div class="discount-row" style="background:#f0f9ff;border:1px dashed #0ea5e9;margin-top:6px">
         <label style="color:#075985">🔵 ДОЗАКАЗ</label>
@@ -928,8 +942,8 @@ CAT_CONFIG = {
 }
 
 
-def get_model_tags() -> tuple[dict, dict]:
-    """Теги из Supabase model_tags → ({article: season}, {article: gender}).
+def get_model_tags() -> tuple[dict, dict, dict]:
+    """Теги из Supabase model_tags → (сезон, пол, назначение) по артикулам.
     Compound-система: Алуа/Ерлан проставляют теги в дашборде, они копятся."""
     try:
         import requests
@@ -937,17 +951,18 @@ def get_model_tags() -> tuple[dict, dict]:
         load_dotenv(PROJECT_ROOT / '.env')
         url = os.getenv('SUPABASE_URL'); key = os.getenv('SUPABASE_KEY')
         if not url or not key:
-            return {}, {}
-        r = requests.get(f"{url}/rest/v1/model_tags?select=article,season,gender&limit=10000",
+            return {}, {}, {}
+        r = requests.get(f"{url}/rest/v1/model_tags?select=article,season,gender,purpose&limit=10000",
                          headers={'apikey': key, 'Authorization': f'Bearer {key}'}, timeout=15)
         rows = r.json() if r.ok else []
         seasons = {str(t['article']): t['season'] for t in rows if t.get('season')}
         genders = {str(t['article']): t['gender'] for t in rows if t.get('gender')}
-        print(f"   Тегов из Supabase: сезон {len(seasons)}, пол {len(genders)}")
-        return seasons, genders
+        purposes = {str(t['article']): t['purpose'] for t in rows if t.get('purpose')}
+        print(f"   Тегов из Supabase: сезон {len(seasons)}, пол {len(genders)}, назначение {len(purposes)}")
+        return seasons, genders, purposes
     except Exception as e:
         print(f"   ⚠️ Теги не загружены: {e}")
-        return {}, {}
+        return {}, {}, {}
 
 
 def get_preset_discounts() -> dict:
@@ -1107,13 +1122,16 @@ let ALL_ITEMS = [];
 // Знание копится: сколько бы раз дашборд ни пересобирался, теги живут в облаке.
 let seasonTags = {};   // {article: season}
 let genderTags = {};   // {article: gender}
+let purposeTags = {};  // {article: purpose}
 const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Сетка'],['demi','🌗 Деми'],
                      ['trek','🥾 Трек/GTX'],['autumn','🍂 Осень'],['winter','❄️ Мех'],
                      ['allseason','💎 Всесез']];
 const GENDER_TAGS = [['men','👨 Муж'],['women','👩 Жен'],['unisex','🚻 Уни']];
+const PURPOSE_TAGS = [['sport','🏃 Спорт'],['casual','👟 Кэжуал'],['outdoor','🥾 Аутдор']];
+const TAG_STORES = () => ({season: seasonTags, gender: genderTags, purpose: purposeTags});
 
 async function setModelTag(art, field, value) {
-  const store = field === 'season' ? seasonTags : genderTags;
+  const store = TAG_STORES()[field];
   const newVal = (store[art] === value) ? null : value;  // повторный тап = снять
   try {
     let r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art), {
@@ -1140,12 +1158,13 @@ async function setModelTag(art, field, value) {
 
 async function loadSeasonTags() {
   try {
-    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender&limit=10000',
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender,purpose&limit=10000',
       {headers: SB_HEADERS});
     if (r.ok) {
       (await r.json()).forEach(t => {
         if (t.season) seasonTags[t.article] = t.season;
         if (t.gender) genderTags[t.article] = t.gender;
+        if (t.purpose) purposeTags[t.article] = t.purpose;
       });
       applyFilters();
     }

@@ -326,13 +326,15 @@ const SB_HEADERS = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABA
 // === Теги моделей (compound, Supabase model_tags): сезон + пол. Копятся навсегда. ===
 let seasonTags = {};
 let genderTags = {};
+let purposeTags = {};
 const SEASON_TAGS = [['slides','🩴'],['summer','☀️ Сетка'],['demi','🌗 Деми'],
                      ['trek','🥾 Трек'],['autumn','🍂 Осень'],['winter','❄️ Мех'],
                      ['allseason','💎 Всесез']];
 const GENDER_TAGS = [['men','👨 Муж'],['women','👩 Жен'],['unisex','🚻 Уни']];
+const PURPOSE_TAGS = [['sport','🏃 Спорт'],['casual','👟 Кэжуал'],['outdoor','🥾 Аутдор']];
 
 async function setModelTag(art, field, value) {
-  const store = field === 'season' ? seasonTags : genderTags;
+  const store = {season: seasonTags, gender: genderTags, purpose: purposeTags}[field];
   const newVal = (store[art] === value) ? null : value;
   try {
     let r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?article=eq.' + encodeURIComponent(art), {
@@ -357,12 +359,13 @@ async function setModelTag(art, field, value) {
 
 async function loadModelTags() {
   try {
-    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender&limit=10000',
+    const r = await fetch(SUPABASE_URL + '/rest/v1/model_tags?select=article,season,gender,purpose&limit=10000',
       {headers: SB_HEADERS});
     if (r.ok) {
       (await r.json()).forEach(t => {
         if (t.season) seasonTags[t.article] = t.season;
         if (t.gender) genderTags[t.article] = t.gender;
+        if (t.purpose) purposeTags[t.article] = t.purpose;
       });
       render();
     }
@@ -381,6 +384,10 @@ function tagRowsHtml(art) {
   <div class="item-analytics" style="flex-wrap:wrap">
     <span style="font-size:10px;color:#0891b2;font-weight:700">ПОЛ:</span>
     ${GENDER_TAGS.map(([v,l]) => btn('gender', v, l, genderTags[art] || '')).join('')}
+  </div>
+  <div class="item-analytics" style="flex-wrap:wrap">
+    <span style="font-size:10px;color:#0891b2;font-weight:700">ТИП:</span>
+    ${PURPOSE_TAGS.map(([v,l]) => btn('purpose', v, l, purposeTags[art] || '')).join('')}
   </div>`;
 }
 async function sbSelect(table, filters) {
