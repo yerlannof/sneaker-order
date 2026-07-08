@@ -1290,6 +1290,7 @@ async function loadData() {
                  'COOLING_SALE', 'SLOW', 'HOLD_AUTUMN', 'REORDERED', 'NEW', 'HOT',
                  'NORMAL', 'INTENTIONAL']
     cat_emoji_count.append('<button class="filter-btn active" onclick="setFilter(\'all\')">Все</button>')
+    cat_emoji_count.append('<button class="filter-btn" onclick="setFilter(\'untagged\')" style="border-color:#0891b2;color:#0891b2">🏷 Без тега</button>')
     for c in cat_order:
         if c in cat_count:
             label = CAT_CONFIG[c]['label']
@@ -1323,7 +1324,14 @@ function applyFilters() {
 
   let filtered = ALL_ITEMS.filter(item => {
     if (currentFilter !== 'all') {
-      if (currentFilter.startsWith('cat:')) {
+      if (currentFilter === 'untagged') {
+        const k = item.article || item.name;
+        const hasSeason = seasonTags[k] || item.season_tag;
+        const hasGender = genderTags[k] || item.gender_tag;
+        // «мусорные» категории тегать не обязательно
+        if (item.category === 'INTENTIONAL') return false;
+        if (hasSeason && hasGender) return false;
+      } else if (currentFilter.startsWith('cat:')) {
         if (item.category !== currentFilter.slice(4)) return false;
       } else if (currentFilter.startsWith('brand:')) {
         if (item.brand !== currentFilter.slice(6)) return false;

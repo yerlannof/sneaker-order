@@ -412,17 +412,18 @@ body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--
 
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
+<button class="filter-btn" onclick="setFilter('untagged')" style="border-color:#0891b2;color:#0891b2">🏷 Без тега</button>
 <button class="filter-btn" onclick="setFilter('cat:SLIDES')">🩴 СЛАНЦЫ −20% (16)</button>
 <button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (53)</button>
 <button class="filter-btn" onclick="setFilter('cat:SUMMER_CLEAR')">☀️ ЛЕТНИЕ — СЕЙЛИТЬ (25)</button>
 <button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (25)</button>
-<button class="filter-btn" onclick="setFilter('cat:COOLING_REORDER')">🔵 ОСТЫВАЮТ → ДОЗАКАЗ (9)</button>
+<button class="filter-btn" onclick="setFilter('cat:COOLING_REORDER')">🔵 ОСТЫВАЮТ → ДОЗАКАЗ (8)</button>
 <button class="filter-btn" onclick="setFilter('cat:COOLING_SALE')">🟡 ОСТЫВАЮТ → СКИДКА (27)</button>
 <button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (48)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOLD_AUTUMN')">🍂 ЖДЁТ ОСЕНИ (48)</button>
-<button class="filter-btn" onclick="setFilter('cat:REORDERED')">📦 В ЗАКАЗЕ ЗК (42)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOLD_AUTUMN')">🍂 ЖДЁТ ОСЕНИ (49)</button>
+<button class="filter-btn" onclick="setFilter('cat:REORDERED')">📦 В ЗАКАЗЕ ЗК (41)</button>
 <button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (19)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (146)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (147)</button>
 <button class="filter-btn" onclick="setFilter('cat:INTENTIONAL')">⚫ NB/Asics/Puma (56)</button>
 <button class="filter-btn" onclick="setFilter('brand:Nike')">Nike (235)</button>
 <button class="filter-btn" onclick="setFilter('brand:Jordan')">Jordan (89)</button>
@@ -620,7 +621,14 @@ function applyFilters() {
 
   let filtered = ALL_ITEMS.filter(item => {
     if (currentFilter !== 'all') {
-      if (currentFilter.startsWith('cat:')) {
+      if (currentFilter === 'untagged') {
+        const k = item.article || item.name;
+        const hasSeason = seasonTags[k] || item.season_tag;
+        const hasGender = genderTags[k] || item.gender_tag;
+        // «мусорные» категории тегать не обязательно
+        if (item.category === 'INTENTIONAL') return false;
+        if (hasSeason && hasGender) return false;
+      } else if (currentFilter.startsWith('cat:')) {
         if (item.category !== currentFilter.slice(4)) return false;
       } else if (currentFilter.startsWith('brand:')) {
         if (item.brand !== currentFilter.slice(6)) return false;
