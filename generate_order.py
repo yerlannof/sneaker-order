@@ -917,6 +917,16 @@ def main():
 
     rows, meta = load_data(con, args.weeks, args.lead_weeks, args.min_sold35)
     print(f"Снапшот: {meta['snap']} | Цены: {meta['price_snap']}")
+
+    # Страховка: товар на ЗАКРЫТЫХ складах (Байтурсынова/Стрит/Апорт) невидим
+    # для этого генератора — если там что-то висит (staging приёмки забыли
+    # перекинуть), кричим, иначе дозаказ задвоится.
+    ghost = con.execute(f"""
+        SELECT CAST(SUM(baitursynova + astana_street + aport) AS INT) FROM {meta['snap']}
+        WHERE TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999""").fetchone()[0] or 0
+    if ghost > 5:
+        print(f"🚨 ВНИМАНИЕ: на закрытых складах висит {ghost} пар обуви — они НЕ учтены "
+              f"в остатках! Перекинь перемещением на активный склад и обнови снапшот.")
     print(f"Сегодня {meta['today']} (сезон {SEASON[meta['today'].month]}), "
           f"прибытие ~{meta['arrival']} | окно продаж {args.weeks} нед, "
           f"средний коэфф. окна {meta['cover_avg']:.2f}")
