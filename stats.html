@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Статистики постов — GAME OVER</title>
+<style>
+:root{
+  --surface:#1a1a19; --page:#0d0d0d;
+  --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#242423; --baseline:#383835; --border:rgba(255,255,255,.10);
+  --series:#3987e5; --ctx:#898781;
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b; --power:#9085e9;
+  --delta-good:#0ca30c; --delta-bad:#e66767;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.45;padding:16px;max-width:1180px;margin:0 auto}
+header h1{font-size:19px;font-weight:650}
+header .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+.grouph{margin:26px 0 4px}
+.grouph .role{font-size:14px;font-weight:650;color:var(--ink)}
+.grouph .vfp{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;margin-top:8px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 14px 10px;position:relative}
+.card .label{font-size:12.5px;color:var(--ink2);min-height:2.6em}
+.vrow{display:flex;align-items:baseline;gap:8px;margin-top:2px;flex-wrap:wrap}
+.value{font-size:26px;font-weight:600}
+.unit{font-size:12px;color:var(--muted)}
+.delta{font-size:12.5px}
+.delta.good{color:var(--delta-good)} .delta.bad{color:var(--delta-bad)} .delta.flat{color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;border-radius:999px;padding:2px 9px;border:1px solid;margin-top:8px}
+.action{font-size:12px;color:var(--ink2);margin-top:7px;min-height:2.2em}
+.stale{font-size:11px;color:var(--warn);margin-top:4px}
+.plot{position:relative;margin-top:8px}
+svg{display:block;width:100%;height:auto}
+.tip{position:absolute;pointer-events:none;background:#0d0d0dee;border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-size:12px;display:none;z-index:5;white-space:nowrap}
+.tip .v{font-weight:650;font-size:13px}
+.tip .w{color:var(--ink2)}
+.tip .k{display:inline-block;width:12px;height:0;border-top:2px solid var(--series);vertical-align:middle;margin-right:5px}
+details{margin-top:6px}
+summary{font-size:11.5px;color:var(--muted);cursor:pointer;user-select:none}
+table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}
+td,th{padding:2.5px 6px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+th{color:var(--muted);font-weight:500}
+td:first-child,th:first-child{text-align:left;color:var(--ink2)}
+footer{margin:30px 0 14px;color:var(--muted);font-size:12px;line-height:1.7}
+footer b{color:var(--ink2);font-weight:600}
+#err{background:#3a1717;border:1px solid var(--crit);border-radius:8px;padding:10px 14px;margin-top:14px;display:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>📊 Статистики постов</h1>
+  <div class="sub" id="subtitle">загрузка…</div>
+</header>
+<div id="err"></div>
+<main id="main"></main>
+<footer>
+  <b>Как читать.</b> Неделя закрывается в четверг 14:00. График — 12 недель (плюс 3 серые контекстные),
+  масштаб сетки — (max−min за 12 нед)/10. Состояние считается автоматом по тренду
+  (сглаживание 2 нед; вверх — на 1 состояние за шаг, вниз — сразу):
+  ⚫ Несуществование → 🔴 Опасность → 🟠 ЧП → 🟢 Норма → 💚 Изобилие → 🟣 Могущество.
+  Под состоянием — рекомендованное действие. Для «перевёрнутых» статистик (возвраты, висяки,
+  оборачиваемость) меньше = лучше, автомат это учитывает.
+</footer>
+<script>
+const SUPABASE_URL = 'https://pfnmrjbnvczymflvuvsc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmbm1yamJudmN6eW1mbHZ1dnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjIwNTIsImV4cCI6MjA4ODQ5ODA1Mn0.g91-jKE6_pmi8eI_f_IwMe1hs0DPMk1icafqqOYiKdY';
+const H = { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY };
+
+const STATES = [
+  {emoji:'⚫', label:'Несуществование', color:'var(--crit)',
+   action:'Заяви о себе: выясни, что от поста нужно, и производи. Разбор сегодня.'},
+  {emoji:'🔴', label:'Опасность', color:'var(--serious)',
+   action:'Взять управление на себя, справиться, реорганизовать, ввести правило против повтора. Разбор сегодня.'},
+  {emoji:'🟠', label:'ЧП', color:'var(--warn)',
+   action:'Продвигай и экономь, смени подход — быстрое усилие на этой неделе.'},
+  {emoji:'🟢', label:'Норма', color:'var(--good)',
+   action:'Не меняй работающее. Найди, что дало рост, — усиль.'},
+  {emoji:'💚', label:'Изобилие', color:'var(--good)',
+   action:'Новых обязательств не брать: гаси долги, вложись в средства производства, усиль причину роста.'},
+  {emoji:'🟣', label:'Могущество', color:'var(--power)',
+   action:'Закрепи: опиши, что работает на посту, готовь передачу.'},
+];
+
+// ── конечный автомат состояний (ФУНДАМЕНТ_УПРАВЛЕНИЯ.md, калибруемо) ──
+function slope6(sm){ // линрегрессия последних 6 сглаженных точек → прогноз последней
+  const w = sm.slice(-6), n = w.length;
+  if (n < 2) return {pred: w[n-1] ?? 0, up: false};
+  let sx=0, sy=0, sxy=0, sxx=0;
+  w.forEach((y,x)=>{sx+=x; sy+=y; sxy+=x*y; sxx+=x*x});
+  const b = (n*sxy - sx*sy)/(n*sxx - sx*sx || 1);
+  const a = (sy - b*sx)/n;
+  return {pred: a + b*(n-1), up: b >= 0};
+}
+function rawState(hist){
+  const n = hist.length;
+  if (n < 3) return 0;
+  const last = hist[n-1], prev = hist[n-2];
+  const delta = prev !== 0 ? (last-prev)/Math.abs(prev) : (last > 0 ? 1 : 0);
+  if (delta <= -0.5) return 0;                                   // обвал
+  const sm = hist.map((x,j)=> j ? (x+hist[j-1])/2 : x);          // сглаживание 2 нед
+  const m = sm.length;
+  const fall2 = m >= 3 && sm[m-1] < sm[m-2] && sm[m-2] < sm[m-3];
+  const t = slope6(sm);
+  const dev = t.pred !== 0 ? (last-t.pred)/Math.abs(t.pred) : 0;
+  if (fall2 || dev <= -0.25) return 1;                           // Опасность
+  if (delta > -0.10 && delta <= 0) return 2;                     // ЧП
+  const isMax = last >= Math.max(...hist);
+  const grow3 = m >= 4 && sm[m-1] >= sm[m-2] && sm[m-2] >= sm[m-3];
+  if (isMax && grow3 && n >= 6 && t.up) return 5;                // Могущество
+  if (dev >= 0.30) return 4;                                     // Изобилие
+  return 3;                                                       // Норма
+}
+function assignStates(values, direction){ // вся серия хронологически
+  const v = direction === 'down' ? values.map(x=>-x) : values.slice();
+  const out = [];
+  for (let i = 0; i < v.length; i++){
+    const raw = rawState(v.slice(0, i+1));
+    const prev = i ? out[i-1] : 0;
+    out.push(raw > prev + 1 ? prev + 1 : raw);  // вверх на 1 за шаг, вниз сразу
+  }
+  return out;
+}
+
+// ── форматирование ──
+const fmt = (x, unit) => {
+  if (unit && unit.includes('₸') && Math.abs(x) >= 1e6) return (x/1e6).toFixed(1).replace('.',',') + 'М';
+  if (unit && unit.includes('₸') && Math.abs(x) >= 1e3) return Math.round(x).toLocaleString('ru-RU');
+  if (unit === 'нед') return x.toFixed(1).replace('.',',');
+  if (Math.abs(x) >= 1e3) return Math.round(x).toLocaleString('ru-RU');
+  return (Math.round(x*10)/10).toString().replace('.',',');
+};
+const dm = iso => iso.slice(8,10) + '.' + iso.slice(5,7);
+const weekLabel = iso => { // неделя, ЗАКРЫТАЯ в чт iso+7д
+  const d = new Date(iso + 'T00:00:00'); d.setDate(d.getDate()+7);
+  return 'ЧТ ' + String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0');
+};
+
+// ── карточка ──
+function card(stat, rows){
+  const el = document.createElement('div'); el.className = 'card';
+  const label = document.createElement('div'); label.className = 'label';
+  label.textContent = stat.name; el.appendChild(label);
+
+  const vals = rows.map(r=>r.value), weeks = rows.map(r=>r.week_start);
+  const n = vals.length;
+  const cur = vals[n-1], prv = vals[n-2];
+
+  const vrow = document.createElement('div'); vrow.className = 'vrow';
+  const value = document.createElement('span'); value.className = 'value';
+  value.textContent = fmt(cur, stat.unit);
+  const unit = document.createElement('span'); unit.className = 'unit'; unit.textContent = stat.unit || '';
+  vrow.append(value, unit);
+  if (prv !== undefined && prv !== 0){
+    const d = (cur-prv)/Math.abs(prv);
+    const betterUp = stat.direction !== 'down';
+    const flat = Math.abs(d) < 0.005 || stat.direction === 'context';
+    const good = flat ? null : (d > 0) === betterUp;
+    const delta = document.createElement('span');
+    delta.className = 'delta ' + (good === null ? 'flat' : good ? 'good' : 'bad');
+    delta.textContent = Math.abs(d) < 0.005 ? '→ ~0% к прошлой нед'
+      : (d > 0 ? '↗ +' : '↘ −') + Math.abs(d*100).toFixed(0) + '% к прошлой нед' +
+        (good === null ? '' : good ? ' — лучше' : ' — хуже');
+    vrow.appendChild(delta);
+  }
+  el.appendChild(vrow);
+
+  const states = assignStates(vals, stat.direction);
+  const st = STATES[states[n-1]];
+  if (stat.direction !== 'context'){
+    const chip = document.createElement('span'); chip.className = 'chip';
+    chip.style.borderColor = st.color;
+    chip.textContent = st.emoji + ' ' + st.label;
+    el.appendChild(chip);
+    const act = document.createElement('div'); act.className = 'action';
+    act.textContent = n < 3 ? `Копим историю: ${n} из 3 недель — состояние присвоится дальше.` : st.action;
+    el.appendChild(act);
+  } else {
+    const chip = document.createElement('span'); chip.className = 'chip';
+    chip.style.borderColor = 'var(--baseline)'; chip.style.color = 'var(--muted)';
+    chip.textContent = '⚪ справочная';
+    el.appendChild(chip);
+    const act = document.createElement('div'); act.className = 'action';
+    act.textContent = 'Без светофора: контекст для решений по рекламе.';
+    el.appendChild(act);
+  }
+  if (window.LAST_CLOSED && weeks[n-1] < window.LAST_CLOSED){
+    const stale = document.createElement('div'); stale.className = 'stale';
+    stale.textContent = '⏳ свежих данных нет — последняя точка ' + weekLabel(weeks[n-1]);
+    el.appendChild(stale);
+  }
+  el.appendChild(plot(stat, weeks, vals));
+
+  const det = document.createElement('details');
+  const sum = document.createElement('summary'); sum.textContent = 'таблица'; det.appendChild(sum);
+  const tbl = document.createElement('table');
+  const hr = document.createElement('tr');
+  ['неделя (закрыта)','значение'].forEach(t=>{const th=document.createElement('th');th.textContent=t;hr.appendChild(th)});
+  tbl.appendChild(hr);
+  for (let i = n-1; i >= 0; i--){
+    const tr = document.createElement('tr');
+    const td1 = document.createElement('td'); td1.textContent = weekLabel(weeks[i]);
+    const td2 = document.createElement('td'); td2.textContent = fmt(vals[i], stat.unit);
+    tr.append(td1, td2); tbl.appendChild(tr);
+  }
+  det.appendChild(tbl); el.appendChild(det);
+  return el;
+}
+
+// ── график: 12 недель + 3 контекстных, сетка (max−min)/10 ──
+function plot(stat, weeks, vals){
+  const W = 340, Hh = 128, padL = 6, padR = 14, padT = 10, padB = 20;
+  const n = vals.length;
+  const ctxN = Math.max(0, n - 12);             // первые до 3 — контекст
+  const win = vals.slice(ctxN);                  // окно 12 недель
+  let lo = Math.min(...win), hi = Math.max(...win);
+  if (lo === hi){ lo -= 1; hi += 1; }
+  const step = (hi - lo) / 10;                   // формула Высоцкого
+  let y0 = lo - step, y1 = hi + step;
+  y0 = Math.min(y0, Math.min(...vals)); y1 = Math.max(y1, Math.max(...vals));
+  const X = i => padL + (W - padL - padR) * (n === 1 ? .5 : i/(n-1));
+  const Y = v => padT + (Hh - padT - padB) * (1 - (v - y0)/(y1 - y0));
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${Hh}`);
+  for (let g = 0; g <= 10; g++){                 // hairline-сетка шагом step
+    const y = Y(lo + g*step);
+    const ln = document.createElementNS(ns,'line');
+    ln.setAttribute('x1', padL); ln.setAttribute('x2', W - padR);
+    ln.setAttribute('y1', y); ln.setAttribute('y2', y);
+    ln.setAttribute('stroke', 'var(--grid)'); ln.setAttribute('stroke-width', '1');
+    svg.appendChild(ln);
+  }
+  const pts = vals.map((v,i)=>[X(i), Y(v)]);
+  const d = arr => arr.map((p,i)=>(i?'L':'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  if (ctxN > 0){                                 // контекст серым (включая стык)
+    const cl = document.createElementNS(ns,'path');
+    cl.setAttribute('d', d(pts.slice(0, ctxN + 1)));
+    cl.setAttribute('fill','none'); cl.setAttribute('stroke','var(--ctx)');
+    cl.setAttribute('stroke-width','2'); cl.setAttribute('stroke-linecap','round');
+    cl.setAttribute('stroke-linejoin','round'); cl.setAttribute('opacity','.55');
+    svg.appendChild(cl);
+  }
+  const wash = document.createElementNS(ns,'path'); // заливка 10% под окном
+  const wpts = pts.slice(ctxN);
+  wash.setAttribute('d', d(wpts) + ` L ${wpts[wpts.length-1][0].toFixed(1)} ${Hh-padB} L ${wpts[0][0].toFixed(1)} ${Hh-padB} Z`);
+  wash.setAttribute('fill','var(--series)'); wash.setAttribute('opacity','.10');
+  svg.appendChild(wash);
+  const ml = document.createElementNS(ns,'path');
+  ml.setAttribute('d', d(wpts));
+  ml.setAttribute('fill','none'); ml.setAttribute('stroke','var(--series)');
+  ml.setAttribute('stroke-width','2'); ml.setAttribute('stroke-linecap','round');
+  ml.setAttribute('stroke-linejoin','round');
+  svg.appendChild(ml);
+  const end = document.createElementNS(ns,'circle');   // конечная точка + surface ring
+  end.setAttribute('cx', pts[n-1][0]); end.setAttribute('cy', pts[n-1][1]);
+  end.setAttribute('r','4.5'); end.setAttribute('fill','var(--series)');
+  end.setAttribute('stroke','var(--surface)'); end.setAttribute('stroke-width','2');
+  svg.appendChild(end);
+  const t = (x, y, s, anchor) => {
+    const tx = document.createElementNS(ns,'text');
+    tx.setAttribute('x',x); tx.setAttribute('y',y);
+    tx.setAttribute('fill','var(--muted)'); tx.setAttribute('font-size','9.5');
+    tx.setAttribute('text-anchor', anchor||'start');
+    tx.style.fontVariantNumeric = 'tabular-nums';
+    tx.textContent = s; svg.appendChild(tx);
+  };
+  t(padL, Hh-6, weekLabel(weeks[0]));
+  t(W-padR, Hh-6, weekLabel(weeks[n-1]), 'end');
+  t(W-padR, Y(hi)-3, fmt(hi, stat.unit), 'end');
+  t(W-padR, Y(lo)+11, fmt(lo, stat.unit), 'end');
+
+  // кроссхейр + тултип
+  const cross = document.createElementNS(ns,'line');
+  cross.setAttribute('y1', padT); cross.setAttribute('y2', Hh-padB);
+  cross.setAttribute('stroke','var(--baseline)'); cross.setAttribute('stroke-width','1');
+  cross.style.display = 'none'; svg.appendChild(cross);
+  const hdot = document.createElementNS(ns,'circle');
+  hdot.setAttribute('r','4.5'); hdot.setAttribute('fill','var(--series)');
+  hdot.setAttribute('stroke','var(--surface)'); hdot.setAttribute('stroke-width','2');
+  hdot.style.display = 'none'; svg.appendChild(hdot);
+
+  const wrap = document.createElement('div'); wrap.className = 'plot';
+  const tip = document.createElement('div'); tip.className = 'tip';
+  const tipV = document.createElement('div'); tipV.className = 'v';
+  const tipW = document.createElement('div'); tipW.className = 'w';
+  const key = document.createElement('span'); key.className = 'k';
+  tipV.prepend(key); tip.append(tipV, tipW);
+  wrap.append(svg, tip);
+
+  svg.addEventListener('pointermove', e => {
+    const r = svg.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width * W;
+    let best = 0, bd = 1e9;
+    pts.forEach((p,i)=>{ const dd = Math.abs(p[0]-px); if (dd < bd){bd = dd; best = i;} });
+    cross.setAttribute('x1', pts[best][0]); cross.setAttribute('x2', pts[best][0]);
+    hdot.setAttribute('cx', pts[best][0]); hdot.setAttribute('cy', pts[best][1]);
+    cross.style.display = hdot.style.display = '';
+    tipV.childNodes[1] ? tipV.childNodes[1].remove() : null;
+    tipV.appendChild(document.createTextNode(fmt(vals[best], stat.unit) + (stat.unit ? ' ' + stat.unit : '')));
+    tipW.textContent = 'неделя, закрытая ' + weekLabel(weeks[best]) + (best < ctxN ? ' (контекст)' : '');
+    tip.style.display = 'block';
+    const tw = tip.offsetWidth;
+    let left = pts[best][0]/W * r.width - tw/2;
+    left = Math.max(0, Math.min(left, r.width - tw));
+    tip.style.left = left + 'px';
+    tip.style.top = (pts[best][1]/Hh * r.height - tip.offsetHeight - 10) + 'px';
+  });
+  svg.addEventListener('pointerleave', () => {
+    cross.style.display = hdot.style.display = 'none'; tip.style.display = 'none';
+  });
+  return wrap;
+}
+
+// ── загрузка и сборка ──
+async function main(){
+  try{
+    const [regR, serR] = await Promise.all([
+      fetch(SUPABASE_URL + '/rest/v1/stats_registry?active=eq.true&order=sort', {headers:H}),
+      fetch(SUPABASE_URL + '/rest/v1/stats_weekly?order=week_start&limit=10000', {headers:H}),
+    ]);
+    if (!regR.ok || !serR.ok) throw new Error('Supabase: ' + regR.status + '/' + serR.status);
+    const reg = await regR.json(), series = await serR.json();
+    const byStat = {};
+    series.forEach(r => (byStat[r.stat_id] = byStat[r.stat_id] || []).push(r));
+    const allWeeks = [...new Set(series.map(r=>r.week_start))].sort();
+    window.LAST_CLOSED = allWeeks[allWeeks.length-1];
+    document.getElementById('subtitle').textContent =
+      'неделя закрыта ' + weekLabel(window.LAST_CLOSED) + ' 14:00 · 12 недель + 3 контекстных · обновляется каждый четверг';
+
+    const mainEl = document.getElementById('main');
+    const groups = [];
+    reg.forEach(s => {
+      let g = groups.find(x => x.role === s.role);
+      if (!g){ g = {role: s.role, vfp: s.vfp, stats: []}; groups.push(g); }
+      g.stats.push(s);
+    });
+    groups.forEach(g => {
+      const h = document.createElement('div'); h.className = 'grouph';
+      const r = document.createElement('div'); r.className = 'role'; r.textContent = g.role;
+      const v = document.createElement('div'); v.className = 'vfp'; v.textContent = 'Продукт поста: ' + (g.vfp || '—');
+      h.append(r, v); mainEl.appendChild(h);
+      const grid = document.createElement('div'); grid.className = 'grid';
+      g.stats.forEach(s => {
+        const rows = (byStat[s.id] || []).slice(-15);
+        if (rows.length) grid.appendChild(card(s, rows));
+      });
+      mainEl.appendChild(grid);
+    });
+  } catch(e){
+    const err = document.getElementById('err');
+    err.style.display = 'block';
+    err.textContent = 'Ошибка загрузки: ' + e.message;
+  }
+}
+main();
+</script>
+</body>
+</html>
