@@ -46,10 +46,64 @@ SUPABASE_ORDER_ID = 'CLOTHING-CLEAR-001'
 MOYSKLAD_TOKEN = os.getenv('MOYSKLAD_TOKEN')
 MS_HEADERS = {'Authorization': f'Bearer {MOYSKLAD_TOKEN}', 'Accept': 'application/json;charset=utf-8'}
 
-SNAPSHOT_DATE = '20260523'
-PRICES_DATE = '20260522'
-
 TODAY = date.today()
+
+
+def latest_table_date(con, prefix):
+    """Последняя дата таблицы по префиксу (динамически, НЕ хардкод)."""
+    row = con.execute(f"""SELECT table_name FROM information_schema.tables
+        WHERE table_name LIKE '{prefix}%' ORDER BY table_name DESC LIMIT 1""").fetchone()
+    return row[0][-8:] if row else None
+
+
+# --- Сезонные/акционные группы (июль 2026) -----------------------------------
+def is_autumn_item(name: str) -> bool:
+    """Осенне-зимнее — НЕ уценять в июле: сезон вот-вот, продастся без скидки."""
+    nm = (name or '').lower()
+    return any(w in nm for w in ('куртк', 'пуховик', 'парка', 'жилет', 'ветровк',
+                                 'худи', 'толстовк', 'свитшот', 'зип ', 'бомбер',
+                                 'лонгслив', 'water repellent'))
+
+
+def is_summer_clothing(name: str) -> bool:
+    """Летнее — сезон уходит в сентябре, уценять агрессивнее."""
+    nm = (name or '').lower()
+    return any(w in nm for w in ('футболк', 'топ ', 'топик', 'майк', 'шорт',
+                                 'юбк', 'сарафан', 'платье', 'кюлот'))
+
+
+def is_gift_pool(article: str, name: str) -> bool:
+    """Подарочный фонд акции LEVEL UP (жив с 22.06) — НЕ уценять, расходуется акцией:
+    GO SEX (5xxxxx), базовые футболки CNFTB, шорты CNFTS, худи CNFTZH."""
+    art = (article or '').upper()
+    nm = (name or '').lower()
+    if art.isdigit() and 500000 <= int(art) <= 599999:
+        return True
+    if any(k in art for k in ('CNFTB', 'CNFTS', 'CNFTZH')):
+        return True
+    return ('футболка базовая' in nm or 'шорты спортивные хлопок' in nm
+            or 'худи на молнии' in nm)
+
+
+def clothing_score(item) -> tuple[int, str]:
+    """⭐ Скор 0-100 как у обуви: темп + тренд + маржа + свежесть продаж + чистота."""
+    s30 = item['sales']['s30']; s90 = item['sales']['s90']
+    wos_m = item['stock']['total'] / max(s30, 0.5)          # месяцев запаса
+    if s30 > 0 and wos_m <= 2: pace = 20
+    elif wos_m <= 4: pace = 15
+    elif wos_m <= 6: pace = 10
+    elif wos_m <= 10: pace = 5
+    else: pace = 0
+    accel = (s30 / (s90 / 3)) if s90 > 0 else 0
+    trend = 20 if accel >= 1.2 else 14 if accel >= 0.9 else 8 if accel >= 0.6 else 0
+    m = item.get('margin_pct', 0)
+    marg = 20 if m >= 60 else 14 if m >= 45 else 8 if m >= 30 else 0
+    dns = item.get('days_no_sale', 999)
+    fresh = 20 if dns <= 14 else 14 if dns <= 30 else 8 if dns <= 60 else 0
+    d = item.get('cur_disc', 0)
+    clean = 20 if d == 0 else 12 if d <= 20 else 6 if d <= 40 else 0
+    total = pace + trend + marg + fresh + clean
+    return total, f"темп {pace} · тренд {trend} · маржа {marg} · свежесть {fresh} · без скидок {clean}"
 
 SIZE_ORDER = {'XS': 0, 'S': 1, 'M': 2, 'L': 3, 'XL': 4, 'XXL': 5, '2XL': 5,
               'XXXL': 6, '3XL': 6, '4XL': 7, 'OneSize': 8, 'One Size': 8}
@@ -58,6 +112,10 @@ SIZE_ORDER = {'XS': 0, 'S': 1, 'M': 2, 'L': 3, 'XL': 4, 'XXL': 5, '2XL': 5,
 def classify_subfolder(name: str) -> str:
     """Грубая категория одежды для фильтра."""
     n = (name or '').lower()
+    if any(k in n for k in ['куртк', 'пуховик', 'парка']):
+        return 'Куртки'
+    if 'go sex' in n:
+        return 'Верх'
     if any(k in n for k in ['футбол', 'худи', 'лонгслив', 'рубашк', 'топ ', 'майк', 'жилет', 'свитшот', 'толстовк', 'боди', 'шакет', 'бомбер', 'жакет']):
         return 'Верх'
     if any(k in n for k in ['джинс', 'брюки', 'шорт', 'кюлот', 'юбк', 'легинс']):
@@ -258,7 +316,36 @@ def main():
     art_in = "','".join(a.replace("'", "''") for a in articles)
 
     con = duckdb.connect(str(DB_PATH), read_only=True)
-    snap = f'inventory_snapshot_stores_{SNAPSHOT_DATE}'
+    snap_date = latest_table_date(con, 'inventory_snapshot_stores_')
+    prices_date = latest_table_date(con, 'prices_snapshot_')
+    snap = f'inventory_snapshot_stores_{snap_date}'
+    prices_t = f'prices_snapshot_{prices_date}'
+    print(f"   Снапшот: {snap} | Цены: {prices_t}")
+
+    # 1б. РАСШИРЕНИЕ УНИВЕРСА: куртки (4xxxxx) и GO SEX (5xxxxx) — одежда ВНЕ
+    # женской папки. Цены из prices_snapshot, имя = base (до последней запятой).
+    extra_rows = con.execute(f"""
+        SELECT article,
+               ANY_VALUE(regexp_replace(product_name, ',\\s*[^,]+$', '')) AS base,
+               MAX(sale_price) reg, MAX(COALESCE(NULLIF(new_price,0), sale_price)) cur
+        FROM (
+          SELECT s.article, s.product_name, p.sale_price, p.new_price
+          FROM {snap} s LEFT JOIN {prices_t} p ON s.article = p.article AND s.product_name = p.name
+          WHERE TRY_CAST(s.article AS INT) BETWEEN 400000 AND 599999 AND s.total_stock > 0
+        ) GROUP BY article
+    """).fetchall()
+    n_extra = 0
+    for art, base, reg, cur in extra_rows:
+        if art in ms_by_article:
+            continue
+        reg = float(reg or 0); cur = float(cur or 0)
+        cur_d = round(100 * (1 - cur / reg)) if (reg and cur and cur < reg) else 0
+        ms_by_article[art] = {'name': base, 'reg': reg, 'new': cur, 'cur_disc': cur_d,
+                              'extra': True}
+        n_extra += 1
+    print(f"   + вне папки (куртки 4xxxxx / GO SEX 5xxxxx): {n_extra} артикулов")
+    articles = sorted(ms_by_article.keys())
+    art_in = "','".join(a.replace("'", "''") for a in articles)
 
     # 2. Остатки + матрица цвет×размер из снапшота (по артикулу)
     print("\n2. Остатки и матрица цвет×размер...")
@@ -280,7 +367,10 @@ def main():
         d['total'] += qty
         d['moscow'] += int(m or 0); d['tsum_online'] += int(tsum_on or 0)
         d['aruzhan'] += int(ar or 0); d['warehouse'] += int(wh or 0)
-        base = (pname or '').split(' (')[0]
+        if ' (' in (pname or ''):
+            base = pname.split(' (')[0]
+        else:  # куртки/GO SEX: «Имя М, 2XL» → base без размера
+            base = re.sub(r',\s*[^,]+$', '', pname or '')
         d['base_counts'][base] = d['base_counts'].get(base, 0) + qty
         # Парсим "(Цвет, Размер)" в конце имени
         m2 = re.search(r'\(([^()]+),\s*([^()]+)\)\s*$', pname or '')
@@ -339,6 +429,36 @@ def main():
             s180=int(s180 or 0), s365=int(s365 or 0), sall=int(sall or 0),
             last_sale=last_sale, first_sale=first_sale)
 
+    # 4б. Продажи и себес ПО АРТИКУЛУ для внепапочных (4xxxxx/5xxxxx — у них
+    # артикул в чеках заполнен, а имя-матчинг ломается на «..., размер»)
+    sales_by_article = {}
+    for row in con.execute(f"""
+        SELECT article,
+          SUM(quantity) FILTER (WHERE document_moment >= '{d30}') s30,
+          SUM(quantity) FILTER (WHERE document_moment >= '{d60}' AND document_moment < '{d30}') s30_60,
+          SUM(quantity) FILTER (WHERE document_moment >= '{d90}') s90,
+          SUM(quantity) FILTER (WHERE document_moment >= '{d180}') s180,
+          SUM(quantity) FILTER (WHERE document_moment >= '{d365}') s365,
+          SUM(quantity) sall,
+          MAX(DATE(document_moment)) last_sale, MIN(DATE(document_moment)) first_sale
+        FROM retaildemand_positions
+        WHERE price > 0 AND TRY_CAST(article AS INT) BETWEEN 400000 AND 599999
+        GROUP BY 1
+    """).fetchall():
+        art_, s30, s30_60, s90, s180, s365, sall, last_sale, first_sale = row
+        sales_by_article[art_] = dict(
+            s30=int(s30 or 0), s30_60=int(s30_60 or 0), s90=int(s90 or 0),
+            s180=int(s180 or 0), s365=int(s365 or 0), sall=int(sall or 0),
+            last_sale=last_sale, first_sale=first_sale)
+    cost_by_article = {}
+    for art_, unit in con.execute("""
+        SELECT product_article, SUM(total)/NULLIF(SUM(quantity),0)
+        FROM supply_positions
+        WHERE applicable=true AND TRY_CAST(product_article AS INT) BETWEEN 400000 AND 599999
+        GROUP BY 1
+    """).fetchall():
+        cost_by_article[art_] = float(unit or 0)
+
     # 5. Сборка items
     print("\n5. Сборка items...")
     items = []
@@ -348,11 +468,16 @@ def main():
             continue
         ms = ms_by_article[art]
         base = primary_base.get(art, ms['name'])
-        sl = sales_by_base.get(base, {})
+        if ms.get('extra'):
+            sl = sales_by_article.get(art, {}) or sales_by_base.get(base, {})
+        else:
+            sl = sales_by_base.get(base, {})
         s30 = sl.get('s30', 0); s30_60 = sl.get('s30_60', 0); s90 = sl.get('s90', 0)
         s180 = sl.get('s180', 0); s365 = sl.get('s365', 0); sall = sl.get('sall', 0)
         last_sale = sl.get('last_sale'); first_sale = sl.get('first_sale')
         cost = float(cost_by_base.get(base, 0) or 0)
+        if ms.get('extra') and not cost:
+            cost = float(cost_by_article.get(art, 0) or 0)
         # orig = изначальная "Цена продажи" (зачёркнутая); cur = текущая (со скидкой если есть) = БАЗА скидки
         orig_price = float(ms['reg'] or 0)
         new_ms = float(ms['new'] or 0)
@@ -367,6 +492,20 @@ def main():
 
         cat, health, sug_disc, reason = classify_clothing(
             total, s30, s30_60, s90, sall, first_sale, last_sale, cost, retail, cur_disc)
+
+        item_name = ms['name'] or base
+        # --- Перехваты сезона/акции (июль 2026) ---
+        if is_gift_pool(art, item_name):
+            cat, health, sug_disc = 'GIFT_POOL', 'GIFT', 0
+            reason = ('🎁 Подарочный фонд акции LEVEL UP — НЕ уценять: расходуется '
+                      f'акцией (осталось {total} шт). Скидка каннибализирует подарки')
+        elif is_autumn_item(item_name):
+            cat, health, sug_disc = 'HOLD_AUTUMN', 'HOLD', 0
+            reason = ('🍂 Осенне-зимнее — в июле уценять рано: сезон через 6-8 недель, '
+                      'продастся без скидки. Пересмотреть в октябре, если не пойдёт')
+        elif is_summer_clothing(item_name) and sug_disc > 0:
+            sug_disc = min(50, sug_disc + 10)
+            reason += ' | ☀️ ЛЕТНЕЕ: сезон уходит в сентябре — скидка усилена (+10)'
 
         # сортировка размеров
         sizes_sorted = dict(sorted(d['sizes'].items(),
@@ -401,9 +540,20 @@ def main():
             'suggested_discount': sug_disc,
             'reason': reason,
         })
+        it = items[-1]
+        # ⭐ скор, 💰 GMROI, 📅 дата распродажи — как в обувном дашборде
+        it['score'], it['score_parts'] = clothing_score(it)
+        if total > 0 and cost > 0 and s90 > 0:
+            it['gmroi'] = round((s90 * (retail - cost)) / 3.0 / (total * cost), 2)
+        else:
+            it['gmroi'] = 0
+        rate = s90 / 90.0
+        it['sellout_date'] = ((today + timedelta(days=total / rate)).isoformat()
+                              if rate > 0 else None)
 
-    # Сортировка: убыточные → мёртвые → медленные → новые → хиты → норма
-    cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'SLOW': 2, 'NEW': 3, 'HOT': 4, 'NORMAL': 5}
+    # Сортировка: убыточные → мёртвые → медленные → новые → хиты → норма → осень → подарки
+    cat_order = {'UNPROFITABLE': 0, 'DEAD': 1, 'SLOW': 2, 'NEW': 3, 'HOT': 4,
+                 'NORMAL': 5, 'HOLD_AUTUMN': 6, 'GIFT_POOL': 7}
     items.sort(key=lambda x: (cat_order.get(x['category'], 99), -x['frozen_cost']))
 
     # 6. Фото
@@ -413,7 +563,26 @@ def main():
     if skip_download:
         print("   --skip-photos: качаю только из кеша")
     else:
-        cache = fetch_photos_for_products(products, cache)
+        # внепапочные (куртки/GO SEX): подтянуть карточки МС ради фото (кэшируется)
+        extra_arts_todo = [a for a, m in ms_by_article.items()
+                           if m.get('extra') and a not in cache]
+        extra_products = []
+        for a in extra_arts_todo:
+            try:
+                r = requests.get('https://api.moysklad.ru/api/remap/1.2/entity/product',
+                                 params={'filter': f'article={a}', 'limit': 10},
+                                 headers=MS_HEADERS, timeout=10)
+                rows_ = r.json().get('rows', []) if r.status_code == 200 else []
+                with_img = [p for p in rows_ if p.get('images', {}).get('meta', {}).get('size')]
+                if with_img:
+                    extra_products.append(with_img[0])
+                elif rows_:
+                    cache[a] = ''
+            except Exception:
+                pass
+        if extra_products:
+            print(f"   + фото внепапочных: {len(extra_products)}")
+        cache = fetch_photos_for_products(products + extra_products, cache)
     for it in items:
         it['photo'] = cache.get(it['article'], '')
     has_photo = sum(1 for it in items if it['photo'])
@@ -427,9 +596,10 @@ def main():
         cat_frozen[c] = cat_frozen.get(c, 0) + it['frozen_cost']
     cat_names = {'UNPROFITABLE': '⚠️ Убыточные', 'DEAD': '🔴 Мёртвые',
                  'SLOW': '🟠 Медленные/Остывшие', 'NEW': '⚪ Новые',
-                 'HOT': '🟢 Хиты', 'NORMAL': '🔵 Норма'}
+                 'HOT': '🟢 Хиты', 'NORMAL': '🔵 Норма',
+                 'HOLD_AUTUMN': '🍂 Ждут осени', 'GIFT_POOL': '🎁 Подарочный фонд'}
     print("\n=== СВОДКА ===")
-    for c in ['UNPROFITABLE', 'DEAD', 'SLOW', 'NEW', 'HOT', 'NORMAL']:
+    for c in ['UNPROFITABLE', 'DEAD', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'HOLD_AUTUMN', 'GIFT_POOL']:
         if c in cat_count:
             print(f"  {cat_names[c]:<26} {cat_count[c]:>4} моделей  {cat_frozen[c]:>12,.0f} ₸")
     already = sum(1 for it in items if it['cur_disc'] > 0)
@@ -490,6 +660,18 @@ function renderItem(item, idx) {
     <span style="margin-left:auto" class="${wosClass}">📦 ${wosLabel}</span>
   </div>`;
 
+  // ⭐ скор / 💰 GMROI / 📅 распродажа — метрики как в обувном дашборде
+  let metricsHtml = '';
+  if (item.score != null) {
+    const scoreColor = item.score >= 60 ? '#10b981' : item.score >= 35 ? '#f59e0b' : '#ef4444';
+    const gm = item.gmroi ? `💰 GMROI <b>${item.gmroi}</b> ₸/₸/мес` : '';
+    const sd = item.sellout_date ? `📅 распродажа ~<b>${item.sellout_date.slice(0,7)}</b>` : '📅 при нуле продаж — никогда';
+    metricsHtml = `<div class="velocity-box" style="background:#fafaf9">
+      <span title="${item.score_parts || ''}">⭐ <b style="color:${scoreColor}">${item.score}</b>/100</span>
+      <span>${gm}</span><span>${sd}</span>
+    </div>`;
+  }
+
   // История прихода: первая поставка → 6 мес назад → сейчас
   const h = item.history || {};
   let historyHtml = '';
@@ -544,6 +726,7 @@ function renderItem(item, idx) {
       ${flowHtml}
       ${historyHtml}
       ${velHtml}
+      ${metricsHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
         <div class="stock-cell"><div class="stock-cell-label">ЦУМ+Онл</div><div class="stock-cell-val ${item.stock.tsum_online === 0 ? 'zero' : ''}">${item.stock.tsum_online}</div></div>
@@ -589,6 +772,8 @@ CAT_CONFIG = {
     'HOT':          {'label': '🟢 ХИТЫ',        'color': '#10b981', 'bg': '#ecfdf5'},
     'NORMAL':       {'label': '🔵 НОРМА',       'color': '#3b82f6', 'bg': '#eff6ff'},
     'INTENTIONAL':  {'label': '⚫ NB/Asics/Puma','color': '#525252', 'bg': '#f5f5f4'},
+    'HOLD_AUTUMN':  {'label': '🍂 ЖДУТ ОСЕНИ',  'color': '#92400e', 'bg': '#fef3c7'},
+    'GIFT_POOL':    {'label': '🎁 ПОДАРОЧНЫЙ ФОНД', 'color': '#7c3aed', 'bg': '#f5f3ff'},
 }
 
 
@@ -818,7 +1003,8 @@ table.matrix tr.mx-foot td { border-bottom:none; background:#eff6ff; font-weight
 
     # Filter-bar — заменим на категории
     cat_emoji_count = []
-    cat_order = ['UNPROFITABLE', 'DEAD', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL']
+    cat_order = ['UNPROFITABLE', 'DEAD', 'SLOW', 'NEW', 'HOT', 'NORMAL', 'INTENTIONAL',
+                 'HOLD_AUTUMN', 'GIFT_POOL']
     cat_emoji_count.append('<button class="filter-btn active" onclick="setFilter(\'all\')">Все</button>')
     for c in cat_order:
         if c in cat_count:
@@ -1051,6 +1237,7 @@ function renderItem(item, idx) {
       ${flowHtml}
       ${historyHtml}
       ${velHtml}
+      ${metricsHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
         <div class="stock-cell"><div class="stock-cell-label">ЦУМ+Онл</div><div class="stock-cell-val ${item.stock.tsum_online === 0 ? 'zero' : ''}">${item.stock.tsum_online}</div></div>

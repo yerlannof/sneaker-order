@@ -350,42 +350,42 @@ table.matrix tr.mx-foot td { border-bottom:none; background:#eff6ff; font-weight
 <div class="header">
   <div class="header-top">
     <h1>Уценка одежды</h1>
-    <span class="badge badge-info">102 моделей</span>
+    <span class="badge badge-info">183 моделей</span>
   </div>
-  <div class="header-meta">Остатки: 12.06.2026 | Женская одежда</div>
+  <div class="header-meta">Остатки: 15.07.2026 | Женская одежда</div>
 </div>
 
 <div class="stats" id="stats">
   <div class="stat">
-    <div class="stat-num" id="stat-items">102</div>
+    <div class="stat-num" id="stat-items">183</div>
     <div class="stat-label">Моделей</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supplied" style="color:#dc2626">011</div>
+    <div class="stat-num" id="stat-supplied" style="color:#dc2626">942</div>
     <div class="stat-label">Убыт+Мёртв</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">32</div>
+    <div class="stat-num" id="stat-supply-cost" style="color:#f59e0b">26</div>
     <div class="stat-label">Медленные</div>
   </div>
   <div class="stat">
-    <div class="stat-num blue" id="stat-stock">1536</div>
+    <div class="stat-num blue" id="stat-stock">2223</div>
     <div class="stat-label">Остаток шт</div>
   </div>
   <div class="stat">
-    <div class="stat-num" id="stat-cost">4.6М</div>
+    <div class="stat-num" id="stat-cost">9.1М</div>
     <div class="stat-label">Остат. себес</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-sold">309</div>
+    <div class="stat-num green" id="stat-sold">354</div>
     <div class="stat-label">Продано 30д</div>
   </div>
   <div class="stat">
-    <div class="stat-num green" id="stat-revenue">3.7М</div>
+    <div class="stat-num green" id="stat-revenue">3.3М</div>
     <div class="stat-label">Выручка</div>
   </div>
   <div class="stat">
-    <div class="stat-num purple" id="stat-retail">18.5М</div>
+    <div class="stat-num purple" id="stat-retail">20.9М</div>
     <div class="stat-label">Стоимость в РЦ</div>
   </div>
 </div>
@@ -418,14 +418,18 @@ table.matrix tr.mx-foot td { border-bottom:none; background:#eff6ff; font-weight
 
 <div class="filter-bar" id="filterBar">
 <button class="filter-btn active" onclick="setFilter('all')">Все</button>
-<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (11)</button>
-<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (32)</button>
-<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (7)</button>
-<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (26)</button>
-<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (26)</button>
-<button class="filter-btn" onclick="setFilter('brand:Низ')">Низ (50)</button>
-<button class="filter-btn" onclick="setFilter('brand:Верх')">Верх (43)</button>
-<button class="filter-btn" onclick="setFilter('brand:Прочее')">Прочее (6)</button>
+<button class="filter-btn" onclick="setFilter('cat:UNPROFITABLE')">⚠️ УБЫТОЧНЫЕ (9)</button>
+<button class="filter-btn" onclick="setFilter('cat:DEAD')">🔴 МЁРТВЫЕ (42)</button>
+<button class="filter-btn" onclick="setFilter('cat:SLOW')">🟠 МЕДЛЕННЫЕ (26)</button>
+<button class="filter-btn" onclick="setFilter('cat:NEW')">⚪ НОВЫЕ (1)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOT')">🟢 ХИТЫ (22)</button>
+<button class="filter-btn" onclick="setFilter('cat:NORMAL')">🔵 НОРМА (16)</button>
+<button class="filter-btn" onclick="setFilter('cat:HOLD_AUTUMN')">🍂 ЖДУТ ОСЕНИ (44)</button>
+<button class="filter-btn" onclick="setFilter('cat:GIFT_POOL')">🎁 ПОДАРОЧНЫЙ ФОНД (23)</button>
+<button class="filter-btn" onclick="setFilter('brand:Прочее')">Прочее (63)</button>
+<button class="filter-btn" onclick="setFilter('brand:Низ')">Низ (52)</button>
+<button class="filter-btn" onclick="setFilter('brand:Верх')">Верх (52)</button>
+<button class="filter-btn" onclick="setFilter('brand:Куртки')">Куртки (13)</button>
 <button class="filter-btn" onclick="setFilter('brand:Костюмы')">Костюмы (3)</button>
 </div>
 
@@ -687,7 +691,7 @@ function renderItem(item, idx) {
   const disc = discounts[itemKey] || 0;
   const newPrice = disc > 0 ? Math.round(item.retail * (1 - disc/100)) : 0;
   const stBadge = stClass(item.sell_through);
-  const CAT_LABELS = {"UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "DEAD": "🔴 МЁРТВЫЕ", "SLOW": "🟠 МЕДЛЕННЫЕ", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma"};
+  const CAT_LABELS = {"UNPROFITABLE": "⚠️ УБЫТОЧНЫЕ", "DEAD": "🔴 МЁРТВЫЕ", "SLOW": "🟠 МЕДЛЕННЫЕ", "NEW": "⚪ НОВЫЕ", "HOT": "🟢 ХИТЫ", "NORMAL": "🔵 НОРМА", "INTENTIONAL": "⚫ NB/Asics/Puma", "HOLD_AUTUMN": "🍂 ЖДУТ ОСЕНИ", "GIFT_POOL": "🎁 ПОДАРОЧНЫЙ ФОНД"};
 
   const photoHtml = item.photo
     ? `<img class="item-photo" src="data:image/jpeg;base64,${item.photo}" alt="${item.name}" onclick="openLightbox('${itemKey.replace(/'/g,"")}')">`
@@ -722,6 +726,18 @@ function renderItem(item, idx) {
     <span><b>${sall}</b> <span style="color:var(--text3);font-size:11px">всё</span></span>
     <span style="margin-left:auto" class="${wosClass}">📦 ${wosLabel}</span>
   </div>`;
+
+  // ⭐ скор / 💰 GMROI / 📅 распродажа — метрики как в обувном дашборде
+  let metricsHtml = '';
+  if (item.score != null) {
+    const scoreColor = item.score >= 60 ? '#10b981' : item.score >= 35 ? '#f59e0b' : '#ef4444';
+    const gm = item.gmroi ? `💰 GMROI <b>${item.gmroi}</b> ₸/₸/мес` : '';
+    const sd = item.sellout_date ? `📅 распродажа ~<b>${item.sellout_date.slice(0,7)}</b>` : '📅 при нуле продаж — никогда';
+    metricsHtml = `<div class="velocity-box" style="background:#fafaf9">
+      <span title="${item.score_parts || ''}">⭐ <b style="color:${scoreColor}">${item.score}</b>/100</span>
+      <span>${gm}</span><span>${sd}</span>
+    </div>`;
+  }
 
   // История прихода: первая поставка → 6 мес назад → сейчас
   const h = item.history || {};
@@ -777,6 +793,7 @@ function renderItem(item, idx) {
       ${flowHtml}
       ${historyHtml}
       ${velHtml}
+      ${metricsHtml}
       <div class="stock-grid">
         <div class="stock-cell"><div class="stock-cell-label">Мск</div><div class="stock-cell-val ${item.stock.moscow === 0 ? 'zero' : ''}">${item.stock.moscow}</div></div>
         <div class="stock-cell"><div class="stock-cell-label">ЦУМ+Онл</div><div class="stock-cell-val ${item.stock.tsum_online === 0 ? 'zero' : ''}">${item.stock.tsum_online}</div></div>
