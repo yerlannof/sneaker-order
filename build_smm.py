@@ -114,7 +114,14 @@ def main(cfg):
         if not it:
             continue
         orig = round(it['orig_price']); cur = round(it['retail'])
-        new = round(cur * (1 - d / 100))
+        if a in applied_in_ms:
+            # скидка УЖЕ живёт в МС: показываем ФАКТ (old -> текущая цена МС),
+            # НЕ пересчитываем от сохранённого пресета (мог устареть: кейс 201741,
+            # пресет −30 при факте −65 рисовал фантомные −76%)
+            new = cur
+            d = int(it.get('cur_disc') or 0) or d
+        else:
+            new = round(cur * (1 - d / 100))
         total_off = round(100 * (1 - new / orig)) if orig > 0 else 0
         s = it['stock']
         items.append({
@@ -182,6 +189,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 #loader{text-align:center;padding:40px;color:var(--text2);}
 </style></head>
 <body>
+<div id="copied" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:8px 16px;border-radius:20px;font-size:13px;z-index:99"></div>
 <div class="header"><h1>__TITLE__</h1><div class="sub">__COUNT__ моделей · __PAIRS__ шт · обновлено __DATE__</div></div>
 <div class="bar">
   <input id="q" placeholder="Поиск по названию / артикулу…" oninput="render()">
@@ -197,6 +205,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="grid" id="grid"></div>
 <script>
 let ITEMS=[],PH={},F='all';
+function copyArt(a) {
+  const done = () => { const el = document.getElementById('copied'); if (el) { el.textContent = '📋 ' + a + ' скопирован'; el.style.display='block'; setTimeout(()=>el.style.display='none', 1500);} };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(a).then(done).catch(() => fallbackCopy(a, done));
+  } else fallbackCopy(a, done);
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement('textarea'); ta.value = text;
+  ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+  ta.select(); try { document.execCommand('copy'); done(); } catch(e) {} document.body.removeChild(ta);
+}
 function fmt(n){return n.toLocaleString('ru-RU');}
 function setF(b){document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');F=b.dataset.f;render();}
 function render(){
@@ -224,7 +243,7 @@ function render(){
     const newBadge=i.is_new?`<span class="newbadge">🆕 СВЕЖАЯ</span>`:'';
     return `<div class="card">${photo}<div class="body">
       <div class="name">${newBadge}${i.name}</div>
-      <div class="art" onclick="navigator.clipboard&&navigator.clipboard.writeText('${i.article}')"><span class="brand">${i.brand}</span>${i.article} 📋</div>
+      <div class="art" onclick="copyArt('${i.article}')"><span class="brand">${i.brand}</span>${i.article} 📋</div>
       <div class="prices"><span class="old">${fmt(i.old)}₸</span><span class="new">${fmt(i.new)}₸</span><span class="off">−${i.off}%</span></div>
       <div class="stores">${stores||'<span class="slbl">нет на точках</span>'}</div>
     </div></div>`;
