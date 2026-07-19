@@ -1131,6 +1131,7 @@ const PURPOSE_TAGS = [['sport','🏃 Спорт'],['casual','👟 Кэжуал']
 const TAG_STORES = () => ({season: seasonTags, gender: genderTags, purpose: purposeTags});
 
 async function setModelTag(art, field, value) {
+  if (typeof scrollGuard === 'function' && scrollGuard()) return;
   const store = TAG_STORES()[field];
   const newVal = (store[art] === value) ? null : value;  // повторный тап = снять
   try {

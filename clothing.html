@@ -766,7 +766,19 @@ function renderItem(item, idx) {
 }
 
 // === DISCOUNT ===
+// защита от случайных тапов при скролле (19.07.2026)
+window.__lastScrollTs = 0;
+window.addEventListener('scroll', () => { window.__lastScrollTs = Date.now(); }, {passive: true, capture: true});
+window.addEventListener('touchmove', () => { window.__lastScrollTs = Date.now(); }, {passive: true, capture: true});
+function scrollGuard() {
+  if (Date.now() - window.__lastScrollTs < 350) {
+    if (typeof toast === 'function') toast('⏸ тап во время скролла — не засчитан');
+    return true;
+  }
+  return false;
+}
 function onDiscount(article, value) {
+  if (scrollGuard()) return;
   const v = parseInt(value) || 0;
   if (v > 0 && v <= 90) {
     discounts[article] = v;
