@@ -16,7 +16,13 @@ ROOT = Path(__file__).parent.parent
 load_dotenv(ROOT / '.env')
 SO = ROOT / 'sneaker-order'
 DB = ROOT / 'data' / 'pnlpower.duckdb'
-SNAP = 'inventory_snapshot_stores_20260523'
+def _latest_snap():
+    import duckdb as _d
+    c = _d.connect(str(DB), read_only=True)
+    t = c.execute("SELECT MAX(table_name) FROM information_schema.tables WHERE table_name LIKE 'inventory_snapshot_stores_2026%'").fetchone()[0]
+    c.close()
+    return t
+SNAP = None  # заполняется в __main__ (динамически, НЕ хардкод)
 KEY = os.getenv('SUPABASE_KEY'); URL = os.getenv('SUPABASE_URL')
 SIZE_ORD = {'XS': 0, 'S': 1, 'M': 2, 'L': 3, 'XL': 4, 'XXL': 5, '2XL': 5, 'XXXL': 6, '3XL': 6, '4XL': 7}
 
@@ -234,5 +240,7 @@ load();
 </script></body></html>'''
 
 if __name__ == '__main__':
+    SNAP = _latest_snap()
+    print(f'Снапшот: {SNAP}')
     cfg = CONFIGS['cloth'] if '--clothing' in sys.argv else CONFIGS['shoe']
     main(cfg)
