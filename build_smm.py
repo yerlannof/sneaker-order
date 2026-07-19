@@ -193,8 +193,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="header"><h1>__TITLE__</h1><div class="sub">__COUNT__ моделей · __PAIRS__ шт · обновлено __DATE__</div></div>
 <div class="bar">
   <input id="q" placeholder="Поиск по названию / артикулу…" oninput="render()">
-  <button class="fbtn active" data-f="all" onclick="setF(this)">Все</button>
-  <button class="fbtn" data-f="new" onclick="setF(this)" style="background:#fef3c7;border-color:#f59e0b;color:#92400e">🆕 Свежие</button>
+  <button class="fbtn active" data-f="new" onclick="setF(this)" style="background:#fef3c7;border-color:#f59e0b;color:#92400e">🆕 НОВЫЕ скидки</button>
+  <button class="fbtn" data-f="all" onclick="setF(this)">Вся распродажа (вкл. старую ликвидацию)</button>
   <button class="fbtn" data-f="50" onclick="setF(this)">−50%+</button>
   <button class="fbtn" data-f="30" onclick="setF(this)">−30%+</button>
   <button class="fbtn" data-f="m" onclick="setF(this)">Москва</button>
@@ -204,7 +204,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div id="loader">⏳ Загружаю…</div>
 <div class="grid" id="grid"></div>
 <script>
-let ITEMS=[],PH={},F='all';
+let ITEMS=[],PH={},F='new';
 function copyArt(a) {
   const done = () => { const el = document.getElementById('copied'); if (el) { el.textContent = '📋 ' + a + ' скопирован'; el.style.display='block'; setTimeout(()=>el.style.display='none', 1500);} };
   if (navigator.clipboard && navigator.clipboard.writeText) {
