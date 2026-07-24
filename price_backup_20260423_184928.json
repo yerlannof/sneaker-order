@@ -1,0 +1,1155 @@
+[
+  {
+    "type": "product",
+    "id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "name": "Джинсы карго с декором (DXJ2801)",
+    "article": "DXJ2801",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "99fb61df-0029-11f1-0a80-015000737340",
+    "name": "Джинсы карго с декором (DXJ2801) (Чёрный, M)",
+    "code": "00009",
+    "product_id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9a2935f4-0029-11f1-0a80-13910075268f",
+    "name": "Джинсы карго с декором (DXJ2801) (Чёрный, L)",
+    "code": "00010",
+    "product_id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9a8d78b1-0029-11f1-0a80-0839007335e3",
+    "name": "Джинсы карго с декором (DXJ2801) (Серый, M)",
+    "code": "00011",
+    "product_id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9ad68357-0029-11f1-0a80-1c2400727f58",
+    "name": "Джинсы карго с декором (DXJ2801) (Серый, L)",
+    "code": "00012",
+    "product_id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9b1ffe7b-0029-11f1-0a80-0bb200075024",
+    "name": "Джинсы карго с декором (DXJ2801) (Бежевый, M)",
+    "code": "00013",
+    "product_id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9b9ff5fd-0029-11f1-0a80-015000737370",
+    "name": "Джинсы карго с декором (DXJ2801) (Бежевый, L)",
+    "code": "00014",
+    "product_id": "99985dd4-0029-11f1-0a80-1b5d00748498",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "product",
+    "id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "name": "Джинсы баллон с ремнём XSL26010",
+    "article": "XSL26010",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "175e6501-006e-11f1-0a80-04f30002e278",
+    "name": "Джинсы баллон с ремнём XSL26010 (Синий, S)",
+    "code": "00058",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "17a424ad-006e-11f1-0a80-0edf0002ec11",
+    "name": "Джинсы баллон с ремнём XSL26010 (Синий, M)",
+    "code": "00059",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "17e5c2ff-006e-11f1-0a80-0de400033cf9",
+    "name": "Джинсы баллон с ремнём XSL26010 (Синий, L)",
+    "code": "00060",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "1843bdad-006e-11f1-0a80-0bb600029438",
+    "name": "Джинсы баллон с ремнём XSL26010 (Синий, XL)",
+    "code": "00061",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "1883cf4b-006e-11f1-0a80-0de400033d22",
+    "name": "Джинсы баллон с ремнём XSL26010 (Голубой, S)",
+    "code": "00062",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "18c21dc1-006e-11f1-0a80-1ab70002e2ef",
+    "name": "Джинсы баллон с ремнём XSL26010 (Голубой, M)",
+    "code": "00063",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "190a42b7-006e-11f1-0a80-16580002e2a9",
+    "name": "Джинсы баллон с ремнём XSL26010 (Голубой, L)",
+    "code": "00064",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "194ace2f-006e-11f1-0a80-05dc0002ec5e",
+    "name": "Джинсы баллон с ремнём XSL26010 (Голубой, XL)",
+    "code": "00065",
+    "product_id": "0e2a972b-006e-11f1-0a80-16580002e1dc",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "product",
+    "id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "name": "Джинсы карго XSL26029",
+    "article": "XSL26029",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "13251ba7-006e-11f1-0a80-16580002e25a",
+    "name": "Джинсы карго XSL26029 (Чёрный, S)",
+    "code": "00042",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1366c071-006e-11f1-0a80-0de400033c63",
+    "name": "Джинсы карго XSL26029 (Чёрный, M)",
+    "code": "00043",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "13a2c8dd-006e-11f1-0a80-0bb6000293a0",
+    "name": "Джинсы карго XSL26029 (Чёрный, L)",
+    "code": "00044",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "13e287ec-006e-11f1-0a80-171a0002f661",
+    "name": "Джинсы карго XSL26029 (Чёрный, XL)",
+    "code": "00045",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "14273eaf-006e-11f1-0a80-13950002c611",
+    "name": "Джинсы карго XSL26029 (Синий, S)",
+    "code": "00046",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "146c7a0b-006e-11f1-0a80-10fa0002f0f2",
+    "name": "Джинсы карго XSL26029 (Синий, M)",
+    "code": "00047",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "14b0fa27-006e-11f1-0a80-0de400033c8f",
+    "name": "Джинсы карго XSL26029 (Синий, L)",
+    "code": "00048",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "14ee9f96-006e-11f1-0a80-16580002e26a",
+    "name": "Джинсы карго XSL26029 (Синий, XL)",
+    "code": "00049",
+    "product_id": "0d5541ec-006e-11f1-0a80-194d0003085d",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "product",
+    "id": "4a8a22a6-05ec-11f1-0a80-03380002ed10",
+    "name": "Рубашка клетчатая (DQJ25622)",
+    "article": "DQJ25622",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "4ac4f6a6-05ec-11f1-0a80-03380002ed17",
+    "name": "Рубашка клетчатая (DQJ25622) (Коричневая клетка, OneSize)",
+    "code": "00418",
+    "product_id": "4a8a22a6-05ec-11f1-0a80-03380002ed10",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "4b09b449-05ec-11f1-0a80-05eb00031e5b",
+    "name": "Рубашка клетчатая (DQJ25622) (Чёрная клетка, OneSize)",
+    "code": "00419",
+    "product_id": "4a8a22a6-05ec-11f1-0a80-03380002ed10",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "product",
+    "id": "9857ac12-0029-11f1-0a80-18230075c0e3",
+    "name": "Брюки широкие с баской карго (DXJ2968)",
+    "article": "DXJ2968",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "98abb1ea-0029-11f1-0a80-0bb200074f70",
+    "name": "Брюки широкие с баской карго (DXJ2968) (Чёрный, S)",
+    "code": "00006",
+    "product_id": "9857ac12-0029-11f1-0a80-18230075c0e3",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "98ed3dc7-0029-11f1-0a80-1c2400727ee8",
+    "name": "Брюки широкие с баской карго (DXJ2968) (Чёрный, M)",
+    "code": "00007",
+    "product_id": "9857ac12-0029-11f1-0a80-18230075c0e3",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9941550f-0029-11f1-0a80-1b5d00748485",
+    "name": "Брюки широкие с баской карго (DXJ2968) (Чёрный, L)",
+    "code": "00008",
+    "product_id": "9857ac12-0029-11f1-0a80-18230075c0e3",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "product",
+    "id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "name": "Костюм-тройка трикотажный (DMK8801)",
+    "article": "DMK8801",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "d8cce960-00fa-11f1-0a80-07ab001ec9b8",
+    "name": "Костюм-тройка трикотажный (DMK8801) (Светло-серый, L)",
+    "code": "00246",
+    "product_id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "d917cb79-00fa-11f1-0a80-05dc001eb117",
+    "name": "Костюм-тройка трикотажный (DMK8801) (Светло-серый, XL)",
+    "code": "00247",
+    "product_id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "d965e5cd-00fa-11f1-0a80-0bb6001eede3",
+    "name": "Костюм-тройка трикотажный (DMK8801) (Светло-серый, 2XL)",
+    "code": "00248",
+    "product_id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "d9c606b6-00fa-11f1-0a80-04f3001ea608",
+    "name": "Костюм-тройка трикотажный (DMK8801) (Тёмно-серый, L)",
+    "code": "00249",
+    "product_id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "da11dc47-00fa-11f1-0a80-1ba3001e25d3",
+    "name": "Костюм-тройка трикотажный (DMK8801) (Тёмно-серый, XL)",
+    "code": "00250",
+    "product_id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "da71f8f0-00fa-11f1-0a80-015c001d9145",
+    "name": "Костюм-тройка трикотажный (DMK8801) (Тёмно-серый, 2XL)",
+    "code": "00251",
+    "product_id": "c4fbb02f-00fa-11f1-0a80-10fa001eefe6",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "product",
+    "id": "977ef112-0029-11f1-0a80-09740072ef79",
+    "name": "Брюки карго с камуфляж накладкой (DXJ2783)",
+    "article": "DXJ2783",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "97d7d6b5-0029-11f1-0a80-09740072ef8c",
+    "name": "Брюки карго с камуфляж накладкой (DXJ2783) (Чёрный, M)",
+    "code": "00004",
+    "product_id": "977ef112-0029-11f1-0a80-09740072ef79",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "97fc3fff-0029-11f1-0a80-1c2400727e97",
+    "name": "Брюки карго с камуфляж накладкой (DXJ2783) (Чёрный, L)",
+    "code": "00005",
+    "product_id": "977ef112-0029-11f1-0a80-09740072ef79",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "product",
+    "id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "name": "Костюм двойка на пуговицах (DMK007)",
+    "article": "DMK007",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "dacb31fe-00fa-11f1-0a80-1658001d5f76",
+    "name": "Костюм двойка на пуговицах (DMK007) (Сине-серый, L)",
+    "code": "00252",
+    "product_id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "db373d1d-00fa-11f1-0a80-0de4001e500f",
+    "name": "Костюм двойка на пуговицах (DMK007) (Сине-серый, XL)",
+    "code": "00253",
+    "product_id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "db760f7b-00fa-11f1-0a80-1ab7001e54bb",
+    "name": "Костюм двойка на пуговицах (DMK007) (Сине-серый, 2XL)",
+    "code": "00254",
+    "product_id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "dbbdc79c-00fa-11f1-0a80-015c001d91c6",
+    "name": "Костюм двойка на пуговицах (DMK007) (Светло-серый, L)",
+    "code": "00255",
+    "product_id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "dc02cb9d-00fa-11f1-0a80-0edf001d4100",
+    "name": "Костюм двойка на пуговицах (DMK007) (Светло-серый, XL)",
+    "code": "00256",
+    "product_id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "variant",
+    "id": "dc57d749-00fa-11f1-0a80-0edf001d4142",
+    "name": "Костюм двойка на пуговицах (DMK007) (Светло-серый, 2XL)",
+    "code": "00257",
+    "product_id": "c5887b8b-00fa-11f1-0a80-0844001d67a7",
+    "old_sale_price": 15900.0,
+    "old_new_price": 15900.0
+  },
+  {
+    "type": "product",
+    "id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "name": "Джинсы wide-leg в полоску (MYA8835)",
+    "article": "MYA8835",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c73f20d1-00e8-11f1-0a80-1395001a78ce",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Голубой, S)",
+    "code": "00198",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c78fa6e7-00e8-11f1-0a80-1ba30019cf0e",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Голубой, M)",
+    "code": "00199",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c7cd1b40-00e8-11f1-0a80-07ab001a922e",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Голубой, L)",
+    "code": "00200",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c83219d7-00e8-11f1-0a80-07ab001a923a",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Голубой, XL)",
+    "code": "00201",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c8b7cc27-00e8-11f1-0a80-0edf001915f0",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Серый, S)",
+    "code": "00202",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c9141b8d-00e8-11f1-0a80-0bb6001a9262",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Серый, M)",
+    "code": "00203",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "c9ea205c-00e8-11f1-0a80-194d001a552d",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Серый, L)",
+    "code": "00204",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "ca9790ad-00e8-11f1-0a80-1ba30019d358",
+    "name": "Джинсы wide-leg в полоску (MYA8835) (Серый, XL)",
+    "code": "00205",
+    "product_id": "ab4bf4bc-00e8-11f1-0a80-04f3001aaaaa",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "product",
+    "id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380)",
+    "article": "ZZ4380",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "variant",
+    "id": "1ad44750-05da-11f1-0a80-033400809baa",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380) (Чёрный, S)",
+    "code": "00355",
+    "product_id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "variant",
+    "id": "1b0da6fc-05da-11f1-0a80-172a0081bdd7",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380) (Чёрный, M)",
+    "code": "00356",
+    "product_id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "variant",
+    "id": "1b449f8c-05da-11f1-0a80-172a0081bde2",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380) (Чёрный, L)",
+    "code": "00357",
+    "product_id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "variant",
+    "id": "1b7de127-05da-11f1-0a80-033400809bc9",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380) (Чёрный, XL)",
+    "code": "00358",
+    "product_id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "variant",
+    "id": "1bb4b386-05da-11f1-0a80-172a0081bdfb",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380) (Чёрный, 2XL)",
+    "code": "00359",
+    "product_id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "variant",
+    "id": "1bf25eed-05da-11f1-0a80-0c82006cb527",
+    "name": "Брюки Adidas Originals с кнопками (ZZ4380) (Чёрный, 3XL)",
+    "code": "00360",
+    "product_id": "1aa5fefe-05da-11f1-0a80-064400829c3e",
+    "old_sale_price": 17900.0,
+    "old_new_price": 17900.0
+  },
+  {
+    "type": "product",
+    "id": "0de6d529-006e-11f1-0a80-194d00030877",
+    "name": "Джинсы баллон с ремнём XSL26115",
+    "article": "XSL26115",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "163b0c2e-006e-11f1-0a80-171a0002f687",
+    "name": "Джинсы баллон с ремнём XSL26115 (Синий, S)",
+    "code": "00054",
+    "product_id": "0de6d529-006e-11f1-0a80-194d00030877",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "167ddb39-006e-11f1-0a80-194d000308e9",
+    "name": "Джинсы баллон с ремнём XSL26115 (Синий, M)",
+    "code": "00055",
+    "product_id": "0de6d529-006e-11f1-0a80-194d00030877",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "16cc824a-006e-11f1-0a80-10fa0002f118",
+    "name": "Джинсы баллон с ремнём XSL26115 (Синий, L)",
+    "code": "00056",
+    "product_id": "0de6d529-006e-11f1-0a80-194d00030877",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "17222b22-006e-11f1-0a80-16580002e293",
+    "name": "Джинсы баллон с ремнём XSL26115 (Синий, XL)",
+    "code": "00057",
+    "product_id": "0de6d529-006e-11f1-0a80-194d00030877",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "product",
+    "id": "0eb0cbf6-006e-11f1-0a80-0de400033c2a",
+    "name": "Джинсы wide-leg с ремнём Hermès (XSL26068)",
+    "article": "XSL26068",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1a8b4e42-006e-11f1-0a80-07ab0002c7cc",
+    "name": "Джинсы wide-leg с ремнём Hermès (XSL26068) (Синий, S)",
+    "code": "00070",
+    "product_id": "0eb0cbf6-006e-11f1-0a80-0de400033c2a",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1ad9e94b-006e-11f1-0a80-13950002c68b",
+    "name": "Джинсы wide-leg с ремнём Hermès (XSL26068) (Синий, M)",
+    "code": "00071",
+    "product_id": "0eb0cbf6-006e-11f1-0a80-0de400033c2a",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1b18190e-006e-11f1-0a80-1ba30002fe86",
+    "name": "Джинсы wide-leg с ремнём Hermès (XSL26068) (Синий, L)",
+    "code": "00072",
+    "product_id": "0eb0cbf6-006e-11f1-0a80-0de400033c2a",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1b584599-006e-11f1-0a80-13950002c697",
+    "name": "Джинсы wide-leg с ремнём Hermès (XSL26068) (Синий, XL)",
+    "code": "00073",
+    "product_id": "0eb0cbf6-006e-11f1-0a80-0de400033c2a",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "product",
+    "id": "0c7137a3-006e-11f1-0a80-0edf0002eb12",
+    "name": "Джинсы клёш с ремнём XSL26066",
+    "article": "XSL26066",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "0f3bc84d-006e-11f1-0a80-05dc0002ebb4",
+    "name": "Джинсы клёш с ремнём XSL26066 (Синий, S)",
+    "code": "00026",
+    "product_id": "0c7137a3-006e-11f1-0a80-0edf0002eb12",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "0f7b56b6-006e-11f1-0a80-10fa0002f0ba",
+    "name": "Джинсы клёш с ремнём XSL26066 (Синий, M)",
+    "code": "00027",
+    "product_id": "0c7137a3-006e-11f1-0a80-0edf0002eb12",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "0fbec557-006e-11f1-0a80-1ba30002fdd3",
+    "name": "Джинсы клёш с ремнём XSL26066 (Синий, L)",
+    "code": "00028",
+    "product_id": "0c7137a3-006e-11f1-0a80-0edf0002eb12",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "0ffe8a01-006e-11f1-0a80-16580002e20d",
+    "name": "Джинсы клёш с ремнём XSL26066 (Синий, XL)",
+    "code": "00029",
+    "product_id": "0c7137a3-006e-11f1-0a80-0edf0002eb12",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "product",
+    "id": "0cc21f4e-006e-11f1-0a80-13950002c4b2",
+    "name": "Джинсы wide-leg с ремнём XSL26088",
+    "article": "XSL26088",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1038e456-006e-11f1-0a80-015c00031073",
+    "name": "Джинсы wide-leg с ремнём XSL26088 (Синий, S)",
+    "code": "00030",
+    "product_id": "0cc21f4e-006e-11f1-0a80-13950002c4b2",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "107feadd-006e-11f1-0a80-1ab70002dff1",
+    "name": "Джинсы wide-leg с ремнём XSL26088 (Синий, M)",
+    "code": "00031",
+    "product_id": "0cc21f4e-006e-11f1-0a80-13950002c4b2",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "10bd5fcf-006e-11f1-0a80-13950002c5e9",
+    "name": "Джинсы wide-leg с ремнём XSL26088 (Синий, L)",
+    "code": "00032",
+    "product_id": "0cc21f4e-006e-11f1-0a80-13950002c4b2",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "10feee32-006e-11f1-0a80-05dc0002ebe8",
+    "name": "Джинсы wide-leg с ремнём XSL26088 (Синий, XL)",
+    "code": "00033",
+    "product_id": "0cc21f4e-006e-11f1-0a80-13950002c4b2",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "product",
+    "id": "9c06b84f-0029-11f1-0a80-0edc0073ecc2",
+    "name": "Брюки карго широкие с декором (DXJ2800)",
+    "article": "DXJ2800",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9c652bf4-0029-11f1-0a80-00bf00754294",
+    "name": "Брюки карго широкие с декором (DXJ2800) (Чёрный, M)",
+    "code": "00015",
+    "product_id": "9c06b84f-0029-11f1-0a80-0edc0073ecc2",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "9cafc2d9-0029-11f1-0a80-18230075c180",
+    "name": "Брюки карго широкие с декором (DXJ2800) (Чёрный, L)",
+    "code": "00016",
+    "product_id": "9c06b84f-0029-11f1-0a80-0edc0073ecc2",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "product",
+    "id": "0ef9485a-006e-11f1-0a80-0edf0002eb37",
+    "name": "Джинсы wide-leg особые с ремнём XSL26123",
+    "article": "XSL26123",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1b9d07f6-006e-11f1-0a80-1ab70002e40d",
+    "name": "Джинсы wide-leg особые с ремнём XSL26123 (Синий, S)",
+    "code": "00074",
+    "product_id": "0ef9485a-006e-11f1-0a80-0edf0002eb37",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1be0b74e-006e-11f1-0a80-04f30002e2ce",
+    "name": "Джинсы wide-leg особые с ремнём XSL26123 (Синий, M)",
+    "code": "00075",
+    "product_id": "0ef9485a-006e-11f1-0a80-0edf0002eb37",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1c1da37f-006e-11f1-0a80-16580002e2e3",
+    "name": "Джинсы wide-leg особые с ремнём XSL26123 (Синий, L)",
+    "code": "00076",
+    "product_id": "0ef9485a-006e-11f1-0a80-0edf0002eb37",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "variant",
+    "id": "1c5c1157-006e-11f1-0a80-07ab0002c7ee",
+    "name": "Джинсы wide-leg особые с ремнём XSL26123 (Синий, XL)",
+    "code": "00077",
+    "product_id": "0ef9485a-006e-11f1-0a80-0edf0002eb37",
+    "old_sale_price": 24900.0,
+    "old_new_price": 24900.0
+  },
+  {
+    "type": "product",
+    "id": "f38100ca-00ef-11f1-0a80-0844001ab707",
+    "name": "Джинсы wide-leg винтаж (DLJ2746)",
+    "article": "DLJ2746",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "4af374e1-00f0-11f1-0a80-171a001baf74",
+    "name": "Джинсы wide-leg винтаж (DLJ2746) (Синий, S)",
+    "code": "00219",
+    "product_id": "f38100ca-00ef-11f1-0a80-0844001ab707",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "4b573923-00f0-11f1-0a80-1395001c2723",
+    "name": "Джинсы wide-leg винтаж (DLJ2746) (Синий, M)",
+    "code": "00220",
+    "product_id": "f38100ca-00ef-11f1-0a80-0844001ab707",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "4bb77a21-00f0-11f1-0a80-194d001c0581",
+    "name": "Джинсы wide-leg винтаж (DLJ2746) (Синий, L)",
+    "code": "00221",
+    "product_id": "f38100ca-00ef-11f1-0a80-0844001ab707",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "product",
+    "id": "e367c01d-0823-11f1-0a80-065200218568",
+    "name": "Бомбер двусторонний экокожа (YW6920)",
+    "article": "YW6920",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "e581cdb4-0823-11f1-0a80-1b11002111ef",
+    "name": "Бомбер двусторонний экокожа (YW6920) (Хаки, OneSize)",
+    "code": "00540",
+    "product_id": "e367c01d-0823-11f1-0a80-065200218568",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "product",
+    "id": "a7381917-00e1-11f1-0a80-194d0018be48",
+    "name": "Костюм рубашка-жакет + юбка (MZ2583)",
+    "article": "MZ2583",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "afd24061-00e1-11f1-0a80-07ab0018f3ce",
+    "name": "Костюм рубашка-жакет + юбка (MZ2583) (Чёрный, L)",
+    "code": "00169",
+    "product_id": "a7381917-00e1-11f1-0a80-194d0018be48",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "variant",
+    "id": "b04c0428-00e1-11f1-0a80-05dc00187276",
+    "name": "Костюм рубашка-жакет + юбка (MZ2583) (Коричневый, L)",
+    "code": "00170",
+    "product_id": "a7381917-00e1-11f1-0a80-194d0018be48",
+    "old_sale_price": 25900.0,
+    "old_new_price": 25900.0
+  },
+  {
+    "type": "product",
+    "id": "0d9dfa60-006e-11f1-0a80-13950002c502",
+    "name": "Джинсы wide-leg с ремнём классика XSL26016",
+    "article": "XSL26016",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "152e6c8d-006e-11f1-0a80-07ab0002c761",
+    "name": "Джинсы wide-leg с ремнём классика XSL26016 (Синий, S)",
+    "code": "00050",
+    "product_id": "0d9dfa60-006e-11f1-0a80-13950002c502",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "15744cc8-006e-11f1-0a80-1ab70002e1cc",
+    "name": "Джинсы wide-leg с ремнём классика XSL26016 (Синий, M)",
+    "code": "00051",
+    "product_id": "0d9dfa60-006e-11f1-0a80-13950002c502",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "15b183a7-006e-11f1-0a80-0de400033ca1",
+    "name": "Джинсы wide-leg с ремнём классика XSL26016 (Синий, L)",
+    "code": "00052",
+    "product_id": "0d9dfa60-006e-11f1-0a80-13950002c502",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "variant",
+    "id": "15fe1333-006e-11f1-0a80-1ab70002e20b",
+    "name": "Джинсы wide-leg с ремнём классика XSL26016 (Синий, XL)",
+    "code": "00053",
+    "product_id": "0d9dfa60-006e-11f1-0a80-13950002c502",
+    "old_sale_price": 22900.0,
+    "old_new_price": 22900.0
+  },
+  {
+    "type": "product",
+    "id": "ab9de88c-00e8-11f1-0a80-04f3001aaac2",
+    "name": "Джинсы wide-leg градиент (MYA8838)",
+    "article": "MYA8838",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "cb1ed8a6-00e8-11f1-0a80-1ab70019d1a5",
+    "name": "Джинсы wide-leg градиент (MYA8838) (Сине-серый, S)",
+    "code": "00206",
+    "product_id": "ab9de88c-00e8-11f1-0a80-04f3001aaac2",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "cb6e429c-00e8-11f1-0a80-10fa001af09b",
+    "name": "Джинсы wide-leg градиент (MYA8838) (Сине-серый, M)",
+    "code": "00207",
+    "product_id": "ab9de88c-00e8-11f1-0a80-04f3001aaac2",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "cbcfe844-00e8-11f1-0a80-015c001952ea",
+    "name": "Джинсы wide-leg градиент (MYA8838) (Сине-серый, L)",
+    "code": "00208",
+    "product_id": "ab9de88c-00e8-11f1-0a80-04f3001aaac2",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "cc203d3a-00e8-11f1-0a80-084400195677",
+    "name": "Джинсы wide-leg градиент (MYA8838) (Сине-серый, XL)",
+    "code": "00209",
+    "product_id": "ab9de88c-00e8-11f1-0a80-04f3001aaac2",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "product",
+    "id": "653f94fd-0029-11f1-0a80-0bb20007418f",
+    "name": "Джинсы классика (DXJ3333)",
+    "article": "DXJ3333",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "7dad9a99-0029-11f1-0a80-015000736eed",
+    "name": "Джинсы классика (DXJ3333) (Джинс, S)",
+    "code": "00001",
+    "product_id": "653f94fd-0029-11f1-0a80-0bb20007418f",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "864f5121-0029-11f1-0a80-0bb200074ad8",
+    "name": "Джинсы классика (DXJ3333) (Джинс, M)",
+    "code": "00002",
+    "product_id": "653f94fd-0029-11f1-0a80-0bb20007418f",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "variant",
+    "id": "86da2551-0029-11f1-0a80-0150007370c9",
+    "name": "Джинсы классика (DXJ3333) (Джинс, L)",
+    "code": "00003",
+    "product_id": "653f94fd-0029-11f1-0a80-0bb20007418f",
+    "old_sale_price": 23900.0,
+    "old_new_price": 23900.0
+  },
+  {
+    "type": "product",
+    "id": "e1d1757e-00e2-11f1-0a80-194d0018f78a",
+    "name": "Джинсы wide-leg цветные (KS9017)",
+    "article": "KS9017",
+    "old_sale_price": 18900.0,
+    "old_new_price": 18900.0
+  },
+  {
+    "type": "variant",
+    "id": "0b90e29b-00e3-11f1-0a80-171a0018c8fa",
+    "name": "Джинсы wide-leg цветные (KS9017) (Хаки, S)",
+    "code": "00182",
+    "product_id": "e1d1757e-00e2-11f1-0a80-194d0018f78a",
+    "old_sale_price": 18900.0,
+    "old_new_price": 18900.0
+  },
+  {
+    "type": "variant",
+    "id": "0bef39bf-00e3-11f1-0a80-13950018ce1f",
+    "name": "Джинсы wide-leg цветные (KS9017) (Хаки, M)",
+    "code": "00183",
+    "product_id": "e1d1757e-00e2-11f1-0a80-194d0018f78a",
+    "old_sale_price": 18900.0,
+    "old_new_price": 18900.0
+  },
+  {
+    "type": "variant",
+    "id": "0c3cce22-00e3-11f1-0a80-08440018157a",
+    "name": "Джинсы wide-leg цветные (KS9017) (Хаки, L)",
+    "code": "00184",
+    "product_id": "e1d1757e-00e2-11f1-0a80-194d0018f78a",
+    "old_sale_price": 18900.0,
+    "old_new_price": 18900.0
+  },
+  {
+    "type": "variant",
+    "id": "0c9c60a8-00e3-11f1-0a80-084400181584",
+    "name": "Джинсы wide-leg цветные (KS9017) (Хаки, XL)",
+    "code": "00185",
+    "product_id": "e1d1757e-00e2-11f1-0a80-194d0018f78a",
+    "old_sale_price": 18900.0,
+    "old_new_price": 18900.0
+  },
+  {
+    "type": "product",
+    "id": "e22d3c52-00e2-11f1-0a80-04f3001932ac",
+    "name": "Джинсы wide-leg высокая посадка (KS8861)",
+    "article": "KS8861",
+    "old_sale_price": 19900.0,
+    "old_new_price": 19900.0
+  },
+  {
+    "type": "variant",
+    "id": "0ceb22cb-00e3-11f1-0a80-0edf0017b435",
+    "name": "Джинсы wide-leg высокая посадка (KS8861) (Синий, S)",
+    "code": "00186",
+    "product_id": "e22d3c52-00e2-11f1-0a80-04f3001932ac",
+    "old_sale_price": 19900.0,
+    "old_new_price": 19900.0
+  },
+  {
+    "type": "variant",
+    "id": "0d5a2c3c-00e3-11f1-0a80-04f3001938ee",
+    "name": "Джинсы wide-leg высокая посадка (KS8861) (Синий, M)",
+    "code": "00187",
+    "product_id": "e22d3c52-00e2-11f1-0a80-04f3001932ac",
+    "old_sale_price": 19900.0,
+    "old_new_price": 19900.0
+  },
+  {
+    "type": "variant",
+    "id": "0d9ef607-00e3-11f1-0a80-0de400189592",
+    "name": "Джинсы wide-leg высокая посадка (KS8861) (Синий, L)",
+    "code": "00188",
+    "product_id": "e22d3c52-00e2-11f1-0a80-04f3001932ac",
+    "old_sale_price": 19900.0,
+    "old_new_price": 19900.0
+  },
+  {
+    "type": "variant",
+    "id": "0dfafcf8-00e3-11f1-0a80-0de40018959e",
+    "name": "Джинсы wide-leg высокая посадка (KS8861) (Синий, XL)",
+    "code": "00189",
+    "product_id": "e22d3c52-00e2-11f1-0a80-04f3001932ac",
+    "old_sale_price": 19900.0,
+    "old_new_price": 19900.0
+  },
+  {
+    "type": "product",
+    "id": "9cf8fa5c-0029-11f1-0a80-11b20072c508",
+    "name": "Бомбер экокожа с заклёпками (DXJ95531)",
+    "article": "DXJ95531",
+    "old_sale_price": 28900.0,
+    "old_new_price": 28900.0
+  },
+  {
+    "type": "variant",
+    "id": "9d6744e8-0029-11f1-0a80-0fd200735511",
+    "name": "Бомбер экокожа с заклёпками (DXJ95531) (Тёмно-серый, OneSize)",
+    "code": "00017",
+    "product_id": "9cf8fa5c-0029-11f1-0a80-11b20072c508",
+    "old_sale_price": 28900.0,
+    "old_new_price": 28900.0
+  },
+  {
+    "type": "product",
+    "id": "7be7e985-0069-11f1-0a80-10fa000242f7",
+    "name": "Шорты-юбка классика (JL8937-1)",
+    "article": "JL8937-1",
+    "old_sale_price": 13900.0,
+    "old_new_price": 13900.0
+  },
+  {
+    "type": "variant",
+    "id": "93267ada-0069-11f1-0a80-10fa000246dc",
+    "name": "Шорты-юбка классика (JL8937-1) (Чёрный, L)",
+    "code": "00024",
+    "product_id": "7be7e985-0069-11f1-0a80-10fa000242f7",
+    "old_sale_price": 13900.0,
+    "old_new_price": 13900.0
+  },
+  {
+    "type": "variant",
+    "id": "93a8db78-0069-11f1-0a80-0844000231d7",
+    "name": "Шорты-юбка классика (JL8937-1) (Чёрный, XL)",
+    "code": "00025",
+    "product_id": "7be7e985-0069-11f1-0a80-10fa000242f7",
+    "old_sale_price": 13900.0,
+    "old_new_price": 13900.0
+  }
+]

@@ -1,40 +1,19 @@
-# Sneaker Order
+# sneaker-order — заказы кроссовок + публичные дашборды (GitHub Pages)
 
-Shared sneaker ordering system — buyer edits, supplier confirms availability and prices.
+Отдельный git-репо (отдаёт статику на https://yerlannof.github.io/sneaker-order/).
+Основная аналитика/база — в соседнем репо `pnlpower` (см. его `scripts/CANON.md`).
 
-## Setup
+## Канон-карта
+| Что | Скрипт | Выход |
+|---|---|---|
+| Заказ кроссовок (КАНОН) | `generate_order.py` | заказ в Supabase (ссылки закупщик/поставщик) |
+| Сейл-дашборд обуви | `build_sneakers.py` | sneakers.html + index.html |
+| Уценка одежды | `build_clothing_clearance.py` | clothing_clearance.html |
+| Уценка Adidas (Аружан) | `build_adidas_clearance.py` | adidas_clearance.html |
+| SMM-посты скидок | `build_smm.py`, `build_smm_adidas.py` | smm*.html |
+| «Что докупить» (НЕ обувь) | `build_restock.py` | restock.html |
+| Ребаланс (пишется из pnlpower) | — | rebalance.html, kpi.html, stats.html |
 
-### 1. Supabase (free)
-1. Go to [supabase.com](https://supabase.com) → New Project
-2. Open SQL Editor → paste and run `setup.sql`
-3. Go to Settings → API → copy **Project URL** and **anon public key**
-
-### 2. Configure
-Create `.env` in this folder:
-```
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_KEY=eyJhbGci...
-```
-
-Also update `index.html` lines with `%%SUPABASE_URL%%` and `%%SUPABASE_KEY%%`.
-
-### 3. Deploy
-```bash
-git add -A && git commit -m "Initial" && git push
-```
-Enable GitHub Pages: repo Settings → Pages → Source: main → / (root)
-
-Site will be at: `https://yerlannof.github.io/sneaker-order/`
-
-## Usage
-
-```bash
-# From pnlpower directory:
-python ../sneaker-order/upload_order.py --min-sold 5
-
-# Output:
-# Закупщик: https://yerlannof.github.io/sneaker-order/?id=abc123&role=buyer
-# Поставщик: https://yerlannof.github.io/sneaker-order/?id=abc123&role=supplier
-```
-
-Send the supplier link via WhatsApp. Supplier marks availability and prices. You confirm and export JSON.
+Запуск любого билдера: `../.venv/bin/python <скрипт>` (из этой папки) — база лежит в `../data/`.
+`archive/` — легаси, НЕ ЗАПУСКАТЬ (`upload_order.py` породил фантомный транзит ЗК-015).
+`.photo_cache_*.json` — локальные кэши фото (не в git); `*_photos.json` — публикуемые данные страниц.

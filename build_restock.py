@@ -32,7 +32,7 @@ OUT_LITE = Path(__file__).parent / 'restock_lite.json'
 OUT_PHOTOS = Path(__file__).parent / 'restock_photos.json'
 PHOTO_CACHE = Path(__file__).parent / '.photo_cache_restock.json'
 
-SNAPSHOT_DATE = '20260624'
+SNAPSHOT_DATE = None       # None = автоопределение последнего снапшота из базы (фикс 25.07: был хардкод '20260624' — дашборд молча строился от старых остатков)
 TARGET_WEEKS = 8           # на сколько недель хотим покрытие при дозаказе
 TOP_N = 30
 MARGIN_MIN = 30            # % — отсекаем убыточный/низкомаржинальный сток
@@ -152,7 +152,11 @@ def main():
         a['variants'].add(name)
 
     # 2. Остатки по складам (по модели)
-    snap = f'inventory_snapshot_stores_{SNAPSHOT_DATE}'
+    snap_date = SNAPSHOT_DATE or con.execute(
+        "SELECT MAX(REPLACE(table_name, 'inventory_snapshot_stores_', '')) "
+        "FROM information_schema.tables WHERE table_name LIKE 'inventory_snapshot_stores_2%'"
+    ).fetchone()[0]
+    snap = f'inventory_snapshot_stores_{snap_date}'
     srows = con.execute(f"""
         SELECT product_name, SUM(moscow) ms, SUM(tsum) ts, SUM(online) on_, SUM(astana_aruzhan) ar,
                SUM(main_warehouse) wh, SUM(total_stock) tot

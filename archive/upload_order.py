@@ -123,7 +123,62 @@ def fetch_image_bytes(article, token):
         return None
 
 
-def calc_boxes(sizes_sold, sizes_stock, weekly_rate, season_coeff, weeks):
+def fetch_transit_stock(order_ids=None):
+    """Fetch in-transit stock from Supabase orders.
+
+    Args:
+        order_ids: list of order IDs to consider in transit (e.g. ['ЗК-008'])
+                   If None, uses all orders with status 'sent' or 'supplier_done'
+    Returns:
+        dict: {article: total_pairs_in_transit}
+    """
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        return {}
+
+    try:
+        if order_ids:
+            # Fetch specific orders
+            transit = {}
+            for oid in order_ids:
+                resp = requests.get(
+                    f"{SUPABASE_URL}/rest/v1/orders?select=items,confirmed_items,supplier_items&id=eq.{oid}",
+                    headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                    timeout=15,
+                )
+                if resp.ok and resp.json():
+                    o = resp.json()[0]
+                    items = o.get('confirmed_items') or o.get('supplier_items') or o.get('items', [])
+                    for it in items:
+                        art = it.get('article', '')
+                        pairs = it.get('pairs', 0)
+                        if art and pairs > 0:
+                            transit[art] = transit.get(art, 0) + pairs
+            return transit
+        else:
+            # Auto-detect: fetch all sent/supplier_done orders
+            resp = requests.get(
+                f"{SUPABASE_URL}/rest/v1/orders?select=id,status,items,confirmed_items,supplier_items"
+                f"&status=in.(sent,supplier_done)",
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=15,
+            )
+            if not resp.ok:
+                return {}
+            transit = {}
+            for o in resp.json():
+                items = o.get('confirmed_items') or o.get('supplier_items') or o.get('items', [])
+                for it in items:
+                    art = it.get('article', '')
+                    pairs = it.get('pairs', 0)
+                    if art and pairs > 0:
+                        transit[art] = transit.get(art, 0) + pairs
+            return transit
+    except Exception as e:
+        print(f"⚠️  Не удалось загрузить транзит: {e}")
+        return {}
+
+
+def calc_boxes(sizes_sold, sizes_stock, weekly_rate, season_coeff, weeks, wos=999, transit=0):
     all_sizes = set()
     for s in list(sizes_sold.keys()) + list(sizes_stock.keys()):
         try:
@@ -133,9 +188,13 @@ def calc_boxes(sizes_sold, sizes_stock, weekly_rate, season_coeff, weeks):
     has_women = bool(all_sizes & {36, 37})
     has_men = bool(all_sizes & {43, 44})
     target = int(round(weekly_rate * season_coeff * weeks))
-    current = sum(sizes_stock.get(str(s), 0) for s in all_sizes)
+    current = sum(sizes_stock.get(str(s), 0) for s in all_sizes) + transit
     need = max(0, target - current)
-    if need == 0:
+    # WOS < 8 = закончится за время доставки (lead time ~2.5 нед)
+    # Гарантируем минимум 1 коробку даже если формула даёт 0
+    if need == 0 and wos < 8:
+        need = 6  # 1 коробка
+    elif need == 0:
         return 0, 0
     if has_women and has_men:
         tb = max(1, round(need / 6))
@@ -146,10 +205,16 @@ def calc_boxes(sizes_sold, sizes_stock, weekly_rate, season_coeff, weeks):
         return 0, max(1, round(need / 6))
 
 
-def generate_order(weeks=8, min_sold=3, with_photos=True):
+def generate_order(weeks=8, min_sold=3, with_photos=True, transit_orders=None):
     import duckdb
     con = duckdb.connect(str(DB_PATH), read_only=True)
     today = date.today()
+
+    # Load transit stock from Supabase
+    transit_stock = fetch_transit_stock(transit_orders)
+    if transit_stock:
+        total_transit = sum(transit_stock.values())
+        print(f"📦 В пути: {len(transit_stock)} артикулов, {total_transit} пар (вычитаем из потребности)")
 
     snap = con.execute("""
         SELECT table_name FROM information_schema.tables
@@ -166,22 +231,32 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     sw = 5.0
     excl = " AND ".join(f"product_name NOT LIKE '{p}'" for p in EXCLUDE_PATTERNS)
 
+    # ИСТОЧНИК ПРОДАЖ: retaildemand_positions (точные позиции каждого чека).
+    # Старая sales таблица через /report/profit/byvariant имеет дыры за янв-апр 2024
+    # и неточна по конкретным артикулам.
     # FIX: JOIN по article — товары переименовываются в МойСклад!
     rows = con.execute(f"""
     WITH sa AS (
         SELECT
             article,
-            LAST(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') ORDER BY sale_datetime) as model,
+            LAST(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '') ORDER BY document_moment) as model,
             CAST(SUM(quantity) AS INT) as qty_sold,
             ROUND(SUM(quantity)/{sw}, 1) as weekly_rate,
             ROUND(SUM(quantity)/{sw}*{sc}, 1) as adj_rate,
-            ROUND(AVG(CASE WHEN price>0 THEN price END)) as avg_price,
-            ROUND(SUM(profit)*100.0/NULLIF(SUM(revenue),0),1) as margin_pct,
-            ROUND(AVG(CASE WHEN price>0 THEN cogs END)) as avg_cogs
-        FROM sales
-        WHERE sale_datetime>='{start}' AND price>0 AND {excl}
+            ROUND(AVG(CASE WHEN price>0 THEN price END)) as avg_price
+        FROM retaildemand_positions
+        WHERE document_moment>='{start}' AND price>0 AND {excl}
           AND article IS NOT NULL AND article != ''
         GROUP BY 1 HAVING SUM(quantity)>={min_sold}
+    ),
+    -- margin берём из старой sales для тех же артикулов (для отображения, не критично)
+    margin AS (
+        SELECT article,
+            ROUND(SUM(profit)*100.0/NULLIF(SUM(revenue),0),1) as margin_pct,
+            ROUND(AVG(CASE WHEN price>0 THEN cogs END)) as avg_cogs
+        FROM sales WHERE sale_datetime>='{start}' AND price>0
+          AND article IS NOT NULL AND article != ''
+        GROUP BY article
     ),
     st AS (
         SELECT
@@ -200,8 +275,9 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
         COALESCE(st.total,0), COALESCE(st.moscow,0), COALESCE(st.tsum_online,0),
         COALESCE(st.aruzhan,0), COALESCE(st.warehouse,0),
         CASE WHEN sa.adj_rate>0 THEN ROUND(COALESCE(st.total,0)/sa.adj_rate,1) ELSE 999 END,
-        sa.margin_pct, sa.avg_price, sa.avg_cogs
+        COALESCE(m.margin_pct, 60.0) as margin_pct, sa.avg_price, COALESCE(m.avg_cogs, 0) as avg_cogs
     FROM sa LEFT JOIN st ON sa.article=st.article
+            LEFT JOIN margin m ON sa.article=m.article
     WHERE CASE WHEN sa.adj_rate>0 THEN COALESCE(st.total,0)/sa.adj_rate ELSE 999 END < 10
     ORDER BY sa.adj_rate DESC
     """).fetchall()
@@ -256,7 +332,7 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
         art = r[1].replace("'", "''") if r[1] else ''
         sold = con.execute(f"""
             SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1), CAST(SUM(quantity) AS INT)
-            FROM sales WHERE sale_datetime>='{start}' AND price>0
+            FROM retaildemand_positions WHERE document_moment>='{start}' AND price>0
               AND article='{art}'
             GROUP BY 1
         """).fetchall()
@@ -318,13 +394,18 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
     #   11=margin, 12=avg_price, 13=avg_cogs
     items = []
     for r in rows:
-        if r[10] >= 10:
-            continue
         model = r[0]
         article = r[1] or articles.get(model, "")
+        in_transit = transit_stock.get(article, 0)
+        # Recalculate WOS including transit
+        effective_stock = r[5] + in_transit
+        adj_rate = float(r[4])
+        effective_wos = round(effective_stock / adj_rate, 1) if adj_rate > 0 else 999
+        if effective_wos >= 10:
+            continue
         ss, sk = size_data.get(model, ({}, {}))
-        wb, mb = calc_boxes(ss, sk, float(r[3]), sc, weeks)
-        zone = "critical" if r[10] < 3 else ("soon" if r[10] < 6 else "nice")
+        wb, mb = calc_boxes(ss, sk, float(r[3]), sc, weeks, wos=effective_wos, transit=in_transit)
+        zone = "critical" if effective_wos < 3 else ("soon" if effective_wos < 6 else "nice")
         bp = buy_prices.get(article, 0)
         items.append({
             "model": model,
@@ -338,7 +419,8 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             "weekly_rate": float(r[3]),
             "adj_rate": float(r[4]),
             "stock": r[5],
-            "wos": float(r[10]),
+            "in_transit": in_transit,
+            "wos": effective_wos,
             "margin": float(r[11]) if r[11] else 0,
             "price": float(r[12]) if r[12] else 0,
             "cogs": float(r[13]) if r[13] else 0,
@@ -359,14 +441,16 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
             m = merged[art]
             m["sold"] += it["sold"]
             m["stock"] += it["stock"]
+            m["in_transit"] = max(m.get("in_transit", 0), it.get("in_transit", 0))
             m["moscow"] += it["moscow"]
             m["tsum_online"] += it["tsum_online"]
             m["aruzhan"] += it["aruzhan"]
             m["warehouse"] += it["warehouse"]
             m["weekly_rate"] = round(m["weekly_rate"] + it["weekly_rate"], 1)
             m["adj_rate"] = round(m["adj_rate"] + it["adj_rate"], 1)
-            # Recalc WOS and boxes with merged data
-            m["wos"] = round(m["stock"] / m["adj_rate"], 1) if m["adj_rate"] > 0 else 999
+            # Recalc WOS and boxes with merged data (including transit)
+            effective = m["stock"] + m.get("in_transit", 0)
+            m["wos"] = round(effective / m["adj_rate"], 1) if m["adj_rate"] > 0 else 999
             m["zone"] = "critical" if m["wos"] < 3 else ("soon" if m["wos"] < 6 else "nice")
             # Keep better margin, lower cogs
             if it["margin"] > m["margin"]:
@@ -379,7 +463,8 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
                     all_ss[s] = all_ss.get(s, 0) + v
                 for s, v in sk.items():
                     all_sk[s] = all_sk.get(s, 0) + v
-            wb, mb = calc_boxes(all_ss, all_sk, m["weekly_rate"], sc, weeks)
+            wb, mb = calc_boxes(all_ss, all_sk, m["weekly_rate"], sc, weeks, wos=m["wos"],
+                                transit=m.get("in_transit", 0))
             m["women_boxes"] = wb
             m["men_boxes"] = mb
             m["pairs"] = wb * 6 + mb * 6
@@ -388,7 +473,12 @@ def generate_order(weeks=8, min_sold=3, with_photos=True):
                 m["model"] = it["model"]
     items = [i for i in merged.values() if i["pairs"] > 0]
 
-    return items, {"date": today.strftime("%d.%m.%Y"), "season": sc, "weeks": weeks, "snap": snap}
+    transit_info = {art: pairs for art, pairs in transit_stock.items() if any(i["article"] == art for i in items)}
+    return items, {
+        "date": today.strftime("%d.%m.%Y"), "season": sc, "weeks": weeks, "snap": snap,
+        "transit_orders": transit_orders or [],
+        "transit_pairs": sum(transit_stock.values()),
+    }
 
 
 def get_next_order_number():
@@ -446,7 +536,13 @@ def main():
     parser.add_argument("--weeks", type=int, default=8)
     parser.add_argument("--min-sold", type=int, default=3)
     parser.add_argument("--no-photos", action="store_true")
+    parser.add_argument("--transit", nargs="*", default=None,
+                        help="Order IDs in transit (e.g. ЗК-008). If flag without args, auto-detect from Supabase")
     args = parser.parse_args()
+
+    # --transit without args = auto-detect, --transit ЗК-008 = specific orders
+    if args.transit is not None and len(args.transit) == 0:
+        args.transit = None  # auto-detect mode (sent/supplier_done)
 
     load_env()
 
@@ -456,7 +552,9 @@ def main():
         sys.exit(1)
 
     print("Генерация заказа...")
-    items, meta = generate_order(weeks=args.weeks, min_sold=args.min_sold, with_photos=not args.no_photos)
+    transit_orders = args.transit  # None = no transit, list = specific orders
+    items, meta = generate_order(weeks=args.weeks, min_sold=args.min_sold,
+                                 with_photos=not args.no_photos, transit_orders=transit_orders)
 
     total_w = sum(i['women_boxes'] for i in items)
     total_m = sum(i['men_boxes'] for i in items)

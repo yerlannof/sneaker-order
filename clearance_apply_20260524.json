@@ -1,0 +1,1038 @@
+{
+  "generated_at": "2026-05-24",
+  "total_items": 129,
+  "items": [
+    {
+      "article": "200333",
+      "name": "Adidas Yeezy Boost 350 v2 Cinder K",
+      "current_retail": 25900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 13406
+    },
+    {
+      "article": "200150",
+      "name": "Adidas Yeezy Boost 350 V2 Cream Wh",
+      "current_retail": 19900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 13320
+    },
+    {
+      "article": "201520",
+      "name": "Nike Air Jordan 1 High Travis Scot",
+      "current_retail": 31900,
+      "discount": 50,
+      "new_price": 6450,
+      "cost": 12580
+    },
+    {
+      "article": "201495",
+      "name": "Nike Air Jordan 3 x Kaws Grey NK, ",
+      "current_retail": 46900,
+      "discount": 50,
+      "new_price": 8950,
+      "cost": 18459
+    },
+    {
+      "article": "200552",
+      "name": "Adidas Ultraboost 4.0 White K, 36",
+      "current_retail": 19900,
+      "discount": 50,
+      "new_price": 4950,
+      "cost": 10000
+    },
+    {
+      "article": "202321",
+      "name": "Adidas Yeezy Boost 350 V2 Urban Bl",
+      "current_retail": 19900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 7500
+    },
+    {
+      "article": "201646",
+      "name": "Adidas Yeezy Boost 500 Supermoon Y",
+      "current_retail": 24900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 13424
+    },
+    {
+      "article": "202024",
+      "name": "Nike Air Jordan Nigel 4RM Driveway",
+      "current_retail": 35900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 12798
+    },
+    {
+      "article": "201635",
+      "name": "Nike Air Jordan 1 Low Elevate Blac",
+      "current_retail": 32900,
+      "discount": 50,
+      "new_price": 6450,
+      "cost": 12585
+    },
+    {
+      "article": "200185",
+      "name": "Adidas Yeezy Boost 350 V2 Black-Gr",
+      "current_retail": 19900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 9144
+    },
+    {
+      "article": "200548",
+      "name": "Nike Air Jordan 1 Retro High Dark ",
+      "current_retail": 25900,
+      "discount": 50,
+      "new_price": 4950,
+      "cost": 10739
+    },
+    {
+      "article": "200855",
+      "name": "Adidas Yeezy Boost 350 V2 Static К",
+      "current_retail": 9900,
+      "discount": 50,
+      "new_price": 2950,
+      "cost": 10000
+    },
+    {
+      "article": "202020",
+      "name": "Air Jordan 4 Fossil Stone K, 36",
+      "current_retail": 47900,
+      "discount": 30,
+      "new_price": 11130,
+      "cost": 17218
+    },
+    {
+      "article": "201811",
+      "name": "Adidas Gazelle Bold Black White K,",
+      "current_retail": 15900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 11104
+    },
+    {
+      "article": "202031",
+      "name": "Vans Knu Skool Winter Black K, 36",
+      "current_retail": 29900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 11098
+    },
+    {
+      "article": "202322",
+      "name": "Adidas Yeezy Boost 350 V2 Iron Glo",
+      "current_retail": 19900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 7500
+    },
+    {
+      "article": "201611",
+      "name": "Nike SB Blazer Mid Acclimate Pack ",
+      "current_retail": 36900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 9820
+    },
+    {
+      "article": "200356",
+      "name": "Adidas Yeezy Boost 350 v2 Black Re",
+      "current_retail": 9900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 9000
+    },
+    {
+      "article": "201902",
+      "name": "Nike Tech Hera Total Black К, 36",
+      "current_retail": 35900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 11553
+    },
+    {
+      "article": "201855",
+      "name": "Nike Air Max 95 White Z, 36",
+      "current_retail": 17900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 7300
+    },
+    {
+      "article": "200555",
+      "name": "Adidas Yeezy Boost 700 V3 Alvah K,",
+      "current_retail": 28900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 10000
+    },
+    {
+      "article": "201429",
+      "name": "Vans Old School Black K, 36",
+      "current_retail": 27900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 9144
+    },
+    {
+      "article": "200426",
+      "name": "Adidas Yeezy Boost 700 V2 Static K",
+      "current_retail": 25900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 9000
+    },
+    {
+      "article": "201530",
+      "name": "Nike Air Jordan 1 High Washed Pink",
+      "current_retail": 26900,
+      "discount": 50,
+      "new_price": 6450,
+      "cost": 17064
+    },
+    {
+      "article": "202068",
+      "name": "Nike Air Jordan 3 Craft «Ivory» K,",
+      "current_retail": 41900,
+      "discount": 30,
+      "new_price": 12530,
+      "cost": 16781
+    },
+    {
+      "article": "201779",
+      "name": "Nike Air Jordan 1 High Washed Heri",
+      "current_retail": 29900,
+      "discount": 50,
+      "new_price": 6450,
+      "cost": 16781
+    },
+    {
+      "article": "201797",
+      "name": "Adidas Adilette 22 Beige K, 36",
+      "current_retail": 5900,
+      "discount": 30,
+      "new_price": 4130,
+      "cost": 5514
+    },
+    {
+      "article": "201565",
+      "name": "Nike AIr Force 1 Low White Black L",
+      "current_retail": 38900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 14000
+    },
+    {
+      "article": "201741",
+      "name": "Nike Air Jordan 1 Retro High Tie D",
+      "current_retail": 19900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 13764
+    },
+    {
+      "article": "201523",
+      "name": "Nike Air Force 1 x Stussy Black NK",
+      "current_retail": 29900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 13442
+    },
+    {
+      "article": "202032",
+      "name": "Nike Blazer Mid 77 Vintage White B",
+      "current_retail": 36900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 13138
+    },
+    {
+      "article": "201727",
+      "name": "Adidas Samba Pony Tonal WBC Black ",
+      "current_retail": 19900,
+      "discount": 30,
+      "new_price": 5530,
+      "cost": 12000
+    },
+    {
+      "article": "202059",
+      "name": "Nike SB Dunk Low Miami Dolphins K,",
+      "current_retail": 35900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 11924
+    },
+    {
+      "article": "201824",
+      "name": "Adidas Gazelle Bold Beige White K,",
+      "current_retail": 15900,
+      "discount": 30,
+      "new_price": 5530,
+      "cost": 11104
+    },
+    {
+      "article": "200554",
+      "name": "Adidas Yeezy Boost 500 Utility Bla",
+      "current_retail": 19900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 10792
+    },
+    {
+      "article": "201560",
+      "name": "Adidas Stan Smith White Green NK, ",
+      "current_retail": 28900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 8824
+    },
+    {
+      "article": "201683",
+      "name": "Adidas Forum Low Bad Bunny Black Р",
+      "current_retail": 28900,
+      "discount": 50,
+      "new_price": 3950,
+      "cost": 8300
+    },
+    {
+      "article": "202021",
+      "name": "Air Jordan 3 W.Y.W.S. K, 36",
+      "current_retail": 35900,
+      "discount": 30,
+      "new_price": 11130,
+      "cost": 12458
+    },
+    {
+      "article": "202067",
+      "name": "Nike Air Jordan 3 Retro Sail K, 36",
+      "current_retail": 41900,
+      "discount": 20,
+      "new_price": 14320,
+      "cost": 15164
+    },
+    {
+      "article": "202625",
+      "name": "Nike Dunk Low Retro SE \"Monsoon Bl",
+      "current_retail": 22900,
+      "discount": 30,
+      "new_price": 16030,
+      "cost": 7000
+    },
+    {
+      "article": "202401",
+      "name": "Salomon Khaki Z, 41",
+      "current_retail": 24900,
+      "discount": 30,
+      "new_price": 17430,
+      "cost": 9000
+    },
+    {
+      "article": "202375",
+      "name": "Adidas Ultraboost White In, 40",
+      "current_retail": 26900,
+      "discount": 30,
+      "new_price": 18830,
+      "cost": 11023
+    },
+    {
+      "article": "202286",
+      "name": "Nike Air Max Beige Grey P, 36",
+      "current_retail": 21900,
+      "discount": 30,
+      "new_price": 15330,
+      "cost": 8500
+    },
+    {
+      "article": "202590",
+      "name": "Nike P-6000 - “Street Armor” Z, 40",
+      "current_retail": 26900,
+      "discount": 30,
+      "new_price": 18830,
+      "cost": 10500
+    },
+    {
+      "article": "201458",
+      "name": "Adidas Superstar Black White K, 40",
+      "current_retail": 28900,
+      "discount": 50,
+      "new_price": 14450,
+      "cost": 11185
+    },
+    {
+      "article": "201057",
+      "name": "Nike SB Blazer Mid Acclimate Pack ",
+      "current_retail": 36900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 10000
+    },
+    {
+      "article": "202284",
+      "name": "Nike Zoom Air Fire Total Black P, ",
+      "current_retail": 21900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 9300
+    },
+    {
+      "article": "202107",
+      "name": "Nike Zoom Vomero 5 SP Black Metall",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 19652,
+      "cost": 8245
+    },
+    {
+      "article": "202211",
+      "name": "Nike Dunk Low Khaki Green Z, 38",
+      "current_retail": 21900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 8000
+    },
+    {
+      "article": "201745",
+      "name": "Converse Chuck 70 Low Black White ",
+      "current_retail": 24900,
+      "discount": 30,
+      "new_price": 5530,
+      "cost": 5328
+    },
+    {
+      "article": "202563",
+      "name": "Nike Slide Z, 36",
+      "current_retail": 9900,
+      "discount": 30,
+      "new_price": 5530,
+      "cost": 2800
+    },
+    {
+      "article": "202795",
+      "name": "Nike Dunk Low Soft Pink Z, 36",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 0
+    },
+    {
+      "article": "201929",
+      "name": "Nike Air Jordan 1 Low OG TS Travis",
+      "current_retail": 27900,
+      "discount": 20,
+      "new_price": 22320,
+      "cost": 17500
+    },
+    {
+      "article": "202557",
+      "name": "Air Jordan 11 Retro “Black/White/B",
+      "current_retail": 35900,
+      "discount": 30,
+      "new_price": 25130,
+      "cost": 13000
+    },
+    {
+      "article": "202102",
+      "name": "Nike Zoom Vomero 5 SP Black White ",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 19652,
+      "cost": 8245
+    },
+    {
+      "article": "202556",
+      "name": "Air Jordan 11 Retro “Black/White –",
+      "current_retail": 35900,
+      "discount": 30,
+      "new_price": 25130,
+      "cost": 13000
+    },
+    {
+      "article": "202105",
+      "name": "Nike Vomero 5 Total Black In, 36",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 23120,
+      "cost": 11900
+    },
+    {
+      "article": "202680",
+      "name": "Nike Zoom Vomero 5 Vast Grey In, 4",
+      "current_retail": 23900,
+      "discount": 20,
+      "new_price": 19120,
+      "cost": 7500
+    },
+    {
+      "article": "202554",
+      "name": "Air Jordan 11 Retro “Grey/White – ",
+      "current_retail": 35900,
+      "discount": 30,
+      "new_price": 25130,
+      "cost": 13000
+    },
+    {
+      "article": "201055",
+      "name": "Nike Air Jordan 3 Cardinal Red A, ",
+      "current_retail": 29900,
+      "discount": 30,
+      "new_price": 20930,
+      "cost": 13000
+    },
+    {
+      "article": "202297",
+      "name": "Travis Scott x Air Jordan 1 Low OG",
+      "current_retail": 23900,
+      "discount": 20,
+      "new_price": 19120,
+      "cost": 8000
+    },
+    {
+      "article": "202535",
+      "name": "Nike Air Jordan 3 Retro SP x Fragm",
+      "current_retail": 29900,
+      "discount": 20,
+      "new_price": 23920,
+      "cost": 11500
+    },
+    {
+      "article": "202537",
+      "name": "Nike Air Max 1 – Red Thunder In, 3",
+      "current_retail": 27900,
+      "discount": 20,
+      "new_price": 22320,
+      "cost": 11500
+    },
+    {
+      "article": "202549",
+      "name": "Air Jordan 3 “Stone Cream” Z, 36",
+      "current_retail": 29900,
+      "discount": 20,
+      "new_price": 23920,
+      "cost": 11500
+    },
+    {
+      "article": "202106",
+      "name": "Nike Zoom Vomero 5 SP Black In, 36",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 19652,
+      "cost": 8245
+    },
+    {
+      "article": "202624",
+      "name": "Nike SB Dunk Low AE86 - Winter Z, ",
+      "current_retail": 22900,
+      "discount": 25,
+      "new_price": 9675,
+      "cost": 7000
+    },
+    {
+      "article": "202676",
+      "name": "Nike P-7000 Black In, 36",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 23120,
+      "cost": 12000
+    },
+    {
+      "article": "202082",
+      "name": "Nike Air Zoom Pegasus 40 White Obs",
+      "current_retail": 31900,
+      "discount": 20,
+      "new_price": 25520,
+      "cost": 10500
+    },
+    {
+      "article": "201896",
+      "name": "Nike Air Jordan 3 Cement Grey К, 3",
+      "current_retail": 39900,
+      "discount": 20,
+      "new_price": 14320,
+      "cost": 14400
+    },
+    {
+      "article": "202576",
+      "name": "Air Jordan 4 Retro \"White & Pine G",
+      "current_retail": 31900,
+      "discount": 20,
+      "new_price": 25520,
+      "cost": 11500
+    },
+    {
+      "article": "202601",
+      "name": "Nike Air Jordan 1 Retro High Mocha",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "202314",
+      "name": "Adidas Taekwondo White Black Z, 36",
+      "current_retail": 26900,
+      "discount": 40,
+      "new_price": 9540,
+      "cost": 11000
+    },
+    {
+      "article": "202672",
+      "name": "On Cloudtilt Max Black Ivory In, 4",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 23120,
+      "cost": 12000
+    },
+    {
+      "article": "201812",
+      "name": "Nike Air Jordan 1 Low Total White ",
+      "current_retail": 25900,
+      "discount": 20,
+      "new_price": 20720,
+      "cost": 11500
+    },
+    {
+      "article": "202574",
+      "name": "Air Jordan 1 Low \"Shadow Toe\" Z, 3",
+      "current_retail": 25900,
+      "discount": 20,
+      "new_price": 20720,
+      "cost": 10200
+    },
+    {
+      "article": "202402",
+      "name": "Salomon Grey Black Z, 42",
+      "current_retail": 24900,
+      "discount": 20,
+      "new_price": 19920,
+      "cost": 9000
+    },
+    {
+      "article": "202623",
+      "name": "Nike SB Dunk Low Pro \"Why So Sad?\"",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 7500
+    },
+    {
+      "article": "201926",
+      "name": "Nike Blazer Mid '77 Vintage White ",
+      "current_retail": 26900,
+      "discount": 30,
+      "new_price": 18830,
+      "cost": 12880
+    },
+    {
+      "article": "202715",
+      "name": "Nike Dunk Low Rose Whisper Z, 36",
+      "current_retail": 25900,
+      "discount": 20,
+      "new_price": 20720,
+      "cost": 10500
+    },
+    {
+      "article": "202104",
+      "name": "Zoom Vomero 5 White Black In, 37",
+      "current_retail": 28900,
+      "discount": 20,
+      "new_price": 19652,
+      "cost": 8245
+    },
+    {
+      "article": "202575",
+      "name": "Air Jordan 4 Retro \"White Oreo / T",
+      "current_retail": 31900,
+      "discount": 20,
+      "new_price": 25520,
+      "cost": 11500
+    },
+    {
+      "article": "202547",
+      "name": "Nike Zoom Vomero Roam - “Sand Drif",
+      "current_retail": 29900,
+      "discount": 20,
+      "new_price": 23920,
+      "cost": 11500
+    },
+    {
+      "article": "202641",
+      "name": "Nike Initiator Black White In, 40",
+      "current_retail": 24900,
+      "discount": 20,
+      "new_price": 19920,
+      "cost": 8000
+    },
+    {
+      "article": "202640",
+      "name": "Nike Zoom Pegasus Black Green In, ",
+      "current_retail": 19900,
+      "discount": 20,
+      "new_price": 15920,
+      "cost": 6000
+    },
+    {
+      "article": "202551",
+      "name": "Air Jordan 1 Mid “Blue/White/Black",
+      "current_retail": 24900,
+      "discount": 30,
+      "new_price": 17430,
+      "cost": 9000
+    },
+    {
+      "article": "202555",
+      "name": "Nike Dunk Low “Brown/Black/White –",
+      "current_retail": 25900,
+      "discount": 20,
+      "new_price": 20720,
+      "cost": 10200
+    },
+    {
+      "article": "202117",
+      "name": "Nike V2K Run trainers In, 36",
+      "current_retail": 32900,
+      "discount": 20,
+      "new_price": 26320,
+      "cost": 8820
+    },
+    {
+      "article": "202381",
+      "name": "Nike Jordan 1 Low Beige Brown In, ",
+      "current_retail": 25900,
+      "discount": 30,
+      "new_price": 18130,
+      "cost": 10807
+    },
+    {
+      "article": "202502",
+      "name": "Air Jordan 5 Retro “23” – Black/Re",
+      "current_retail": 24900,
+      "discount": 30,
+      "new_price": 17430,
+      "cost": 8000
+    },
+    {
+      "article": "202566",
+      "name": "Salomon XT-6 Black/Magnet/Phantom ",
+      "current_retail": 24900,
+      "discount": 20,
+      "new_price": 19920,
+      "cost": 9000
+    },
+    {
+      "article": "202593",
+      "name": "Nike ACG Mountain Fly Low \"Dark Br",
+      "current_retail": 27900,
+      "discount": 30,
+      "new_price": 19530,
+      "cost": 9000
+    },
+    {
+      "article": "202598",
+      "name": "Air Jordan 1 Mid \"Royal Black Toe\"",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "202550",
+      "name": "Air Jordan 1 Retro High OG “Dark-B",
+      "current_retail": 24900,
+      "discount": 30,
+      "new_price": 17430,
+      "cost": 9000
+    },
+    {
+      "article": "202552",
+      "name": "Air Jordan 1 Mid “Grey/White/Black",
+      "current_retail": 24900,
+      "discount": 30,
+      "new_price": 17430,
+      "cost": 9000
+    },
+    {
+      "article": "202599",
+      "name": "Air Jordan 1 Mid \"Panda\" Z, 36",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "201944",
+      "name": "Nike Air Max 1 JP Sneaker Nordstro",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 9030,
+      "cost": 8916
+    },
+    {
+      "article": "202643",
+      "name": "Nike Air Force 1 low Valentine's D",
+      "current_retail": 23900,
+      "discount": 20,
+      "new_price": 19120,
+      "cost": 7000
+    },
+    {
+      "article": "202594",
+      "name": "Air Jordan 1 Mid \"Inverse-Panda Z,",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "202084",
+      "name": "Vans Vault Authentic Black White I",
+      "current_retail": 27900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6805
+    },
+    {
+      "article": "202655",
+      "name": "NIKE AIR MAX Terrascape 90 White P",
+      "current_retail": 26900,
+      "discount": 20,
+      "new_price": 21520,
+      "cost": 8500
+    },
+    {
+      "article": "202597",
+      "name": "Air Jordan 1 Mid \"Black/White/Red\"",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "202600",
+      "name": "Nike Air Jordan 1 Mid Shadow Z, 36",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "202579",
+      "name": "Adidas Forum Low \"Triple Black\" Z,",
+      "current_retail": 15900,
+      "discount": 30,
+      "new_price": 5530,
+      "cost": 3500
+    },
+    {
+      "article": "202595",
+      "name": "Air Jordan 1 Mid \"Triple White\" Z,",
+      "current_retail": 18900,
+      "discount": 30,
+      "new_price": 6930,
+      "cost": 6000
+    },
+    {
+      "article": "202704",
+      "name": "Adidas Lightblaze Dark Grey Р, 41",
+      "current_retail": 22900,
+      "discount": 20,
+      "new_price": 18320,
+      "cost": 0
+    },
+    {
+      "article": "202697",
+      "name": "Nike Air Max Torch 4 White Silver ",
+      "current_retail": 22900,
+      "discount": 20,
+      "new_price": 18320,
+      "cost": 0
+    },
+    {
+      "article": "202703",
+      "name": "Adidas Lightblaze White Navy Р, 41",
+      "current_retail": 22900,
+      "discount": 20,
+      "new_price": 18320,
+      "cost": 0
+    },
+    {
+      "article": "202710",
+      "name": "Nike Pegasus 39 White Blue Orange ",
+      "current_retail": 17900,
+      "discount": 20,
+      "new_price": 14320,
+      "cost": 0
+    },
+    {
+      "article": "202698",
+      "name": "Nike Air Max Torch 4 Grey Silver Р",
+      "current_retail": 22900,
+      "discount": 20,
+      "new_price": 18320,
+      "cost": 0
+    },
+    {
+      "article": "202701",
+      "name": "Nike V5 RNR White Beige Р, 37",
+      "current_retail": 24900,
+      "discount": 20,
+      "new_price": 19920,
+      "cost": 0
+    },
+    {
+      "article": "202700",
+      "name": "Nike V5 RNR Lavender Silver Р, 38",
+      "current_retail": 24900,
+      "discount": 20,
+      "new_price": 19920,
+      "cost": 0
+    },
+    {
+      "article": "202687",
+      "name": "Nike Pegasus Trail 4 Black Orange ",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 7500
+    },
+    {
+      "article": "201914",
+      "name": "Nike Dunk Low x ae86 Z, 40",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 9000
+    },
+    {
+      "article": "202681",
+      "name": "Nike Air Jordan 1 Low Brown Elepha",
+      "current_retail": 29900,
+      "discount": 30,
+      "new_price": 20930,
+      "cost": 10500
+    },
+    {
+      "article": "201912",
+      "name": "Nike Air Jordan 3 Rretro Midnight ",
+      "current_retail": 37900,
+      "discount": 30,
+      "new_price": 12530,
+      "cost": 14444
+    },
+    {
+      "article": "201948",
+      "name": "Nike Dunk Low University Blue K, 3",
+      "current_retail": 21900,
+      "discount": 30,
+      "new_price": 15330,
+      "cost": 10132
+    },
+    {
+      "article": "202661",
+      "name": "adidas off black In, 36",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 7500
+    },
+    {
+      "article": "201897",
+      "name": "Nike Air Jordan 3 Retro 'Off Noir'",
+      "current_retail": 37900,
+      "discount": 30,
+      "new_price": 12530,
+      "cost": 14400
+    },
+    {
+      "article": "202457",
+      "name": "Nike Air Force 1 Low Black White S",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 8000
+    },
+    {
+      "article": "202553",
+      "name": "Air Jordan 4 Retro “White/Navy/Gum",
+      "current_retail": 31900,
+      "discount": 30,
+      "new_price": 22330,
+      "cost": 11500
+    },
+    {
+      "article": "202546",
+      "name": "Nike Zoom Vomero Roam - “Street Ar",
+      "current_retail": 29900,
+      "discount": 30,
+      "new_price": 20930,
+      "cost": 11500
+    },
+    {
+      "article": "201809",
+      "name": "Nike Air Jordan 1 High ‘85 “Panda ",
+      "current_retail": 27900,
+      "discount": 50,
+      "new_price": 6450,
+      "cost": 11462
+    },
+    {
+      "article": "202585",
+      "name": "Nike ACG Mountain Fly Low \"Black\\B",
+      "current_retail": 27900,
+      "discount": 30,
+      "new_price": 19530,
+      "cost": 9000
+    },
+    {
+      "article": "202222",
+      "name": "Nike SB Dunk High Pro QS Red White",
+      "current_retail": 21900,
+      "discount": 30,
+      "new_price": 15330,
+      "cost": 8000
+    },
+    {
+      "article": "200968",
+      "name": "Nike SB Dunk Low Travis Scott Chea",
+      "current_retail": 9900,
+      "discount": 50,
+      "new_price": 4950,
+      "cost": 8000
+    },
+    {
+      "article": "202686",
+      "name": "Adidas Duramo SL 2 White Pink In, ",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 7500
+    },
+    {
+      "article": "202659",
+      "name": "Nike Zoom Vomero 5 beige In, 36",
+      "current_retail": 31900,
+      "discount": 30,
+      "new_price": 22330,
+      "cost": 12500
+    },
+    {
+      "article": "202749",
+      "name": "Air Jordan 1 Low Ice Blue Red In, ",
+      "current_retail": 29900,
+      "discount": 30,
+      "new_price": 20930,
+      "cost": 0
+    },
+    {
+      "article": "202723",
+      "name": "Nike Initiator Black White In, 41",
+      "current_retail": 23900,
+      "discount": 30,
+      "new_price": 16730,
+      "cost": 0
+    }
+  ]
+}

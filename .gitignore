@@ -1,3 +1,6 @@
 .env
 __pycache__/
 *.pyc
+
+# Локальные кэши фото — не для git (25МБ+)
+.photo_cache_*.json

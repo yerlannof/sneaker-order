@@ -35,22 +35,22 @@
         "Серый меланж/XL": 6,
         "Тёмно-синий/2XL": 5,
         "Чёрный/4XL": 2,
+        "Серый/2XL": 4,
+        "Серый меланж/2XL": 4,
+        "Тёмно-серый/XL": 6,
+        "Светло-серый меланж/2XL": 4,
+        "Тёмно-серый/L": 6,
+        "Светло-серый меланж/L": 6,
+        "Светло-серый меланж/M": 4,
+        "Серый меланж/M": 4,
+        "Тёмно-серый/4XL": 3,
+        "Хаки/L": 6,
         "Белый/M": 4,
         "Розовый/XL": 4,
         "Светло-серый меланж/XL": 6,
         "Хаки/M": 4,
         "Чёрный/3XL": 5,
         "Чёрный/XL": 10,
-        "Светло-серый меланж/L": 6,
-        "Светло-серый меланж/M": 4,
-        "Серый меланж/M": 4,
-        "Тёмно-серый/4XL": 3,
-        "Хаки/L": 6,
-        "Белый/L": 6,
-        "Серый/L": 6,
-        "Тёмно-синий/M": 5,
-        "Хаки/XL": 6,
-        "Чёрный/L": 10,
         "Белый/XL": 6,
         "Серый/3XL": 4,
         "Серый/4XL": 3,
@@ -59,16 +59,16 @@
         "Тёмно-серый/M": 4,
         "Тёмно-синий/XL": 5,
         "Чёрный/M": 7,
-        "Светло-серый меланж/2XL": 4,
-        "Тёмно-серый/L": 6,
-        "Серый/2XL": 4,
-        "Серый меланж/2XL": 4,
-        "Тёмно-серый/XL": 6
+        "Белый/L": 6,
+        "Серый/L": 6,
+        "Тёмно-синий/M": 5,
+        "Хаки/XL": 6,
+        "Чёрный/L": 10
       }
     },
     "last_sale": "2026-04-16",
     "first_sale": "2026-04-16",
-    "days_since_last_sale": 5,
+    "days_since_last_sale": 6,
     "avg_sale_price": 9900,
     "returns_qty": 0,
     "gross_profit": 7450,
@@ -115,15 +115,15 @@
     "stock_cost": 607600,
     "first_supply_date": "2026-04-14",
     "last_supply_date": "2026-04-14",
-    "days_since_first": 7,
+    "days_since_first": 8,
     "velocity": {
       "recent_30d": 1,
-      "avg_30d": 4.3,
-      "acceleration": 0.23
+      "avg_30d": 3.8,
+      "acceleration": 0.27
     },
     "wos": 999,
     "recommendation": "WAIT",
-    "recommendation_reason": "Пришло 7 дн назад — ждём ещё, рано судить",
+    "recommendation_reason": "Пришло 8 дн назад — ждём ещё, рано судить",
     "photo": "[44832b]"
   },
   {
@@ -146,6 +146,7 @@
       },
       "matrix": {
         "Хаки/L": 7,
+        "Хаки/2XL": 8,
         "Бежевый/XL": 8,
         "Коричневый/2XL": 12,
         "Серый/4XL": 8,
@@ -158,20 +159,19 @@
         "Бежевый/4XL": 7,
         "Коричневый/XL": 12,
         "Тёмно-серый/2XL": 16,
-        "Бежевый/2XL": 8,
-        "Тёмно-серый/XL": 15,
+        "Серый/L": 7,
         "Коричневый/L": 12,
         "Серый/2XL": 14,
         "Серый/XL": 13,
         "Тёмно-серый/L": 5,
         "Хаки/XL": 6,
-        "Хаки/2XL": 8,
-        "Серый/L": 7
+        "Бежевый/2XL": 8,
+        "Тёмно-серый/XL": 15
       }
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-02-19",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 10530,
     "returns_qty": 0,
     "gross_profit": 218600,
@@ -203,8 +203,8 @@
         "rev": 130800.0
       },
       "last_30d": {
-        "qty": 22,
-        "rev": 208000.0
+        "qty": 19,
+        "rev": 186200.0
       },
       "total_qty": 30,
       "total_rev": 284300.0
@@ -218,15 +218,15 @@
     "stock_cost": 497130,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 22,
-      "avg_30d": 12.7,
-      "acceleration": 1.74
+      "recent_30d": 19,
+      "avg_30d": 12.5,
+      "acceleration": 1.52
     },
-    "wos": 44.2,
+    "wos": 51.2,
     "recommendation": "GROWING",
-    "recommendation_reason": "Продано пока 12%, НО ускорение ×1.7 (22/мес) — весна разгонит, скидку не давать",
+    "recommendation_reason": "Продано пока 12%, НО ускорение ×1.5 (19/мес) — весна разгонит, скидку не давать",
     "photo": "[16628b]"
   },
   {
@@ -238,8 +238,8 @@
         "Тёмно-зелёный": 18,
         "Чёрный": 60,
         "Жёлтый": 19,
-        "Тёмно-серый": 53,
-        "Коричневый": 36
+        "Коричневый": 36,
+        "Тёмно-серый": 53
       },
       "sizes": {
         "2XL": 57,
@@ -250,26 +250,26 @@
         "Белый/2XL": 11,
         "Тёмно-зелёный/4XL": 4,
         "Чёрный/4XL": 16,
-        "Белый/3XL": 25,
-        "Чёрный/3XL": 29,
         "Жёлтый/2XL": 4,
         "Чёрный/2XL": 15,
+        "Коричневый/2XL": 9,
+        "Коричневый/3XL": 19,
+        "Коричневый/4XL": 8,
+        "Белый/4XL": 13,
+        "Жёлтый/3XL": 10,
+        "Белый/3XL": 25,
+        "Чёрный/3XL": 29,
         "Жёлтый/4XL": 5,
         "Тёмно-зелёный/2XL": 4,
         "Тёмно-зелёный/3XL": 10,
         "Тёмно-серый/2XL": 14,
         "Тёмно-серый/4XL": 14,
-        "Тёмно-серый/3XL": 25,
-        "Коричневый/2XL": 9,
-        "Коричневый/3XL": 19,
-        "Коричневый/4XL": 8,
-        "Белый/4XL": 13,
-        "Жёлтый/3XL": 10
+        "Тёмно-серый/3XL": 25
       }
     },
     "last_sale": "2026-04-14",
     "first_sale": "2026-02-26",
-    "days_since_last_sale": 7,
+    "days_since_last_sale": 8,
     "avg_sale_price": 8653,
     "returns_qty": 0,
     "gross_profit": 120973,
@@ -301,7 +301,7 @@
         "rev": 62300.0
       },
       "last_30d": {
-        "qty": 17,
+        "qty": 16,
         "rev": 124600.0
       },
       "total_qty": 25,
@@ -316,15 +316,15 @@
     "stock_cost": 447910,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 17,
-      "avg_30d": 10.6,
-      "acceleration": 1.61
+      "recent_30d": 16,
+      "avg_30d": 10.4,
+      "acceleration": 1.54
     },
-    "wos": 59.2,
+    "wos": 62.9,
     "recommendation": "GROWING",
-    "recommendation_reason": "Продано пока 10%, НО ускорение ×1.6 (17/мес) — весна разгонит, скидку не давать",
+    "recommendation_reason": "Продано пока 10%, НО ускорение ×1.5 (16/мес) — весна разгонит, скидку не давать",
     "photo": "[17880b]"
   },
   {
@@ -347,27 +347,27 @@
       "matrix": {
         "Светло-серый/4XL": 3,
         "Чёрный/2XL": 9,
-        "Серый/2XL": 3,
-        "Светло-серый/3XL": 5,
-        "Светло-серый/L": 4,
-        "Серый/3XL": 4,
-        "Серый/4XL": 3,
-        "Чёрный/4XL": 5,
-        "Серый/XL": 4,
-        "Чёрный/M": 5,
-        "Чёрный/XL": 7,
         "Светло-серый/2XL": 3,
         "Светло-серый/XL": 4,
         "Серый/M": 2,
         "Светло-серый/M": 2,
         "Серый/L": 5,
         "Чёрный/3XL": 6,
-        "Чёрный/L": 11
+        "Чёрный/L": 11,
+        "Чёрный/XL": 7,
+        "Серый/XL": 4,
+        "Чёрный/M": 5,
+        "Серый/2XL": 3,
+        "Чёрный/4XL": 5,
+        "Светло-серый/3XL": 5,
+        "Светло-серый/L": 4,
+        "Серый/3XL": 4,
+        "Серый/4XL": 3
       }
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-03-07",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 16887,
     "returns_qty": 0,
     "gross_profit": 323173,
@@ -414,11 +414,11 @@
     "stock_cost": 279225,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 17,
-      "avg_30d": 10.6,
-      "acceleration": 1.61
+      "avg_30d": 10.4,
+      "acceleration": 1.63
     },
     "wos": 21.4,
     "recommendation": "HOLD",
@@ -452,20 +452,20 @@
         "Серый/M": 2,
         "Чёрный/M": 4,
         "Чёрный/XL": 6,
-        "Светло-серый/2XL": 4,
-        "Светло-серый/XL": 3,
-        "Серый/XL": 4,
         "Чёрный/2XL": 8,
         "Чёрный/L": 7,
         "Светло-серый/L": 4,
         "Светло-серый/M": 2,
         "Чёрный/3XL": 7,
-        "Чёрный/4XL": 3
+        "Чёрный/4XL": 3,
+        "Светло-серый/2XL": 4,
+        "Светло-серый/XL": 3,
+        "Серый/XL": 4
       }
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-02-28",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 14876,
     "returns_qty": 0,
     "gross_profit": 382336,
@@ -497,8 +497,8 @@
         "rev": 148734.15
       },
       "last_30d": {
-        "qty": 20,
-        "rev": 252576.45
+        "qty": 18,
+        "rev": 237676.45
       },
       "total_qty": 36,
       "total_rev": 461176.45
@@ -512,15 +512,15 @@
     "stock_cost": 166440,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 20,
-      "avg_30d": 15.2,
-      "acceleration": 1.31
+      "recent_30d": 18,
+      "avg_30d": 15.0,
+      "acceleration": 1.2
     },
-    "wos": 16.3,
+    "wos": 18.1,
     "recommendation": "HOLD",
-    "recommendation_reason": "Продано 33%, стабильно идёт 20 шт/мес — держим",
+    "recommendation_reason": "Продано 33%, стабильно идёт 18 шт/мес — держим",
     "photo": "[19008b]"
   },
   {
@@ -542,12 +542,12 @@
         "Белый/L": 3,
         "Белый/2XL": 1,
         "Чёрный/L": 5,
-        "Белый/XL": 2,
-        "Серый/M": 2,
         "Чёрный/M": 1,
         "Чёрный/XL": 6,
+        "Белый/XL": 2,
         "Серый/XL": 3,
         "Чёрный/2XL": 4,
+        "Серый/M": 2,
         "Белый/M": 1,
         "Серый/2XL": 2,
         "Серый/L": 2
@@ -555,7 +555,7 @@
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-02-22",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 19566,
     "returns_qty": 0,
     "gross_profit": 206933,
@@ -587,8 +587,8 @@
         "rev": 96028.82
       },
       "last_30d": {
-        "qty": 10,
-        "rev": 155728.82
+        "qty": 9,
+        "rev": 135828.82
       },
       "total_qty": 17,
       "total_rev": 293497.26
@@ -602,15 +602,15 @@
     "stock_cost": 162944,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 10,
-      "avg_30d": 7.2,
-      "acceleration": 1.39
+      "recent_30d": 9,
+      "avg_30d": 7.1,
+      "acceleration": 1.27
     },
-    "wos": 13.7,
+    "wos": 15.2,
     "recommendation": "HOLD",
-    "recommendation_reason": "Продано 35%, стабильно идёт 10 шт/мес — держим",
+    "recommendation_reason": "Продано 35%, стабильно идёт 9 шт/мес — держим",
     "photo": "[69928b]"
   },
   {
@@ -629,8 +629,8 @@
       "matrix": {
         "Серый/M": 4,
         "Чёрный/M": 4,
-        "Бежевый/L": 4,
         "Бежевый/M": 3,
+        "Бежевый/L": 4,
         "Серый/L": 5,
         "Чёрный/L": 6
       }
@@ -684,7 +684,7 @@
     "stock_cost": 129064,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -692,7 +692,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
     "photo": "[49420b]"
   },
   {
@@ -700,8 +700,8 @@
     "name": "Куртка-ветровка с капюшоном и кантами",
     "variants": {
       "colors": {
-        "Чёрный": 5,
         "Белый": 4,
+        "Чёрный": 5,
         "Серый": 9
       },
       "sizes": {
@@ -711,9 +711,9 @@
         "2XL": 5
       },
       "matrix": {
+        "Белый/XL": 2,
         "Чёрный/2XL": 2,
         "Чёрный/XL": 1,
-        "Белый/XL": 2,
         "Серый/L": 3,
         "Серый/2XL": 2,
         "Серый/XL": 3,
@@ -725,7 +725,7 @@
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-02-21",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 24847,
     "returns_qty": 0,
     "gross_profit": 509085,
@@ -757,8 +757,8 @@
         "rev": 198472.56
       },
       "last_30d": {
-        "qty": 16,
-        "rev": 397672.56
+        "qty": 15,
+        "rev": 372772.56
       },
       "total_qty": 30,
       "total_rev": 695774.55
@@ -772,15 +772,15 @@
     "stock_cost": 112014,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 16,
-      "avg_30d": 12.7,
-      "acceleration": 1.26
+      "recent_30d": 15,
+      "avg_30d": 12.5,
+      "acceleration": 1.2
     },
-    "wos": 4.8,
+    "wos": 5.1,
     "recommendation": "REORDER",
-    "recommendation_reason": "Продано 62% (хит), продаётся 16 шт/мес — дозаказать срочно",
+    "recommendation_reason": "Продано 62% (хит), продаётся 15 шт/мес — дозаказать срочно",
     "photo": "[69624b]"
   },
   {
@@ -799,8 +799,8 @@
       },
       "matrix": {
         "Синий/M": 3,
-        "Синий/S": 3,
         "Голубой/L": 2,
+        "Синий/S": 3,
         "Голубой/S": 2,
         "Голубой/M": 3,
         "Синий/XL": 2,
@@ -810,7 +810,7 @@
     },
     "last_sale": "2026-03-08",
     "first_sale": "2026-03-08",
-    "days_since_last_sale": 44,
+    "days_since_last_sale": 45,
     "avg_sale_price": 25900,
     "returns_qty": 0,
     "gross_profit": 20287,
@@ -857,7 +857,7 @@
     "stock_cost": 106647,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.4,
@@ -865,7 +865,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (79 дн на складе) — сильная скидка или списание",
     "photo": "[57008b]"
   },
   {
@@ -884,18 +884,18 @@
       },
       "matrix": {
         "Синий/XL": 2,
+        "Чёрный/S": 3,
         "Синий/M": 3,
         "Синий/L": 2,
         "Чёрный/L": 2,
         "Чёрный/XL": 2,
-        "Чёрный/S": 3,
         "Синий/S": 3,
         "Чёрный/M": 2
       }
     },
     "last_sale": "2026-03-25",
     "first_sale": "2026-03-25",
-    "days_since_last_sale": 27,
+    "days_since_last_sale": 28,
     "avg_sale_price": 24900,
     "returns_qty": 0,
     "gross_profit": 19642,
@@ -942,11 +942,11 @@
     "stock_cost": 99902,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.6
+      "acceleration": 2.63
     },
     "wos": 81.4,
     "recommendation": "GROWING",
@@ -974,13 +974,13 @@
         "Синий/L": 2,
         "Чёрный/L": 2,
         "Чёрный/S": 3,
-        "Синий/XL": 2,
-        "Синий/M": 2
+        "Синий/M": 2,
+        "Синий/XL": 2
       }
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-04-04",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 22900,
     "returns_qty": 0,
     "gross_profit": 18068,
@@ -1027,11 +1027,11 @@
     "stock_cost": 91808,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.6
+      "acceleration": 2.63
     },
     "wos": 81.4,
     "recommendation": "GROWING",
@@ -1055,21 +1055,21 @@
         "2XL": 2
       },
       "matrix": {
-        "Чёрный/M": 1,
-        "Чёрный/XL": 2,
-        "Чёрный/2XL": 1,
-        "Синий/L": 1,
-        "Бежевый/M": 1,
         "Чёрный/L": 3,
         "Чёрный/S": 1,
         "Синий/S": 1,
+        "Чёрный/M": 1,
+        "Чёрный/XL": 2,
         "Бежевый/L": 2,
+        "Чёрный/2XL": 1,
+        "Синий/L": 1,
+        "Бежевый/M": 1,
         "Бежевый/2XL": 1
       }
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-02-14",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 19776,
     "returns_qty": 0,
     "gross_profit": 547310,
@@ -1116,11 +1116,11 @@
     "stock_cost": 86545,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 13,
-      "avg_30d": 16.1,
-      "acceleration": 0.81
+      "avg_30d": 15.8,
+      "acceleration": 0.82
     },
     "wos": 6.3,
     "recommendation": "REORDER",
@@ -1133,8 +1133,8 @@
     "variants": {
       "colors": {
         "Синяя клетка": 4,
-        "Коричневая клетка": 4,
         "Чёрная клетка": 8,
+        "Коричневая клетка": 4,
         "Хаки клетка": 5,
         "Красная клетка": 5
       },
@@ -1143,15 +1143,15 @@
       },
       "matrix": {
         "Синяя клетка/OneSize": 4,
+        "Чёрная клетка/OneSize": 5,
         "Коричневая клетка/OneSize": 4,
-        "Чёрная клетка/OneSize": 3,
         "Хаки клетка/OneSize": 5,
         "Красная клетка/OneSize": 5
       }
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-04-08",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 14567,
     "returns_qty": 0,
     "gross_profit": 34430,
@@ -1198,11 +1198,11 @@
     "stock_cost": 80340,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 3,
-      "avg_30d": 1.3,
-      "acceleration": 2.37
+      "avg_30d": 1.2,
+      "acceleration": 2.4
     },
     "wos": 37.1,
     "recommendation": "GROWING",
@@ -1224,14 +1224,14 @@
       },
       "matrix": {
         "Чёрный/XL": 7,
+        "Чёрный/L": 3,
         "Чёрный/2XL": 8,
-        "Чёрный/3XL": 2,
-        "Чёрный/L": 3
+        "Чёрный/3XL": 2
       }
     },
     "last_sale": "2026-04-12",
     "first_sale": "2026-02-18",
-    "days_since_last_sale": 9,
+    "days_since_last_sale": 10,
     "avg_sale_price": 15900,
     "returns_qty": 0,
     "gross_profit": 120310,
@@ -1278,11 +1278,11 @@
     "stock_cost": 77380,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 7,
-      "avg_30d": 4.4,
-      "acceleration": 1.59
+      "avg_30d": 4.3,
+      "acceleration": 1.61
     },
     "wos": 12.2,
     "recommendation": "HOLD",
@@ -1302,9 +1302,9 @@
         "L": 6
       },
       "matrix": {
+        "Чёрный/M": 6,
         "Чёрный/L": 6,
-        "Чёрный/S": 4,
-        "Чёрный/M": 6
+        "Чёрный/S": 4
       }
     },
     "last_sale": null,
@@ -1356,7 +1356,7 @@
     "stock_cost": 77088,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -1364,7 +1364,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
     "photo": "[25768b]"
   },
   {
@@ -1372,8 +1372,8 @@
     "name": "Костюм-тройка трикотажный",
     "variants": {
       "colors": {
-        "Светло-серый": 15,
-        "Тёмно-серый": 14
+        "Тёмно-серый": 14,
+        "Светло-серый": 15
       },
       "sizes": {
         "L": 9,
@@ -1381,17 +1381,17 @@
         "2XL": 10
       },
       "matrix": {
-        "Светло-серый/XL": 5,
-        "Светло-серый/L": 5,
         "Тёмно-серый/XL": 5,
-        "Тёмно-серый/2XL": 5,
+        "Тёмно-серый/L": 4,
         "Светло-серый/2XL": 5,
-        "Тёмно-серый/L": 4
+        "Светло-серый/L": 5,
+        "Светло-серый/XL": 5,
+        "Тёмно-серый/2XL": 5
       }
     },
     "last_sale": "2026-04-17",
     "first_sale": null,
-    "days_since_last_sale": 4,
+    "days_since_last_sale": 5,
     "avg_sale_price": 0,
     "returns_qty": 0,
     "gross_profit": -2628,
@@ -1438,11 +1438,11 @@
     "stock_cost": 76212,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.57
+      "acceleration": 2.6
     },
     "wos": 124.3,
     "recommendation": "GROWING",
@@ -1454,9 +1454,9 @@
     "name": "Джоггеры весенние на кулиске",
     "variants": {
       "colors": {
+        "Серый": 2,
         "Бежевый": 4,
         "Чёрный": 5,
-        "Серый": 2,
         "Розовый": 1,
         "Коричневый": 7,
         "Светло-серый": 5
@@ -1467,10 +1467,10 @@
         "XL": 12
       },
       "matrix": {
+        "Серый/M": 1,
+        "Бежевый/L": 1,
         "Бежевый/M": 1,
         "Чёрный/XL": 4,
-        "Бежевый/L": 1,
-        "Серый/M": 1,
         "Серый/XL": 1,
         "Розовый/L": 1,
         "Коричневый/XL": 2,
@@ -1485,7 +1485,7 @@
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-02-12",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 15701,
     "returns_qty": 0,
     "gross_profit": 322390,
@@ -1532,11 +1532,11 @@
     "stock_cost": 73584,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 8,
-      "avg_30d": 10.9,
-      "acceleration": 0.73
+      "avg_30d": 10.8,
+      "acceleration": 0.74
     },
     "wos": 12.9,
     "recommendation": "HOLD",
@@ -1608,7 +1608,7 @@
     "stock_cost": 72270,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -1616,7 +1616,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
     "photo": "[45272b]"
   },
   {
@@ -1636,14 +1636,14 @@
         "Светло-серый/L": 5,
         "Светло-серый/2XL": 5,
         "Светло-серый/XL": 5,
-        "Сине-серый/XL": 5,
         "Сине-серый/2XL": 3,
-        "Сине-серый/L": 5
+        "Сине-серый/L": 5,
+        "Сине-серый/XL": 5
       }
     },
     "last_sale": "2026-03-29",
     "first_sale": "2026-03-29",
-    "days_since_last_sale": 23,
+    "days_since_last_sale": 24,
     "avg_sale_price": 15900,
     "returns_qty": 0,
     "gross_profit": 10790,
@@ -1690,11 +1690,11 @@
     "stock_cost": 71540,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 0.8,
-      "acceleration": 2.57
+      "acceleration": 2.6
     },
     "wos": 60.0,
     "recommendation": "GROWING",
@@ -1733,7 +1733,7 @@
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-02-15",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 15458,
     "returns_qty": 0,
     "gross_profit": 242678,
@@ -1780,11 +1780,11 @@
     "stock_cost": 70226,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 11,
-      "avg_30d": 8.6,
-      "acceleration": 1.28
+      "avg_30d": 8.5,
+      "acceleration": 1.3
     },
     "wos": 10.1,
     "recommendation": "HOLD",
@@ -1808,17 +1808,17 @@
       "matrix": {
         "Серый/L": 2,
         "Серый/XL": 2,
-        "Голубой/XL": 2,
-        "Серый/M": 1,
-        "Серый/S": 1,
         "Голубой/L": 2,
         "Голубой/M": 1,
-        "Голубой/S": 2
+        "Голубой/S": 2,
+        "Голубой/XL": 2,
+        "Серый/S": 1,
+        "Серый/M": 1
       }
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-03-21",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 24900,
     "returns_qty": 0,
     "gross_profit": 58932,
@@ -1865,15 +1865,15 @@
     "stock_cost": 68328,
     "first_supply_date": "2026-01-25",
     "last_supply_date": "2026-01-25",
-    "days_since_first": 86,
+    "days_since_first": 87,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 1.0,
-      "acceleration": 0.96
+      "acceleration": 0.97
     },
     "wos": 55.7,
     "recommendation": "DISCOUNT_20",
-    "recommendation_reason": "Продано 19% за 86 дн, ускорение слабое — скидка 15-20%",
+    "recommendation_reason": "Продано 19% за 87 дн, ускорение слабое — скидка 15-20%",
     "photo": "[59300b]"
   },
   {
@@ -1893,18 +1893,18 @@
       "matrix": {
         "Хаки/XL": 3,
         "Чёрный/M": 3,
-        "Белый/M": 2,
-        "Чёрный/L": 3,
+        "Белый/XL": 1,
+        "Хаки/L": 2,
         "Хаки/M": 2,
         "Чёрный/XL": 3,
         "Белый/L": 2,
-        "Белый/XL": 1,
-        "Хаки/L": 2
+        "Белый/M": 2,
+        "Чёрный/L": 3
       }
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-02-17",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 15900,
     "returns_qty": 0,
     "gross_profit": 77442,
@@ -1951,11 +1951,11 @@
     "stock_cost": 62853,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 3,
       "avg_30d": 2.3,
-      "acceleration": 1.28
+      "acceleration": 1.3
     },
     "wos": 30.0,
     "recommendation": "HOLD",
@@ -1980,16 +1980,16 @@
         "Голубой/S": 1,
         "Чёрный/XL": 2,
         "Голубой/XL": 2,
+        "Голубой/M": 1,
+        "Чёрный/S": 1,
         "Голубой/L": 1,
         "Чёрный/M": 2,
-        "Чёрный/S": 1,
-        "Чёрный/L": 2,
-        "Голубой/M": 1
+        "Чёрный/L": 2
       }
     },
     "last_sale": "2026-04-11",
     "first_sale": "2026-03-25",
-    "days_since_last_sale": 10,
+    "days_since_last_sale": 11,
     "avg_sale_price": 23900,
     "returns_qty": 0,
     "gross_profit": 75744,
@@ -2036,11 +2036,11 @@
     "stock_cost": 59568,
     "first_supply_date": "2026-01-25",
     "last_supply_date": "2026-01-25",
-    "days_since_first": 86,
+    "days_since_first": 87,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 1.4,
-      "acceleration": 2.87
+      "acceleration": 2.9
     },
     "wos": 12.9,
     "recommendation": "HOLD",
@@ -2063,17 +2063,17 @@
         "3XL": 2
       },
       "matrix": {
-        "Чёрный/XL": 3,
         "Чёрный/2XL": 3,
-        "Чёрный/S": 1,
-        "Чёрный/M": 2,
+        "Чёрный/XL": 3,
         "Чёрный/3XL": 2,
-        "Чёрный/L": 3
+        "Чёрный/L": 3,
+        "Чёрный/S": 1,
+        "Чёрный/M": 2
       }
     },
     "last_sale": "2026-03-08",
     "first_sale": "2026-02-27",
-    "days_since_last_sale": 44,
+    "days_since_last_sale": 45,
     "avg_sale_price": 17900,
     "returns_qty": 0,
     "gross_profit": 27332,
@@ -2120,7 +2120,7 @@
     "stock_cost": 59276,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.8,
@@ -2128,7 +2128,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (72 дн на складе) — сильная скидка или списание",
     "photo": "[44160b]"
   },
   {
@@ -2145,10 +2145,10 @@
         "XL": 2
       },
       "matrix": {
-        "Синий/M": 3,
-        "Синий/XL": 2,
         "Синий/S": 3,
-        "Синий/L": 2
+        "Синий/L": 2,
+        "Синий/M": 3,
+        "Синий/XL": 2
       }
     },
     "last_sale": null,
@@ -2200,7 +2200,7 @@
     "stock_cost": 56130,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -2208,7 +2208,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (79 дн на складе) — сильная скидка или списание",
     "photo": "[56328b]"
   },
   {
@@ -2228,17 +2228,17 @@
       "matrix": {
         "Белый/2XL": 2,
         "Чёрный/2XL": 2,
-        "Белый/XL": 2,
-        "Чёрный/L": 2,
         "Чёрный/M": 3,
-        "Белый/M": 2,
+        "Белый/L": 2,
         "Чёрный/XL": 4,
-        "Белый/L": 2
+        "Белый/M": 2,
+        "Белый/XL": 2,
+        "Чёрный/L": 2
       }
     },
     "last_sale": "2026-04-18",
     "first_sale": "2026-03-09",
-    "days_since_last_sale": 3,
+    "days_since_last_sale": 4,
     "avg_sale_price": 12900,
     "returns_qty": 0,
     "gross_profit": 56960,
@@ -2285,11 +2285,11 @@
     "stock_cost": 55480,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 6,
-      "avg_30d": 3.0,
-      "acceleration": 2.03
+      "avg_30d": 2.9,
+      "acceleration": 2.06
     },
     "wos": 13.6,
     "recommendation": "HOLD",
@@ -2310,10 +2310,10 @@
         "XL": 2
       },
       "matrix": {
-        "Синий/L": 2,
-        "Синий/M": 3,
         "Синий/S": 3,
-        "Синий/XL": 2
+        "Синий/XL": 2,
+        "Синий/L": 2,
+        "Синий/M": 3
       }
     },
     "last_sale": null,
@@ -2365,7 +2365,7 @@
     "stock_cost": 54000,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -2373,7 +2373,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (79 дн на складе) — сильная скидка или списание",
     "photo": "[47936b]"
   },
   {
@@ -2394,11 +2394,11 @@
         "Синий/S": 2,
         "Синий/XL": 2,
         "Тёмно-серый/XL": 2,
-        "Тёмно-серый/L": 2,
         "Тёмно-серый/M": 2,
+        "Тёмно-серый/L": 2,
+        "Синий/M": 2,
         "Синий/L": 2,
-        "Тёмно-серый/S": 2,
-        "Синий/M": 2
+        "Тёмно-серый/S": 2
       }
     },
     "last_sale": null,
@@ -2450,7 +2450,7 @@
     "stock_cost": 53728,
     "first_supply_date": "2026-01-24",
     "last_supply_date": "2026-01-24",
-    "days_since_first": 87,
+    "days_since_first": 88,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -2458,7 +2458,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (88 дн на складе) — сильная скидка или списание",
     "photo": "[62084b]"
   },
   {
@@ -2530,7 +2530,7 @@
     "stock_cost": 52580,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -2538,7 +2538,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (79 дн на складе) — сильная скидка или списание",
     "photo": "[42404b]"
   },
   {
@@ -2556,9 +2556,9 @@
       },
       "matrix": {
         "Синий/M": 3,
+        "Синий/XL": 2,
         "Синий/L": 2,
-        "Синий/S": 3,
-        "Синий/XL": 2
+        "Синий/S": 3
       }
     },
     "last_sale": null,
@@ -2610,7 +2610,7 @@
     "stock_cost": 51870,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -2618,7 +2618,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (79 дн на складе) — сильная скидка или списание",
     "photo": "[57368b]"
   },
   {
@@ -2686,7 +2686,7 @@
     "stock_cost": 49640,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -2694,7 +2694,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
     "photo": "[45240b]"
   },
   {
@@ -2712,14 +2712,14 @@
       },
       "matrix": {
         "Синий/M": 3,
-        "Синий/L": 2,
         "Синий/S": 3,
-        "Синий/XL": 1
+        "Синий/XL": 1,
+        "Синий/L": 2
       }
     },
     "last_sale": "2026-03-25",
     "first_sale": "2026-03-25",
-    "days_since_last_sale": 27,
+    "days_since_last_sale": 28,
     "avg_sale_price": 24900,
     "returns_qty": 0,
     "gross_profit": 19429,
@@ -2766,11 +2766,11 @@
     "stock_cost": 49239,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.6
+      "acceleration": 2.63
     },
     "wos": 38.6,
     "recommendation": "GROWING",
@@ -2799,7 +2799,7 @@
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-03-01",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 14223,
     "returns_qty": 0,
     "gross_profit": 129736,
@@ -2846,11 +2846,11 @@
     "stock_cost": 47304,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 7,
-      "avg_30d": 5.0,
-      "acceleration": 1.4
+      "avg_30d": 4.9,
+      "acceleration": 1.42
     },
     "wos": 11.0,
     "recommendation": "HOLD",
@@ -2863,8 +2863,8 @@
     "variants": {
       "colors": {
         "Хаки": 2,
-        "Серый": 3,
-        "Чёрный": 7
+        "Чёрный": 7,
+        "Серый": 3
       },
       "sizes": {
         "M": 5,
@@ -2872,16 +2872,16 @@
       },
       "matrix": {
         "Хаки/L": 1,
+        "Чёрный/L": 4,
         "Серый/L": 2,
         "Серый/M": 1,
         "Хаки/M": 1,
-        "Чёрный/M": 3,
-        "Чёрный/L": 4
+        "Чёрный/M": 3
       }
     },
     "last_sale": "2026-04-16",
     "first_sale": "2026-02-26",
-    "days_since_last_sale": 5,
+    "days_since_last_sale": 6,
     "avg_sale_price": 19900,
     "returns_qty": 0,
     "gross_profit": 128248,
@@ -2928,11 +2928,11 @@
     "stock_cost": 46428,
     "first_supply_date": "2026-01-25",
     "last_supply_date": "2026-01-25",
-    "days_since_first": 86,
+    "days_since_first": 87,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 2.8,
-      "acceleration": 1.43
+      "acceleration": 1.45
     },
     "wos": 12.9,
     "recommendation": "HOLD",
@@ -2962,7 +2962,7 @@
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-02-22",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 15900,
     "returns_qty": 0,
     "gross_profit": 73938,
@@ -3009,11 +3009,11 @@
     "stock_cost": 42924,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 2.7,
-      "acceleration": 1.47
+      "acceleration": 1.49
     },
     "wos": 15.0,
     "recommendation": "HOLD",
@@ -3042,7 +3042,7 @@
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-03-20",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 13900,
     "returns_qty": 0,
     "gross_profit": 43336,
@@ -3089,11 +3089,11 @@
     "stock_cost": 42924,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 2.3,
-      "acceleration": 1.73
+      "acceleration": 1.76
     },
     "wos": 22.5,
     "recommendation": "HOLD",
@@ -3167,7 +3167,7 @@
     "stock_cost": 42687,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -3175,7 +3175,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
     "photo": "[55764b]"
   },
   {
@@ -3192,15 +3192,15 @@
         "XL": 2
       },
       "matrix": {
-        "Синий/M": 1,
-        "Синий/XL": 2,
         "Синий/L": 2,
-        "Синий/S": 2
+        "Синий/S": 2,
+        "Синий/M": 1,
+        "Синий/XL": 2
       }
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-03-05",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 27900,
     "returns_qty": 0,
     "gross_profit": 65580,
@@ -3247,11 +3247,11 @@
     "stock_cost": 42280,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 2,
-      "avg_30d": 1.2,
-      "acceleration": 1.73
+      "avg_30d": 1.1,
+      "acceleration": 1.76
     },
     "wos": 15.0,
     "recommendation": "HOLD",
@@ -3264,8 +3264,8 @@
     "variants": {
       "colors": {
         "Чёрный": 7,
-        "Светло-серый": 3,
-        "Коричневый": 4
+        "Коричневый": 4,
+        "Светло-серый": 3
       },
       "sizes": {
         "M": 4,
@@ -3275,18 +3275,18 @@
       "matrix": {
         "Чёрный/L": 3,
         "Чёрный/XL": 3,
-        "Светло-серый/M": 1,
-        "Коричневый/M": 2,
         "Коричневый/L": 1,
         "Светло-серый/L": 1,
         "Коричневый/XL": 1,
         "Чёрный/M": 1,
-        "Светло-серый/XL": 1
+        "Светло-серый/XL": 1,
+        "Светло-серый/M": 1,
+        "Коричневый/M": 2
       }
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-02-15",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 15900,
     "returns_qty": 0,
     "gross_profit": 193605,
@@ -3333,11 +3333,11 @@
     "stock_cost": 41902,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 5,
       "avg_30d": 5.8,
-      "acceleration": 0.86
+      "acceleration": 0.87
     },
     "wos": 12.0,
     "recommendation": "HOLD",
@@ -3360,7 +3360,7 @@
     },
     "last_sale": "2026-03-09",
     "first_sale": "2026-02-14",
-    "days_since_last_sale": 43,
+    "days_since_last_sale": 44,
     "avg_sale_price": 22900,
     "returns_qty": 0,
     "gross_profit": 34266,
@@ -3407,7 +3407,7 @@
     "stock_cost": 40369,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.9,
@@ -3415,7 +3415,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (68 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (69 дн на складе) — сильная скидка или списание",
     "photo": "[68612b]"
   },
   {
@@ -3436,7 +3436,7 @@
     },
     "last_sale": "2026-03-26",
     "first_sale": "2026-03-26",
-    "days_since_last_sale": 26,
+    "days_since_last_sale": 27,
     "avg_sale_price": 25900,
     "returns_qty": 0,
     "gross_profit": 20863,
@@ -3483,11 +3483,11 @@
     "stock_cost": 40296,
     "first_supply_date": "2026-01-27",
     "last_supply_date": "2026-01-27",
-    "days_since_first": 84,
+    "days_since_first": 85,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.8
+      "acceleration": 2.83
     },
     "wos": 34.3,
     "recommendation": "GROWING",
@@ -3508,13 +3508,13 @@
       },
       "matrix": {
         "Синий/M": 3,
-        "Синий/L": 2,
-        "Синий/S": 2
+        "Синий/S": 2,
+        "Синий/L": 2
       }
     },
     "last_sale": "2026-03-03",
     "first_sale": "2026-03-03",
-    "days_since_last_sale": 49,
+    "days_since_last_sale": 50,
     "avg_sale_price": 22900,
     "returns_qty": 0,
     "gross_profit": 17223,
@@ -3561,7 +3561,7 @@
     "stock_cost": 39739,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.4,
@@ -3569,7 +3569,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
     "photo": "[61560b]"
   },
   {
@@ -3594,7 +3594,7 @@
     },
     "last_sale": "2026-04-11",
     "first_sale": "2026-03-22",
-    "days_since_last_sale": 10,
+    "days_since_last_sale": 11,
     "avg_sale_price": 13900,
     "returns_qty": 0,
     "gross_profit": 128810,
@@ -3626,8 +3626,8 @@
         "rev": 69500.0
       },
       "last_30d": {
-        "qty": 11,
-        "rev": 152900.0
+        "qty": 8,
+        "rev": 111200.0
       },
       "total_qty": 11,
       "total_rev": 152900.0
@@ -3641,15 +3641,15 @@
     "stock_cost": 39420,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
-      "recent_30d": 11,
+      "recent_30d": 8,
       "avg_30d": 4.2,
-      "acceleration": 2.6
+      "acceleration": 1.92
     },
-    "wos": 7.0,
-    "recommendation": "REORDER",
-    "recommendation_reason": "Продано 39%, осталось на 7 недель — дозаказать",
+    "wos": 9.6,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 39%, стабильно идёт 8 шт/мес — держим",
     "photo": "[48808b]"
   },
   {
@@ -3674,7 +3674,7 @@
     },
     "last_sale": "2026-03-24",
     "first_sale": "2026-03-08",
-    "days_since_last_sale": 28,
+    "days_since_last_sale": 29,
     "avg_sale_price": 22900,
     "returns_qty": 0,
     "gross_profit": 35994,
@@ -3721,11 +3721,11 @@
     "stock_cost": 39224,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.8,
-      "acceleration": 1.3
+      "acceleration": 1.32
     },
     "wos": 34.3,
     "recommendation": "HOLD",
@@ -3745,14 +3745,14 @@
         "L": 1
       },
       "matrix": {
-        "Чёрный/L": 1,
         "Чёрный/M": 3,
-        "Чёрный/S": 2
+        "Чёрный/S": 2,
+        "Чёрный/L": 1
       }
     },
     "last_sale": "2026-04-09",
     "first_sale": "2026-04-05",
-    "days_since_last_sale": 12,
+    "days_since_last_sale": 13,
     "avg_sale_price": 25900,
     "returns_qty": 0,
     "gross_profit": 39008,
@@ -3799,11 +3799,11 @@
     "stock_cost": 38376,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 0.8,
-      "acceleration": 2.57
+      "acceleration": 2.6
     },
     "wos": 12.9,
     "recommendation": "HOLD",
@@ -3877,7 +3877,7 @@
     "stock_cost": 37368,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -3885,7 +3885,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
     "photo": "[27892b]"
   },
   {
@@ -3905,14 +3905,14 @@
       "matrix": {
         "Белый/3XL": 5,
         "Чёрный/L": 1,
-        "Белый/4XL": 1,
         "Чёрный/2XL": 4,
+        "Белый/4XL": 1,
         "Чёрный/3XL": 4
       }
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-02-15",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 9588,
     "returns_qty": 0,
     "gross_profit": 157503,
@@ -3944,8 +3944,8 @@
         "rev": 38208.79
       },
       "last_30d": {
-        "qty": 12,
-        "rev": 87708.79
+        "qty": 10,
+        "rev": 67908.79
       },
       "total_qty": 29,
       "total_rev": 225246.89
@@ -3959,15 +3959,15 @@
     "stock_cost": 35040,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 12,
-      "avg_30d": 12.3,
-      "acceleration": 0.98
+      "recent_30d": 10,
+      "avg_30d": 12.1,
+      "acceleration": 0.83
     },
-    "wos": 5.4,
+    "wos": 6.4,
     "recommendation": "REORDER",
-    "recommendation_reason": "Продано 59%, осталось на 5 недель — дозаказать",
+    "recommendation_reason": "Продано 59%, осталось на 6 недель — дозаказать",
     "photo": "[43112b]"
   },
   {
@@ -3975,8 +3975,8 @@
     "name": "Джинсы кюлоты А-силуэт",
     "variants": {
       "colors": {
-        "Чёрный": 3,
-        "Тёмно-синий": 6
+        "Тёмно-синий": 6,
+        "Чёрный": 3
       },
       "sizes": {
         "S": 3,
@@ -3984,17 +3984,17 @@
         "L": 2
       },
       "matrix": {
-        "Чёрный/M": 1,
-        "Чёрный/S": 1,
         "Тёмно-синий/S": 2,
-        "Тёмно-синий/L": 1,
+        "Чёрный/M": 1,
         "Тёмно-синий/M": 3,
-        "Чёрный/L": 1
+        "Чёрный/L": 1,
+        "Чёрный/S": 1,
+        "Тёмно-синий/L": 1
       }
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-04-07",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 16900,
     "returns_qty": 0,
     "gross_profit": 26038,
@@ -4041,11 +4041,11 @@
     "stock_cost": 34929,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 0.8,
-      "acceleration": 2.57
+      "acceleration": 2.6
     },
     "wos": 19.3,
     "recommendation": "GROWING",
@@ -4067,14 +4067,14 @@
       },
       "matrix": {
         "Сине-серый/L": 2,
-        "Сине-серый/S": 1,
         "Сине-серый/M": 2,
-        "Сине-серый/XL": 2
+        "Сине-серый/XL": 2,
+        "Сине-серый/S": 1
       }
     },
     "last_sale": "2026-02-17",
     "first_sale": "2026-02-17",
-    "days_since_last_sale": 63,
+    "days_since_last_sale": 64,
     "avg_sale_price": 23900,
     "returns_qty": 0,
     "gross_profit": 18936,
@@ -4121,7 +4121,7 @@
     "stock_cost": 34748,
     "first_supply_date": "2026-01-25",
     "last_supply_date": "2026-01-25",
-    "days_since_first": 86,
+    "days_since_first": 87,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.3,
@@ -4129,7 +4129,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
     "photo": "[59388b]"
   },
   {
@@ -4152,7 +4152,7 @@
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-03-05",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 26900,
     "returns_qty": 0,
     "gross_profit": 126798,
@@ -4199,11 +4199,11 @@
     "stock_cost": 34602,
     "first_supply_date": "2026-01-27",
     "last_supply_date": "2026-01-27",
-    "days_since_first": 84,
+    "days_since_first": 85,
     "velocity": {
       "recent_30d": 3,
       "avg_30d": 2.1,
-      "acceleration": 1.4
+      "acceleration": 1.42
     },
     "wos": 8.6,
     "recommendation": "HOLD",
@@ -4277,7 +4277,7 @@
     "stock_cost": 34456,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -4285,7 +4285,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (85 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
     "photo": "[64236b]"
   },
   {
@@ -4308,7 +4308,7 @@
     },
     "last_sale": "2026-04-03",
     "first_sale": "2026-03-21",
-    "days_since_last_sale": 18,
+    "days_since_last_sale": 19,
     "avg_sale_price": 19900,
     "returns_qty": 0,
     "gross_profit": 28446,
@@ -4355,11 +4355,11 @@
     "stock_cost": 34062,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.8,
-      "acceleration": 1.28
+      "acceleration": 1.3
     },
     "wos": 25.7,
     "recommendation": "HOLD",
@@ -4386,7 +4386,7 @@
     },
     "last_sale": "2026-04-03",
     "first_sale": "2026-04-03",
-    "days_since_last_sale": 18,
+    "days_since_last_sale": 19,
     "avg_sale_price": 19900,
     "returns_qty": 0,
     "gross_profit": 15157,
@@ -4433,11 +4433,11 @@
     "stock_cost": 33201,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.57
+      "acceleration": 2.6
     },
     "wos": 30.0,
     "recommendation": "GROWING",
@@ -4459,16 +4459,16 @@
         "3XL": 2
       },
       "matrix": {
-        "Чёрный/XL": 1,
-        "Чёрный/2XL": 2,
         "Чёрный/3XL": 2,
         "Чёрный/M": 1,
+        "Чёрный/2XL": 2,
+        "Чёрный/XL": 1,
         "Чёрный/L": 2
       }
     },
     "last_sale": "2026-04-16",
     "first_sale": "2026-03-08",
-    "days_since_last_sale": 5,
+    "days_since_last_sale": 6,
     "avg_sale_price": 16900,
     "returns_qty": 0,
     "gross_profit": 72658,
@@ -4500,8 +4500,8 @@
         "rev": 33800.0
       },
       "last_30d": {
-        "qty": 6,
-        "rev": 84500.0
+        "qty": 4,
+        "rev": 50700.0
       },
       "total_qty": 7,
       "total_rev": 101400.0
@@ -4515,15 +4515,15 @@
     "stock_cost": 32848,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 6,
-      "avg_30d": 3.0,
-      "acceleration": 2.03
+      "recent_30d": 4,
+      "avg_30d": 2.9,
+      "acceleration": 1.37
     },
-    "wos": 5.7,
-    "recommendation": "REORDER",
-    "recommendation_reason": "Продано 47%, осталось на 6 недель — дозаказать",
+    "wos": 8.6,
+    "recommendation": "HOLD",
+    "recommendation_reason": "Продано 47%, стабильно идёт 4 шт/мес — держим",
     "photo": "[42352b]"
   },
   {
@@ -4541,9 +4541,9 @@
       },
       "matrix": {
         "Хаки/M": 2,
+        "Хаки/XL": 2,
         "Хаки/L": 2,
-        "Хаки/S": 2,
-        "Хаки/XL": 2
+        "Хаки/S": 2
       }
     },
     "last_sale": null,
@@ -4595,7 +4595,7 @@
     "stock_cost": 30952,
     "first_supply_date": "2026-01-24",
     "last_supply_date": "2026-01-24",
-    "days_since_first": 87,
+    "days_since_first": 88,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -4603,7 +4603,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (88 дн на складе) — сильная скидка или списание",
     "photo": "[62416b]"
   },
   {
@@ -4628,7 +4628,7 @@
     },
     "last_sale": "2026-03-10",
     "first_sale": "2026-03-10",
-    "days_since_last_sale": 42,
+    "days_since_last_sale": 43,
     "avg_sale_price": 19900,
     "returns_qty": 0,
     "gross_profit": 15739,
@@ -4675,7 +4675,7 @@
     "stock_cost": 29127,
     "first_supply_date": "2026-01-24",
     "last_supply_date": "2026-01-24",
-    "days_since_first": 87,
+    "days_since_first": 88,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.3,
@@ -4683,7 +4683,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (88 дн на складе) — сильная скидка или списание",
     "photo": "[68592b]"
   },
   {
@@ -4702,17 +4702,17 @@
       },
       "matrix": {
         "Белый/XL": 1,
-        "Белый/M": 1,
         "Белый/2XL": 1,
         "Чёрный/2XL": 1,
         "Чёрный/M": 1,
         "Чёрный/L": 2,
+        "Белый/M": 1,
         "Чёрный/XL": 2
       }
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-02-17",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 12900,
     "returns_qty": 0,
     "gross_profit": 113096,
@@ -4759,11 +4759,11 @@
     "stock_cost": 28908,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 9,
-      "avg_30d": 7.2,
-      "acceleration": 1.25
+      "avg_30d": 7.1,
+      "acceleration": 1.27
     },
     "wos": 4.3,
     "recommendation": "REORDER",
@@ -4788,7 +4788,7 @@
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-03-29",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 13900,
     "returns_qty": 0,
     "gross_profit": 45015,
@@ -4835,11 +4835,11 @@
     "stock_cost": 27521,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 1.9,
-      "acceleration": 2.08
+      "acceleration": 2.11
     },
     "wos": 13.9,
     "recommendation": "HOLD",
@@ -4859,8 +4859,8 @@
         "L": 1
       },
       "matrix": {
-        "Хаки-зелёный/S": 1,
         "Хаки-зелёный/L": 1,
+        "Хаки-зелёный/S": 1,
         "Хаки-зелёный/M": 3
       }
     },
@@ -4913,7 +4913,7 @@
     "stock_cost": 23715,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -4921,7 +4921,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
     "photo": "[59464b]"
   },
   {
@@ -4937,14 +4937,14 @@
         "L": 2
       },
       "matrix": {
-        "Голубой/M": 1,
         "Голубой/L": 2,
-        "Голубой/S": 1
+        "Голубой/S": 1,
+        "Голубой/M": 1
       }
     },
     "last_sale": "2026-03-24",
     "first_sale": "2026-02-14",
-    "days_since_last_sale": 28,
+    "days_since_last_sale": 29,
     "avg_sale_price": 25900,
     "returns_qty": 0,
     "gross_profit": 40850,
@@ -4991,11 +4991,11 @@
     "stock_cost": 21900,
     "first_supply_date": "2026-01-25",
     "last_supply_date": "2026-01-25",
-    "days_since_first": 86,
+    "days_since_first": 87,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.7,
-      "acceleration": 1.43
+      "acceleration": 1.45
     },
     "wos": 17.1,
     "recommendation": "HOLD",
@@ -5017,14 +5017,14 @@
       },
       "matrix": {
         "Бежевый/L": 1,
-        "Бежевый/XL": 1,
+        "Чёрный/XL": 1,
         "Чёрный/M": 1,
-        "Чёрный/XL": 1
+        "Бежевый/XL": 1
       }
     },
     "last_sale": "2026-03-31",
     "first_sale": "2026-02-14",
-    "days_since_last_sale": 21,
+    "days_since_last_sale": 22,
     "avg_sale_price": 22600,
     "returns_qty": 0,
     "gross_profit": 528981,
@@ -5071,11 +5071,11 @@
     "stock_cost": 21796,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 11,
-      "avg_30d": 13.1,
-      "acceleration": 0.84
+      "avg_30d": 12.9,
+      "acceleration": 0.85
     },
     "wos": 1.6,
     "recommendation": "REORDER",
@@ -5104,7 +5104,7 @@
     },
     "last_sale": "2026-04-17",
     "first_sale": "2026-04-17",
-    "days_since_last_sale": 4,
+    "days_since_last_sale": 5,
     "avg_sale_price": 9900,
     "returns_qty": 0,
     "gross_profit": 5958,
@@ -5151,11 +5151,11 @@
     "stock_cost": 21681,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 0.8,
-      "acceleration": 2.6
+      "acceleration": 2.63
     },
     "wos": 23.6,
     "recommendation": "GROWING",
@@ -5182,7 +5182,7 @@
     },
     "last_sale": "2026-04-19",
     "first_sale": "2026-03-08",
-    "days_since_last_sale": 2,
+    "days_since_last_sale": 3,
     "avg_sale_price": 19900,
     "returns_qty": 0,
     "gross_profit": 143791,
@@ -5214,8 +5214,8 @@
         "rev": 59700.0
       },
       "last_30d": {
-        "qty": 10,
-        "rev": 179100.0
+        "qty": 9,
+        "rev": 159200.0
       },
       "total_qty": 11,
       "total_rev": 199000.0
@@ -5229,15 +5229,15 @@
     "stock_cost": 20076,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 10,
+      "recent_30d": 9,
       "avg_30d": 4.6,
-      "acceleration": 2.15
+      "acceleration": 1.96
     },
-    "wos": 1.7,
+    "wos": 1.9,
     "recommendation": "REORDER",
-    "recommendation_reason": "Продано 73% (хит), продаётся 10 шт/мес — дозаказать срочно",
+    "recommendation_reason": "Продано 73% (хит), продаётся 9 шт/мес — дозаказать срочно",
     "photo": "[42824b]"
   },
   {
@@ -5260,7 +5260,7 @@
     },
     "last_sale": "2026-04-15",
     "first_sale": "2026-02-27",
-    "days_since_last_sale": 6,
+    "days_since_last_sale": 7,
     "avg_sale_price": 21900,
     "returns_qty": 0,
     "gross_profit": 67764,
@@ -5307,11 +5307,11 @@
     "stock_cost": 19836,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 3,
-      "avg_30d": 1.6,
-      "acceleration": 1.92
+      "avg_30d": 1.5,
+      "acceleration": 1.95
     },
     "wos": 5.7,
     "recommendation": "REORDER",
@@ -5334,7 +5334,7 @@
     },
     "last_sale": "2026-04-03",
     "first_sale": "2026-03-24",
-    "days_since_last_sale": 18,
+    "days_since_last_sale": 19,
     "avg_sale_price": 28900,
     "returns_qty": 0,
     "gross_profit": 67209,
@@ -5381,11 +5381,11 @@
     "stock_cost": 19491,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 3,
-      "avg_30d": 1.1,
-      "acceleration": 2.83
+      "avg_30d": 1.0,
+      "acceleration": 2.87
     },
     "wos": 4.3,
     "recommendation": "REORDER",
@@ -5455,7 +5455,7 @@
     "stock_cost": 19053,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -5463,7 +5463,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (72 дн на складе) — сильная скидка или списание",
     "photo": "[32228b]"
   },
   {
@@ -5486,7 +5486,7 @@
     },
     "last_sale": "2026-02-20",
     "first_sale": "2026-02-20",
-    "days_since_last_sale": 60,
+    "days_since_last_sale": 61,
     "avg_sale_price": 8900,
     "returns_qty": 0,
     "gross_profit": 6783,
@@ -5533,7 +5533,7 @@
     "stock_cost": 19053,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.4,
@@ -5541,7 +5541,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (72 дн на складе) — сильная скидка или списание",
     "photo": "[49464b]"
   },
   {
@@ -5560,7 +5560,7 @@
     },
     "last_sale": "2026-04-13",
     "first_sale": "2026-03-20",
-    "days_since_last_sale": 8,
+    "days_since_last_sale": 9,
     "avg_sale_price": 12900,
     "returns_qty": 0,
     "gross_profit": 39044,
@@ -5607,11 +5607,11 @@
     "stock_cost": 18834,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 3,
-      "avg_30d": 1.8,
-      "acceleration": 1.7
+      "avg_30d": 1.7,
+      "acceleration": 1.73
     },
     "wos": 8.6,
     "recommendation": "HOLD",
@@ -5623,24 +5623,24 @@
     "name": "Футболка базовая",
     "variants": {
       "colors": {
+        "Серо-коричневый": 2,
         "Белый": 3,
         "Серый меланж": 2,
-        "Чёрный": 3,
-        "Серо-коричневый": 2
+        "Чёрный": 3
       },
       "sizes": {
         "OneSize": 10
       },
       "matrix": {
+        "Серо-коричневый/OneSize": 2,
         "Белый/OneSize": 3,
         "Серый меланж/OneSize": 2,
-        "Чёрный/OneSize": 3,
-        "Серо-коричневый/OneSize": 2
+        "Чёрный/OneSize": 3
       }
     },
     "last_sale": "2026-04-15",
     "first_sale": null,
-    "days_since_last_sale": 6,
+    "days_since_last_sale": 7,
     "avg_sale_price": 0,
     "returns_qty": 0,
     "gross_profit": -1825,
@@ -5687,11 +5687,11 @@
     "stock_cost": 18250,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.6
+      "acceleration": 2.63
     },
     "wos": 42.9,
     "recommendation": "GROWING",
@@ -5716,7 +5716,7 @@
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-03-16",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 10900,
     "returns_qty": 0,
     "gross_profit": 17566,
@@ -5763,11 +5763,11 @@
     "stock_cost": 16936,
     "first_supply_date": "2026-02-02",
     "last_supply_date": "2026-02-02",
-    "days_since_first": 78,
+    "days_since_first": 79,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.8,
-      "acceleration": 1.3
+      "acceleration": 1.32
     },
     "wos": 34.3,
     "recommendation": "HOLD",
@@ -5787,8 +5787,8 @@
         "XL": 1
       },
       "matrix": {
-        "Чёрный/L": 2,
         "Чёрный/M": 1,
+        "Чёрный/L": 2,
         "Чёрный/XL": 1
       }
     },
@@ -5841,7 +5841,7 @@
     "stock_cost": 16096,
     "first_supply_date": "2026-02-03",
     "last_supply_date": "2026-02-03",
-    "days_since_first": 77,
+    "days_since_first": 78,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -5849,7 +5849,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (77 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (78 дн на складе) — сильная скидка или списание",
     "photo": "[29740b]"
   },
   {
@@ -5874,7 +5874,7 @@
     },
     "last_sale": "2026-04-12",
     "first_sale": "2026-02-15",
-    "days_since_last_sale": 9,
+    "days_since_last_sale": 10,
     "avg_sale_price": 9900,
     "returns_qty": 0,
     "gross_profit": 43632,
@@ -5921,11 +5921,11 @@
     "stock_cost": 15768,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 6,
       "avg_30d": 2.8,
-      "acceleration": 2.12
+      "acceleration": 2.15
     },
     "wos": 5.7,
     "recommendation": "REORDER",
@@ -5950,7 +5950,7 @@
     },
     "last_sale": "2026-04-05",
     "first_sale": null,
-    "days_since_last_sale": 16,
+    "days_since_last_sale": 17,
     "avg_sale_price": 0,
     "returns_qty": 0,
     "gross_profit": -5256,
@@ -5997,11 +5997,11 @@
     "stock_cost": 15768,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.8,
-      "acceleration": 1.18
+      "acceleration": 1.2
     },
     "wos": 25.7,
     "recommendation": "HOLD",
@@ -6028,7 +6028,7 @@
     },
     "last_sale": "2026-04-15",
     "first_sale": "2026-03-12",
-    "days_since_last_sale": 6,
+    "days_since_last_sale": 7,
     "avg_sale_price": 8900,
     "returns_qty": 0,
     "gross_profit": 21663,
@@ -6075,11 +6075,11 @@
     "stock_cost": 13432,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 1,
-      "avg_30d": 1.3,
-      "acceleration": 0.79
+      "avg_30d": 1.2,
+      "acceleration": 0.8
     },
     "wos": 34.3,
     "recommendation": "HOLD",
@@ -6106,7 +6106,7 @@
     },
     "last_sale": "2026-04-04",
     "first_sale": "2026-03-19",
-    "days_since_last_sale": 17,
+    "days_since_last_sale": 18,
     "avg_sale_price": 4900,
     "returns_qty": 0,
     "gross_profit": 6734,
@@ -6153,11 +6153,11 @@
     "stock_cost": 13286,
     "first_supply_date": "2026-02-10",
     "last_supply_date": "2026-02-10",
-    "days_since_first": 70,
+    "days_since_first": 71,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 1.3,
-      "acceleration": 1.56
+      "acceleration": 1.58
     },
     "wos": 27.9,
     "recommendation": "HOLD",
@@ -6182,7 +6182,7 @@
     },
     "last_sale": "2026-04-07",
     "first_sale": "2026-04-04",
-    "days_since_last_sale": 14,
+    "days_since_last_sale": 15,
     "avg_sale_price": 12900,
     "returns_qty": 0,
     "gross_profit": 20544,
@@ -6229,11 +6229,11 @@
     "stock_cost": 13140,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 0.8,
-      "acceleration": 2.37
+      "acceleration": 2.4
     },
     "wos": 10.7,
     "recommendation": "HOLD",
@@ -6256,7 +6256,7 @@
     },
     "last_sale": "2026-04-15",
     "first_sale": "2026-04-15",
-    "days_since_last_sale": 6,
+    "days_since_last_sale": 7,
     "avg_sale_price": 15900,
     "returns_qty": 0,
     "gross_profit": 12615,
@@ -6303,11 +6303,11 @@
     "stock_cost": 13140,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.4,
-      "acceleration": 2.37
+      "acceleration": 2.4
     },
     "wos": 17.1,
     "recommendation": "HOLD",
@@ -6319,20 +6319,20 @@
     "name": "Футболка вош оверсайз",
     "variants": {
       "colors": {
-        "Бежевый": 7,
-        "Серый": 1
+        "Серый": 1,
+        "Бежевый": 7
       },
       "sizes": {
         "OneSize": 8
       },
       "matrix": {
-        "Бежевый/OneSize": 7,
-        "Серый/OneSize": 1
+        "Серый/OneSize": 1,
+        "Бежевый/OneSize": 7
       }
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-03-01",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 7900,
     "returns_qty": 0,
     "gross_profit": 53434,
@@ -6364,8 +6364,8 @@
         "rev": 31600.0
       },
       "last_30d": {
-        "qty": 8,
-        "rev": 63200.0
+        "qty": 6,
+        "rev": 47400.0
       },
       "total_qty": 11,
       "total_rev": 71100.0
@@ -6379,15 +6379,15 @@
     "stock_cost": 12848,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
-      "recent_30d": 8,
-      "avg_30d": 4.9,
-      "acceleration": 1.65
+      "recent_30d": 6,
+      "avg_30d": 4.8,
+      "acceleration": 1.25
     },
-    "wos": 4.3,
+    "wos": 5.7,
     "recommendation": "REORDER",
-    "recommendation_reason": "Продано 55%, осталось на 4 недель — дозаказать",
+    "recommendation_reason": "Продано 55%, осталось на 6 недель — дозаказать",
     "photo": "[6948b]"
   },
   {
@@ -6405,14 +6405,14 @@
       },
       "matrix": {
         "Белый/2XL": 1,
-        "Чёрный/2XL": 2,
+        "Белый/3XL": 1,
         "Белый/L": 1,
-        "Белый/3XL": 1
+        "Чёрный/2XL": 2
       }
     },
     "last_sale": "2026-04-17",
     "first_sale": "2026-02-16",
-    "days_since_last_sale": 4,
+    "days_since_last_sale": 5,
     "avg_sale_price": 10900,
     "returns_qty": 0,
     "gross_profit": 109845,
@@ -6444,8 +6444,8 @@
         "rev": 21800.0
       },
       "last_30d": {
-        "qty": 11,
-        "rev": 76300.0
+        "qty": 8,
+        "rev": 54500.0
       },
       "total_qty": 21,
       "total_rev": 163500.0
@@ -6459,15 +6459,15 @@
     "stock_cost": 12775,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 11,
-      "avg_30d": 8.9,
-      "acceleration": 1.24
+      "recent_30d": 8,
+      "avg_30d": 8.8,
+      "acceleration": 0.91
     },
-    "wos": 1.9,
+    "wos": 2.7,
     "recommendation": "REORDER",
-    "recommendation_reason": "Продано 81% (хит), продаётся 11 шт/мес — дозаказать срочно",
+    "recommendation_reason": "Продано 81% (хит), продаётся 8 шт/мес — дозаказать срочно",
     "photo": "[39832b]"
   },
   {
@@ -6475,20 +6475,20 @@
     "name": "Футболка укороченная на молнии",
     "variants": {
       "colors": {
-        "Белый": 4,
-        "Чёрный": 3
+        "Чёрный": 3,
+        "Белый": 4
       },
       "sizes": {
         "OneSize": 7
       },
       "matrix": {
-        "Белый/OneSize": 4,
-        "Чёрный/OneSize": 3
+        "Чёрный/OneSize": 3,
+        "Белый/OneSize": 4
       }
     },
     "last_sale": "2026-04-08",
     "first_sale": "2026-02-17",
-    "days_since_last_sale": 13,
+    "days_since_last_sale": 14,
     "avg_sale_price": 6900,
     "returns_qty": 0,
     "gross_profit": 45310,
@@ -6535,11 +6535,11 @@
     "stock_cost": 11753,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 4.2,
-      "acceleration": 0.95
+      "acceleration": 0.96
     },
     "wos": 7.5,
     "recommendation": "REORDER",
@@ -6564,7 +6564,7 @@
     },
     "last_sale": "2026-04-12",
     "first_sale": "2026-03-12",
-    "days_since_last_sale": 9,
+    "days_since_last_sale": 10,
     "avg_sale_price": 7900,
     "returns_qty": 0,
     "gross_profit": 12880,
@@ -6611,11 +6611,11 @@
     "stock_cost": 11680,
     "first_supply_date": "2026-01-26",
     "last_supply_date": "2026-01-26",
-    "days_since_first": 85,
+    "days_since_first": 86,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 0.7,
-      "acceleration": 1.42
+      "acceleration": 1.43
     },
     "wos": 34.3,
     "recommendation": "HOLD",
@@ -6638,7 +6638,7 @@
     },
     "last_sale": "2026-03-31",
     "first_sale": "2026-03-09",
-    "days_since_last_sale": 21,
+    "days_since_last_sale": 22,
     "avg_sale_price": 11900,
     "returns_qty": 0,
     "gross_profit": 41980,
@@ -6685,11 +6685,11 @@
     "stock_cost": 11680,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 5,
       "avg_30d": 2.6,
-      "acceleration": 1.89
+      "acceleration": 1.92
     },
     "wos": 3.4,
     "recommendation": "REORDER",
@@ -6716,7 +6716,7 @@
     },
     "last_sale": "2026-04-09",
     "first_sale": "2026-03-08",
-    "days_since_last_sale": 12,
+    "days_since_last_sale": 13,
     "avg_sale_price": 6900,
     "returns_qty": 0,
     "gross_profit": 16758,
@@ -6763,11 +6763,11 @@
     "stock_cost": 10512,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 2,
-      "avg_30d": 1.3,
-      "acceleration": 1.58
+      "avg_30d": 1.2,
+      "acceleration": 1.6
     },
     "wos": 17.1,
     "recommendation": "HOLD",
@@ -6790,7 +6790,7 @@
     },
     "last_sale": "2026-04-06",
     "first_sale": "2026-02-17",
-    "days_since_last_sale": 15,
+    "days_since_last_sale": 16,
     "avg_sale_price": 12900,
     "returns_qty": 0,
     "gross_profit": 43424,
@@ -6837,11 +6837,11 @@
     "stock_cost": 10220,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 1,
       "avg_30d": 1.7,
-      "acceleration": 0.59
+      "acceleration": 0.6
     },
     "wos": 21.4,
     "recommendation": "HOLD",
@@ -6913,7 +6913,7 @@
     "stock_cost": 10220,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.0,
@@ -6921,7 +6921,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (71 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (72 дн на складе) — сильная скидка или списание",
     "photo": "[49464b]"
   },
   {
@@ -6929,28 +6929,28 @@
     "name": "Сумка хобо плетёная",
     "variants": {
       "colors": {
-        "Чёрный": 4,
         "Белый": 1,
         "Розовый": 1,
-        "Тёмно-синий": 3,
+        "Чёрный": 4,
         "Серый": 2,
+        "Тёмно-синий": 3,
         "Бежевый": 5
       },
       "sizes": {
         "OneSize": 16
       },
       "matrix": {
-        "Чёрный/OneSize": 4,
         "Белый/OneSize": 1,
         "Розовый/OneSize": 1,
-        "Тёмно-синий/OneSize": 3,
+        "Чёрный/OneSize": 4,
         "Серый/OneSize": 2,
+        "Тёмно-синий/OneSize": 3,
         "Бежевый/OneSize": 5
       }
     },
     "last_sale": "2026-04-15",
     "first_sale": "2026-02-16",
-    "days_since_last_sale": 6,
+    "days_since_last_sale": 7,
     "avg_sale_price": 5605,
     "returns_qty": 0,
     "gross_profit": 79452,
@@ -6997,11 +6997,11 @@
     "stock_cost": 9904,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 10,
-      "avg_30d": 7.5,
-      "acceleration": 1.33
+      "avg_30d": 7.4,
+      "acceleration": 1.35
     },
     "wos": 6.9,
     "recommendation": "REORDER",
@@ -7014,21 +7014,21 @@
     "variants": {
       "colors": {
         "Белый": 3,
-        "Хаки": 4,
-        "Серый": 3
+        "Серый": 3,
+        "Хаки": 4
       },
       "sizes": {
         "OneSize": 10
       },
       "matrix": {
         "Белый/OneSize": 3,
-        "Хаки/OneSize": 4,
-        "Серый/OneSize": 3
+        "Серый/OneSize": 3,
+        "Хаки/OneSize": 4
       }
     },
     "last_sale": "2026-04-06",
     "first_sale": "2026-02-14",
-    "days_since_last_sale": 15,
+    "days_since_last_sale": 16,
     "avg_sale_price": 4900,
     "returns_qty": 0,
     "gross_profit": 26708,
@@ -7075,11 +7075,11 @@
     "stock_cost": 9490,
     "first_supply_date": "2026-02-10",
     "last_supply_date": "2026-02-10",
-    "days_since_first": 70,
+    "days_since_first": 71,
     "velocity": {
       "recent_30d": 4,
       "avg_30d": 3.4,
-      "acceleration": 1.17
+      "acceleration": 1.18
     },
     "wos": 10.7,
     "recommendation": "HOLD",
@@ -7104,7 +7104,7 @@
     },
     "last_sale": "2026-04-05",
     "first_sale": "2026-02-27",
-    "days_since_last_sale": 16,
+    "days_since_last_sale": 17,
     "avg_sale_price": 13900,
     "returns_qty": 0,
     "gross_profit": 52418,
@@ -7136,8 +7136,8 @@
         "rev": 13900.0
       },
       "last_30d": {
-        "qty": 3,
-        "rev": 41700.0
+        "qty": 2,
+        "rev": 27800.0
       },
       "total_qty": 6,
       "total_rev": 69500.0
@@ -7151,15 +7151,15 @@
     "stock_cost": 8541,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
-      "recent_30d": 3,
+      "recent_30d": 2,
       "avg_30d": 2.5,
-      "acceleration": 1.18
+      "acceleration": 0.8
     },
-    "wos": 4.3,
+    "wos": 6.4,
     "recommendation": "REORDER",
-    "recommendation_reason": "Продано 60% (хит), продаётся 3 шт/мес — дозаказать срочно",
+    "recommendation_reason": "Продано 60% (хит), продаётся 2 шт/мес — дозаказать срочно",
     "photo": "[55888b]"
   },
   {
@@ -7178,7 +7178,7 @@
     },
     "last_sale": "2026-04-15",
     "first_sale": "2026-02-18",
-    "days_since_last_sale": 6,
+    "days_since_last_sale": 7,
     "avg_sale_price": 28900,
     "returns_qty": 0,
     "gross_profit": 196866,
@@ -7225,11 +7225,11 @@
     "stock_cost": 7026,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 3,
       "avg_30d": 3.8,
-      "acceleration": 0.79
+      "acceleration": 0.8
     },
     "wos": 1.4,
     "recommendation": "REORDER",
@@ -7254,7 +7254,7 @@
     },
     "last_sale": "2026-02-17",
     "first_sale": "2026-02-17",
-    "days_since_last_sale": 63,
+    "days_since_last_sale": 64,
     "avg_sale_price": 13900,
     "returns_qty": 0,
     "gross_profit": 11272,
@@ -7301,7 +7301,7 @@
     "stock_cost": 5256,
     "first_supply_date": "2026-01-25",
     "last_supply_date": "2026-01-25",
-    "days_since_first": 86,
+    "days_since_first": 87,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 0.3,
@@ -7309,7 +7309,7 @@
     },
     "wos": 999,
     "recommendation": "DEAD",
-    "recommendation_reason": "Ноль продаж за посл. 30 дней (86 дн на складе) — сильная скидка или списание",
+    "recommendation_reason": "Ноль продаж за посл. 30 дней (87 дн на складе) — сильная скидка или списание",
     "photo": "[68292b]"
   },
   {
@@ -7330,7 +7330,7 @@
     },
     "last_sale": "2026-04-01",
     "first_sale": "2026-03-07",
-    "days_since_last_sale": 20,
+    "days_since_last_sale": 21,
     "avg_sale_price": 6900,
     "returns_qty": 0,
     "gross_profit": 39140,
@@ -7377,11 +7377,11 @@
     "stock_cost": 4818,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 5,
       "avg_30d": 4.2,
-      "acceleration": 1.18
+      "acceleration": 1.2
     },
     "wos": 2.6,
     "recommendation": "REORDER",
@@ -7404,7 +7404,7 @@
     },
     "last_sale": "2026-04-05",
     "first_sale": "2026-03-07",
-    "days_since_last_sale": 16,
+    "days_since_last_sale": 17,
     "avg_sale_price": 12900,
     "returns_qty": 0,
     "gross_profit": 32568,
@@ -7451,11 +7451,11 @@
     "stock_cost": 4088,
     "first_supply_date": "2026-02-09",
     "last_supply_date": "2026-02-09",
-    "days_since_first": 71,
+    "days_since_first": 72,
     "velocity": {
       "recent_30d": 2,
-      "avg_30d": 1.3,
-      "acceleration": 1.58
+      "avg_30d": 1.2,
+      "acceleration": 1.6
     },
     "wos": 4.3,
     "recommendation": "REORDER",
@@ -7478,7 +7478,7 @@
     },
     "last_sale": "2026-04-20",
     "first_sale": "2026-03-20",
-    "days_since_last_sale": 1,
+    "days_since_last_sale": 2,
     "avg_sale_price": 7900,
     "returns_qty": 0,
     "gross_profit": 10763,
@@ -7525,11 +7525,11 @@
     "stock_cost": 3358,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 2,
       "avg_30d": 1.3,
-      "acceleration": 1.51
+      "acceleration": 1.53
     },
     "wos": 4.3,
     "recommendation": "REORDER",
@@ -7541,20 +7541,20 @@
     "name": "Кепка бейсболка вош",
     "variants": {
       "colors": {
-        "Чёрный": 3,
-        "Коричневый": 1
+        "Коричневый": 1,
+        "Чёрный": 3
       },
       "sizes": {
         "OneSize": 4
       },
       "matrix": {
-        "Чёрный/OneSize": 3,
-        "Коричневый/OneSize": 1
+        "Коричневый/OneSize": 1,
+        "Чёрный/OneSize": 3
       }
     },
     "last_sale": "2026-04-17",
     "first_sale": "2026-02-20",
-    "days_since_last_sale": 4,
+    "days_since_last_sale": 5,
     "avg_sale_price": 5900,
     "returns_qty": 0,
     "gross_profit": 46808,
@@ -7601,11 +7601,11 @@
     "stock_cost": 2288,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 4,
-      "avg_30d": 4.9,
-      "acceleration": 0.82
+      "avg_30d": 4.8,
+      "acceleration": 0.84
     },
     "wos": 4.3,
     "recommendation": "REORDER",
@@ -7622,7 +7622,7 @@
     },
     "last_sale": "2026-03-12",
     "first_sale": "2026-02-19",
-    "days_since_last_sale": 40,
+    "days_since_last_sale": 41,
     "avg_sale_price": 24900,
     "returns_qty": 0,
     "gross_profit": 93475,
@@ -7669,7 +7669,7 @@
     "stock_cost": 0,
     "first_supply_date": "2026-02-12",
     "last_supply_date": "2026-02-12",
-    "days_since_first": 68,
+    "days_since_first": 69,
     "velocity": {
       "recent_30d": 0,
       "avg_30d": 2.2,
