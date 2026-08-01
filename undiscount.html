@@ -30,8 +30,8 @@ h1{font-size:18px;margin:4px 0}.sub{color:var(--t2);font-size:12px;margin-bottom
 <div class="sub" id="sub">загрузка…</div>
 <div class="warn">Под 1+1=3 магазин дарит самый дешёвый из 3 товаров (его полный себес). У товаров со скидкой убыток удваивается. Отметь «убрать скидку» — вернём изначальную цену. 🟢 зелёные = помечены к снятию. Рекомендованные (🔴🟠🟡) уже предвыбраны.</div>
 <div class="bar">
-<button class="tab active" data-f="all" onclick="setF('all',this)">Все</button>
-<button class="tab" data-f="CRIT" onclick="setF('CRIT',this)">🔴 Критично</button>
+<button class="tab" data-f="all" onclick="setF('all',this)">Все</button>
+<button class="tab active" data-f="CRIT" onclick="setF('CRIT',this)">🔴 Критично</button>
 <button class="tab" data-f="IMP" onclick="setF('IMP',this)">🟠 Важно</button>
 <button class="tab" data-f="HOT" onclick="setF('HOT',this)">🟡 Хиты</button>
 <button class="tab" data-f="OPT" onclick="setF('OPT',this)">⚪ По желанию</button>
@@ -45,7 +45,7 @@ const SB_URL='https://pfnmrjbnvczymflvuvsc.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmbm1yamJudmN6eW1mbHZ1dnNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjIwNTIsImV4cCI6MjA4ODQ5ODA1Mn0.g91-jKE6_pmi8eI_f_IwMe1hs0DPMk1icafqqOYiKdY';
 const SBH={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'};
 const ORDER='UNDISCOUNT-001';
-let ITEMS=[],PH={},F='all',DEC={};
+let ITEMS=[],PH={},F='CRIT',DEC={};
 function fmt(n){return (n||0).toLocaleString('ru-RU')}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',1600)}
 async function load(){
