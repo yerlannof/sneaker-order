@@ -24,11 +24,14 @@ h1{font-size:18px;margin:4px 0}.sub{color:var(--t2);font-size:12px;margin-bottom
 .btn.rmon{background:var(--red);color:#fff;border-color:var(--red)}
 .btn.keepon{background:#111;color:#fff;border-color:#111}
 .empty{color:#999;padding:24px;text-align:center}
+.tog{width:100%;padding:11px;border-radius:10px;border:1.5px solid var(--b);background:#fff;color:var(--t1);font-size:14px;font-weight:700;cursor:pointer;line-height:1.25;text-align:center}
+.tog.on{background:var(--green);color:#fff;border-color:var(--green)}
+.tog .hint{display:block;font-size:11px;font-weight:500;opacity:.85;margin-top:2px}
 #toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:8px 16px;border-radius:20px;font-size:13px;display:none;z-index:99}
 </style></head><body>
 <h1>🚫 Снять скидки перед акцией 1+1=3</h1>
 <div class="sub" id="sub">загрузка…</div>
-<div class="warn">Под 1+1=3 магазин дарит самый дешёвый из 3 товаров (его полный себес). У товаров со скидкой убыток удваивается. Отметь «убрать скидку» — вернём изначальную цену. 🟢 зелёные = помечены к снятию. Рекомендованные (🔴🟠🟡) уже предвыбраны.</div>
+<div class="warn"><b>Как пользоваться:</b> нажми кнопку под товаром, у которого хочешь <b>убрать скидку</b> (вернуть полную цену перед 1+1=3). Кнопка станет <b style="color:#059669">зелёной</b> ✅ = скидку уберём. Нажал случайно — нажми ещё раз, вернётся. 💡 = мой совет убрать. В конце жми «Сохранить».</div>
 <div class="bar">
 <button class="tab" data-f="all" onclick="setF('all',this)">Все</button>
 <button class="tab active" data-f="CRIT" onclick="setF('CRIT',this)">🔴 Критично</button>
@@ -52,7 +55,7 @@ async function load(){
   ITEMS=await (await fetch('undiscount_lite.json')).json();
   PH=await (await fetch('undiscount_photos.json')).json();
   // дефолт: рекомендованные предвыбраны
-  ITEMS.forEach(i=>DEC[i.article]=i.recommend_remove);
+  ITEMS.forEach(i=>DEC[i.article]=false);
   // подтянуть сохранённое из Supabase
   try{
     const r=await fetch(SB_URL+'/rest/v1/orders?id=eq.'+ORDER+'&select=items',{headers:SBH});
@@ -83,26 +86,28 @@ function card(i){
     '<div class="px"><s>'+fmt(i.orig)+'</s> <span class="arw">→</span> <b>'+fmt(i.disc_price)+'</b> <span style="color:#999">(−'+i.disc+'%)</span></div>'+
     '<div class="meta">себес '+fmt(i.cost)+marg+' · сток '+i.stock+' ('+st+') · '+i.s30+'/мес<br>'+lossTxt+'</div>'+
     '<div class="act">'+
-      '<button class="btn '+(rm?'rmon':'')+'" onclick="setD(\''+i.article+'\',true)">❌ Убрать → '+fmt(i.orig)+'</button>'+
-      '<button class="btn '+(!rm?'keepon':'')+'" onclick="setD(\''+i.article+'\',false)">оставить</button>'+
+      '<button class="tog '+(rm?'on':'')+'" onclick="flip(\''+i.article+'\')">'+
+        (rm ? '✅ СКИДКУ УБИРАЕМ → '+fmt(i.orig)+' ₸<span class=hint>нажми = вернуть скидку</span>'
+            : 'убрать скидку → вернуть '+fmt(i.orig)+' ₸'+(i.recommend_remove?' 💡':'')+'<span class=hint>сейчас скидка '+fmt(i.disc_price)+' ₸ · нажми чтобы убрать</span>')+
+      '</button>'+
     '</div></div></div>';
 }
-function setD(art,v){
-  DEC[art]=v;
+function flip(art){
+  var v=!DEC[art]; DEC[art]=v;
+  var it=ITEMS.find(function(x){return x.article===art});
   var el=document.getElementById('c_'+art);
-  if(el){
+  if(el&&it){
     el.classList.toggle('rm',v);
-    var btns=el.querySelectorAll('.btn');
-    if(btns.length===2){
-      btns[0].className='btn'+(v?' rmon':'');
-      btns[1].className='btn'+(!v?' keepon':'');
+    var b=el.querySelector('.tog');
+    if(b){
+      b.className='tog'+(v?' on':'');
+      b.innerHTML = v ? '✅ СКИДКУ УБИРАЕМ → '+fmt(it.orig)+' ₸<span class=hint>нажми = вернуть скидку</span>'
+                      : 'убрать скидку → вернуть '+fmt(it.orig)+' ₸'+(it.recommend_remove?' 💡':'')+'<span class=hint>сейчас скидка '+fmt(it.disc_price)+' ₸ · нажми чтобы убрать</span>';
     }
   }
-  // обновить счётчик и вкладку «К снятию» без полной перерисовки
   var nRm=ITEMS.filter(function(i){return DEC[i.article]}).length;
   var sub=document.getElementById('sub');
-  if(sub)sub.innerHTML='Всего на скидке: <b>'+ITEMS.length+'</b> · помечено к снятию: <b>'+nRm+'</b>';
-  // если открыта вкладка «К снятию» и сняли галку — убрать карточку из вида
+  if(sub)sub.innerHTML='Всего на скидке: <b>'+ITEMS.length+'</b> · <b style="color:#059669">убираем скидку: '+nRm+'</b>';
   if(F==='rm' && !v && el){el.style.display='none'}
 }
 async function save(){
