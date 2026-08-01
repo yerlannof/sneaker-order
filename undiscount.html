@@ -77,7 +77,7 @@ function card(i){
   const marg = i.margin>=999?'':(' · маржа '+i.margin+'%');
   const lossTxt = i.loss_per_unit>0? '<span class="bad">под акцией −'+fmt(i.loss_per_unit)+'₸/шт ниже себеса</span>' : (belowCost?'<span class="bad">тонкая маржа</span>':'');
   const st='М'+i.m+' Ц'+i.t+' А'+i.a+(i.w?' Скл'+i.w:'');
-  return '<div class="card '+(rm?'rm':'')+'">'+img+'<div class="body">'+
+  return '<div class="card '+(rm?'rm':'')+'" id="c_'+i.article+'">'+img+'<div class="body">'+
     '<div class="nm">'+i.name+'</div><div class="art">'+i.article+'</div>'+
     '<span class="tier '+i.tier+'">'+i.tname+'</span>'+
     '<div class="px"><s>'+fmt(i.orig)+'</s> <span class="arw">→</span> <b>'+fmt(i.disc_price)+'</b> <span style="color:#999">(−'+i.disc+'%)</span></div>'+
@@ -87,7 +87,24 @@ function card(i){
       '<button class="btn '+(!rm?'keepon':'')+'" onclick="setD(\''+i.article+'\',false)">оставить</button>'+
     '</div></div></div>';
 }
-function setD(art,v){DEC[art]=v;render()}
+function setD(art,v){
+  DEC[art]=v;
+  var el=document.getElementById('c_'+art);
+  if(el){
+    el.classList.toggle('rm',v);
+    var btns=el.querySelectorAll('.btn');
+    if(btns.length===2){
+      btns[0].className='btn'+(v?' rmon':'');
+      btns[1].className='btn'+(!v?' keepon':'');
+    }
+  }
+  // обновить счётчик и вкладку «К снятию» без полной перерисовки
+  var nRm=ITEMS.filter(function(i){return DEC[i.article]}).length;
+  var sub=document.getElementById('sub');
+  if(sub)sub.innerHTML='Всего на скидке: <b>'+ITEMS.length+'</b> · помечено к снятию: <b>'+nRm+'</b>';
+  // если открыта вкладка «К снятию» и сняли галку — убрать карточку из вида
+  if(F==='rm' && !v && el){el.style.display='none'}
+}
 async function save(){
   const items=ITEMS.map(i=>({article:i.article,name:i.name,orig:i.orig,disc_price:i.disc_price,tier:i.tier,remove_discount:!!DEC[i.article]}));
   try{
