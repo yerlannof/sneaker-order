@@ -11,6 +11,7 @@
     python sneaker-order/build_velocity.py            # собрать velocity.html
 """
 import os
+import re
 import sys
 import json
 from pathlib import Path
@@ -57,18 +58,21 @@ def main():
     lite = []
     for it in items:
         s30 = it["sales"]["s30"]
+        s90 = it["sales"]["s90"]
         rate = round(s30 * 7 / 30.0, 1)
         st = vstatus(it)
         stock = it["stock"]
+        name = re.sub(r",\s*\d+(?:\.\d+)?\s*$", "", it["name"]).strip()  # срезать ", 36"
         lite.append(dict(
-            a=it["article"], n=it["name"], br=it.get("brand", ""),
+            a=it["article"], n=name, br=it.get("brand", ""),
             ph=it.get("photo", ""),
             m=stock["moscow"], t=stock["tsum_online"], ar=stock["aruzhan"],
             wh=stock["warehouse"], tot=stock["total"],
-            s30=s30, rate=rate,
+            s30=s30, s90=s90, rate=rate,
             wos=round(it.get("wos", 999) or 999, 1),
             wosf=round(it.get("wos_future", 999) or 999, 1),
             gm=it.get("gmroi", 0), sc=it.get("score", 0),
+            mrg=round(it.get("margin_pct", 0)),
             w1=it.get("w1", 0), vs=it.get("vs_start_pct"),
             sell=it.get("sellout_date"), disc=it.get("cur_disc", 0),
             retail=int(it.get("retail", 0)), st=st,
@@ -136,12 +140,16 @@ input{{flex:1;min-width:110px;}}
 .rate{{text-align:right;white-space:nowrap;}}
 .rate b{{font-size:19px;font-weight:800;}}.rate small{{font-size:10px;color:var(--muted);}}
 .chips{{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center;}}
-.chip{{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;color:#fff;}}
-.m{{font-size:11px;color:var(--muted);background:var(--chip);border-radius:6px;padding:2px 6px;}}
-.m b{{color:var(--ink);}}
-.bar{{height:5px;background:var(--chip);border-radius:3px;margin-top:7px;overflow:hidden;}}
+.chip{{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;color:#fff;}}
+.bar{{height:6px;background:var(--chip);border-radius:3px;margin:7px 0 2px;overflow:hidden;}}
 .bar i{{display:block;height:100%;background:var(--accent);}}
-.split{{font-size:11px;color:var(--muted);margin-top:6px;}}
+.line{{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.4;}}
+.line .lbl{{display:inline-block;min-width:96px;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.02em;}}
+.line b{{color:var(--ink);font-weight:700;}}
+.sold .lbl{{color:var(--accent);}}
+.sold b{{font-size:13.5px;}}
+.mrow{{font-size:11.5px;color:var(--muted);margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 10px;}}
+.mrow b{{color:var(--ink);}}
 .note{{font-size:12px;color:var(--muted);margin:14px 2px 0;line-height:1.5;}}
 </style></head><body><div class=wrap>
 <h1>⚡ Скорость продаж обуви — ситуация на сегодня</h1>
@@ -185,16 +193,16 @@ function draw(){{
   var wc=x.wosf>=999?'var(--bad)':(x.wosf<2.5?'var(--warn)':(x.wosf<=8?'var(--good)':(x.wosf<=16?'var(--warn)':'var(--bad)')));
   var w=Math.min(100,Math.round(x.rate/D.maxrate*100));
   var ph=x.ph?'<img class=ph src="data:image/jpeg;base64,'+x.ph+'">':'<div class=no>👟</div>';
-  var vs=x.vs==null?'':'<span class=m>🔍 '+x.vs+'%</span>';
-  var sell=x.sell?'<span class=m>📅 '+x.sell.slice(5)+'</span>':'';
   var disc=x.disc>0?'<span class=chip style="background:var(--bad)">−'+x.disc+'%</span>':'';
+  var vs=x.vs==null?'':'<span>vs старт <b>'+x.vs+'%</b></span>';
+  var sell=x.sell?'<span>📅 распродажа '+x.sell.slice(5)+'</span>':'';
   h+='<div class=card style="--sc:'+sm.c+'">'+ph+'<div class=body>'
-   +'<div class=top><div class=nm>'+x.n+'</div><div class=rate><b>'+x.rate+'</b> <small>/нед</small></div></div>'
-   +'<div class=chips><span class=chip style="background:'+sm.c+'">'+sm.e+' '+sm.l+'</span>'+disc
-   +'<span class=m style="color:'+wc+'">📦 '+wf+' нед</span>'
-   +'<span class=m>⭐ '+x.sc+'</span><span class=m>💰 '+x.gm+'</span>'+vs+sell+'</div>'
+   +'<div class=top><div class=nm>'+x.n+'</div><div class=rate><b>'+x.rate+'</b> <small>пар/нед</small></div></div>'
+   +'<div class=chips><span class=chip style="background:'+sm.c+'">'+sm.e+' '+sm.l+'</span>'+disc+'<span style="font-size:11px;color:var(--muted)">'+x.a+' · '+x.br+'</span></div>'
    +'<div class=bar><i style="width:'+w+'%"></i></div>'
-   +'<div class=split>'+x.a+' · '+x.br+' · <b>М</b> '+x.m+' · <b>Ц+О</b> '+x.t+' · <b>А</b> '+x.ar+(x.wh?' · скл '+x.wh:'')+' · 30д: '+x.s30+' пар</div>'
+   +'<div class="line sold"><span class=lbl>🛒 Продано</span>за 30 дней <b>'+x.s30+' пар</b> · за 90 дней <b>'+x.s90+'</b> · темп <b>'+x.rate+'/нед</b></div>'
+   +'<div class=line><span class=lbl>📦 Запас</span><b>'+x.tot+' пар</b>, хватит на <b style="color:'+wc+'">'+wf+' нед</b> — М '+x.m+' · Ц+О '+x.t+' · А '+x.ar+(x.wh?' · скл '+x.wh:'')+'</div>'
+   +'<div class=mrow><span>⭐ скор <b>'+x.sc+'</b></span><span>маржа <b>'+x.mrg+'%</b></span><span>GMROI <b>'+x.gm+'</b></span>'+vs+sell+'</div>'
    +'</div></div>';
  }});
  el.innerHTML=h||'<p class=note>Ничего не найдено.</p>';
