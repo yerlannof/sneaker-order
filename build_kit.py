@@ -123,80 +123,97 @@ def category(name):
 def build():
     con = duckdb.connect(str(DB), read_only=True)
     snap = latest(con, "inventory_snapshot_stores_")
+    prices = latest(con, "prices_snapshot_")
     snap_date = snap.split("_")[-1]
 
     df = get_inventory_cost()
     cost = {str(r.article): float(r.unit_cost or 0) for r in df.itertuples()}
 
-    # остатки по артикулу (KIT по имени), + базовое имя/цвет + размеры
-    stock = con.execute(f"""
-        SELECT article,
-               ANY_VALUE(product_name) AS pn,
-               SUM(moscow) m, SUM(tsum)+SUM(online) t, SUM(astana_aruzhan) a,
-               SUM(main_warehouse)+SUM(baitursynova) wh, SUM(total_stock) tot
-        FROM {snap}
-        WHERE product_name LIKE '%KIT (%' AND total_stock > 0
-        GROUP BY article
-    """).fetchall()
+    # 1) множество KIT-артикулов = имя содержит 'KIT (' (снапшот ИЛИ продажи)
+    kit_arts = set(str(a) for (a,) in con.execute(f"""
+        SELECT DISTINCT article FROM {snap} WHERE product_name LIKE '%KIT (%'
+        UNION SELECT DISTINCT article FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND price>0
+    """).fetchall())
 
-    # продажи по артикулу
-    sales = con.execute("""
-        SELECT article,
-               SUM(CASE WHEN sale_datetime >= (SELECT MAX(sale_datetime) FROM v_sales_canonical)-INTERVAL 30 DAY THEN quantity ELSE 0 END) s30,
-               SUM(CASE WHEN sale_datetime >= (SELECT MAX(sale_datetime) FROM v_sales_canonical)-INTERVAL 7 DAY THEN quantity ELSE 0 END) s7,
-               SUM(quantity) sall, SUM(revenue) rev,
-               MIN(sale_datetime) first_sale, MAX(sale_datetime) last_sale
-        FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND price > 0
-        GROUP BY article
-    """).fetchall()
-    sd = {str(a): dict(s30=int(s30 or 0), s7=int(s7 or 0), sall=int(sl or 0), rev=float(rev or 0),
-                       first=fs, last=ls) for a, s30, s7, sl, rev, fs, ls in sales}
+    # 2) остатки по складам (0 у распроданных) + имя
+    stock = {str(a): (pn, int(m or 0), int(t or 0), int(ar or 0), int(wh or 0))
+             for a, pn, m, t, ar, wh in con.execute(f"""
+        SELECT article, ANY_VALUE(product_name),
+               SUM(moscow), SUM(tsum)+SUM(online), SUM(astana_aruzhan),
+               SUM(main_warehouse)+SUM(baitursynova)
+        FROM {snap} WHERE product_name LIKE '%KIT (%' GROUP BY article
+    """).fetchall()}
 
-    # первая поставка (для окна жизни новинок)
-    fsup = con.execute("""
-        SELECT product_article art, MIN(DATE(supply_moment)) d
-        FROM supply_positions WHERE product_article IS NOT NULL GROUP BY product_article
-    """).fetchall()
-    first_supply = {str(a): d for a, d in fsup}
+    # 3) продажи
+    sales = {str(a): dict(s30=int(s30 or 0), s7=int(s7 or 0), sall=int(sl or 0),
+                          first=fs, last=ls) for a, s30, s7, sl, fs, ls in con.execute("""
+        SELECT article,
+               SUM(CASE WHEN sale_datetime >= (SELECT MAX(sale_datetime) FROM v_sales_canonical)-INTERVAL 30 DAY THEN quantity ELSE 0 END),
+               SUM(CASE WHEN sale_datetime >= (SELECT MAX(sale_datetime) FROM v_sales_canonical)-INTERVAL 7 DAY THEN quantity ELSE 0 END),
+               SUM(quantity), MIN(sale_datetime), MAX(sale_datetime)
+        FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND price > 0 GROUP BY article
+    """).fetchall()}
+    sales_name = {str(a): nm for a, *_ , nm in con.execute("""
+        SELECT article, ANY_VALUE(product_name) FROM v_sales_canonical
+        WHERE product_name LIKE '%KIT (%' GROUP BY article
+    """).fetchall()}
+
+    # 4) приход (сколько ВСЕГО пришло) + себес-fallback из supply_positions
+    #    (inventory_cost даёт себес только для товаров В НАЛИЧИИ — распроданные пробники выпадают)
+    supply = {}
+    supply_cost = {}
+    for a, q, c in con.execute("""
+        SELECT product_article, SUM(quantity), ROUND(AVG(price)) FROM supply_positions
+        WHERE product_article IS NOT NULL AND price > 0 GROUP BY product_article
+    """).fetchall():
+        supply[str(a)] = int(q or 0)
+        supply_cost[str(a)] = float(c or 0)
+    first_supply = {str(a): d for a, d in con.execute("""
+        SELECT product_article, MIN(DATE(supply_moment)) FROM supply_positions
+        WHERE product_article IS NOT NULL GROUP BY product_article
+    """).fetchall()}
+
+    # 5) РЦ из prices (new_price → sale_price)
+    retail_map = {str(a): float(np or sp or 0) for a, sp, np in con.execute(f"""
+        SELECT article, MAX(sale_price), MAX(new_price) FROM {prices} GROUP BY article
+    """).fetchall()}
     con.close()
 
     rows = []
-    for art, pn, m, t, a, wh, tot in stock:
-        art = str(art)
-        m, t, a, wh, tot = [int(x or 0) for x in (m, t, a, wh, tot)]
+    for art in kit_arts:
+        pn = stock.get(art, (None,))[0] or sales_name.get(art) or f"KIT {art}"
+        m, t, a, wh = (stock.get(art, (None, 0, 0, 0, 0))[1:]) if art in stock else (0, 0, 0, 0)
         base = pn.rsplit(" (", 1)[0] if " (" in pn else pn
-        color = ""
         mm = re.search(r"\(([^,]+),", pn)
-        if mm:
-            color = mm.group(1).strip()
-        uc = cost.get(art, 0)
-        s = sd.get(art, {})
-        s30, s7, sall, rev = s.get("s30", 0), s.get("s7", 0), s.get("sall", 0), s.get("rev", 0.0)
-        store_stock = m + t + a
+        color = mm.group(1).strip() if mm else ""
 
-        # окно жизни: с первой поставки (или первой продажи), но не старше 30д для темпа
-        fs_supply = first_supply.get(art)
-        life_start = fs_supply
+        uc = cost.get(art, 0) or supply_cost.get(art, 0)   # inventory_cost, иначе из поставок
+        retail = round(retail_map.get(art, 0))
+        s = sales.get(art, {})
+        s30, s7, sall = s.get("s30", 0), s.get("s7", 0), s.get("sall", 0)
+        store_stock = m + t + a
+        qty_in = supply.get(art, store_stock + wh + sall)   # пришло всего (fallback: сток+продано)
+
+        # темп от окна жизни
+        life_start = first_supply.get(art)
         if life_start is None and s.get("first"):
-            life_start = s["first"].date() if hasattr(s["first"], "date") else s["first"]
-        days_live = (TODAY - life_start).days if life_start else 30
-        days_live = max(days_live, 1)
+            fs = s["first"]; life_start = fs.date() if hasattr(fs, "date") else fs
+        days_live = max((TODAY - life_start).days if life_start else 30, 1)
         window = min(30, max(days_live, 7))
-        # продажи в окне ~ sall если товар моложе окна, иначе s30
         sold_window = sall if days_live <= 30 else s30
-        rate = round(sold_window / window * 7, 1)      # шт/нед
+        rate = round(sold_window / window * 7, 1)
         wos = round(store_stock / rate, 1) if rate > 0 else None
 
-        retail = round(rev / sall) if sall > 0 else 0
-        # если не продавался — розница из карточки не в этом запросе; оценим по себесу×4 маркер
-        margin = round((retail - uc) / retail * 100) if retail > 0 else None
+        profit_unit = int(retail - uc) if retail > 0 else 0
+        profit_total = profit_unit * sall
+        margin = round(profit_unit / retail * 100) if retail > 0 else None
 
         is_new = days_live <= 12
-        if is_new and sall == 0:
+        if store_stock == 0 and sall > 0:
+            st = "soldout"                      # распродано — было и кончилось
+        elif is_new and sall == 0:
             st = "new"
         elif sall == 0:
-            st = "dead"
-        elif rate <= 0:
             st = "dead"
         elif wos is not None and wos < 4:
             st = "hot"
@@ -208,14 +225,14 @@ def build():
             st = "over"
 
         rows.append(dict(a=art, base=base, color=color, cat=category(base),
-                         m=m, t=t, ar=a, wh=wh, ss=store_stock, tot=tot,
+                         m=m, t=t, ar=a, wh=wh, ss=store_stock, qin=qty_in,
                          s30=s30, s7=s7, sall=sall, rate=rate,
                          wos=wos if wos is not None else 999,
                          cost=int(uc), retail=retail, margin=margin,
+                         pu=profit_unit, pt=profit_total,
                          days=days_live, st=st,
                          last=str(s["last"])[:10] if s.get("last") else None))
 
-    # фото
     cache = load_cache()
     cache = fetch_photos([r["a"] for r in rows], cache)
     for r in rows:
@@ -226,6 +243,7 @@ def build():
 
 
 SMETA = {
+    "soldout": ("✅", "Распродано", "#7A4E2E"),
     "hot":  ("🔥", "Продаётся", "#E8722B"),
     "ok":   ("🟢", "Норма",     "#2E9E5B"),
     "slow": ("🟡", "Медленно",  "#C98A16"),
@@ -237,8 +255,10 @@ SMETA = {
 
 def render(rows, snap):
     withph = sum(1 for r in rows if r["ph"])
+    tot_in = sum(r["qin"] for r in rows)
     tot_stock = sum(r["ss"] for r in rows)
     tot_sold = sum(r["sall"] for r in rows)
+    tot_profit = sum(r["pt"] for r in rows)
     frozen = sum(r["ss"] * r["cost"] for r in rows)
     cnt = {}
     for r in rows:
@@ -298,25 +318,26 @@ input{{flex:1;min-width:110px;}}
 <p class=sub>Снапшот {snap} · KIT-линия (Китай) · каждый цвет-модель отдельно · темп = шт/нед от начала продаж · WOS = недель хватит</p>
 <div class=kpis>
 <div class=kpi><div class=l>Моделей</div><div class=v>{len(rows)}</div></div>
-<div class=kpi><div class=l>В стоке</div><div class=v>{tot_stock}<small> шт</small></div></div>
-<div class=kpi><div class=l>Продано всего</div><div class=v>{tot_sold}<small> шт</small></div></div>
+<div class=kpi><div class=l>Пришло всего</div><div class=v>{tot_in}<small> шт</small></div></div>
+<div class=kpi><div class=l>Осталось</div><div class=v>{tot_stock}<small> шт</small></div></div>
+<div class=kpi><div class=l>Продано</div><div class=v>{tot_sold}<small> шт</small></div></div>
+<div class=kpi><div class=l>Прибыль факт</div><div class=v>{tot_profit/1e3:.0f}<small> тыс₸</small></div></div>
 <div class=kpi><div class=l>Заморожено</div><div class=v>{frozen/1e6:.1f}<small> М₸</small></div></div>
-<div class=kpi><div class=l>🔥 Продаётся</div><div class=v>{cnt.get('hot',0)}</div></div>
-<div class=kpi><div class=l>⚫🔴 Стоят</div><div class=v>{cnt.get('dead',0)+cnt.get('over',0)}</div></div>
 </div>
 <div class=ctrl>
 <button class="tab on" data-f=all>Все</button>
+<button class=tab data-f=soldout>✅ Распродано</button>
 <button class=tab data-f=hot>🔥 Продаётся</button>
 <button class=tab data-f=ok>🟢 Норма</button>
 <button class=tab data-f=slow>🟡 Медленно</button>
 <button class=tab data-f=over>🔴 Стоит</button>
 <button class=tab data-f=dead>⚫ Нет продаж</button>
 <button class=tab data-f=new>🆕 Новинки</button>
-<select id=sort><option value=sall>продано ↓</option><option value=rate>темп ↓</option><option value=ss>сток ↓</option><option value=wos>WOS ↓</option></select>
+<select id=sort><option value=sall>продано ↓</option><option value=pt>прибыль ↓</option><option value=rate>темп ↓</option><option value=ss>сток ↓</option><option value=wos>WOS ↓</option></select>
 <input id=q placeholder="поиск модели / цвета / артикула…">
 </div>
 <div id=list></div>
-<p class=note>Фото {withph}/{len(rows)}. Партия KIT свежая (первая 20.07, вторая 06.08) — темп считается от начала продаж каждой модели, а не за календарный месяц. «Стоит» = в стоке, но продаж почти нет.</p>
+<p class=note>Фото {withph}/{len(rows)}. Все поступления KIT: пробная партия 20.07 (по 1 шт/размер — многие уже ✅ распроданы) + основная 06.08. Темп — от начала продаж каждой модели. Прибыль факт = (РЦ−себес)×продано.</p>
 </div>
 <script>
 var D={payload};
@@ -337,13 +358,14 @@ function draw(){{
   var ph=x.ph?'<img class=ph src="data:image/jpeg;base64,'+x.ph+'">':'<div class=no>👕</div>';
   var mrg=x.margin==null?'':'<span>маржа <b>'+x.margin+'%</b></span>';
   var last=x.last?'<span>последняя '+x.last.slice(5)+'</span>':'';
+  var prof=x.pt>0?'<span>прибыль <b style="color:var(--good)">'+x.pt.toLocaleString()+'₸</b></span>':'';
   h+='<div class=card style="--sc:'+sm.c+'">'+ph+'<div class=body>'
    +'<div class=top><div class=nm>'+x.base+' · '+x.color+'</div><div class=sold><b>'+x.sall+'</b> <small>продано</small></div></div>'
    +'<div class=chips><span class=chip style="background:'+sm.c+'">'+sm.e+' '+sm.l+'</span><span style="font-size:11px;color:var(--muted)">'+x.a+' · '+x.cat+'</span></div>'
    +'<div class=bar><i style="width:'+w+'%"></i></div>'
-   +'<div class=line><span class=lbl>🛒 Продажи</span>всего <b>'+x.sall+' шт</b> · за 30д <b>'+x.s30+'</b> · темп <b>'+x.rate+'/нед</b></div>'
-   +'<div class=line><span class=lbl>📦 Сток</span><b>'+x.ss+' шт</b>, хватит <b style="color:'+wc+'">'+wf+' нед</b> — М '+x.m+' · Ц+О '+x.t+' · А '+x.ar+(x.wh?' · скл '+x.wh:'')+'</div>'
-   +'<div class=mrow><span>себес <b>'+x.cost.toLocaleString()+'₸</b></span>'+(x.retail?'<span>розница <b>'+x.retail.toLocaleString()+'₸</b></span>':'')+mrg+last+'</div>'
+   +'<div class=line><span class=lbl>🛒 Движение</span>пришло <b>'+x.qin+'</b> → осталось <b>'+x.ss+'</b> → продано <b>'+x.sall+'</b> · темп <b>'+x.rate+'/нед</b></div>'
+   +'<div class=line><span class=lbl>📦 По складам</span>'+(x.ss>0?'хватит <b style="color:'+wc+'">'+wf+' нед</b> — ':'')+'М '+x.m+' · Ц+О '+x.t+' · А '+x.ar+(x.wh?' · скл '+x.wh:'')+'</div>'
+   +'<div class=mrow><span>себес <b>'+x.cost.toLocaleString()+'₸</b></span>'+(x.retail?'<span>РЦ <b>'+x.retail.toLocaleString()+'₸</b></span>':'')+(x.pu?'<span>с шт <b>'+x.pu.toLocaleString()+'₸</b></span>':'')+mrg+prof+last+'</div>'
    +'</div></div>';
  }});
  el.innerHTML=h||'<p class=note>Ничего не найдено.</p>';
