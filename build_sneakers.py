@@ -905,22 +905,31 @@ function renderItem(item, idx) {
           ? `<span class="new-price">${fmt(newPrice)}₸</span>`
           : `<span class="new-price" style="color:var(--text3)">${item.retail > 0 ? fmt(Math.round(item.retail)) + '₸' : '—'}</span>`}
       </div>
-      <div class="discount-row season-row" style="margin-top:6px;background:#f8fafc">
+      <div class="discount-row season-row" style="margin-top:6px;background:#f8fafc;justify-content:space-between">
+        <label>Разметка</label>
+        <span data-tagprogress="${itemKey}" style="font-size:12px;letter-spacing:1px;${
+          (seasonTags[itemKey]||item.season_tag) && (genderTags[itemKey]||item.gender_tag) && (purposeTags[itemKey]||item.purpose_tag)
+          ? 'color:#059669;font-weight:700' : 'color:#94a3b8'}">${
+          ((seasonTags[itemKey]||item.season_tag) ? '🍂✓' : '🍂—')} ${
+          ((genderTags[itemKey]||item.gender_tag) ? '🚻✓' : '🚻—')} ${
+          ((purposeTags[itemKey]||item.purpose_tag) ? '🏃✓' : '🏃—')}</span>
+      </div>
+      <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
         <label>Сезон</label>
         <div class="disc-btns">
-          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','season','${v}')">${l}</button>`).join('')}
+          ${SEASON_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(seasonTags[itemKey]||item.season_tag||'')===v?'active':''}" data-tagart="${itemKey}" data-tagfield="season" data-tagval="${v}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','season','${v}')">${l}</button>`).join('')}
         </div>
       </div>
       <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
         <label>Пол</label>
         <div class="disc-btns">
-          ${GENDER_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(genderTags[itemKey]||item.gender_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','gender','${v}')">${l}</button>`).join('')}
+          ${GENDER_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(genderTags[itemKey]||item.gender_tag||'')===v?'active':''}" data-tagart="${itemKey}" data-tagfield="gender" data-tagval="${v}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','gender','${v}')">${l}</button>`).join('')}
         </div>
       </div>
       <div class="discount-row season-row" style="margin-top:4px;background:#f8fafc">
         <label>Тип</label>
         <div class="disc-btns">
-          ${PURPOSE_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(purposeTags[itemKey]||item.purpose_tag||'')===v?'active':''}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','purpose','${v}')">${l}</button>`).join('')}
+          ${PURPOSE_TAGS.map(([v,l]) => `<button type="button" class="disc-btn season-btn ${(purposeTags[itemKey]||item.purpose_tag||'')===v?'active':''}" data-tagart="${itemKey}" data-tagfield="purpose" data-tagval="${v}" onclick="setModelTag('${itemKey.replace(/'/g,"").replace(/"/g,"")}','purpose','${v}')">${l}</button>`).join('')}
         </div>
       </div>
       ${item.category === 'COOLING_REORDER' ? `
@@ -1165,8 +1174,22 @@ async function setModelTag(art, field, value) {
       if (!r.ok) throw new Error(r.status);
     }
     if (newVal === null) delete store[art]; else store[art] = newVal;
-    toast(newVal === null ? 'Тег снят' : '✓ сохранено');
-    applyFilters();
+    // ⚠️ НЕ вызываем applyFilters(): он перерисовывает весь список, скролл улетает наверх
+    // и карточка «пропадает» — Алуа успевала поставить только сезон и теряла место (23.08.2026).
+    // Обновляем кнопки точечно, карточка остаётся под пальцем до полного набора тегов.
+    document.querySelectorAll(`[data-tagart="${art}"][data-tagfield="${field}"]`).forEach(b => {
+      b.classList.toggle('active', b.dataset.tagval === newVal);
+    });
+    const done = seasonTags[art] && genderTags[art] && purposeTags[art];
+    const prog = document.querySelector(`[data-tagprogress="${art}"]`);
+    if (prog) {
+      prog.textContent = (seasonTags[art] ? '🍂✓' : '🍂—') + ' ' +
+                         (genderTags[art] ? '🚻✓' : '🚻—') + ' ' +
+                         (purposeTags[art] ? '🏃✓' : '🏃—');
+      prog.style.color = done ? '#059669' : '#94a3b8';
+      prog.style.fontWeight = done ? '700' : '400';
+    }
+    toast(newVal === null ? 'Тег снят' : (done ? '✅ модель размечена полностью' : '✓ сохранено'));
   } catch(e) {
     toast('⚠️ Не сохранилось (' + e.message + ') — проверь интернет');
   }
