@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Съёмка ЦУМ — 23.08.2026</title>
+<style>
+:root{--bg:#0f1115;--card:#181b22;--txt:#e8eaf0;--mut:#8b93a7;--acc:#4f7cff;--ok:#2ecc71;--line:#262a34}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.4 -apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;background:var(--bg);padding:14px 16px 10px;border-bottom:1px solid var(--line);z-index:2}
+h1{margin:0 0 6px;font-size:18px}.sub{color:var(--mut);font-size:13px}
+.bar{height:8px;background:var(--line);border-radius:4px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .2s}
+h2{font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin:18px 16px 8px}
+label.item{display:flex;gap:12px;align-items:flex-start;background:var(--card);margin:0 12px 8px;padding:12px;border-radius:12px;border:1px solid var(--line)}
+label.item input{width:24px;height:24px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.art{font-weight:700;font-family:ui-monospace,Menlo,monospace}.nm{color:var(--txt)}.st{color:var(--mut);font-size:13px;margin-top:2px}
+label.item.done{opacity:.45}label.item.done .nm{text-decoration:line-through}
+footer{color:var(--mut);font-size:12px;padding:16px;text-align:center}
+</style></head><body>
+<header><h1>Съёмка в ЦУМе — 23 августа 2026</h1>
+<div class="sub">11 моделей · ACTIVE без фото × есть в ЦУМе · Asics/NB/Puma/Onitsuka не снимаем · приоритет по остатку (флагов продаж нет — аналитик офлайн)</div>
+<div class="sub" id="prog">0 / 11</div><div class="bar"><i id="fill"></i></div></header>
+
+<h2>Сначала — есть несколько пар</h2>
+<label class="item"><input type="checkbox" data-k="202930"><div><span class="art">202930</span> · <span class="nm">Nike Pegasus Mesh Black White Sole</span><div class="st">ЦУМ: 22 пары · размер 36 в карточке</div></div></label>
+<label class="item"><input type="checkbox" data-k="202929"><div><span class="art">202929</span> · <span class="nm">Nike Pegasus Mesh Black Cream Sole</span><div class="st">ЦУМ: 9 пар · 36</div></div></label>
+<label class="item"><input type="checkbox" data-k="202548"><div><span class="art">202548</span> · <span class="nm">Nike Zoom Vomero Roam “Whiteout”</span><div class="st">ЦУМ: 4 пары · 38</div></div></label>
+<label class="item"><input type="checkbox" data-k="202919"><div><span class="art">202919</span> · <span class="nm">Nike React X Black White</span><div class="st">ЦУМ: 4 пары · 40</div></div></label>
+<label class="item"><input type="checkbox" data-k="201855"><div><span class="art">201855</span> · <span class="nm">Nike Air Max 95 White</span><div class="st">ЦУМ: 3 пары · 36</div></div></label>
+
+<h2>Потом — по одной паре</h2>
+<label class="item"><input type="checkbox" data-k="202855"><div><span class="art">202855</span> · <span class="nm">Birkenstock Boston Cream Suede</span><div class="st">ЦУМ: 1 · 36</div></div></label>
+<label class="item"><input type="checkbox" data-k="201399"><div><span class="art">201399</span> · <span class="nm">Adidas Stan Smith White Green</span><div class="st">ЦУМ: 1 · 40</div></div></label>
+<label class="item"><input type="checkbox" data-k="201753"><div><span class="art">201753</span> · <span class="nm">Nike Zoom X Streakfly White</span><div class="st">ЦУМ: 1 · 36</div></div></label>
+<label class="item"><input type="checkbox" data-k="201808"><div><span class="art">201808</span> · <span class="nm">Nike Air Jordan 1 Low White Wolf Grey</span><div class="st">ЦУМ: 1 · 40</div></div></label>
+<label class="item"><input type="checkbox" data-k="201922"><div><span class="art">201922</span> · <span class="nm">Nike Blazer Low '77 Vintage White Black</span><div class="st">ЦУМ: 1 · 36</div></div></label>
+<label class="item"><input type="checkbox" data-k="201995"><div><span class="art">201995</span> · <span class="nm">Nike Zoom Winflo 8 Mid GTX Black</span><div class="st">ЦУМ: 1 · 39</div></div></label>
+
+<footer>Галочки сохраняются на этом телефоне. Коробку с артикулом снимать последней, в имени файла — B.<br>Битые карточки МойСклад (починить владельцу): 202448 «Обувь 10900», 202357 «Обувь 5900».</footer>
+<script>
+(function(){var K='shoot_2026-08-23',st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+var cbs=[].slice.call(document.querySelectorAll('input[type=checkbox]'));
+function upd(){var n=cbs.filter(function(c){return c.checked}).length;document.getElementById('prog').textContent=n+' / '+cbs.length;document.getElementById('fill').style.width=(100*n/cbs.length)+'%';cbs.forEach(function(c){c.closest('label').classList.toggle('done',c.checked)})}
+cbs.forEach(function(c){c.checked=!!st[c.dataset.k];c.addEventListener('change',function(){st[c.dataset.k]=c.checked;try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}upd()})});upd()})();
+</script></body></html>
