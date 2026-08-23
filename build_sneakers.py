@@ -318,8 +318,23 @@ def fetch_photos_from_ms(article_to_name: dict, cached: dict) -> dict:
         return cached
     headers = {"Authorization": f"Bearer {token}", "Accept-Encoding": "gzip"}
 
-    todo = [(art, name) for art, name in article_to_name.items() if art not in cached]
-    print(f"   Скачать новых фото: {len(todo)} (уже в кеше: {len(cached)})")
+    # --refresh-photos: перекачать уже закешированные.
+    # Кеш держал фото ВЕЧНО (todo = только те, кого нет в cached), поэтому
+    # студийные снимки, загруженные в МС поверх старых, в дашборд не попадали:
+    # 23.08.2026 у 202891/202886 в МС лежали новые фото с ночи, а на карточках
+    # висели старые «на коробке». Без аргумента = все, со списком = точечно.
+    refresh = set()
+    if '--refresh-photos' in sys.argv:
+        i = sys.argv.index('--refresh-photos')
+        arg = sys.argv[i + 1] if i + 1 < len(sys.argv) and not sys.argv[i + 1].startswith('-') else ''
+        refresh = {a.strip() for a in arg.split(',') if a.strip()} or set(article_to_name)
+
+    todo = [(art, name) for art, name in article_to_name.items()
+            if art not in cached or art in refresh]
+    if refresh:
+        print(f"   ♻️ Обновление фото: {len(refresh & set(article_to_name))} артикулов "
+              f"(кеш будет перезаписан)")
+    print(f"   Скачать фото: {len(todo)} (в кеше: {len(cached)})")
     new_count = 0; skip_count = 0
     for i, (art, name) in enumerate(todo, 1):
         try:
