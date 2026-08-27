@@ -598,7 +598,14 @@ def fetch_image_bytes(article, token):
         return None
 
 
-def attach_photos(items):
+def attach_photos(items, refresh=False):
+    """refresh=True — перезалить фото из МС поверх лежащих в Storage.
+
+    ⚠️ Без этого фото живёт в Storage вечно: студийные снимки, загруженные в МС
+    поверх старых, в заказ не попадали (ловили 23.08.2026 — в ЗК-017 34 модели
+    тянулись из старого кэша). Имя файла то же (артикул.jpg), поэтому HEAD 200
+    ничего не говорит о свежести — надо смотреть updated у картинки в МС.
+    """
     url = env('SUPABASE_URL')
     storage_key = env('SUPABASE_SERVICE_KEY') or env('SUPABASE_KEY')
     token = env('MOYSKLAD_TOKEN') or env('MS_TOKEN')
@@ -607,7 +614,7 @@ def attach_photos(items):
         art = it['article']
         pub = f"{url}/storage/v1/object/public/photos/{art}.jpg"
         try:
-            if requests.head(pub, timeout=10).status_code == 200:
+            if not refresh and requests.head(pub, timeout=10).status_code == 200:
                 it['photo_url'] = pub
                 cached += 1
                 continue
@@ -883,8 +890,8 @@ def generate_autumn(con, args):
 
     if not args.no_photos:
         print("\nФото...")
-        attach_photos(items)
-    oid = upload(items, meta_out, oid="ОСЕНЬ-2026")
+        attach_photos(items, refresh=args.refresh_photos)
+    oid = upload(items, meta_out, oid=args.order_id or "ОСЕНЬ-2026")
     print(f"\n{'='*64}\nОсенний план создан: {oid}")
     print(f"Просмотр/правки:  {SITE_URL}/?id={oid}&role=buyer")
     print(f"Поставщику (в августе): {SITE_URL}/?id={oid}&role=supplier")
@@ -899,6 +906,10 @@ def main():
     ap.add_argument("--min-sold35", type=int, default=5)
     ap.add_argument("--dry-run", action="store_true", help="не создавать заказ, JSON в файл")
     ap.add_argument("--no-photos", action="store_true")
+    ap.add_argument("--refresh-photos", action="store_true",
+                    help="перезалить фото из МС поверх Storage (после обновления снимков в МС)")
+    ap.add_argument("--order-id", default=None,
+                    help="ID заказа в Supabase (по умолчанию ЗК-NNN, для --autumn «ОСЕНЬ-2026»). Нужен, когда ID занят прошлым планом")
     ap.add_argument("--autumn", action="store_true",
                     help="осенний план-заказ (сен-ноя): хиты осени-2025, тихие сейчас")
     ap.add_argument("--yoy", type=float, default=0.7,
@@ -994,7 +1005,7 @@ def main():
 
     if not args.no_photos:
         print("\nФото...")
-        attach_photos(items)
+        attach_photos(items, refresh=args.refresh_photos)
 
     oid = upload(items, meta_out)
     print(f"\n{'='*64}\nЗаказ создан: {oid}")
