@@ -40,9 +40,10 @@ SOLD_MIN = 4              # минимум продаж YTD чтобы счит�
 RECENT_DAYS = 60          # последняя продажа не позже — иначе сезонный мёртвый
 WOS_INCLUDE = 10          # включаем в дозаказ если запас < 10 недель или 0
 
-# Сезонность (из CLAUDE.md) — лёгкая поправка скорости на месяц заказа
-SEASON = {1: 0.59, 2: 0.79, 3: 1.35, 4: 1.26, 5: 1.00, 6: 0.99,
-          7: 0.79, 8: 1.33, 9: 1.08, 10: 1.06, 11: 0.91, 12: 0.86}
+# Сезонность — ЕДИНЫЙ модуль (04.09.2026). Применение исправлено: наблюдение ДЕасезонализируем
+# по окну, потом умножаем на коэффициент окна покрытия (как в generate_order), а не на текущий месяц.
+sys.path.insert(0, str(PROJECT_ROOT))
+from scripts.utils.metrics import SEASON, mean_coef, coef_weeks  # noqa: E402
 
 SIZE_RE = re.compile(r',\s*(one\s?size|onesize|XXXL|XXL|XL|XS|3XL|2XL|[SML]|\d+(?:\.\d+)?)\s*$', re.I)
 EXCL = ('пакет', 'zip lock', 'сертификат', 'доставка', 'подарочн', 'лимонад', 'red bull', 'обувь ')
@@ -119,7 +120,12 @@ def main():
     d30 = today - timedelta(days=30)
     d90 = today - timedelta(days=90)
     d180 = today - timedelta(days=180)
-    season = SEASON.get(today.month, 1.0)
+    season = SEASON.get(today.month, 1.0)   # только для печати
+    # деасезонализация окон наблюдения + коэффициент окна покрытия (единая логика с generate_order)
+    obs30 = mean_coef(today - timedelta(days=30), 30)
+    obs90 = mean_coef(today - timedelta(days=90), 90)
+    obs180 = mean_coef(today - timedelta(days=180), 180)
+    cover_avg = coef_weeks(today, TARGET_WEEKS) / TARGET_WEEKS
     print(f"Дата: {today} | сезонность мес={season}")
 
     con = duckdb.connect(str(DB_PATH), read_only=True)
@@ -207,8 +213,9 @@ def main():
         st = stock.get(b, {'total': 0, 'ms': 0, 'tsum_online': 0, 'aruzhan': 0, 'wh': 0})
         total_stock = st['total']
         # недельная скорость — устойчивая (макс из окон), c сезонной поправкой
-        weekly = max(a['s90'] / 13, a['s30'] / 4.3, a['s180'] / 26)
-        weekly_adj = weekly * season
+        # устойчивая скорость — макс из окон, каждое окно деасезонализировано по своим датам
+        weekly = max(a['s90'] / 13 / obs90, a['s30'] / 4.3 / obs30, a['s180'] / 26 / obs180)
+        weekly_adj = weekly * cover_avg      # ожидаемая скорость в окне покрытия TARGET_WEEKS
         wos = total_stock / weekly if weekly > 0 else 999
         need = max(0, math.ceil(weekly_adj * TARGET_WEEKS) - total_stock)
         days_no_sale = (today - a['last']).days if a['last'] else 999

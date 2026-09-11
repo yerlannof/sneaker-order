@@ -21,7 +21,7 @@
 import duckdb, json, os, re, sys, base64
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from scripts.utils.inventory_cost import get_inventory_cost
+from scripts.utils.inventory_cost import get_inventory_cost, get_model_valuation
 
 ROOT = Path(__file__).parent.parent
 DB = ROOT / 'data' / 'pnlpower.duckdb'
@@ -33,7 +33,8 @@ def latest(con, pfx):
 def main():
     con = duckdb.connect(str(DB), read_only=True)
     snap = latest(con, 'inventory_snapshot_stores_2026'); pr = latest(con, 'prices_snapshot_2026')
-    cost = {r['article']: float(r['unit_cost'] or 0) for _,r in get_inventory_cost(con=con).iterrows()}
+    from datetime import datetime
+    cost = {art:v['unit_cost'] for art,v in get_model_valuation(con,datetime.strptime(snap[-8:],'%Y%m%d').date()).items()}
     rows = con.execute(f'''
       WITH p AS (SELECT article, MAX(sale_price) sp, MAX(NULLIF(new_price,0)) np FROM {pr} GROUP BY article),
       st AS (SELECT article, ANY_VALUE(product_name) nm,
@@ -41,7 +42,7 @@ def main():
              CAST(SUM(tsum+online) AS INT) t, CAST(SUM(astana_aruzhan) AS INT) a,
              CAST(SUM(main_warehouse) AS INT) w FROM {snap} GROUP BY article),
       s AS (SELECT article, CAST(SUM(quantity) AS INT) s30 FROM retaildemand_positions
-            WHERE price>0 AND document_moment>=CURRENT_DATE-INTERVAL 30 DAY GROUP BY article)
+            WHERE revenue>0 AND document_moment>=CURRENT_DATE-INTERVAL 30 DAY GROUP BY article)
       SELECT st.article, st.nm, CAST(p.sp AS DOUBLE), CAST(p.np AS DOUBLE),
              st.q, st.m, st.t, st.a, st.w, COALESCE(s.s30,0)
       FROM p JOIN st USING(article) LEFT JOIN s USING(article)
@@ -61,24 +62,25 @@ def main():
     for art,nm,sp,np,q,m,t,a,w,s30 in rows:
         if SHLAK.search(str(nm)) or np < 100:   # шлак/сертификаты/копеечные заглушки
             continue
-        c = cost.get(art,0) or 0
+        c = cost.get(str(art))
         disc = round(100*(1-np/sp)) if sp else 0
-        marg = round((np-c)/np*100) if np>0 and c>0 else 999
+        marg = round((np-c)/np*100) if np>0 and c is not None else None
         # приоритет
-        if c>0 and np <= c*1.1: tier, tname, prio = 'CRIT','🔴 Критично', 0
+        if c is None: tier, tname, prio = 'UNKNOWN','Себестоимость неизвестна', 0
+        elif c>0 and np <= c*1.1: tier, tname, prio = 'CRIT','🔴 Критично', 0
         elif disc>=40 and marg<30: tier, tname, prio = 'IMP','🟠 Важно', 1
         elif s30>=4: tier, tname, prio = 'HOT','🟡 Логично (хит)', 2
         else: tier, tname, prio = 'OPT','⚪ По желанию', 3
         # потеря маржи под акцией если оставить скидку (грубо: подаренная себес-разница на скидочной единице)
-        loss = round((c - np)) if np < c else 0
+        loss = None if c is None else round(max(c-np,0))
         base = re.sub(r',\s*[0-9.]+$','', nm or '')  # без размера — для фото по имени
         items.append(dict(article=art, name=nm, base=base, orig=round(sp), disc_price=round(np),
-                          disc=disc, cost=round(c), margin=marg, stock=q,
+                          disc=disc, cost=round(c) if c is not None else None, margin=marg, stock=q,
                           m=m, t=t, a=a, w=w, s30=s30, tier=tier, tname=tname, prio=prio,
                           loss_per_unit=loss,
                           recommend_remove = tier in ('CRIT','IMP','HOT')))
     # сортировка: приоритет, внутри — по «убыточности» (маржа asc), потом сток desc
-    items.sort(key=lambda x: (x['prio'], x['margin'], -x['stock']))
+    items.sort(key=lambda x: (x['prio'], x['margin'] if x['margin'] is not None else -1, -x['stock']))
 
     # фото по артикулу (кэши по артикулу)
     photos = {it['article']: ph[it['article']] for it in items if ph.get(it['article'])}

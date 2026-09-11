@@ -25,7 +25,7 @@ import duckdb
 HERE = Path(__file__).parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT))
-from scripts.utils.inventory_cost import get_inventory_cost  # noqa: E402
+from scripts.utils.inventory_cost import get_inventory_cost, get_model_valuation  # noqa: E402
 
 try:
     from dotenv import load_dotenv
@@ -126,13 +126,20 @@ def build():
     prices = latest(con, "prices_snapshot_")
     snap_date = snap.split("_")[-1]
 
-    df = get_inventory_cost()
-    cost = {str(r.article): float(r.unit_cost or 0) for r in df.itertuples()}
+    df = get_inventory_cost(con=con,snap=snap)
+    valuation = get_model_valuation(con, datetime.strptime(snap_date,'%Y%m%d').date(),stock=df)
+    cost = {art:r['unit_cost'] for art,r in valuation.items()}
+    stock_cost = {}
+    for row in df.to_dict('records'):
+        art=str(row['article']);q=row['moscow']+row['tsum']+row['online']+row['astana_aruzhan']
+        d=stock_cost.setdefault(art,{'known':0,'unknown':0})
+        if row['unit_cost'] is None:d['unknown']+=max(q,0)
+        else:d['known']+=q*row['unit_cost']
 
     # 1) множество KIT-артикулов = имя содержит 'KIT (' (снапшот ИЛИ продажи)
     kit_arts = set(str(a) for (a,) in con.execute(f"""
         SELECT DISTINCT article FROM {snap} WHERE product_name LIKE '%KIT (%'
-        UNION SELECT DISTINCT article FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND price>0
+        UNION SELECT DISTINCT article FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND revenue>0
     """).fetchall())
 
     # 2) остатки по складам (0 у распроданных) + имя
@@ -151,26 +158,23 @@ def build():
                SUM(CASE WHEN sale_datetime >= (SELECT MAX(sale_datetime) FROM v_sales_canonical)-INTERVAL 30 DAY THEN quantity ELSE 0 END),
                SUM(CASE WHEN sale_datetime >= (SELECT MAX(sale_datetime) FROM v_sales_canonical)-INTERVAL 7 DAY THEN quantity ELSE 0 END),
                SUM(quantity), MIN(sale_datetime), MAX(sale_datetime)
-        FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND price > 0 GROUP BY article
+        FROM v_sales_canonical WHERE product_name LIKE '%KIT (%' AND revenue > 0 GROUP BY article
     """).fetchall()}
     sales_name = {str(a): nm for a, *_ , nm in con.execute("""
         SELECT article, ANY_VALUE(product_name) FROM v_sales_canonical
         WHERE product_name LIKE '%KIT (%' GROUP BY article
     """).fetchall()}
 
-    # 4) приход (сколько ВСЕГО пришло) + себес-fallback из supply_positions
-    #    (inventory_cost даёт себес только для товаров В НАЛИЧИИ — распроданные пробники выпадают)
+    # 4) Posted receipt volume; valuation uses the shared SKU/as-of contract.
     supply = {}
-    supply_cost = {}
-    for a, q, c in con.execute("""
-        SELECT product_article, SUM(quantity), ROUND(AVG(price)) FROM supply_positions
-        WHERE product_article IS NOT NULL AND price > 0 GROUP BY product_article
+    for a, q in con.execute("""
+        SELECT product_article, SUM(quantity) FROM supply_positions
+        WHERE product_article IS NOT NULL AND price > 0 AND applicable AND DATE(supply_moment)<=CURRENT_DATE GROUP BY product_article
     """).fetchall():
         supply[str(a)] = int(q or 0)
-        supply_cost[str(a)] = float(c or 0)
     first_supply = {str(a): d for a, d in con.execute("""
         SELECT product_article, MIN(DATE(supply_moment)) FROM supply_positions
-        WHERE product_article IS NOT NULL GROUP BY product_article
+        WHERE product_article IS NOT NULL AND applicable AND DATE(supply_moment)<=CURRENT_DATE GROUP BY product_article
     """).fetchall()}
 
     # 5) РЦ из prices (new_price → sale_price)
@@ -187,7 +191,7 @@ def build():
         mm = re.search(r"\(([^,]+),", pn)
         color = mm.group(1).strip() if mm else ""
 
-        uc = cost.get(art, 0) or supply_cost.get(art, 0)   # inventory_cost, иначе из поставок
+        uc = cost.get(art)
         retail = round(retail_map.get(art, 0))
         s = sales.get(art, {})
         s30, s7, sall = s.get("s30", 0), s.get("s7", 0), s.get("sall", 0)
@@ -204,9 +208,9 @@ def build():
         rate = round(sold_window / window * 7, 1)
         wos = round(store_stock / rate, 1) if rate > 0 else None
 
-        profit_unit = int(retail - uc) if retail > 0 else 0
-        profit_total = profit_unit * sall
-        margin = round(profit_unit / retail * 100) if retail > 0 else None
+        profit_unit = int(retail - uc) if retail > 0 and uc is not None else None
+        profit_total = profit_unit * sall if profit_unit is not None else None
+        margin = round(profit_unit / retail * 100) if retail > 0 and profit_unit is not None else None
 
         is_new = days_live <= 12
         if store_stock == 0 and sall > 0:
@@ -228,7 +232,8 @@ def build():
                          m=m, t=t, ar=a, wh=wh, ss=store_stock, qin=qty_in,
                          s30=s30, s7=s7, sall=sall, rate=rate,
                          wos=wos if wos is not None else 999,
-                         cost=int(uc), retail=retail, margin=margin,
+                         cost=round(uc) if uc is not None else None, retail=retail, margin=margin,
+                         valuation=valuation.get(art), stock_cost=stock_cost.get(art,{"known":0,"unknown":0}),
                          pu=profit_unit, pt=profit_total,
                          days=days_live, st=st,
                          last=str(s["last"])[:10] if s.get("last") else None))
@@ -258,8 +263,9 @@ def render(rows, snap):
     tot_in = sum(r["qin"] for r in rows)
     tot_stock = sum(r["ss"] for r in rows)
     tot_sold = sum(r["sall"] for r in rows)
-    tot_profit = sum(r["pt"] for r in rows)
-    frozen = sum(r["ss"] * r["cost"] for r in rows)
+    tot_profit = sum(r["pt"] for r in rows if r["pt"] is not None)
+    frozen = sum(r["stock_cost"]["known"] for r in rows)
+    unknown_stock=sum(r["stock_cost"]["unknown"] for r in rows)
     cnt = {}
     for r in rows:
         cnt[r["st"]] = cnt.get(r["st"], 0) + 1
@@ -321,8 +327,8 @@ input{{flex:1;min-width:110px;}}
 <div class=kpi><div class=l>Пришло всего</div><div class=v>{tot_in}<small> шт</small></div></div>
 <div class=kpi><div class=l>Осталось</div><div class=v>{tot_stock}<small> шт</small></div></div>
 <div class=kpi><div class=l>Продано</div><div class=v>{tot_sold}<small> шт</small></div></div>
-<div class=kpi><div class=l>Прибыль факт</div><div class=v>{tot_profit/1e3:.0f}<small> тыс₸</small></div></div>
-<div class=kpi><div class=l>Заморожено</div><div class=v>{frozen/1e6:.1f}<small> М₸</small></div></div>
+<div class=kpi><div class=l>Расчёт по текущей марже</div><div class=v>{tot_profit/1e3:.0f}<small> тыс₸</small></div></div>
+<div class=kpi><div class=l>Известный себес</div><div class=v>{frozen/1e6:.1f}<small> М₸</small></div></div>
 </div>
 <div class=ctrl>
 <button class="tab on" data-f=all>Все</button>
@@ -337,7 +343,7 @@ input{{flex:1;min-width:110px;}}
 <input id=q placeholder="поиск модели / цвета / артикула…">
 </div>
 <div id=list></div>
-<p class=note>Фото {withph}/{len(rows)}. Все поступления KIT: пробная партия 20.07 (по 1 шт/размер — многие уже ✅ распроданы) + основная 06.08. Темп — от начала продаж каждой модели. Прибыль факт = (РЦ−себес)×продано.</p>
+<p class=note>Фото {withph}/{len(rows)}. Все поступления KIT: пробная партия 20.07 (по 1 шт/размер — многие уже ✅ распроданы) + основная 06.08. Темп — от начала продаж каждой модели. Расчёт по текущей марже = (РЦ−оценка себеса)×продано, не историческая прибыль. Без оценки {unknown_stock} единиц остатка.</p>
 </div>
 <script>
 var D={payload};
@@ -358,14 +364,14 @@ function draw(){{
   var ph=x.ph?'<img class=ph src="data:image/jpeg;base64,'+x.ph+'">':'<div class=no>👕</div>';
   var mrg=x.margin==null?'':'<span>маржа <b>'+x.margin+'%</b></span>';
   var last=x.last?'<span>последняя '+x.last.slice(5)+'</span>':'';
-  var prof=x.pt>0?'<span>прибыль <b style="color:var(--good)">'+x.pt.toLocaleString()+'₸</b></span>':'';
+  var prof=x.pt>0?'<span>расчёт по текущей марже <b style="color:var(--good)">'+x.pt.toLocaleString()+'₸</b></span>':'';
   h+='<div class=card style="--sc:'+sm.c+'">'+ph+'<div class=body>'
    +'<div class=top><div class=nm>'+x.base+' · '+x.color+'</div><div class=sold><b>'+x.sall+'</b> <small>продано</small></div></div>'
    +'<div class=chips><span class=chip style="background:'+sm.c+'">'+sm.e+' '+sm.l+'</span><span style="font-size:11px;color:var(--muted)">'+x.a+' · '+x.cat+'</span></div>'
    +'<div class=bar><i style="width:'+w+'%"></i></div>'
    +'<div class=line><span class=lbl>🛒 Движение</span>пришло <b>'+x.qin+'</b> → осталось <b>'+x.ss+'</b> → продано <b>'+x.sall+'</b> · темп <b>'+x.rate+'/нед</b></div>'
    +'<div class=line><span class=lbl>📦 По складам</span>'+(x.ss>0?'хватит <b style="color:'+wc+'">'+wf+' нед</b> — ':'')+'М '+x.m+' · Ц+О '+x.t+' · А '+x.ar+(x.wh?' · скл '+x.wh:'')+'</div>'
-   +'<div class=mrow><span>себес <b>'+x.cost.toLocaleString()+'₸</b></span>'+(x.retail?'<span>РЦ <b>'+x.retail.toLocaleString()+'₸</b></span>':'')+(x.pu?'<span>с шт <b>'+x.pu.toLocaleString()+'₸</b></span>':'')+mrg+prof+last+'</div>'
+   +'<div class=mrow><span>себес <b>'+(x.cost==null?'неизвестно':x.cost.toLocaleString()+'₸')+'</b></span>'+(x.retail?'<span>РЦ <b>'+x.retail.toLocaleString()+'₸</b></span>':'')+(x.pu?'<span>с шт <b>'+x.pu.toLocaleString()+'₸</b></span>':'')+mrg+prof+last+'</div>'
    +'</div></div>';
  }});
  el.innerHTML=h||'<p class=note>Ничего не найдено.</p>';

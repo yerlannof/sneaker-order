@@ -48,12 +48,18 @@ ENV_PATHS = [Path(__file__).parent / ".env", PNLPOWER_DIR / ".env"]
 
 SITE_URL = "https://yerlannof.github.io/sneaker-order"
 
-SEASON = {1: 0.59, 2: 0.79, 3: 1.35, 4: 1.26, 5: 1.00, 6: 0.99,
-          7: 0.79, 8: 1.33, 9: 1.08, 10: 1.06, 11: 0.91, 12: 0.86}
+# Сезонность, веса размеров, mean_coef/coef_weeks/gender_weights — ЕДИНЫЙ модуль (04.09.2026):
+sys.path.insert(0, str(PNLPOWER_DIR))
+from scripts.utils.metrics import (SEASON, W_WEIGHTS, M_WEIGHTS,  # noqa: E402
+                                   mean_coef, coef_weeks, gender_weights,
+                                   paid_sales_sql, unit_flow_sql, forecast_unit_flow,
+                                   business_today, completed_sales_window)
 
-# Глобальные веса размеров (6 мес реальных данных, size_ordering_strategy.md)
-W_WEIGHTS = {'36': 0.12, '37': 0.15, '38': 0.27, '39': 0.22, '40': 0.18, '41': 0.06}
-M_WEIGHTS = {'40': 0.07, '41': 0.16, '42': 0.24, '43': 0.23, '44': 0.18, '45': 0.10}
+from scripts.utils.order_state import fetch_order_state, known_transit_sizes, arrival_date
+from scripts.utils.stock_position import prepare_stock_position
+from scripts.utils.order_receipts import net_orders, ensure_order_line_ids
+from scripts.utils.order_observation import returns_observation
+from scripts.utils.purchase_estimate import purchase_estimates, unknown_estimate, order_budget, require_priced_order
 
 DISCOUNT_EXCLUDE = 50   # скидка >= X% = ликвидация, в заказ не включаем
 DISCOUNT_FLAG = 10      # скидка >= X% = маркер в имени
@@ -77,16 +83,7 @@ def env(key):
 
 # ---------------------------------------------------------------- сезонность
 
-def mean_coef(start, days):
-    """Средний сезонный коэффициент за days дней от start."""
-    return sum(SEASON[(start + timedelta(days=i)).month] for i in range(days)) / days
-
-
-def coef_weeks(start, weeks):
-    """Сумма «коэффициенто-недель» за weeks недель от start.
-    base_rate * coef_weeks = ожидаемые продажи за период."""
-    days = int(round(weeks * 7))
-    return sum(SEASON[(start + timedelta(days=i)).month] for i in range(days)) / 7.0
+# mean_coef / coef_weeks — из scripts.utils.metrics
 
 
 # ---------------------------------------------------------------- теги моделей
@@ -102,79 +99,64 @@ def fetch_model_tags():
     Ручное знание Алуа/Ерлана — ГЛАВНЕЕ эвристик генератора."""
     url, key = env('SUPABASE_URL'), env('SUPABASE_KEY')
     if not url or not key:
-        return {}, {}
+        raise RuntimeError('Теги недоступны: нет SUPABASE_URL/KEY. Заказ остановлен.')
     try:
         r = requests.get(f"{url}/rest/v1/model_tags?select=article,season,gender,purpose&limit=10000",
                          headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=15)
-        rows = r.json() if r.ok else []
+        r.raise_for_status()
+        rows = r.json()
+        if not isinstance(rows, list):
+            raise ValueError('Неверный ответ model_tags')
         return ({str(t['article']): t['season'] for t in rows if t.get('season')},
                 {str(t['article']): t['gender'] for t in rows if t.get('gender')},
                 {str(t['article']): t['purpose'] for t in rows if t.get('purpose')})
     except Exception as e:
-        print(f"⚠️  Теги не загружены: {e}")
-        return {}, {}, {}
+        raise RuntimeError('Ручные теги не загружены. Заказ остановлен, чтобы не потерять решения владельцев.') from e
 
 
 # ---------------------------------------------------------------- транзит
 
 def fetch_transit(max_age_weeks=TRANSIT_MAX_AGE_WEEKS):
-    """Заказы в пути: только sent/supplier_done НЕ СТАРШЕ max_age_weeks.
-    Возвращает ({article: pairs}, {article: [{order_id, pairs, size_qty}]}, [order_ids])."""
-    url, key = env('SUPABASE_URL'), env('SUPABASE_KEY')
-    if not url or not key:
-        return {}, {}, []
-    cutoff = (date.today() - timedelta(weeks=max_age_weeks)).isoformat()
-    try:
-        resp = requests.get(
-            f"{url}/rest/v1/orders?select=id,status,created_at,items,confirmed_items,supplier_items"
-            f"&status=in.(sent,supplier_done)&created_at=gte.{cutoff}",
-            headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=20)
-        resp.raise_for_status()
-    except Exception as e:
-        print(f"⚠️  Транзит из Supabase не загружен: {e}")
-        return {}, {}, []
-    transit, detail, ids = {}, {}, []
-    for o in resp.json():
-        ids.append(o['id'])
-        items = o.get('confirmed_items') or o.get('supplier_items') or o.get('items') or []
-        for it in items:
-            art, pairs = it.get('article', ''), 0
-            if it.get('size_qty'):
-                pairs = sum(v or 0 for v in it['size_qty'].values())
-            else:
-                pairs = it.get('pairs', 0)
-            if art and pairs > 0:
-                transit[art] = transit.get(art, 0) + pairs
-                detail.setdefault(art, []).append(
-                    {'order_id': o['id'], 'pairs': pairs, 'size_qty': it.get('size_qty')})
-    return transit, detail, ids
+    """One strict source for ordinary and seasonal replenishment."""
+    return fetch_order_state(env('SUPABASE_URL'), env('SUPABASE_KEY'), requests.get, max_age_weeks, resolve_receipts=net_orders)
 
 
 # ---------------------------------------------------------------- данные
 
-def load_data(con, weeks, lead_weeks, min_sold35):
-    today = date.today()
+def sales_manifest(con, end):
+    """Make the observation interval explicit; this is not a completeness certificate."""
+    last = con.execute('SELECT MAX(document_moment) FROM retaildemand_positions').fetchone()[0]
+    return {'timezone': 'Asia/Almaty', 'end_exclusive': end.isoformat(),
+            'through': (end-timedelta(days=1)).isoformat(),
+            'source': 'retaildemand_positions', 'source_max_moment': str(last) if last else None,
+            'completeness': 'not_certified_by_max_date',
+            'windows': {str(n): {'from': (end-timedelta(days=n)).isoformat(),
+                                'through': (end-timedelta(days=1)).isoformat(), 'days': n}
+                        for n in (35, 60, 90, 180)},
+            'stock_and_prices': 'current_sources_not_historical_reconstruction'}
+
+
+def load_data(con, weeks, lead_weeks, min_sold35, future_promo="continue", stock_manifest=None, sales_through=None):
+    today = business_today()
+    _, sales_end = completed_sales_window(35, sales_through)
     arrival = today + timedelta(weeks=lead_weeks)
 
-    snap = con.execute("""SELECT table_name FROM information_schema.tables
+    # Production CLI always supplies a verified free-stock/staging manifest.
+    # Direct analytical callers may explicitly compare the persisted historical snapshot.
+    snap = stock_manifest['table'] if stock_manifest else con.execute("""SELECT table_name FROM information_schema.tables
         WHERE table_name LIKE 'inventory_snapshot_stores_%'
         ORDER BY table_name DESC LIMIT 1""").fetchone()[0]
     price_snap = con.execute("""SELECT table_name FROM information_schema.tables
         WHERE table_name LIKE 'prices_snapshot_%'
         ORDER BY table_name DESC LIMIT 1""").fetchone()[0]
 
-    # Коэффициент возвратов net/gross за 2 последних полных месяца
-    r = con.execute("""
-        SELECT SUM(net_revenue)/NULLIF(SUM(sales_sum),0) FROM sales_by_employee_correct
-        WHERE (year, month) IN (
-            SELECT DISTINCT year, month FROM sales_by_employee_correct
-            ORDER BY year DESC, month DESC LIMIT 3 OFFSET 1)
-    """).fetchone()[0]
-    returns_coef = round(float(r), 3) if r else 0.95
+    # Three calendar months completed before the selected sales observation cutoff.
+    returns_manifest = returns_observation(con, sales_end)
+    returns_coef = returns_manifest["coefficient"]
 
-    obs35 = mean_coef(today - timedelta(days=35), 35)
-    obs90 = mean_coef(today - timedelta(days=90), 90)
-    obs180 = mean_coef(today - timedelta(days=180), 180)
+    obs35 = mean_coef(sales_end - timedelta(days=35), 35)
+    obs90 = mean_coef(sales_end - timedelta(days=90), 90)
+    obs180 = mean_coef(sales_end - timedelta(days=180), 180)
     lead_cw = coef_weeks(today, lead_weeks)
     cover_cw = coef_weeks(arrival, weeks)
     cover_avg = cover_cw / weeks
@@ -183,23 +165,24 @@ def load_data(con, weeks, lead_weeks, min_sold35):
     WITH sales AS (
         SELECT article,
             ANY_VALUE(REGEXP_REPLACE(product_name, ',\\s*\\d+(\\.\\d+)?$', '')) AS model,
-            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY)  AS q35,
-            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY)  AS q90,
-            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 180 DAY) AS q180,
+            SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 35 DAY)  AS q35,
+            SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 90 DAY)  AS q90,
+            SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 180 DAY) AS q180,
             SUM(quantity) AS sall,
-            SUM(revenue) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY)
-                / NULLIF(SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY), 0)
+            SUM(revenue) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 35 DAY)
+                / NULLIF(SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 35 DAY), 0)
                 AS realized_35,
-            SUM(revenue) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY)
-                / NULLIF(SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY), 0)
+            SUM(revenue) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 90 DAY)
+                / NULLIF(SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 90 DAY), 0)
                 AS realized_90,
-            SUM(revenue) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 180 DAY)
-                / NULLIF(SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 180 DAY), 0)
+            SUM(revenue) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 180 DAY)
+                / NULLIF(SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 180 DAY), 0)
                 AS realized_180,
             MAX(DATE(document_moment)) AS last_sale,
             MIN(DATE(document_moment)) AS first_sale
         FROM retaildemand_positions
-        WHERE price > 0 AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
+        WHERE {paid_sales_sql()} AND document_moment < DATE '{sales_end.isoformat()}'
+          AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
           AND product_name NOT LIKE '%АКЦИЯ 1=2%'
         GROUP BY article
     ),
@@ -207,7 +190,8 @@ def load_data(con, weeks, lead_weeks, min_sold35):
         SELECT p.article, SUM(p.quantity) AS w1_qty
         FROM retaildemand_positions p
         JOIN sales s ON s.article = p.article
-        WHERE p.price > 0 AND DATE(p.document_moment) < s.first_sale + INTERVAL 7 DAY
+        WHERE {paid_sales_sql("p")} AND p.document_moment < DATE '{sales_end.isoformat()}'
+          AND p.product_name NOT LIKE '%АКЦИЯ 1=2%' AND DATE(p.document_moment) < s.first_sale + INTERVAL 7 DAY
         GROUP BY p.article
     ),
     stk AS (
@@ -219,18 +203,6 @@ def load_data(con, weeks, lead_weeks, min_sold35):
         WHERE TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
         GROUP BY article
     ),
-    buy_in AS (
-        SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
-        FROM supply_positions
-        WHERE agent_name = 'Поставщик In' AND applicable AND supply_moment >= '2025-01-01'
-        GROUP BY 1
-    ),
-    buy_any AS (
-        SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
-        FROM supply_positions
-        WHERE applicable AND price > 0 AND supply_moment >= '2025-01-01'
-        GROUP BY 1
-    ),
     price_now AS (
         SELECT article, MAX(sale_price) AS sale_price, MAX(new_price) AS new_price
         FROM {price_snap} GROUP BY article
@@ -240,28 +212,45 @@ def load_data(con, weeks, lead_weeks, min_sold35):
         s.last_sale, s.first_sale, COALESCE(w1.w1_qty,0),
         COALESCE(stk.msk,0), COALESCE(stk.tsum_onl,0), COALESCE(stk.aru,0),
         COALESCE(stk.wh,0), COALESCE(stk.active,0),
-        COALESCE(buy_in.bp, buy_any.bp, 0),
+        NULL AS purchase_price,
         pn.sale_price, pn.new_price
     FROM sales s
     LEFT JOIN w1 USING (article)
     LEFT JOIN stk USING (article)
-    LEFT JOIN buy_in USING (article)
-    LEFT JOIN buy_any USING (article)
     LEFT JOIN price_now pn USING (article)
     """).fetchall()
 
+    estimates = purchase_estimates(con, today)
+    rows = [(*r[:17], estimates.get(str(r[0]), {}).get("amount"), *r[18:]) for r in rows]
+    unit_flow = {}
+    for days in (35, 90, 180):
+        flows = con.execute(f"""SELECT article, {unit_flow_sql()}
+            FROM retaildemand_positions
+            WHERE document_moment < DATE '{sales_end.isoformat()}'
+              AND document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL {days} DAY
+              AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
+              AND product_name NOT LIKE '%АКЦИЯ 1=2%'
+            GROUP BY article""").fetchall()
+        for art, paid, free, issued in flows:
+            unit_flow.setdefault(str(art), {})[f'{days}д'] = dict(
+                paid_units=float(paid), free_units=float(free), issued_units=float(issued))
+    forecast_unit_flow(0, 0, returns_coef, future_promo)  # validate scenario
+
     meta = dict(snap=snap, price_snap=price_snap, returns_coef=returns_coef,
+                returns_manifest=returns_manifest,
+                purchase_estimates=estimates, sales_manifest=sales_manifest(con, sales_end), sales_through=sales_end-timedelta(days=1),
                 obs35=obs35, obs90=obs90, obs180=obs180,
                 lead_cw=lead_cw, cover_cw=cover_cw, cover_avg=cover_avg,
                 arrival=arrival, today=today, weeks=weeks, lead_weeks=lead_weeks,
-                min_sold35=min_sold35)
+                min_sold35=min_sold35, unit_flow=unit_flow, future_promo=future_promo, stock_manifest=stock_manifest)
     return rows, meta
 
 
-def size_details(con, snap, article):
+def size_details(con, snap, article, sales_through=None):
     """Остатки по размерам (по складам), продажи по размерам за 60д,
     и ИЗВЕСТНАЯ СЕТКА модели (все размеры из поставок + всех продаж + стока) —
     чтобы не заказывать размеры, которых у модели не существует в МойСклад."""
+    _, sales_end = completed_sales_window(60, sales_through)
     art = str(article).replace("'", "''")
     stk = con.execute(f"""
         SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1) AS sz,
@@ -271,10 +260,12 @@ def size_details(con, snap, article):
         GROUP BY 1""").fetchall()
     sold = con.execute(f"""
         SELECT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1) AS sz,
-            CAST(SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 60 DAY) AS INT),
+            CAST(SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 60 DAY) AS INT),
             COUNT(*)
         FROM retaildemand_positions
-        WHERE article = '{art}' AND price > 0
+        WHERE article = '{art}' AND {paid_sales_sql()}
+          AND document_moment < DATE '{sales_end.isoformat()}'
+          AND product_name NOT LIKE '%АКЦИЯ 1=2%'
         GROUP BY 1""").fetchall()
     supplied = con.execute(f"""
         SELECT DISTINCT REGEXP_EXTRACT(product_name, ',\\s*(\\d+\\.?\\d*)$', 1) AS sz
@@ -328,36 +319,46 @@ def detect_gender(known_sizes):
     return 'У'
 
 
-def gender_weights(gender):
-    if gender == 'Ж':
-        return dict(W_WEIGHTS)
-    if gender == 'М':
-        return dict(M_WEIGHTS)
-    # Унисекс: женские×0.45 (36-39) + мужские×0.55 (40-45)
-    w = {sz: v * 0.45 for sz, v in W_WEIGHTS.items() if sz in ('36', '37', '38', '39')}
-    for sz, v in M_WEIGHTS.items():
-        w[sz] = w.get(sz, 0) + v * 0.55
-    total = sum(w.values())
-    return {sz: v / total for sz, v in w.items()}
+# gender_weights — из scripts.utils.metrics (нормировка к 1.0)
+
+
+def stock_credit(wos_weeks):
+    """Какую долю стока размера ЗАЧИТЫВАТЬ при расчёте дефицита (память size_ordering_strategy, п.4;
+    реализовано 04.09.2026 — до этого вычиталось 100% всегда). Быстрая модель съест сток до прихода
+    заказа, поэтому её сток почти не покрывает будущий спрос."""
+    if wos_weeks < 2:
+        return 0.0
+    if wos_weeks < 5:
+        return 0.3
+    if wos_weeks < 10:
+        return 0.6
+    return 0.9
 
 
 def distribute_sizes(target_inventory, order_total, size_stock, transit_pairs, gender,
-                     known_sizes=None):
+                     known_sizes=None, wos_weeks=None, transit_size_qty=None):
     """Раскладка заказа по размерам.
     target_inventory — сколько пар ВСЕГО должно быть (до вычета стока);
     order_total — сколько заказываем (после вычета);
-    Дефицит размера = target_inventory*вес − сток размера. Заказ пропорционален дефициту.
-    known_sizes — реальная сетка модели в МС: не заказываем несуществующие размеры."""
+    Дефицит размера = target_inventory*вес − сток размера × stock_credit(wos). Заказ пропорционален дефициту.
+    known_sizes — реальная сетка модели в МС: не заказываем несуществующие размеры.
+    wos_weeks — недели запаса модели (None = зачитывать сток полностью, старое поведение)."""
     weights = gender_weights(gender)
+    credit = 1.0 if wos_weeks is None else stock_credit(wos_weeks)
     if known_sizes:
         limited = {sz: w for sz, w in weights.items() if sz in known_sizes}
-        if limited:  # перенормировать веса на реальную сетку модели
-            total_w = sum(limited.values())
-            weights = {sz: w / total_w for sz, w in limited.items()}
-    # транзит распределяем по весам (детальнее не знаем)
+        if not limited:
+            raise ValueError(f'Нет весов для реальной сетки {sorted(known_sizes)}. Нужна ручная раскладка; вымышленные размеры не заказываем.')
+        total_w = sum(limited.values())
+        weights = {sz: w / total_w for sz, w in limited.items()}
+    transit_size_qty = transit_size_qty or {}
+    unknown_transit = transit_pairs - sum(transit_size_qty.values())
+    if unknown_transit < 0:
+        raise ValueError('Размерный транзит превышает общий')
+    # Exact size quantities take priority; only unspecified pairs use weights.
     deficits = {}
     for sz, wt in weights.items():
-        have = size_stock.get(sz, 0) + transit_pairs * wt
+        have = size_stock.get(sz, 0) * credit + transit_size_qty.get(sz, 0) + unknown_transit * wt
         deficits[sz] = max(0.0, target_inventory * wt - have)
     # Правило: 36-й не заказываем, если есть хоть 1 в стоке (залёживается)
     if size_stock.get('36', 0) >= 1:
@@ -443,6 +444,14 @@ def build_items(con, rows, meta, transit, transit_detail,
 
         base_rate = obs_rate / obs_coef * meta['returns_coef']  # чистый «майский» темп
         adj_rate = base_rate * meta['cover_avg']                # ожидаемый темп в окне продаж
+        flow = meta.get('unit_flow', {}).get(article, {}).get(period, {})
+        free = flow.get('free_units', 0)
+        effective_issued, paid_share = forecast_unit_flow(
+            sold_disp, free, meta['returns_coef'], meta.get('future_promo', 'continue'))
+        period_weeks = {'35д': 5.0, '90д': 90 / 7.0, '180д': 180 / 7.0}[period]
+        depletion_base = effective_issued / period_weeks / obs_coef
+        depletion_rate = depletion_base * meta['cover_avg']
+
 
         # --- ТЕГ СЕЗОННОСТИ (ручное знание): летним обрезаем окно продаж.
         # Лето+Спорт: после сезона спрос НЕ умирает (зал зимой) — хвост окна ×0.4.
@@ -464,7 +473,7 @@ def build_items(con, rows, meta, transit, transit_detail,
                 season_note = f" ☀️ сезон до {end.strftime('%d.%m')} — заказ урезан"
 
         # --- потребность с лид-таймом и сезонностью окна продаж
-        target_inventory = base_rate * (meta['lead_cw'] + cover_cw_item)
+        target_inventory = depletion_base * (meta['lead_cw'] + cover_cw_item)
         order_raw = target_inventory - active - in_transit
         if order_raw < 4:
             skipped_ok += 1
@@ -496,23 +505,25 @@ def build_items(con, rows, meta, transit, transit_detail,
 
         # --- размеры (пол из ТЕГА главнее эвристики по сетке)
         size_stock, size_sold, size_msk, size_tsum, size_aru, size_wh, known = \
-            size_details(con, meta['snap'], article)
+            size_details(con, meta['snap'], article, meta['sales_through'])
         gender = {'men': 'М', 'women': 'Ж', 'unisex': 'У'}.get(
             tag_genders.get(article, ''), None) or detect_gender(known)
+        wos_now = (active / depletion_rate) if depletion_rate > 0 else 999.0
         size_qty = distribute_sizes(target_inventory, order_total, size_stock,
-                                    in_transit, gender, known_sizes=known)
+                                    in_transit, gender, known_sizes=known, wos_weeks=wos_now,
+                                    transit_size_qty=known_transit_sizes(transit_detail.get(article, [])))
         if not size_qty:
             skipped_ok += 1
             continue
         pairs = sum(size_qty.values())
 
         # --- цены/маржа
-        buy_price = float(buy_price or 0)
+        buy_price = float(buy_price) if buy_price is not None and buy_price > 0 else None
         shelf_price = float(new_price) if (new_price and float(new_price) > 0) else float(sale_price or 0)
         realized = float(realized_win) if realized_win else shelf_price
-        margin = round((realized - buy_price) / realized * 100, 1) if realized > 0 and buy_price > 0 else 0
+        margin = round((realized - buy_price) / realized * 100, 1) if realized > 0 and buy_price is not None else None
 
-        wos = round(active / adj_rate, 1) if adj_rate > 0 else 999
+        wos = round(active / depletion_rate, 1) if depletion_rate > 0 else 999
         zone = 'critical' if wos < 3 else ('soon' if wos < 6 else 'nice')
 
         # --- маркеры для Алуа прямо в имени
@@ -543,6 +554,11 @@ def build_items(con, rows, meta, transit, transit_detail,
             'sold': sold_disp,
             'sold_period': period,
             'weekly_rate': round(obs_rate, 1),
+            'stock_weekly_rate': round(depletion_rate, 3),
+            'paid_units': sold_disp, 'free_units': free,
+            'issued_units': flow.get('issued_units', sold_disp + free),
+            'forecast_paid_share': paid_share,
+            'future_promo': meta.get('future_promo', 'continue'),
             'adj_rate': round(adj_rate, 1),
             'stock': active,
             'in_transit': in_transit,
@@ -554,8 +570,9 @@ def build_items(con, rows, meta, transit, transit_detail,
             'margin': margin,
             'price': round(shelf_price),
             'realized_price': round(realized),
-            'cogs': round(buy_price),
-            'buy_price': round(buy_price),
+            'cogs': round(buy_price, 2) if buy_price is not None else None,
+            'buy_price': round(buy_price, 2) if buy_price is not None else None,
+            'purchase_estimate': meta['purchase_estimates'].get(article, unknown_estimate(today)),
             'moscow': int(msk),
             'tsum_online': int(tsum_onl),
             'aruzhan': int(aru),
@@ -645,7 +662,10 @@ def next_order_id():
         r = requests.get(
             f"{url}/rest/v1/orders?select=id&id=like.ЗК-*&order=id.desc&limit=1",
             headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=10)
-        rows = r.json() if r.ok else []
+        r.raise_for_status()
+        rows = r.json()
+        if not isinstance(rows, list):
+            raise ValueError('Неверный ответ model_tags')
         if rows:
             return f"ЗК-{int(rows[0]['id'].split('-')[1]) + 1:03d}"
     except Exception:
@@ -654,9 +674,11 @@ def next_order_id():
 
 
 def upload(items, meta_out, oid=None):
+    require_priced_order(items)
     url = env('SUPABASE_URL')
     key = env('SUPABASE_SERVICE_KEY') or env('SUPABASE_KEY')
     oid = oid or next_order_id()
+    items = ensure_order_line_ids(oid, items)
     r = requests.post(
         f"{url}/rest/v1/orders",
         headers={"apikey": key, "Authorization": f"Bearer {key}",
@@ -672,59 +694,39 @@ def upload(items, meta_out, oid=None):
 # ---------------------------------------------------------------- осень
 
 def fetch_zk_incoming(max_age_weeks=8):
-    """Пары из свежих ЗК (включая ЧЕРНОВИКИ — они будут отправлены): {article: pairs}.
-    Для осеннего плана вычитаем всё, что уже едет или вот-вот поедет."""
-    url, key = env('SUPABASE_URL'), env('SUPABASE_KEY')
-    if not url or not key:
-        return {}
-    cutoff = (date.today() - timedelta(weeks=max_age_weeks)).isoformat()
-    try:
-        r = requests.get(
-            f"{url}/rest/v1/orders?select=id,items,confirmed_items&id=like.ЗК-*"
-            f"&status=in.(draft,sent,supplier_done)&created_at=gte.{cutoff}",
-            headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=20)
-        incoming = {}
-        for o in (r.json() if r.ok else []):
-            for it in (o.get('confirmed_items') or o.get('items') or []):
-                art = str(it.get('article', ''))
-                pairs = sum(v or 0 for v in (it.get('size_qty') or {}).values()) or it.get('pairs', 0)
-                if art and pairs > 0:
-                    incoming[art] = incoming.get(art, 0) + pairs
-        return incoming
-    except Exception as e:
-        print(f"⚠️  ЗК из Supabase не загружены: {e}")
-        return {}
+    """Confirmed/sent inbound only. Missing source is an error in both paths."""
+    return fetch_transit(max_age_weeks)[0]
 
 
 def generate_autumn(con, args):
     """ОСЕННИЙ план-заказ: модели с сильной осенью-2025, тихие сейчас,
-    НЕ покрытые свежим ЗК. Товар должен приехать к ~1 сентября
-    (отправлять поставщику в начале августа). Живые модели сюда не входят —
+    НЕ покрытые активным заказом. Дата прибытия задаётся параметром;
+    прошлое прибытие запрещено. Живые модели сюда не входят —
     они пополняются обычным циклом generate_order."""
-    today = date.today()
-    arrival = date(2026, 9, 1)
-    autumn_weeks = 13                      # сен-ноя
+    today = business_today()
+    _, sales_end = completed_sales_window(90, getattr(args, "sales_through", None))
+    arrival = arrival_date(args.arrival_date, today, args.lead_weeks)
+    autumn_weeks = 13                      # 13 недель от выбранного прибытия
     yoy = args.yoy                          # поправка на моду год-к-году
     aut_coef_25 = mean_coef(date(2025, 9, 1), 91)
     cover_cw = coef_weeks(arrival, autumn_weeks)
-    obs90 = mean_coef(today - timedelta(days=90), 90)
+    obs90 = mean_coef(sales_end - timedelta(days=90), 90)
 
-    snap = con.execute("""SELECT table_name FROM information_schema.tables
+    # Production CLI always supplies a verified free-stock/staging manifest.
+    # Direct analytical callers may explicitly compare the persisted historical snapshot.
+    snap = args.stock_manifest['table'] if args.stock_manifest else con.execute("""SELECT table_name FROM information_schema.tables
         WHERE table_name LIKE 'inventory_snapshot_stores_%'
         ORDER BY table_name DESC LIMIT 1""").fetchone()[0]
     price_snap = con.execute("""SELECT table_name FROM information_schema.tables
         WHERE table_name LIKE 'prices_snapshot_%'
         ORDER BY table_name DESC LIMIT 1""").fetchone()[0]
-    r = con.execute("""
-        SELECT SUM(net_revenue)/NULLIF(SUM(sales_sum),0) FROM sales_by_employee_correct
-        WHERE (year, month) IN (
-            SELECT DISTINCT year, month FROM sales_by_employee_correct
-            ORDER BY year DESC, month DESC LIMIT 3 OFFSET 1)""").fetchone()[0]
-    returns_coef = round(float(r), 3) if r else 0.95
+    returns_manifest = returns_observation(con, sales_end)
+    returns_coef = returns_manifest["coefficient"]
 
-    incoming = fetch_zk_incoming()
+    print(f"Возвраты: {returns_manifest['quality']}; месяцы {[p['month'] for p in returns_manifest['months']]}")
+    incoming, incoming_detail, incoming_ids = fetch_transit()
     print(f"Снапшот: {snap} | Цены: {price_snap} | Прибытие к: {arrival}")
-    print(f"Коэфф. окна сен-ноя: {cover_cw/autumn_weeks:.2f} | YoY-поправка: {yoy} | "
+    print(f"Коэфф. окна {arrival}+{autumn_weeks} недель: {cover_cw/autumn_weeks:.2f} | YoY-поправка: {yoy} | "
           f"возвраты: {returns_coef} | едет из ЗК: {len(incoming)} артикулов")
 
     rows = con.execute(f"""
@@ -734,17 +736,19 @@ def generate_autumn(con, args):
             SUM(quantity) AS q_aut,
             SUM(revenue)/NULLIF(SUM(quantity),0) AS realized_aut
         FROM retaildemand_positions
-        WHERE price > 0 AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
+        WHERE {paid_sales_sql()} AND document_moment < DATE '{sales_end.isoformat()}'
+          AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999
           AND product_name NOT LIKE '%АКЦИЯ 1=2%'
           AND document_moment >= DATE '2025-09-01' AND document_moment < DATE '2025-12-01'
         GROUP BY article HAVING SUM(quantity) >= {args.min_autumn}
     ),
     cur AS (
         SELECT article,
-            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 35 DAY) AS q35,
-            SUM(quantity) FILTER (WHERE document_moment >= CURRENT_DATE - INTERVAL 90 DAY) AS q90
+            SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 35 DAY) AS q35,
+            SUM(quantity) FILTER (WHERE document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 90 DAY) AS q90
         FROM retaildemand_positions
-        WHERE price > 0 GROUP BY article
+        WHERE {paid_sales_sql()} AND document_moment < DATE '{sales_end.isoformat()}'
+          AND product_name NOT LIKE '%АКЦИЯ 1=2%' GROUP BY article
     ),
     stk AS (
         SELECT article,
@@ -753,31 +757,28 @@ def generate_autumn(con, args):
             SUM(moscow + tsum + online + astana_aruzhan + main_warehouse) AS active
         FROM {snap} GROUP BY article
     ),
-    buy_in AS (
-        SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
-        FROM supply_positions
-        WHERE agent_name = 'Поставщик In' AND applicable AND supply_moment >= '2025-01-01'
-        GROUP BY 1
-    ),
-    buy_any AS (
-        SELECT product_article AS article, LAST(price ORDER BY supply_moment) AS bp
-        FROM supply_positions WHERE applicable AND price > 0 AND supply_moment >= '2025-01-01'
-        GROUP BY 1
-    ),
     pn AS (SELECT article, MAX(sale_price) sp, MAX(new_price) np FROM {price_snap} GROUP BY article)
     SELECT a.article, a.model, a.q_aut, a.realized_aut,
         COALESCE(cur.q35,0), COALESCE(cur.q90,0),
         COALESCE(stk.msk,0), COALESCE(stk.tsum_onl,0), COALESCE(stk.aru,0),
         COALESCE(stk.wh,0), COALESCE(stk.active,0),
-        COALESCE(buy_in.bp, buy_any.bp, 0), pn.sp, pn.np
+        NULL AS purchase_price, pn.sp, pn.np
     FROM aut a
     LEFT JOIN cur USING (article)
     LEFT JOIN stk USING (article)
-    LEFT JOIN buy_in USING (article)
-    LEFT JOIN buy_any USING (article)
     LEFT JOIN pn USING (article)
     """).fetchall()
 
+    estimates = purchase_estimates(con, today)
+    rows = [(*r[:11], estimates.get(str(r[0]), {}).get("amount"), *r[12:]) for r in rows]
+    flows = {}
+    for label, predicate in [('autumn', "document_moment >= DATE '2025-09-01' AND document_moment < DATE '2025-12-01'"),
+                             ('current', f"document_moment >= DATE '{sales_end.isoformat()}' - INTERVAL 90 DAY AND document_moment < DATE '{sales_end.isoformat()}'")]:
+        flows[label] = {str(a): (float(p), float(f), float(i)) for a,p,f,i in con.execute(
+            f"SELECT article, {unit_flow_sql()} FROM retaildemand_positions WHERE {predicate} "
+            "AND TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999 "
+            "AND product_name NOT LIKE '%АКЦИЯ 1=2%' GROUP BY article").fetchall()}
+    future_promo = args.future_promo
     items, excluded = [], []
     for row in rows:
         (article, model, q_aut, realized_aut, q35, q90,
@@ -803,10 +804,14 @@ def generate_autumn(con, args):
 
         # темп осени-2025, очищенный от сезона, возвратов, с поправкой на моду
         base_aut = q_aut / autumn_weeks / aut_coef_25 * returns_coef * yoy
-        target_inventory = base_aut * cover_cw
+        free_aut = flows['autumn'].get(article, (0, 0, 0))[1]
+        issued_aut, paid_share = forecast_unit_flow(q_aut, free_aut, returns_coef, future_promo)
+        depletion_aut = issued_aut / autumn_weeks / aut_coef_25 * yoy
+        target_inventory = depletion_aut * cover_cw
 
-        # сколько стока доживёт до сентября (текущий темп съест часть за июл-авг)
-        cur_base = (q90 / (90 / 7.0)) / obs90 * returns_coef if q90 else 0
+        # сколько запаса останется к выбранной дате прибытия
+        cur_issued, _ = forecast_unit_flow(q90, flows['current'].get(article, (0, 0, 0))[1], returns_coef, future_promo)
+        cur_base = (cur_issued / (90 / 7.0)) / obs90
         depletion = cur_base * coef_weeks(today, (arrival - today).days / 7)
         stock_sep = max(0, active - round(depletion))
         coming = incoming.get(article, 0)
@@ -823,18 +828,18 @@ def generate_autumn(con, args):
             continue
 
         size_stock, size_sold, size_msk, size_tsum, size_aru, size_wh, known = \
-            size_details(con, snap, article)
+            size_details(con, snap, article, sales_end-timedelta(days=1))
         gender = detect_gender(known)
         size_qty = distribute_sizes(target_inventory, order_total, size_stock, coming, gender,
-                                    known_sizes=known)
+                                    known_sizes=known, transit_size_qty=known_transit_sizes(incoming_detail.get(article, [])))
         if not size_qty:
             continue
         pairs = sum(size_qty.values())
 
-        buy_price = float(buy_price or 0)
+        buy_price = float(buy_price) if buy_price is not None and buy_price > 0 else None
         shelf = float(new_price) if (new_price and float(new_price) > 0) else float(sale_price or 0)
         realized = float(realized_aut) if realized_aut else shelf
-        margin = round((realized - buy_price) / realized * 100, 1) if realized > 0 and buy_price > 0 else 0
+        margin = round((realized - buy_price) / realized * 100, 1) if realized > 0 and buy_price is not None else None
 
         display = f"🍂 {model or article} — ОСЕНЬЮ-25: {q_aut} шт"
         if aut_disc >= DISCOUNT_FLAG:
@@ -847,22 +852,27 @@ def generate_autumn(con, args):
             'size_aru': size_aru, 'size_wh': size_wh,
             'pairs': pairs, 'zone': 'critical' if active == 0 else 'soon',
             'sold': q_aut, 'sold_period': 'осень25',
+            'paid_units': q_aut, 'free_units': free_aut, 'issued_units': q_aut + free_aut,
+            'forecast_paid_share': paid_share, 'future_promo': future_promo,
             'weekly_rate': round(q_aut / autumn_weeks, 1),
             'adj_rate': round(base_aut * cover_cw / autumn_weeks, 1),
-            'stock': active, 'in_transit': coming, 'transit_detail': [],
+            'stock': active, 'in_transit': coming, 'transit_detail': incoming_detail.get(article, []),
             'wos': round(stock_sep / (base_aut * cover_cw / autumn_weeks), 1) if base_aut > 0 else 0,
             'w1': 0, 'discount_pct': cur_disc, 'hist_discount_pct': aut_disc,
             'margin': margin, 'price': round(shelf), 'realized_price': round(realized),
-            'cogs': round(buy_price), 'buy_price': round(buy_price),
+            'cogs': round(buy_price, 2) if buy_price is not None else None, 'buy_price': round(buy_price, 2) if buy_price is not None else None,
+            'purchase_estimate': estimates.get(article, unknown_estimate(today)),
             'moscow': int(msk), 'tsum_online': int(tsum_onl),
             'aruzhan': int(aru), 'warehouse': int(wh),
         })
 
     items.sort(key=lambda x: -x['sold'])
     total_pairs = sum(i['pairs'] for i in items)
-    total_sum = sum(i['pairs'] * i['buy_price'] for i in items)
+    budget = order_budget(items)
+    total_sum = budget['total_purchase_cost']
+    cost_label = f'{total_sum:,.2f} ₸' if total_sum is not None else f"неизвестно (оценено {budget['known_purchase_cost']:,.2f} ₸, без цены {budget['unpriced_pairs']} пар)"
     print(f"\n{'='*64}")
-    print(f"🍂 ОСЕННИЙ ПЛАН: {len(items)} моделей, {total_pairs} пар, {total_sum:,.0f} ₸ закуп")
+    print(f"🍂 ОСЕННИЙ ПЛАН: {len(items)} моделей, {total_pairs} пар, {cost_label} оценка закупа")
     print(f"Исключено (осенью продавались на ликвидации ≥{DISCOUNT_EXCLUDE}%): {len(excluded)}")
     for e in excluded[:10]:
         print(f"   {e['article']} {e['model'][:45]:45} −{e['discount']}%, осень {e['q_aut']} шт")
@@ -870,17 +880,21 @@ def generate_autumn(con, args):
     meta_out = {
         "date": today.strftime("%d.%m.%Y"),
         "generator": "generate_order.py --autumn v1",
-        "snap": snap, "order_mode": "sizes",
+        "snap": snap, "order_mode": "sizes", "stock_manifest": args.stock_manifest,
+        "sales_manifest": sales_manifest(con, sales_end),
         "arrival_target": arrival.isoformat(),
-        "send_to_supplier": "~начало августа 2026 (лид-тайм 3 нед)",
-        "season_note": f"окно сен-ноя 2026, коэфф {cover_cw/autumn_weeks:.2f}, YoY {yoy}",
+        "send_to_supplier": (arrival - timedelta(weeks=args.lead_weeks)).isoformat(),
+        "season_note": f"окно {arrival}+{autumn_weeks} недель, коэфф {cover_cw/autumn_weeks:.2f}, YoY {yoy}",
+        "budget": budget,
         "returns_coef": returns_coef,
+        "returns_manifest": returns_manifest,
         "excluded_liquidation": excluded,
-        "transit_orders": [], "transit_pairs": sum(incoming.values()),
+        "transit_orders": incoming_ids, "transit_pairs": sum(incoming.values()),
+        "future_promo": future_promo,
     }
 
     if args.dry_run:
-        out = Path(__file__).parent / f"autumn_dryrun_{today.isoformat()}.json"
+        out = args.output_dir / f"autumn_dryrun_{today.isoformat()}.json"
         out.write_text(json.dumps({"items": items, "meta": meta_out}, ensure_ascii=False, indent=1))
         print(f"\n[dry-run] JSON: {out}\n\nТоп-20 осенних:")
         for it in items[:20]:
@@ -888,6 +902,7 @@ def generate_autumn(con, args):
                   f"заказ {it['pairs']:3} пар (сток {it['stock']}, едет {it['in_transit']})")
         return
 
+    require_priced_order(items)
     if not args.no_photos:
         print("\nФото...")
         attach_photos(items, refresh=args.refresh_photos)
@@ -901,15 +916,22 @@ def generate_autumn(con, args):
 
 def main():
     ap = argparse.ArgumentParser(description="Канонический генератор заказа кроссовок")
+    ap.add_argument("--future-promo", choices=("continue", "stop"), default="continue",
+                    help="расход запаса: акция продолжается (default) или подарки прекращаются; платный спрос фиксирован")
     ap.add_argument("--weeks", type=int, default=8, help="покрытие после прибытия, недель")
     ap.add_argument("--lead-weeks", type=float, default=3, help="лид-тайм поставки, недель")
+    ap.add_argument("--sales-through", type=date.fromisoformat,
+                    help="последний полный день продаж YYYY-MM-DD; default вчера по Алматы; историческое окно только dry-run")
     ap.add_argument("--min-sold35", type=int, default=5)
+    ap.add_argument("--stock-source", type=Path, help="сохранённый проверяемый источник; по умолчанию свежие GET остатков и черновиков")
+    ap.add_argument("--output-dir", type=Path, default=PNLPOWER_DIR/"data/order_previews", help="приватная папка результатов dry-run")
     ap.add_argument("--dry-run", action="store_true", help="не создавать заказ, JSON в файл")
     ap.add_argument("--no-photos", action="store_true")
     ap.add_argument("--refresh-photos", action="store_true",
                     help="перезалить фото из МС поверх Storage (после обновления снимков в МС)")
     ap.add_argument("--order-id", default=None,
                     help="ID заказа в Supabase (по умолчанию ЗК-NNN, для --autumn «ОСЕНЬ-2026»). Нужен, когда ID занят прошлым планом")
+    ap.add_argument("--arrival-date", help="дата прибытия осеннего плана YYYY-MM-DD; default сегодня + lead-weeks")
     ap.add_argument("--autumn", action="store_true",
                     help="осенний план-заказ (сен-ноя): хиты осени-2025, тихие сейчас")
     ap.add_argument("--yoy", type=float, default=0.7,
@@ -917,33 +939,38 @@ def main():
     ap.add_argument("--min-autumn", type=int, default=12,
                     help="мин. продаж за осень-2025 для осеннего плана")
     args = ap.parse_args()
+    try:
+        _, sales_end = completed_sales_window(35, args.sales_through)
+    except ValueError as exc:
+        ap.error(str(exc))
+    if not args.dry_run and sales_end != business_today():
+        ap.error("Историческое окно продаж допускается только с --dry-run")
 
     import duckdb
     con = duckdb.connect(str(DB_PATH), read_only=True)
 
+    source=json.loads(args.stock_source.read_text()) if args.stock_source else None
+    args.stock_manifest=prepare_stock_position(con, source, strict=not args.dry_run)
+    if not args.dry_run and not args.stock_manifest['release_ready']:
+        raise RuntimeError('В остатках есть исключения; разрешён только помеченный dry-run')
+    args.output_dir.mkdir(parents=True,exist_ok=True)
     if args.autumn:
         generate_autumn(con, args)
         con.close()
         return
 
-    rows, meta = load_data(con, args.weeks, args.lead_weeks, args.min_sold35)
+    rows, meta = load_data(con, args.weeks, args.lead_weeks, args.min_sold35, args.future_promo, args.stock_manifest, args.sales_through)
     print(f"Снапшот: {meta['snap']} | Цены: {meta['price_snap']}")
 
-    # Страховка: товар на ЗАКРЫТЫХ складах (Байтурсынова/Стрит/Апорт) невидим
-    # для этого генератора — если там что-то висит (staging приёмки забыли
-    # перекинуть), кричим, иначе дозаказ задвоится.
-    ghost = con.execute(f"""
-        SELECT CAST(SUM(baitursynova + astana_street + aport) AS INT) FROM {meta['snap']}
-        WHERE TRY_CAST(article AS INTEGER) BETWEEN 200000 AND 209999""").fetchone()[0] or 0
-    if ghost > 5:
-        print(f"🚨 ВНИМАНИЕ: на закрытых складах висит {ghost} пар обуви — они НЕ учтены "
-              f"в остатках! Перекинь перемещением на активный склад и обнови снапшот.")
+    print(f"Продажи: по {meta['sales_through']} включительно; сегодняшние чеки исключены")
+    print(f"Доступность: {meta['stock_manifest']['totals']}; SHA {meta['stock_manifest']['source_sha256'][:16]}")
     print(f"Сегодня {meta['today']} (сезон {SEASON[meta['today'].month]}), "
           f"прибытие ~{meta['arrival']} | окно продаж {args.weeks} нед, "
           f"средний коэфф. окна {meta['cover_avg']:.2f}")
     print(f"Деасезонализация наблюдения: 35д={meta['obs35']:.2f}, 90д={meta['obs90']:.2f} | "
           f"возвраты: net/gross={meta['returns_coef']}")
 
+    print(f"Возвраты: {meta['returns_manifest']['quality']}; месяцы {[p['month'] for p in meta['returns_manifest']['months']]}")
     transit, transit_detail, transit_ids = fetch_transit()
     print(f"Транзит (заказы < {TRANSIT_MAX_AGE_WEEKS} нед): "
           f"{transit_ids or 'нет'} — {sum(transit.values())} пар")
@@ -958,17 +985,19 @@ def main():
     con.close()
 
     total_pairs = sum(i['pairs'] for i in items)
-    total_sum = sum(i['pairs'] * i['buy_price'] for i in items)
-    total_profit = sum(i['pairs'] * (i['realized_price'] - i['buy_price'])
-                       for i in items if i['buy_price'] > 0)
+    budget = order_budget(items)
+    total_sum = budget['total_purchase_cost']
+    cost_label = f'{total_sum:,.2f} ₸' if total_sum is not None else f"неизвестно (оценено {budget['known_purchase_cost']:,.2f} ₸, без цены {budget['unpriced_pairs']} пар)"
+    total_profit = budget['forecast_gross_profit']
+    profit_label = f'{total_profit:,.2f} ₸' if total_profit is not None else 'неизвестно'
     n_rev = sum(1 for i in items if i['model'].startswith('🔥'))
     n_disc = sum(1 for i in items if i['discount_pct'] >= DISCOUNT_FLAG)
 
     print(f"\n{'='*64}")
     print(f"Моделей: {len(items)} (из них 🔥 распроданных хитов: {n_rev}, "
           f"⚠️ на скидке: {n_disc}) | пропущено (хватает): {skipped}")
-    print(f"Пар: {total_pairs} | Сумма закупа: {total_sum:,.0f} ₸ | "
-          f"Прогноз валовой прибыли: {total_profit:,.0f} ₸")
+    print(f"Пар: {total_pairs} | Оценка закупа: {cost_label} | "
+          f"Прогноз валовой прибыли: {profit_label}")
     if liquidation:
         print(f"\n🚫 НЕ включены (ликвидация, скидка >= {DISCOUNT_EXCLUDE}%):")
         for l in liquidation:
@@ -979,13 +1008,19 @@ def main():
         "date": meta['today'].strftime("%d.%m.%Y"),
         "generator": "generate_order.py v1 (аудит 07.07.2026)",
         "snap": meta['snap'],
+        "stock_manifest": meta["stock_manifest"],
+        "sales_manifest": meta["sales_manifest"],
         "weeks": args.weeks,
+        "future_promo": args.future_promo,
+        "forecast_assumption": "paid demand unchanged; gifts use observed selected-window flow",
         "lead_weeks": args.lead_weeks,
         "arrival_date": meta['arrival'].isoformat(),
         "season": round(meta['cover_avg'], 2),
         "season_note": f"коэфф. окна продаж {meta['arrival']}+{args.weeks}нед = {meta['cover_avg']:.2f} "
                        f"(НЕ текущий месяц {SEASON[meta['today'].month]})",
+        "budget": budget,
         "returns_coef": meta['returns_coef'],
+        "returns_manifest": meta['returns_manifest'],
         "order_mode": "sizes",
         "transit_orders": transit_ids,
         "transit_pairs": sum(transit.values()),
@@ -993,7 +1028,7 @@ def main():
     }
 
     if args.dry_run:
-        out = Path(__file__).parent / f"order_dryrun_{meta['today'].isoformat()}.json"
+        out = args.output_dir / f"order_dryrun_{meta['today'].isoformat()}.json"
         out.write_text(json.dumps({"items": items, "meta": meta_out},
                                   ensure_ascii=False, indent=1))
         print(f"\n[dry-run] JSON: {out}")
@@ -1003,6 +1038,7 @@ def main():
                   f"заказ {it['pairs']:3} пар (сток {it['stock']}, темп {it['adj_rate']}/нед)")
         return
 
+    require_priced_order(items)
     if not args.no_photos:
         print("\nФото...")
         attach_photos(items, refresh=args.refresh_photos)

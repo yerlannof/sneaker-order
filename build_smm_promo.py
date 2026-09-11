@@ -13,9 +13,10 @@ def latest(con,p): return con.execute(f"SELECT MAX(table_name) FROM information_
 
 # 42 убранных
 removed = set()
-apf = Path('/private/tmp/claude-501/-Users-yerlankulumgariyev-Documents-pnlpower/01b8b74f-f9cc-4a73-ac38-e31e4990c229/scratchpad/undiscount_apply.json')
-if apf.exists():
-    removed = {p['article'] for p in json.loads(apf.read_text())}
+apf = Path(os.environ.get('PNL_UNDISCOUNT_PLAN', str(ROOT/'data/cache/undiscount_apply.json')))
+if not apf.is_file():
+    raise SystemExit('Нет подтверждённого плана снятия скидок: задайте PNL_UNDISCOUNT_PLAN')
+removed = {p['article'] for p in json.loads(apf.read_text())}
 
 con = duckdb.connect(str(DB), read_only=True)
 snap = latest(con,'inventory_snapshot_stores_2026'); pr = latest(con,'prices_snapshot_2026')

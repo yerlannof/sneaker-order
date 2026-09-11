@@ -32,14 +32,9 @@ PHOTO_CACHE = PROJECT_ROOT / 'sneaker-order' / '.photo_cache_sneakers.json'
 SNAPSHOT_DATE = None  # None = взять свежайший (динамически в main)
 PRICES_DATE = None    # None = взять свежайший
 
-SEASON = {1: 0.59, 2: 0.79, 3: 1.35, 4: 1.26, 5: 1.00, 6: 0.99,
-          7: 0.79, 8: 1.33, 9: 1.08, 10: 1.06, 11: 0.91, 12: 0.86}
-
-
-def future_coef(today, weeks=8):
-    """Средний сезонный коэффициент ближайших N недель — для честного прогноза."""
-    days = weeks * 7
-    return sum(SEASON[(today + timedelta(days=i)).month] for i in range(days)) / days
+# Сезонность и future_coef — ЕДИНЫЙ модуль (04.09.2026)
+sys.path.insert(0, str(PROJECT_ROOT))
+from scripts.utils.metrics import SEASON, future_coef  # noqa: E402
 
 
 def model_score(item) -> tuple[int, str]:
@@ -173,7 +168,7 @@ def categorize(item: dict) -> tuple[str, str]:
     def zk_warn():
         w = ''
         if item.get('in_reorder'):
-            w = ' ⚠️ ЕСТЬ В ЗАКАЗЕ ЗК-016 — если сейлим, убери её из заказа крестиком!'
+            w = ' ⚠️ ЕСТЬ В СВЕЖЕМ ЗАКАЗЕ ЗК — если сейлим, убери её из заказа крестиком!'
         if item['cost'] > 0 and item['retail'] > 0 and item['retail'] < item['cost'] * 1.1:
             w += ' ⚠️ РЦ уже у себеса — скидка уведёт в минус.'
         return w
@@ -490,7 +485,7 @@ def main():
         sold_size_rows = con.execute(f"""
             SELECT article, product_name, SUM(quantity) AS q
             FROM retaildemand_positions
-            WHERE article IN ({ph}) AND price > 0 AND document_moment >= DATE '2026-03-07'
+            WHERE article IN ({ph}) AND price > 0 AND document_moment >= CURRENT_DATE - INTERVAL 90 DAY
             GROUP BY article, product_name
         """, articles).fetchall()
         sold_sizes_by_article = {}
