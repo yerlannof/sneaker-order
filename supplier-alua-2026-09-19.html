@@ -34,6 +34,10 @@ article.done{border-color:#527744}
 .size-name{display:flex;align-items:baseline;gap:10px;font-size:19px;color:var(--ink)}
 .size-name strong{font-size:36px;line-height:1.15;letter-spacing:-.6px}
 .size-qty{font-size:30px;font-weight:750;white-space:nowrap;color:#122d22}
+.qty-visual{display:flex;flex-direction:column;align-items:flex-end;gap:6px;padding:2px 0 5px}
+.pair-marks{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:126px}
+.pair-dot{display:inline-block;width:16px;height:16px;flex-shrink:0;border-radius:50%;background:#173c2e}
+.pair-legend{display:flex;align-items:center;gap:10px;padding:3px 16px 13px;font-size:18px;color:var(--muted)}
 .model-total{display:flex;justify-content:space-between;align-items:baseline;padding:18px 28px 20px;gap:12px;font-size:22px}
 .model-total strong{font-size:28px;white-space:nowrap}
 .done-label{display:flex;gap:16px;align-items:center;padding:20px 24px;border-top:2px solid var(--line);background:#f1f5eb;font-size:26px;font-weight:750;min-height:82px;cursor:pointer}
@@ -50,6 +54,7 @@ dialog p{text-align:center;font-size:21px}
 input:focus-visible,button:focus-visible{outline:3px solid #b57d13;outline-offset:4px}
 @media(max-width:760px){header{padding:22px 17px 16px}.heading{display:block}#total{display:block;margin-top:12px}main{grid-template-columns:1fr;gap:26px;padding:0 12px calc(28px + env(safe-area-inset-bottom))}.progress-line{display:block}#sync{display:block;margin-top:5px}.photo img{height:250px}}
 @media(max-width:360px){.size{padding:12px 9px;gap:8px}.size-name{gap:6px;font-size:18px}.size-name strong{font-size:32px}.size-qty{font-size:27px}.sizes{padding:0 10px}.card-head{padding:16px 14px 0}.filter{font-size:19px}.model-total{padding:18px;font-size:20px}}
+@media(max-width:360px){.pair-marks{gap:5px;max-width:109px}.pair-dot{width:14px;height:14px}.pair-legend{padding-left:14px;gap:8px}}
 @media print{.toolbar,#sync,dialog,.photo-hint{display:none}main{display:block}article{break-inside:avoid;margin:0 0 18px}.photo img{height:180px}.size{min-height:44px;padding:5px 14px}}
 </style></head>
 <body>
@@ -166,7 +171,8 @@ input:focus-visible,button:focus-visible{outline:3px solid #b57d13;outline-offse
   $('list').innerHTML = PACKAGE.items.map((item, index) => `<article id="card-${item.id}">
     <div class="card-head"><span class="model-no">Модель ${index + 1} из ${PACKAGE.items.length}</span><span>Арт. ${esc(item.article)}</span></div>
     <button class="photo" data-photo="${item.id}" aria-label="Увеличить фото ${esc(item.article)}"><img src="${esc(item.photo)}" alt="${esc(item.name)}" ${index > 2 ? 'loading="lazy"' : ''}><span class="photo-hint">Нажмите на фото — увеличить</span></button>
-    <div class="sizes" aria-label="Размер и количество пар">${Object.entries(item.sizes).map(([size, qty]) => `<div class="size"><span class="size-name">Размер <strong>${esc(size)}</strong></span><span class="size-qty">${pairs(qty)}</span></div>`).join('')}</div>
+    <div class="pair-legend"><span class="pair-dot" aria-hidden="true"></span><span>Один кружок — одна пара</span></div>
+    <div class="sizes" aria-label="Размер и количество пар">${Object.entries(item.sizes).map(([size, qty]) => `<div class="size" data-qty="${qty}"><span class="size-name">Размер <strong>${esc(size)}</strong></span><span class="qty-visual"><span class="size-qty">${pairs(qty)}</span><span class="pair-marks" aria-hidden="true">${'<span class="pair-dot"></span>'.repeat(qty)}</span></span></div>`).join('')}</div>
     <div class="model-total"><span>Всего у модели</span><strong>${pairs(item.pairs)}</strong></div>
     <label class="done-label"><input id="check-${item.id}" data-id="${item.id}" type="checkbox" disabled><span>Заказано</span></label>
   </article>`).join('');
