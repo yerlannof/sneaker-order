@@ -20,13 +20,25 @@
 .review-summary summary{font-weight:700;cursor:pointer}
 .review-summary ul{margin:8px 0 0;padding-left:18px}
 .review-summary li{margin:6px 0}
+.priority-bar{position:sticky;top:var(--head-h,0px);z-index:6;background:var(--bg);padding:8px 0 6px;margin-top:8px}
+.priority-chips{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0}
+.priority-chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;display:flex;align-items:center;gap:6px;min-height:42px;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.chip b{font-variant-numeric:tabular-nums}
+.chip small{font-size:11px;color:var(--muted)}
+.chip .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.chip[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip[aria-selected="true"] small{color:#d4e2da}
+.chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.priority-hint{margin:6px 2px 0;font-size:12.5px;color:var(--muted)}
+@media (max-width:480px){.priority-chips{gap:5px}.chip{min-height:36px;padding:5px 10px;font-size:13px;gap:5px;box-shadow:inset 0 -3px 0 var(--c,transparent)}.chip .dot{display:none}.priority-bar{padding:6px 0 4px}}
 </style></head>
 <body>
 <header class="page-head"><div><h1>Закуп обуви</h1><p>Алуа · срез 29.09, 15:25</p></div><div class="save-area"><span id="save-status" role="status" aria-live="polite">Загрузка…</span><button id="save-now">Сохранить</button><button id="retry-load" hidden>Повторить</button></div></header>
 <div id="conflict" class="conflict-panel" hidden><b>В двух окнах разные правки</b><p id="conflict-text"></p><div class="actions"><button id="keep-local">Мои поля</button><button id="keep-remote">Общие поля</button><button id="backup-choice">Скачать копию</button></div></div>
 <main id="analysis-panel" class="wrap" role="tabpanel" aria-labelledby="analysis-tab">
-<div class="catalog-tools"><input id="query" type="search" placeholder="Артикул или название" aria-label="Поиск моделей"><div class="filter-row"><select id="priority" aria-label="Какие модели показать"></select><details id="settings" class="settings"><summary>Фильтры</summary><div class="settings-fields"><label>Мои решения<select id="decision-filter"><option value="all">Все</option><option value="new">Ещё не смотрела</option><option value="buy">Беру</option><option value="later">Подумаю</option><option value="skip">Не беру</option></select></label><label>Сортировка<select id="sort"><option value="priority">По приоритету</option><option value="sales">По продажам</option><option value="lost">По отсутствию размеров</option><option value="cost">По сумме расчёта</option></select></label><details class="sub-details"><summary>Расчётный сценарий</summary><label>Запас после приезда<select id="cover"><option value="4">4 недели</option><option value="6">6 недель</option><option value="8">8 недель</option></select></label><label>Подарки<select id="promo"><option value="continue">Продолжаются</option><option value="paid">Только платный спрос</option></select></label><p class="muted">Доставка 21 день — допущение. Сценарий не меняет выбранные вами количества.</p></details></div></details></div></div>
-<details class="review-summary"><summary>Проверка 29.09: главное · 8 пунктов</summary><ul><li>Зима. Сейчас в магазинах 774 пары зимней обуви (Москва 371, ЦУМ 182, Аружан 221, с учётом развоза с Аксая). Прошлой зимой эти же модели продали 203 пары в октябре, 415 в ноябре и 407 в декабре. Общего запаса хватит примерно на октябрь и ноябрь, к декабрю его не хватит.</li><li>Лучшие прошлогодние меховые модели почти закончились: AF Mid White winter (71 пара за зиму), Dunk Mid FUR White/Black (62), AF1 Mid Winter White (54), Dunk Grey Black Winter (52), Pigeon FUR (46). Они стоят в «В первую очередь» с пометкой «к ноябрю». Расчёт на карточке у них 0, потому что осенью их не покупают; ориентир в заметке.</li><li>Samba. В сети 803 пары, из них 540 новой партии (B) от 21.09, а продаётся около 160 пар в месяц. Samba сейчас не докупать, кроме моделей, которые продаются сами (Brogue Brown).</li><li>Москва пустеет по ходовым моделям, а в ЦУМе лежит запас (AJ1 White Navy Red, Travis White Party, Midnight Navy (B)). Сначала перевезти ЦУМ → Москва, потом закупать. Из Москвы в ЦУМ перевозить нельзя.</li><li>Реплики Dunk (B) Wolf Grey, Triple White, Reverse Panda, Stussy закончились. Месячные продажи у них низкие только из-за отсутствия товара: за 90 дней по 20–36 пар каждой. Их стоит вернуть полной сеткой.</li><li>Модели, где 16.09 цена поднята до 32 900 (Golden Goose, Samba Platform), после подъёма продаются медленнее. У них брать только недостающие размеры.</li><li>453 пары с Аксая уже распределены по магазинам (№02315–02317) и показаны в остатке магазинов, хотя ещё едут.</li><li>На каждой проверенной модели есть строка «Проверка 29.09» с выводом. Количества по расчёту предварительные; выбор размеров остаётся за Алуа.</li></ul></details><p id="count" class="count" aria-live="polite"></p><div id="list" class="list"></div><button id="more" class="more">Показать ещё</button>
+<div class="catalog-tools"><input id="query" type="search" placeholder="Артикул или название" aria-label="Поиск моделей"><div class="filter-row"><details id="settings" class="settings"><summary>Фильтры</summary><div class="settings-fields"><label>Мои решения<select id="decision-filter"><option value="all">Все</option><option value="new">Ещё не смотрела</option><option value="buy">Беру</option><option value="later">Подумаю</option><option value="skip">Не беру</option></select></label><label>Сортировка<select id="sort"><option value="priority">По приоритету</option><option value="sales">По продажам</option><option value="lost">По отсутствию размеров</option><option value="cost">По сумме расчёта</option></select></label><details class="sub-details"><summary>Расчётный сценарий</summary><label>Запас после приезда<select id="cover"><option value="4">4 недели</option><option value="6">6 недель</option><option value="8">8 недель</option></select></label><label>Подарки<select id="promo"><option value="continue">Продолжаются</option><option value="paid">Только платный спрос</option></select></label><p class="muted">Доставка 21 день — допущение. Сценарий не меняет выбранные вами количества.</p></details></div></details></div></div>
+<div id="priority-bar" class="priority-bar"><div id="priority-chips" class="priority-chips" role="tablist" aria-label="Приоритет закупа"></div></div><p id="priority-hint" class="priority-hint"></p><details class="review-summary"><summary>Проверка 29.09: главное · 8 пунктов</summary><ul><li>Зима. Сейчас в магазинах 774 пары зимней обуви (Москва 371, ЦУМ 182, Аружан 221, с учётом развоза с Аксая). Прошлой зимой эти же модели продали 203 пары в октябре, 415 в ноябре и 407 в декабре. Общего запаса хватит примерно на октябрь и ноябрь, к декабрю его не хватит.</li><li>Лучшие прошлогодние меховые модели почти закончились: AF Mid White winter (71 пара за зиму), Dunk Mid FUR White/Black (62), AF1 Mid Winter White (54), Dunk Grey Black Winter (52), Pigeon FUR (46). Они стоят в «В первую очередь» с пометкой «к ноябрю». Расчёт на карточке у них 0, потому что осенью их не покупают; ориентир в заметке.</li><li>Samba. В сети 803 пары, из них 540 новой партии (B) от 21.09, а продаётся около 160 пар в месяц. Samba сейчас не докупать, кроме моделей, которые продаются сами (Brogue Brown).</li><li>Москва пустеет по ходовым моделям, а в ЦУМе лежит запас (AJ1 White Navy Red, Travis White Party, Midnight Navy (B)). Сначала перевезти ЦУМ → Москва, потом закупать. Из Москвы в ЦУМ перевозить нельзя.</li><li>Реплики Dunk (B) Wolf Grey, Triple White, Reverse Panda, Stussy закончились. Месячные продажи у них низкие только из-за отсутствия товара: за 90 дней по 20–36 пар каждой. Их стоит вернуть полной сеткой.</li><li>Модели, где 16.09 цена поднята до 32 900 (Golden Goose, Samba Platform), после подъёма продаются медленнее. У них брать только недостающие размеры.</li><li>453 пары с Аксая уже распределены по магазинам (№02315–02317) и показаны в остатке магазинов, хотя ещё едут.</li><li>На каждой проверенной модели есть строка «Проверка 29.09» с выводом. Количества по расчёту предварительные; выбор размеров остаётся за Алуа.</li></ul></details><p id="count" class="count" aria-live="polite"></p><div id="list" class="list"></div><button id="more" class="more">Показать ещё</button>
 <details class="source-note"><summary>О данных и расчёте</summary><p>Продажи: 30.08 — 28.09.2026. Остатки: 29.09.2026 15:25 Алматы. Это фиксированный срез. Остаток — пары за вычетом резервов; сумма по магазинам и складу. ЦУМ включает онлайн. Товар в пути показан отдельно. Цены закупа из прошлых поставок — уточнить у поставщика.</p><p>Расчётные количества предварительные. Скидки, новая розница и отсутствие размеров влияют на спрос. Местные поставщики продают полными сетками; Китай — кратно 12 по модели.</p><ul id="limits"></ul><a href="alua-reorder-2026-09-29.xlsx">Полная аналитика в Excel</a></details>
 </main>
 <main id="cart-panel" class="wrap" role="tabpanel" aria-labelledby="buy-tab" hidden>
@@ -169,7 +181,7 @@ const scenario=m=>$('promo').value==='continue'?m.scenarios[cover()].gift:m.scen
   function time(s) {return new Date(s).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
   function schedule() {clearTimeout(timer);timer=setTimeout(save,800);}
   function dirty() {
-    localRevision++;persist();
+    localRevision++;persist();drawChips();
     if(equal(choices,base))status('Все решения сохранены · '+time(remoteRow.updated_at),'ok');
     else {status('Есть изменения · сохраняем автоматически…');schedule();}
     updateTotals();
@@ -270,7 +282,7 @@ const scenario=m=>$('promo').value==='continue'?m.scenarios[cover()].gift:m.scen
   }
   function filtered() {
     const q=$('query').value.trim().toLowerCase(),decision=$('decision-filter').value;
-    const items=DATA.models.filter(m=>(q?(m.article+' '+m.name).toLowerCase().includes(q):(tab==='all'||m.status===tab)) && (decision==='all'||(decision==='new'?!choices[m.key]:choices[m.key]?.decision===decision)));
+    const items=DATA.models.filter(m=>(q?(m.article+' '+m.name).toLowerCase().includes(q):inTab(m)) && (decision==='all'||(decision==='new'?!choices[m.key]:choices[m.key]?.decision===decision)));
     if($('sort').value==='sales')items.sort((a,b)=>b.paid30-a.paid30);
     if($('sort').value==='lost')items.sort((a,b)=>b.lost_units-a.lost_units);
     if($('sort').value==='cost')items.sort((a,b)=>(scenario(a).budget??Infinity)-(scenario(b).budget??Infinity));
@@ -286,7 +298,25 @@ const scenario=m=>$('promo').value==='continue'?m.scenarios[cover()].gift:m.scen
     const days=m.days_cover==null?'Мало платных продаж для оценки запаса':m.available===0?'Остаток закончился':'Запаса ≈ '+fmt(m.days_cover)+' дн. по платным продажам';
     return `<article class="card" data-key="${esc(m.key)}"><div class="card-top">${photo(m,m.name)}<div><div class="article">${esc(m.article)}</div><div class="model">${esc(m.name)}</div><span class="selection-mark" data-model-key="${esc(m.key)}">${choice?labels[choice.decision]:''}</span></div></div><div class="quick-numbers"><div><b>${fmt(m.paid30)}</b><small>Продано за 30 дн.</small></div><div><b>${fmt(m.available)}</b><small>Остаток</small></div><div><b>${fmt(m.in_transit)}</b><small>В пути</small></div></div>${stockLine(m)}<p class="stock-cover">${days}</p>${flow?`<p class="sales-adjustments">За 30 дн.: ${flow}</p>`:''}<div class="price-line">Закуп ≈ <b>${fmt(m.buy_estimate)} ₸</b> · розница <b>${m.current_prices.map(fmt).join(' / ')||'—'} ₸</b></div>${checked}<p class="short-reason">${esc(note)}</p>${cautions.length?`<p class="caution">${cautions.map(esc).join(' · ')}</p>`:''}${facts(m)}${editor(m,choice)}</article>`;
   }
+  // Priority buttons: one tap switches the group; counts show how many models Alua has already decided.
+  const GROUPS=[
+    {key:'must',label:'Приоритетно',dot:'#C0392B',statuses:['must'],hint:'Брать в первую очередь: ходовые модели с выбитыми размерами и зимние хиты к ноябрю.'},
+    {key:'restore',label:'Средне',dot:'#D98324',statuses:['restore'],hint:'Добрать недостающие размеры. Сначала посмотреть, нельзя ли перевезти из другой точки.'},
+    {key:'think',label:'Подумать',dot:'#C9A227',statuses:['check','history'],hint:'Решить по наличию у поставщика и цене: хиты прошлой осени и модели с вопросами.'},
+    {key:'watch',label:'Иметь в виду',dot:'#8A9A94',statuses:['watch'],hint:'Пока не брать: свежие приходы и модели с достаточным запасом. Вернуться через 1–2 недели.'},
+    {key:'hold',label:'Не брать',dot:'#C4CBC7',statuses:['hold'],hint:'Сейчас не докупать: запаса хватает, летний сезон, распродажа или низкая маржа.'},
+    {key:'all',label:'Все',dot:null,statuses:null,hint:'Весь каталог обуви.'}];
+  const groupOf=Object.fromEntries(GROUPS.map(g=>[g.key,g]));
+  function inTab(m) {const g=groupOf[tab];return !g||!g.statuses||g.statuses.includes(m.status);}
+  function drawChips() {
+    $('priority-chips').innerHTML=GROUPS.map(g=>{
+      const ms=g.statuses?DATA.models.filter(m=>g.statuses.includes(m.status)):DATA.models, done=ms.filter(m=>choices[m.key]).length;
+      return `<button type="button" role="tab" class="chip" data-group="${g.key}" style="--c:${g.dot||'transparent'}" aria-selected="${g.key===tab}">${g.dot?`<span class="dot" style="background:${g.dot}"></span>`:''}<span>${esc(g.label)}</span><b>${fmt(ms.length)}</b>${done&&g.key!=='all'?`<small>✓ ${fmt(done)}</small>`:''}</button>`;
+    }).join('');
+    $('priority-hint').textContent=groupOf[tab]?.hint||'';
+  }
   function render() {
+    drawChips();
     const items=filtered();$('count').textContent='Моделей: '+items.length+($('query').value.trim()?' · поиск по всему каталогу':' · платные продажи, подарки отдельно');
     $('list').innerHTML=items.length?items.slice(0,limit).map(card).join(''):'<div class="empty">Модели не найдены. Измените поиск или фильтр.</div>';
     $('more').hidden=items.length<=limit;
@@ -338,7 +368,7 @@ const scenario=m=>$('promo').value==='continue'?m.scenarios[cover()].gift:m.scen
     const button=event.target.closest('[data-action]');if(!button)return;
     const action=button.dataset.action;
     if(action==='show-analysis') {
-      const m=models.get(button.dataset.key);tab='all';$('priority').value='all';$('query').value=m.article;$('decision-filter').value='all';limit=36;render();setWorkspace('analysis');
+      const m=models.get(button.dataset.key);tab='all';$('query').value=m.article;$('decision-filter').value='all';limit=36;render();setWorkspace('analysis');
       document.querySelector('[data-key="'+CSS.escape(m.key)+'"]')?.scrollIntoView({behavior:'smooth',block:'start'});return;
     }
     if(action==='edit-choice'){document.querySelector('[data-cart-key="'+CSS.escape(button.dataset.key)+'"]')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
@@ -401,9 +431,13 @@ const scenario=m=>$('promo').value==='continue'?m.scenarios[cover()].gift:m.scen
   }
   $('analysis-tab').onclick=()=>setWorkspace('analysis');$('buy-tab').onclick=()=>setWorkspace('buy');
   $('save-now').onclick=save;$('retry-load').onclick=load;$('cart-query').oninput=drawCart;
-  const shortLabels={must:'Сначала посмотреть',restore:'Вернуть размеры',history:'Хиты прошлой осени',check:'Есть вопросы',watch:'Наблюдать',hold:'Пока не докупать'};
-  $('priority').innerHTML=[...Object.entries(shortLabels),['all','Все модели']].map(([k,v])=>'<option value="'+k+'">'+v+' · '+(k==='all'?DATA.models.length:DATA.summary.statuses[k]||0)+'</option>').join('');
-  $('priority').onchange=()=>{tab=$('priority').value;limit=24;render();};
+  $('priority-chips').onclick=e=>{
+    const b=e.target.closest('[data-group]');if(!b||b.dataset.group===tab)return;
+    tab=b.dataset.group;limit=24;$('query').value='';render();
+    const bar=$('priority-bar');if(window.scrollY>bar.offsetTop)window.scrollTo(0,bar.offsetTop-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--head-h'))||0));
+  };
+  const setHead=()=>{const h=document.querySelector('.page-head');document.documentElement.style.setProperty('--head-h',(getComputedStyle(h).position==='sticky'?h.offsetHeight:0)+'px');};
+  setHead();window.addEventListener('resize',setHead);
   $('decision-filter').onchange=()=>{limit=24;render();};
   $('query').oninput=()=>{limit=24;render();};$('sort').onchange=()=>render();
   $('more').onclick=()=>{limit+=24;render();};
